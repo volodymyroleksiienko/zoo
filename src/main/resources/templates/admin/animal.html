@@ -192,11 +192,11 @@
                     <div class="modal-content">
                         <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
                         <div class="modal-body modal-body-md">
-                            <h4 class="title">Видалення товару</h4>
+                            <h4 class="title">Видалення</h4>
                             <br>
                             <form action="/admin/animal/delete" method="post">
                                 <input type="number" id="selectedForDeleteItem" hidden="" name="id">
-                                <p style="margin-bottom: 2rem;">Ви впевнені, що хочете видалити товар? Підтвердивши дію, Ви не зможете повернутися до попереднього стану продукту.</p>
+                                <p style="margin-bottom: 2rem;">Ви впевнені, що хочете видалити? Підтвердивши дію, Ви не зможете повернутися до попереднього стану.</p>
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-outline-primary">Підтвердити</button>
                                     <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
@@ -238,6 +238,11 @@
     function showEditAnimalModal(btnObj) {
         let trObj = btnObj.closest("tbody tr");
         let trId =  $(trObj).attr('id');
+
+        let animalName =   $(trObj).find('td:eq(0)').text();
+        console.log($(trObj).find('td:eq(0)').text());
+
+        $('#editAnimalName').val(animalName);
 
         console.log("row id:" + $(trObj).attr('id'));
 
