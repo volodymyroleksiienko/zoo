@@ -1,5 +1,5 @@
 package com.charlie.zoo.enums;
 
 public enum StatusOfEntity {
-    ACTIVE,ARCHIVE;
+    ACTIVE,ARCHIVE,SUBMITTED;
 }
