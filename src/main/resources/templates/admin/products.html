@@ -11,7 +11,7 @@
     <!-- Fav Icon  -->
     <link rel="shortcut icon" th:href="@{/images/OP_ico.png}">
     <!-- Page Title  -->
-    <title>Товари</title>
+    <title>Тварини</title>
     <!-- StyleSheets  -->
     <link rel="stylesheet" th:href="@{/css/dashlite.css}">
     <link id="skin-default" rel="stylesheet" th:href="@{/css/theme.css}">
@@ -74,7 +74,7 @@
                             <div class="components-preview wide-md mx-auto">
                                 <div class="nk-block-head nk-block-head-lg wide-sm">
                                     <div class="nk-block-head-content">
-                                        <h3 class="nk-block-title fw-normal">Товари</h3>
+                                        <h3 class="nk-block-title fw-normal">Тварини</h3>
                                     </div>
                                 </div><!-- .nk-block-head -->
 
@@ -84,30 +84,17 @@
                                             <table class="datatable-init nk-tb-list nk-tb-ulist" data-auto-responsive="false">
                                                 <thead>
                                                 <tr class="nk-tb-item nk-tb-head">
-                                                    <th class="nk-tb-col">Зображення</th>
-                                                    <th class="nk-tb-col tb-col-md"><span class="sub-text">Артикул</span></th>
-                                                    <th class="nk-tb-col tb-col-md"><span class="sub-text">Статус</span></th>
-                                                    <th class="nk-tb-col tb-col-md"><span class="sub-text">Тип</span></th>
+                                                    <th class="nk-tb-col">Назва</th>
                                                     <th class="nk-tb-col"><span class="sub-text" style="text-align: right; padding-right: 2rem;">Дії</span></th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 <tr th:id="${p.getId()}" th:each="p :${products} " class="nk-tb-item">
-                                                    <td class="nk-tb-col" style="width: 20%;">
-                                                        <img th:src="@{'/shop/getImgByProductId/'+${p.getId()}}" alt="">
-                                                    </td>
-                                                   <td class="nk-tb-col tb-col-md">
-                                                        <span th:text="${p.getArticle()}">Article</span>
+
+                                                   <td class="nk-tb-col">
+                                                        <span th:text="${p.getArticle()}">Назва</span>
                                                     </td>
 
-                                                    <td class="nk-tb-col tb-col-md">
-                                                        <span class="tb-status text-success" th:if="${p?.getStatusOfEntity()?.name()?.equals('ACTIVE')}">Active</span>
-                                                        <span class="tb-status text-danger" th:if="${p?.getStatusOfEntity()?.name()?.equals('ARCHIVED')}">Archive</span>
-                                                    </td>
-
-                                                    <td class="nk-tb-col tb-col-md">
-                                                        <span th:text="${p?.getTypeOfProduct()?.getName()}"></span>
-                                                    </td>
                                                     <td class="nk-tb-col nk-tb-col-tools">
                                                         <ul class="nk-tb-actions gx-1">
                                                             <li>
@@ -116,7 +103,6 @@
                                                                     <div class="dropdown-menu dropdown-menu-right">
                                                                         <ul class="link-list-opt no-bdr">
                                                                             <li><a data-toggle="modal" onclick="showEditProductModal(this)"><em class="icon ni ni-edit-alt"></em><span>Редагувати</span></a></li>
-                                                                            <li><a data-toggle="modal" onclick="showEditProductStatusModal(this)"><em class="icon ni ni-bullet"></em><span>Змінити статус</span></a></li>
                                                                             <li><a data-toggle="modal" onclick="showConfirmationDeleteProductModal(this)" ><em class="icon ni ni-trash"></em><span>Видалити</span></a></li>
                                                                         </ul>
                                                                     </div>
@@ -137,48 +123,24 @@
                 </div>
             </div>
 
-            <a href="" data-toggle="modal" data-target="#addProductModal" title="Добавити товар" class="btn btn-icon btn-lg btn-primary float-right" style="position: fixed; bottom: 25px; right: 25px; z-index: 1000;">
+            <a href="" data-toggle="modal" data-target="#addAnimalModal" title="Добавити" class="btn btn-icon btn-lg btn-primary float-right" style="position: fixed; bottom: 25px; right: 25px; z-index: 1000;">
                 <em class="icon ni ni-grid-add-c"></em>
             </a>
 
             <!-- Adding start -->
-            <div class="modal fade" tabindex="-1" role="dialog" id="addProductModal" aria-modal="true">
+            <div class="modal fade" tabindex="-1" role="dialog" id="addAnimalModal" aria-modal="true">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
                         <div class="modal-body modal-body-md">
-                            <h4 class="title">Добавлення товару</h4>
+                            <h4 class="title">Добавлення тварин</h4>
                             <br>
-                            <form action="/admin/addProduct" method="post" enctype="multipart/form-data">
-                                <div class="row form-group mb-md-0">
+                            <form action="/admin/addAnimal" method="post" enctype="multipart/form-data">
+                                <div class="row form-group">
                                     <div class="col-md-6 form-group">
-                                        <!-- <div class="form-group"> -->
-                                        <label class="form-label" for="productImage">Зображення</label>
+                                        <label class="form-label" for="articleNumber">Назва</label>
                                         <div class="form-control-wrap">
-                                            <div class="custom-file">
-                                                <input type="file" multiple class="custom-file-input" id="productImage" name="multipartFile" onchange="validateimg(this)">
-                                                <label class="custom-file-label" for="productImage"></label>
-                                            </div>
-                                        </div>
-                                        <!-- </div> -->
-                                    </div>
-                                    <div class="col-md-6 form-group">
-                                        <!-- <div class="form-group"> -->
-                                        <label class="form-label" for="articleNumber">Артикул</label>
-                                        <div class="form-control-wrap">
-                                            <input type="text" class="form-control" id="articleNumber" placeholder="Артикул..." name="article">
-                                        </div>
-                                        <!-- </div> -->
-                                    </div>
-                                </div>
-
-                                <div class="form-group row" id="shoesDetails">
-                                    <div class="col-md-12 form-group">
-                                        <label class="form-label">Тип</label>
-                                        <div class="form-control-wrap">
-                                            <select class="form-select form-control form-control-lg" name="typeOfProduct.id">
-                                                <option th:each="t :${types}" th:value="${t.getId()}" th:text="${t.getName()}"></option>
-                                            </select>
+                                            <input type="text" class="form-control" id="articleNumber" placeholder="Назва..." name="animalName">
                                         </div>
                                     </div>
                                 </div>
