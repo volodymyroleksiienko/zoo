@@ -239,7 +239,7 @@
         let trObj = btnObj.closest("tbody tr");
         let trId =  $(trObj).attr('id');
 
-        let animalName =   $(trObj).find('td:eq(0)').text();
+        let animalName =   $(trObj).find('td:eq(0)').text().trim();
         console.log($(trObj).find('td:eq(0)').text());
 
         $('#editAnimalName').val(animalName);
