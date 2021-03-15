@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html class="js" lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- <base href="../"> -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Fav Icon  -->
+    <link rel="shortcut icon" th:href="@{/images/OP_ico.png}">
+    <!-- Page Title  -->
+    <title>Товари</title>
+    <!-- StyleSheets  -->
+    <link rel="stylesheet" th:href="@{/css/dashlite.css}">
+    <link id="skin-default" rel="stylesheet" th:href="@{/css/theme.css}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="nk-body bg-lighter npc-general has-sidebar ">
+<div class="nk-app-root">
+    <!-- main @s -->
+    <div class="nk-main ">
+        <!-- sidebar @s -->
+        <div th:replace="~{admin/fragments/fragAdminHeader.html}"></div>
+        <!-- sidebar @e -->
+
+        <!-- wrap @s -->
+        <div class="nk-wrap ">
+            <!-- main header @s -->
+            <div class="nk-header nk-header-fixed is-light">
+                <div class="container-fluid">
+                    <div class="nk-header-wrap">
+                        <div class="nk-menu-trigger d-xl-none ml-n1">
+                            <a href="#" class="nk-nav-toggle nk-quick-nav-icon" data-target="sidebarMenu"><em class="icon ni ni-menu"></em></a>
+                        </div>
+                        <div class="nk-header-brand d-xl-none">
+                            <a href="/admin/products" class="logo-link">
+                                <img class="logo-light logo-img" th:src="@{/images/logo-light.png}" th:srcset="@{/images/logo-light.png}" alt="logo">
+                                <img class="logo-dark logo-img" th:src="@{/images/logo-dark.png}" th:srcset="@{/images/logo-dark.png}" alt="logo-dark">
+                            </a>
+                        </div><!-- .nk-header-brand -->
+
+                        <div class="nk-header-tools">
+                            <ul class="nk-quick-nav">
+                                <li class="dropdown user-dropdown">
+                                    <div class="user-toggle">
+                                        <div class="user-avatar sm">
+                                            <em class="icon ni ni-user-alt"></em>
+                                        </div>
+                                        <div class="user-info d-none d-md-block">
+                                            <h6>Адміністратор</h6>
+                                        </div>
+                                    </div>
+                                </li><!-- .dropdown -->
+                                <li>
+                                    <a href="/logout" class="nk-quick-nav-icon" data-toggle="tooltip" data-placement="bottom" title="Вийти">
+                                        <em class="icon ni ni-signout"></em>
+                                    </a>
+                                </li>
+                            </ul><!-- .nk-quick-nav -->
+                        </div><!-- .nk-header-tools -->
+                    </div><!-- .nk-header-wrap -->
+                </div><!-- .container-fliud -->
+            </div>
+            <!-- main header @e -->
+            <!-- content @s -->
+            <div class="nk-content ">
+                <div class="container-fluid">
+                    <div class="nk-content-inner">
+                        <div class="nk-content-body">
+                            <div class="components-preview wide-md mx-auto">
+                                <div class="nk-block-head nk-block-head-lg wide-sm">
+                                    <div class="nk-block-head-content">
+                                        <h3 class="nk-block-title fw-normal">Товари</h3>
+                                    </div>
+                                </div><!-- .nk-block-head -->
+
+                                <div class="nk-block nk-block-lg">
+                                    <div class="card card-bordered card-preview">
+                                        <div class="card-inner">
+                                            <table class="datatable-init nk-tb-list nk-tb-ulist" data-auto-responsive="false">
+                                                <thead>
+                                                <tr class="nk-tb-item nk-tb-head">
+                                                    <th class="nk-tb-col">Зображення</th>
+                                                    <th class="nk-tb-col tb-col-md"><span class="sub-text">Артикул</span></th>
+                                                    <th class="nk-tb-col tb-col-md"><span class="sub-text">Статус</span></th>
+                                                    <th class="nk-tb-col tb-col-md"><span class="sub-text">Тип</span></th>
+                                                    <th class="nk-tb-col"><span class="sub-text" style="text-align: right; padding-right: 2rem;">Дії</span></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:id="${p.getId()}" th:each="p :${products} " class="nk-tb-item">
+                                                    <td class="nk-tb-col" style="width: 20%;">
+                                                        <img th:src="@{'/shop/getImgByProductId/'+${p.getId()}}" alt="">
+                                                    </td>
+                                                   <td class="nk-tb-col tb-col-md">
+                                                        <span th:text="${p.getArticle()}">Article</span>
+                                                    </td>
+
+                                                    <td class="nk-tb-col tb-col-md">
+                                                        <span class="tb-status text-success" th:if="${p?.getStatusOfEntity()?.name()?.equals('ACTIVE')}">Active</span>
+                                                        <span class="tb-status text-danger" th:if="${p?.getStatusOfEntity()?.name()?.equals('ARCHIVED')}">Archive</span>
+                                                    </td>
+
+                                                    <td class="nk-tb-col tb-col-md">
+                                                        <span th:text="${p?.getTypeOfProduct()?.getName()}"></span>
+                                                    </td>
+                                                    <td class="nk-tb-col nk-tb-col-tools">
+                                                        <ul class="nk-tb-actions gx-1">
+                                                            <li>
+                                                                <div class="drodown">
+                                                                    <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+                                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                                        <ul class="link-list-opt no-bdr">
+                                                                            <li><a data-toggle="modal" onclick="showEditProductModal(this)"><em class="icon ni ni-edit-alt"></em><span>Редагувати</span></a></li>
+                                                                            <li><a data-toggle="modal" onclick="showEditProductStatusModal(this)"><em class="icon ni ni-bullet"></em><span>Змінити статус</span></a></li>
+                                                                            <li><a data-toggle="modal" onclick="showConfirmationDeleteProductModal(this)" ><em class="icon ni ni-trash"></em><span>Видалити</span></a></li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </td>
+                                                </tr><!-- .nk-tb-item  -->
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div><!-- .card-preview -->
+                                </div> <!-- nk-block -->
+                            </div><!-- .components-preview -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="" data-toggle="modal" data-target="#addProductModal" title="Добавити товар" class="btn btn-icon btn-lg btn-primary float-right" style="position: fixed; bottom: 25px; right: 25px; z-index: 1000;">
+                <em class="icon ni ni-grid-add-c"></em>
+            </a>
+
+            <!-- Adding start -->
+            <div class="modal fade" tabindex="-1" role="dialog" id="addProductModal" aria-modal="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+                        <div class="modal-body modal-body-md">
+                            <h4 class="title">Добавлення товару</h4>
+                            <br>
+                            <form action="/admin/addProduct" method="post" enctype="multipart/form-data">
+                                <div class="row form-group mb-md-0">
+                                    <div class="col-md-6 form-group">
+                                        <!-- <div class="form-group"> -->
+                                        <label class="form-label" for="productImage">Зображення</label>
+                                        <div class="form-control-wrap">
+                                            <div class="custom-file">
+                                                <input type="file" multiple class="custom-file-input" id="productImage" name="multipartFile" onchange="validateimg(this)">
+                                                <label class="custom-file-label" for="productImage"></label>
+                                            </div>
+                                        </div>
+                                        <!-- </div> -->
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <!-- <div class="form-group"> -->
+                                        <label class="form-label" for="articleNumber">Артикул</label>
+                                        <div class="form-control-wrap">
+                                            <input type="text" class="form-control" id="articleNumber" placeholder="Артикул..." name="article">
+                                        </div>
+                                        <!-- </div> -->
+                                    </div>
+                                </div>
+
+                                <div class="form-group row" id="shoesDetails">
+                                    <div class="col-md-12 form-group">
+                                        <label class="form-label">Тип</label>
+                                        <div class="form-control-wrap">
+                                            <select class="form-select form-control form-control-lg" name="typeOfProduct.id">
+                                                <option th:each="t :${types}" th:value="${t.getId()}" th:text="${t.getName()}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-outline-primary">Добавити</button>
+                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Adding end -->
+
+            <!-- Edit start -->
+            <div class="modal fade" tabindex="-1" role="dialog" id="editProductModal" aria-modal="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+                        <div class="modal-body modal-body-md">
+                            <h4 class="title">Редагування</h4>
+                            <br>
+                            <form action="/admin/editProduct" method="post" enctype="multipart/form-data">
+                                <input type="text" id="selectedForEditItem" hidden="" name="id">
+                                <div class="row form-group mb-md-0">
+                                    <div class="col-md-6 form-group">
+                                        <!-- <div class="form-group"> -->
+                                        <label class="form-label" for="editProductImage">Зображення</label>
+                                        <div class="form-control-wrap">
+                                            <div class="custom-file">
+                                                <input type="file" multiple class="custom-file-input" id="editProductImage" name="multipartFile" onchange="validateimg(this)">
+                                                <label class="custom-file-label" for="editProductImage"></label>
+                                            </div>
+                                        </div>
+                                        <!-- </div> -->
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <!-- <div class="form-group"> -->
+                                        <label class="form-label" for="editArticleNumber">Артикул</label>
+                                        <div class="form-control-wrap">
+                                            <input type="text" class="form-control" id="editArticleNumber" name="article" placeholder="Артикул...">
+                                        </div>
+                                        <!-- </div> -->
+                                    </div>
+                                </div>
+
+                                <!-- Взуття start-->
+                                <div class="form-group row" id="shoesDetailsEdit" >
+                                    <div class="col-md-6 form-group">
+                                        <label class="form-label">Тип</label>
+                                        <div class="form-control-wrap">
+                                            <select class="form-select form-control form-control-lg" name="typeOfProduct.id" id="selectShoesTypesEdit">
+                                                <option th:each="t :${types}" th:value="${t.getId()}" th:text="${t.getName()}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Взуття end -->
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-outline-primary">Зберегти</button>
+                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Edit end -->
+
+            <!-- Change status start -->
+            <div class="modal fade" tabindex="-1" role="dialog" id="changeProductStatusModal" aria-modal="true">
+                <div class="modal-dialog modal-md" role="document">
+                    <div class="modal-content">
+                        <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+                        <div class="modal-body modal-body-md">
+                            <h4 class="title">Змінити статус</h4>
+                            <br>
+                            <form action="/admin/changeStatusOfProduct" method="post">
+                                <input type="number" id="selectedForChangingStatusItem" hidden="" name="productId">
+                                <div class="form-group">
+                                    <div class="preview-block">
+                                        <span class="preview-title overline-title">Статус товару</span>
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" class="custom-control-input" checked id="showItemSwitch" name="switchValue">
+                                            <label class="custom-control-label" for="showItemSwitch">Відображати в магазині</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-outline-primary">Змінити</button>
+                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Change status end -->
+
+
+            <!-- Delete product start -->
+            <div class="modal fade" tabindex="-1" role="dialog" id="deleteProductModal" aria-modal="true">
+                <div class="modal-dialog modal-md" role="document">
+                    <div class="modal-content">
+                        <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+                        <div class="modal-body modal-body-md">
+                            <h4 class="title">Видалення товару</h4>
+                            <br>
+                            <form action="/admin/deleteProductById" method="post">
+                                <input type="number" id="selectedForDeleteItem" hidden="" name="productId">
+                                <p style="margin-bottom: 2rem;">Ви впевнені, що хочете видалити товар? Підтвердивши дію, Ви не зможете повернутися до попереднього стану продукту.</p>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-outline-primary">Підтвердити</button>
+                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Delete product end -->
+
+            <!-- content @e -->
+            <!-- footer @s -->
+            <div class="nk-footer">
+                <div class="container-fluid">
+                    <div class="nk-footer-wrap">
+                        <div class="nk-footer-copyright"> &copy; <span id="year"></span> Oksana Piekna
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- footer @e -->
+        </div>
+        <!-- wrap @e -->
+    </div>
+    <!-- main @e -->
+</div>
+<!-- app-root @e -->
+<!-- JavaScript -->
+<script th:src="@{/js/bundle.js}"></script>
+<script th:src="@{/js/scripts.js}"></script>
+<script th:src="@{/js/example-sweetalert.js}"></script>
+<script>
+    $( document ).ready(function() {
+        document.getElementById("year").innerHTML = new Date().getFullYear();
+    });
+
+
+    function showEditProductModal(btnObj) {
+        let trObj = btnObj.closest("tbody tr");
+        let trId =  $(trObj).attr('id');
+
+        console.log("row id:" + $(trObj).attr('id'));
+
+        let article =       $(trObj).find('td:eq(1)').text();
+        let type =          $(trObj).find('td:eq(8)').text();
+
+        $('#selectedForEditItem')           .val(trId);
+        $('#editArticleNumber')             .val(article.trim());
+        $('#selectClothesTypeEdit')         .val(type.trim()).change();
+
+
+        $('#editProductModal').modal('show');
+    }
+
+    function showEditProductStatusModal(btnObj) {
+        let trObj = btnObj.closest("tbody tr");
+        let trId =  $(trObj).attr('id');
+
+        let status = $(trObj).find('td:eq(4)').text();
+
+        if (status.trim()=="Active"){
+            $('#showItemSwitch').attr("checked", true);
+        }else if (status.trim()=="Archive") {
+            $('#showItemSwitch').attr("checked", false);
+        }
+
+        console.log("row id:" + $(trObj).attr('id'));
+
+        $('#selectedForChangingStatusItem') .val(trId);
+
+        $('#changeProductStatusModal').modal('show');
+    }
+
+    function showConfirmationDeleteProductModal(btnObj){
+        let trObj = btnObj.closest("tbody tr");
+        let trId =  $(trObj).attr('id');
+
+        console.log("row id:" + $(trObj).attr('id'));
+
+        $('#selectedForDeleteItem').val(trId);
+
+        $('#deleteProductModal').modal('show');
+    }
+
+    function validateimg(ctrl) {
+        var fileUpload = ctrl;
+        var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.png|.gif)$");
+        if (regex.test(fileUpload.value.toLowerCase())) {
+            if (typeof (fileUpload.files) != "undefined") {
+                var reader = new FileReader();
+                reader.readAsDataURL(fileUpload.files[0]);
+                reader.onload = function (e) {
+                    var image = new Image();
+                    image.src = e.target.result;
+                    image.onload = function () {
+                        let height = this.height;
+                        let width = this.width;
+                        let aspectRatio = width/height;
+                        if ((aspectRatio.toFixed(2)>0.60) && (aspectRatio.toFixed(2)<0.70)) {
+                            console.log("Asp rat: "+aspectRatio.toFixed(2));
+                            return true;
+                        }else{
+                            console.log("Asp rat: "+aspectRatio.toFixed(2));
+                            alert("Некоректне співвідношення сторін фотографії!");
+                            $("#productImage").val('');
+                            return false;
+                        }
+                    };
+                }
+            } else {
+                alert("Ваш браузер не підтримує HTML5.");
+                $("#productImage").val('');
+                return false;
+            }
+        } else {
+            alert("Недопустимий формат файлу.");
+            $("#productImage").val('');
+            return false;
+        }
+    }
+
+</script>
+</body>
+
+</html>
