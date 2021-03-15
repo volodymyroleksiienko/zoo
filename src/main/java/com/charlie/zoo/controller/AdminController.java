@@ -1,7 +1,6 @@
 package com.charlie.zoo.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -10,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminController {
     @GetMapping("/products")
     public String getProducts(){
-        return "admin/products";
+        return "animal";
     }
 
     @GetMapping("/categories")

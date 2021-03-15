@@ -89,10 +89,10 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr th:id="${p.getId()}" th:each="p :${products} " class="nk-tb-item">
+                                                <tr th:id="${a.getId()}" th:each="a:${animals} " class="nk-tb-item">
 
                                                    <td class="nk-tb-col">
-                                                        <span th:text="${p.getArticle()}">Назва</span>
+                                                        <span th:text="${a.getName()}">Назва</span>
                                                     </td>
 
                                                     <td class="nk-tb-col nk-tb-col-tools">
@@ -135,12 +135,12 @@
                         <div class="modal-body modal-body-md">
                             <h4 class="title">Добавлення тварин</h4>
                             <br>
-                            <form action="/admin/addAnimal" method="post" enctype="multipart/form-data">
+                            <form action="/admin/animal/add" method="post" enctype="multipart/form-data">
                                 <div class="row form-group">
                                     <div class="col-md-6 form-group">
                                         <label class="form-label" for="animalName">Назва</label>
                                         <div class="form-control-wrap">
-                                            <input type="text" class="form-control" id="animalName" placeholder="Назва..." name="animalName">
+                                            <input type="text" class="form-control" id="animalName" placeholder="Назва..." name="name">
                                         </div>
                                     </div>
                                 </div>
@@ -163,14 +163,14 @@
                         <div class="modal-body modal-body-md">
                             <h4 class="title">Редагування</h4>
                             <br>
-                            <form action="/admin/editAnimal" method="post" enctype="multipart/form-data">
+                            <form action="/admin/animal/edit" method="post" enctype="multipart/form-data">
                                 <input type="text" id="selectedForEditItem" hidden="" name="id">
                                 <div class="row form-group">
                                     <div class="col-md-6 form-group">
                                         <!-- <div class="form-group"> -->
                                         <label class="form-label" for="editAnimalName">Назва</label>
                                         <div class="form-control-wrap">
-                                            <input type="text" class="form-control" id="editAnimalName" name="animalName" placeholder="Назва...">
+                                            <input type="text" class="form-control" id="editAnimalName" name="name" placeholder="Назва...">
                                         </div>
                                         <!-- </div> -->
                                     </div>
@@ -194,8 +194,8 @@
                         <div class="modal-body modal-body-md">
                             <h4 class="title">Видалення товару</h4>
                             <br>
-                            <form action="/admin/deleteProductById" method="post">
-                                <input type="number" id="selectedForDeleteItem" hidden="" name="productId">
+                            <form action="/admin/animal/delete" method="post">
+                                <input type="number" id="selectedForDeleteItem" hidden="" name="id">
                                 <p style="margin-bottom: 2rem;">Ви впевнені, що хочете видалити товар? Підтвердивши дію, Ви не зможете повернутися до попереднього стану продукту.</p>
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-outline-primary">Підтвердити</button>
