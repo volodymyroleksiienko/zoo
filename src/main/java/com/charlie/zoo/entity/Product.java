@@ -32,6 +32,9 @@ public class Product {
     @ManyToOne
     private Producer producer;
 
+    @ManyToOne
+    private CategoryItem categoryItem;
+
     @Enumerated(EnumType.STRING)
     private StatusOfEntity statusOfEntity=StatusOfEntity.ACTIVE;
 }
