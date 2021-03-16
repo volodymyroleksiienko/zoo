@@ -84,43 +84,54 @@
                                 <div class="nk-block nk-block-lg">
                                     <div class="card card-bordered card-preview">
                                         <div class="card-inner">
-                                            <h5>Типи взуття</h5>
-                                            <table class="table table-striped">
-                                                <thead>
-                                                <tr>
-                                                    <th scope="col">#</th>
-                                                    <th scope="col">Назва</th>
-                                                    <th scope="col" style="text-align: right; padding-right: 2rem;" >Дії</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr th:each="t, c : ${types}" th:id="${t.getId()}">
-                                                    <th scope="row" th:text="${c.count}">1</th>
-                                                    <td th:text="${t.getName()}">Mark</td>
-                                                    <td class="nk-tb-col nk-tb-col-tools">
-                                                        <ul class="nk-tb-actions gx-1">
-                                                            <li>
-                                                                <div class="drodown">
-                                                                    <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-                                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                                        <ul class="link-list-opt no-bdr">
-                                                                            <li><a data-toggle="modal" onclick="showEditProductTypeModal(this)"><em class="icon ni ni-edit-alt"></em><span>Редагувати</span></a></li>
-                                                                            <li><a data-toggle="modal" onclick="showConfirmationDeleteProductTypeModal(this)" ><em class="icon ni ni-trash"></em><span>Видалити</span></a></li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                            <a href="" data-toggle="modal" onclick="addShoesType()" title="Добавити"
-                                               class="btn btn-icon btn-lg btn-primary float-right"
-                                               style="position: fixed; bottom: 25px; right: 25px; z-index: 1000;">
-                                                <em class="icon ni ni-grid-add-c"></em>
-                                            </a>
+                                            <ul class="nav nav-tabs mt-n3">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" data-toggle="tab" href="#firstTab">
+                                                        <em class="icon ni ni-chevrons-right"></em>
+                                                        <span>Tab 1</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content">
+                                                <div class="tab-pane active" id="firstTab">
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col">#</th>
+                                                                <th scope="col">Назва</th>
+                                                                <th scope="col" style="text-align: right; padding-right: 2rem;" >Дії</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr th:each="t, count : ${types}" th:id="${t.getId()}" >
+                                                                <th scope="row" th:text="${count.count}">1</th>
+                                                                <td th:text="${t.getName()}"></td>
+                                                                <td class="nk-tb-col nk-tb-col-tools">
+                                                                    <ul class="nk-tb-actions gx-1">
+                                                                        <li>
+                                                                            <div class="drodown">
+                                                                                <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+                                                                                <div class="dropdown-menu dropdown-menu-right">
+                                                                                    <ul class="link-list-opt no-bdr">
+                                                                                        <li><a data-toggle="modal" onclick="showEditCategoryModal(this)"><em class="icon ni ni-edit-alt"></em><span>Редагувати</span></a></li>
+                                                                                        <li><a data-toggle="modal" onclick="showConfirmationDeleteCategoryModal(this)" ><em class="icon ni ni-trash"></em><span>Видалити</span></a></li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
                                         </div>
+                                        <a href="" data-toggle="modal" onclick="addCategory()" title="Добавити"
+                                           class="btn btn-icon btn-lg btn-primary float-right"
+                                           style="position: fixed; bottom: 25px; right: 25px; z-index: 1000;">
+                                            <em class="icon ni ni-grid-add-c"></em>
+                                        </a>
                                     </div><!-- .card-preview -->
                                 </div> <!-- nk-block -->
                             </div><!-- .components-preview -->
@@ -128,19 +139,20 @@
                     </div>
                 </div>
             </div>
-            <!-- Add subcategory item start -->
-            <div class="modal fade" tabindex="-1" role="dialog" id="addSubcategoryItemModal" aria-modal="true">
+
+            <!-- Add category item start -->
+            <div class="modal fade" tabindex="-1" role="dialog" id="addCategoryItemModal" aria-modal="true">
                 <div class="modal-dialog modal-md" role="document">
                     <div class="modal-content">
                         <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
                         <div class="modal-body modal-body-sm">
-                            <form action="/admin/addType" method="post">
-                                <h4 class="title" id="addTypeModelTitle">Добавлення</h4>
-                                <input type="text" id="addSubcategoryItemCategory" hidden="" name="categoryName">
+                            <form action="/admin/category/add" method="post">
+                                <h4 class="title" id="addCategoryAnimalName">Добавлення</h4>
+                                <input type="text" id="addCategoryAnimal" hidden="" name="animal">
                                 <div class="form-group"  style="margin-top: 2rem;">
-                                    <label class="form-label" for="addSubcategoryItemName">Назва</label>
+                                    <label class="form-label" for="addCategoryName">Назва</label>
                                     <div class="form-control-wrap">
-                                        <input type="text" class="form-control" id="addSubcategoryItemName" placeholder="Не заповнено..." name="nameOfType">
+                                        <input type="text" class="form-control" id="addCategoryName" placeholder="Не заповнено..." name="nameOfType">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -152,20 +164,21 @@
                     </div>
                 </div>
             </div>
-            <!-- Add subcategory item end -->
-            <!-- Edit subcategory item start -->
-            <div class="modal fade" tabindex="-1" role="dialog" id="editSubcategoryItemModal" aria-modal="true">
+            <!-- Add category item end -->
+
+            <!-- Edit category item start -->
+            <div class="modal fade" tabindex="-1" role="dialog" id="editCategoryModal" aria-modal="true">
                 <div class="modal-dialog modal-md" role="document">
                     <div class="modal-content">
                         <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
                         <div class="modal-body modal-body-sm">
-                            <form action="/admin/editType" method="post">
+                            <form action="/admin/category/edit" method="post">
                                 <h4 class="title">Редагування</h4>
                                 <input type="number" id="selectedForEditItem" hidden="" name="id">
                                 <div class="form-group"  style="margin-top: 2rem;">
-                                    <label class="form-label" for="editSubcategoryItemName">Назва</label>
+                                    <label class="form-label" for="editCategoryItemName">Назва</label>
                                     <div class="form-control-wrap">
-                                        <input type="text" class="form-control" id="editSubcategoryItemName" placeholder="Не заповнено..." name="name">
+                                        <input type="text" class="form-control" id="editCategoryItemName" placeholder="Не заповнено..." name="name">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -177,8 +190,9 @@
                     </div>
                 </div>
             </div>
-            <!-- Edit subcategory item end -->
-            <!-- Delete subcategory item start -->
+            <!-- Edit category item end -->
+
+            <!-- Delete category item start -->
             <div class="modal fade" tabindex="-1" role="dialog" id="deleteSubcategoryItemModal" aria-modal="true">
                 <div class="modal-dialog modal-md" role="document">
                     <div class="modal-content">
@@ -186,9 +200,9 @@
                         <div class="modal-body modal-body-sm">
                             <h4 class="title">Видалення</h4>
                             <br>
-                            <form action="/admin/deleteType" method="post">
+                            <form action="/admin/category/delete" method="post">
                                 <input type="text" id="selectedForDeleteItem" hidden="" name="typeId">
-                                <p style="margin-bottom: 2rem;">Ви впеанені, що хочете видалити тип? Підтвердивши дію, ви не зможете повернутися до попереднього стану.</p>
+                                <p style="margin-bottom: 2rem;">Ви впеанені, що хочете видалити категорію? Підтвердивши дію, ви не зможете повернутися до попереднього стану.</p>
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-outline-primary">Підтвердити</button>
                                     <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
@@ -198,21 +212,13 @@
                     </div>
                 </div>
             </div>
-            <!-- Delete subcategory item end -->
+            <!-- Delete category item end -->
 
+            <!-- content @e -->
 
-
-                <!-- content @e -->
-                <!-- footer @s -->
-                <div class="nk-footer">
-                    <div class="container-fluid">
-                        <div class="nk-footer-wrap">
-                            <div class="nk-footer-copyright"> &copy; <span id="year"></span> Oksana Piekna
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- footer @e -->
+            <!-- footer @s -->
+                <div th:replace="~{/admin/fragments/fragAdminFooter.html :: adminFooter}"></div>
+            <!-- footer @e -->
             </div>
             <!-- wrap @e -->
         </div>
@@ -223,38 +229,39 @@
 <script th:src="@{/js/bundle.js}"></script>
 <script th:src="@{/js/scripts.js}"></script>
 <script th:src="@{/js/example-sweetalert.js}"></script>
+
     <script>
         $( document ).ready(function() {
             document.getElementById("year").innerHTML = new Date().getFullYear();
         });
-        function addClothesType(){
-            $('#addSubcategoryItemCategory').val("CLOTHES");
-            $('#addTypeModelTitle').text('Додати тип одягу');
-            $('#addSubcategoryItemModal').modal('show');
+
+        function addCategory(){
+            let animalId = document.getElementsByClassName('tab-pane active')[0].id;
+            console.log("animal-id:"+animalId);
+            $('#addCategoryAnimal').val("{id}}");
+            $('#addCategoryAnimalName').text('Додати до {тварина}');
+            $('#addCategoryItemModal').modal('show');
         }
-        function addShoesType(){
-            $('#addSubcategoryItemCategory').val("SHOES");
-            $('#addTypeModelTitle').text('Додати тип взуття');
-            $('#addSubcategoryItemModal').modal('show');
-        }
-        function showEditProductTypeModal(btnObj){
+        function showEditCategoryModal(btnObj){
             let trObj = btnObj.closest("tbody tr");
             let trId =  $(trObj).attr('id');
-            
+
+            let categoryName =   $(trObj).find('td:eq(1)').text().trim();
+            console.log($(trObj).find('td:eq(1)').text());
+
+            $('#editAnimalName').val(categoryName);
+
             console.log("row id:" + $(trObj).attr('id'));
 
-            let typeName =   $(trObj).find('td:eq(0)').text();
-            console.log($(trObj).find('td:eq(0)').text());
+            $('#selectedForEditItem')           .val(trId);
 
-            $('#editSubcategoryItemName').val(typeName);
-            $('#selectedForEditItem').val(trId);
-
-            $('#editSubcategoryItemModal').modal('show');
+            $('#editCategoryModal').modal('show');
         }
-        function showConfirmationDeleteProductTypeModal(btnObj){
+
+        function showConfirmationDeleteCategoryModal(btnObj){
             let trObj = btnObj.closest("tbody tr");
             let trId =  $(trObj).attr('id');
-            
+
             console.log("row id:" + $(trObj).attr('id'));
 
             $('#selectedForDeleteItem').val(trId);
@@ -262,6 +269,6 @@
             $('#deleteSubcategoryItemModal').modal('show');
         }
     </script>
-</body>
 
+</body>
 </html>
