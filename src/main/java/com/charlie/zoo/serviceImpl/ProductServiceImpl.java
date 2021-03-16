@@ -41,7 +41,7 @@ public class ProductServiceImpl implements ProductService {
             Product productDB = findById(product.getId());
 
             productDB.setName(product.getName());
-            productDB.setDescription(product.getDescription());
+            productDB.setShortDescription(product.getShortDescription());
             productDB.setCountOfProduct(product.getCountOfProduct());
             productDB.setOnSale(product.isOnSale());
             productDB.setPrice(product.getPrice());
