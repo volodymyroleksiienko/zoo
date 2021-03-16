@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.charlie</groupId>
 	<artifactId>zoo</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>zoo</name>
 	<description>Charlie Zoo Shop</description>
 	<properties>
@@ -75,8 +75,8 @@
 						<configuration>
 							<artifactItems>
 								<artifactItem>
-									<groupId>com.favor</groupId>
-									<artifactId>factory</artifactId>
+									<groupId>com.charlie</groupId>
+									<artifactId>zoo</artifactId>
 									<version>1.0</version>
 									<destFileName>project.jar</destFileName>
 								</artifactItem>
