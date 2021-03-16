@@ -105,7 +105,7 @@
                                                         </thead>
                                                         <tbody>
                                                             <tr th:each="ct : ${categories}" th:id="${ct.getId()}" >
-                                                                <th class="nk-tb-col" th:text="${ct.getPosition()}"></th>
+                                                                <th class="nk-tb-col element-position" th:text="${ct.getPosition()}"></th>
                                                                 <td class="nk-tb-col" th:text="${ct.getName()}"></td>
                                                                 <td class="nk-tb-col tb-col-md" th:text="${ct.getAnimal().getId()}"></td>
                                                                 <td class="nk-tb-col nk-tb-col-tools">
@@ -269,7 +269,8 @@
         function addCategory(){
             let animalId = document.getElementsByClassName('tab-pane active')[0].id;
             console.log("animal-id:"+animalId);
-            let position = 1;
+            let positionArr = document.getElementsByClassName("element-position");
+            let position = parseInt(positionArr[positionArr.length-1].innerHTML.trim())+1;
             $('#addCategoryPosition').val(position);
             $('#addCategoryItemModal').modal('show');
         }
