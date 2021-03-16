@@ -13,6 +13,7 @@ public class CategoryItem {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+    private int position;
     private String name;
 
     @ManyToOne

@@ -21,13 +21,20 @@ public class AdminCategoryItemController {
     private final AnimalService animalService;
     private CategoryItemService categoryItemService;
 
-    @GetMapping("/{animalId}/{categoryId}")
-    public String getCategoryItem(@PathVariable int animalId,@PathVariable int categoryId, Model model){
+    @GetMapping()
+    public String getCategoryItem(Integer animalId,Integer categoryId, Model model){
+        if(animalId==null){
+            animalId=1;
+        }
+        if(categoryId==null){
+            model.addAttribute("categoryItems",categoryItemService.findAll());
+        }else{
+            model.addAttribute("categoryItems",categoryItemService.findByCategoryId(categoryId));
+        }
         model.addAttribute("activeTabId",animalId);
         model.addAttribute("categoryTabId",categoryId);
         model.addAttribute("animals",animalService.findAll());
         model.addAttribute("categories",categoryService.findByAnimalId(animalId));
-        model.addAttribute("categoryItems",categoryItemService.findByCategoryId(categoryId));
         return "/admin/categoryItem";
     }
 
