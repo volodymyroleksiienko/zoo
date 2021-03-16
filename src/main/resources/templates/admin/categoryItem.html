@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html class="js" lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- <base href="../"> -->
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Fav Icon  -->
+    <link rel="shortcut icon" th:href="@{/images/OP_ico.png}">
+    <!-- Page Title  -->
+    <title>Підкатегорії</title>
+    <!-- StyleSheets  -->
+    <link rel="stylesheet" th:href="@{/css/dashlite.css}">
+    <link id="skin-default" rel="stylesheet" th:href="@{/css/theme.css}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="nk-body bg-lighter npc-general has-sidebar ">
+<div class="nk-app-root">
+    <!-- main @s -->
+    <div class="nk-main ">
+        <!-- sidebar @s -->
+        <div th:replace="~{admin/fragments/fragAdminHeader.html}"></div>
+        <!-- sidebar @e -->
+
+        <!-- wrap @s -->
+        <div class="nk-wrap ">
+            <!-- main header @s -->
+            <div class="nk-header nk-header-fixed is-light">
+                <div class="container-fluid">
+                    <div class="nk-header-wrap">
+                        <div class="nk-menu-trigger d-xl-none ml-n1">
+                            <a href="#" class="nk-nav-toggle nk-quick-nav-icon" data-target="sidebarMenu"><em
+                                    class="icon ni ni-menu"></em></a>
+                        </div>
+                        <div class="nk-header-brand d-xl-none">
+                            <a href="/admin/products" class="logo-link">
+                                <img class="logo-light logo-img" th:src="@{/images/logo.png}" th:srcset="@{/images/logo.png}" alt="logo">
+                                <img class="logo-dark logo-img" th:src="@{/images/logo-dark.png}" th:srcset="@{/images/logo-dark.png}" alt="logo-dark">
+                            </a>
+                        </div><!-- .nk-header-brand -->
+
+                        <div class="nk-header-tools">
+                            <ul class="nk-quick-nav">
+                                <li class="dropdown user-dropdown">
+                                    <div class="user-toggle">
+                                        <div class="user-avatar sm">
+                                            <em class="icon ni ni-user-alt"></em>
+                                        </div>
+                                        <div class="user-info d-none d-md-block">
+                                            <h6>Адміністратор</h6>
+                                        </div>
+                                    </div>
+                                </li><!-- .dropdown -->
+                                <li>
+                                    <a href="/logout" class="nk-quick-nav-icon" data-toggle="tooltip"
+                                       data-placement="bottom" title="Вийти">
+                                        <em class="icon ni ni-signout"></em>
+                                    </a>
+                                </li>
+                            </ul><!-- .nk-quick-nav -->
+                        </div><!-- .nk-header-tools -->
+                    </div><!-- .nk-header-wrap -->
+                </div><!-- .container-fliud -->
+            </div>
+            <!-- main header @e -->
+            <!-- content @s -->
+            <div class="nk-content ">
+                <div class="container-fluid">
+                    <div class="nk-content-inner">
+                        <div class="nk-content-body">
+                            <div class="components-preview wide-md mx-auto">
+                                <div class="nk-block-head nk-block-head-lg wide-sm">
+                                    <div class="nk-block-head-content">
+                                        <h3 class="nk-block-title fw-normal">Підкатегорії</h3>
+                                    </div>
+                                </div><!-- .nk-block-head -->
+
+                                <div class="nk-block nk-block-lg">
+                                    <div class="card card-bordered card-preview">
+                                        <div class="card-inner">
+                                            <ul class="nav nav-tabs mt-n3">
+                                                <li class="nav-item" th:each="a : ${animals}" th:id="${a.getId()}">
+                                                    <a class="nav-link" th:classappend="${(activeTabId==a.getId())?'active':''}"  th:href="'/admin/category?id='+${a.getId()}">
+                                                        <em class="icon ni ni-chevrons-right"></em>
+                                                        <span th:text="${a.getName()}">Tab 1</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content">
+                                                <div class="tab-pane active" id="firstTab">
+<!--                                                    -->
+                                                    <div class="card-inner">
+                                                        <ul class="nav nav-tabs mt-n3">
+                                                            <li class="nav-item" th:each="a : ${animals}" th:id="${a.getId()}">
+                                                                <a class="nav-link" th:classappend="${(activeTabId==a.getId())?'active':''}"  th:href="'/admin/category?id='+${a.getId()}">
+                                                                    <em class="icon ni ni-chevrons-right"></em>
+                                                                    <span th:text="${a.getName()}">Tab 1</span>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                        <div class="tab-content">
+                                                            <div class="tab-pane active" id="firstTabInner">
+                                                                <table class="datatable-init nk-tb-list nk-tb-ulist" data-auto-responsive="false">
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th class="nk-tb-col">#</th>
+                                                                        <th class="nk-tb-col">Назва</th>
+                                                                        <th class="nk-tb-col tb-col-md">Тварини</th>
+                                                                        <th class="nk-tab-col" style="text-align: right; padding-right: 2rem;" >Дії</th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    <tr th:each="ct : ${categories}" th:id="${ct.getId()}" >
+                                                                        <th class="nk-tb-col element-position" th:text="${ct.getPosition()}"></th>
+                                                                        <td class="nk-tb-col" th:text="${ct.getName()}"></td>
+                                                                        <td class="nk-tb-col tb-col-md" th:text="${ct.getAnimal().getId()}"></td>
+                                                                        <td class="nk-tb-col nk-tb-col-tools">
+                                                                            <ul class="nk-tb-actions gx-1">
+                                                                                <li>
+                                                                                    <div class="drodown">
+                                                                                        <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+                                                                                        <div class="dropdown-menu dropdown-menu-right">
+                                                                                            <ul class="link-list-opt no-bdr">
+                                                                                                <li><a data-toggle="modal" onclick="showEditCategoryModal(this)"><em class="icon ni ni-edit-alt"></em><span>Редагувати</span></a></li>
+                                                                                                <li><a data-toggle="modal" onclick="showConfirmationDeleteCategoryModal(this)" ><em class="icon ni ni-trash"></em><span>Видалити</span></a></li>
+                                                                                            </ul>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </td>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+<!--                                                    -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="" data-toggle="modal" onclick="addCategory()" title="Добавити"
+                                           class="btn btn-icon btn-lg btn-primary float-right"
+                                           style="position: fixed; bottom: 25px; right: 25px; z-index: 1000;">
+                                            <em class="icon ni ni-grid-add-c"></em>
+                                        </a>
+                                    </div><!-- .card-preview -->
+                                </div> <!-- nk-block -->
+                            </div><!-- .components-preview -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add category item start -->
+            <div class="modal fade" tabindex="-1" role="dialog" id="addCategoryItemModal" aria-modal="true">
+                <div class="modal-dialog modal-md" role="document">
+                    <div class="modal-content">
+                        <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+                        <div class="modal-body modal-body-sm">
+                            <form action="/admin/category/add" method="post">
+                                <h4 class="title" id="addCategoryAnimalName">Добавлення категорії</h4>
+<!--                                <input type="text" id="addCategoryAnimal" hidden="" name="animal">-->
+                                <div class="form-group"  style="margin-top: 2rem;">
+                                    <label class="form-label" for="addCategoryName">Назва</label>
+                                    <div class="form-control-wrap">
+                                        <input type="text" class="form-control" id="addCategoryName" placeholder="Не заповнено..." name="name">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="addCategoryPosition">Позиція</label>
+                                    <div class="form-control-wrap">
+                                        <input type="number" min="1" step="1" class="form-control" id="addCategoryPosition" placeholder="Не заповнено..." name="position">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Вид варин</label>
+                                    <div class="form-control-wrap">
+                                        <select class="form-select form-control form-control-lg" name="animal" id="selectAnimal">
+                                            <option th:each="a :${animals}" th:value="${a.getId()}" th:text="${a.getName()}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-outline-primary">Добавити</button>
+                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Add category item end -->
+
+            <!-- Edit category item start -->
+            <div class="modal fade" tabindex="-1" role="dialog" id="editCategoryModal" aria-modal="true">
+                <div class="modal-dialog modal-md" role="document">
+                    <div class="modal-content">
+                        <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+                        <div class="modal-body modal-body-sm">
+                            <form action="/admin/category/edit" method="post">
+                                <h4 class="title">Редагування</h4>
+                                <input type="number" id="selectedForEditItem" hidden="" name="id">
+                                <div class="form-group"  style="margin-top: 2rem;">
+                                    <label class="form-label" for="editCategoryItemName">Назва</label>
+                                    <div class="form-control-wrap">
+                                        <input type="text" class="form-control" id="editCategoryItemName" placeholder="Не заповнено..." name="name">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="editCategoryPosition">Позиція</label>
+                                    <div class="form-control-wrap">
+                                        <input type="number" min="1" step="1" class="form-control" id="editCategoryPosition" placeholder="Не заповнено..." name="position">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Вид варин</label>
+                                    <div class="form-control-wrap">
+                                        <select class="form-select form-control form-control-lg" name="animal" id="selectEditAnimal">
+                                            <option th:each="a :${animals}" th:value="${a.getId()}" th:text="${a.getName()}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-outline-primary">Зберегти</button>
+                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Edit category item end -->
+
+            <!-- Delete category item start -->
+            <div class="modal fade" tabindex="-1" role="dialog" id="deleteSubcategoryItemModal" aria-modal="true">
+                <div class="modal-dialog modal-md" role="document">
+                    <div class="modal-content">
+                        <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+                        <div class="modal-body modal-body-sm">
+                            <h4 class="title">Видалення</h4>
+                            <br>
+                            <form action="/admin/category/delete" method="post">
+                                <input type="text" id="selectedForDeleteItem" hidden="" name="id">
+                                <p style="margin-bottom: 2rem;">Ви впеанені, що хочете видалити категорію? Підтвердивши дію, ви не зможете повернутися до попереднього стану.</p>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-outline-primary">Підтвердити</button>
+                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Delete category item end -->
+
+            <!-- content @e -->
+
+            <!-- footer @s -->
+                <div th:replace="~{/admin/fragments/fragAdminFooter.html :: adminFooter}"></div>
+            <!-- footer @e -->
+            </div>
+            <!-- wrap @e -->
+        </div>
+        <!-- main @e -->
+    </div>
+    <!-- app-root @e -->
+    <!-- JavaScript -->
+<script th:src="@{/js/bundle.js}"></script>
+<script th:src="@{/js/scripts.js}"></script>
+<script th:src="@{/js/example-sweetalert.js}"></script>
+
+    <script>
+        $( document ).ready(function() {
+            document.getElementById("year").innerHTML = new Date().getFullYear();
+        });
+
+        function addCategory(){
+            let animalId = document.getElementsByClassName('tab-pane active')[0].id;
+            console.log("animal-id:"+animalId);
+            let positionArr = document.getElementsByClassName("element-position");
+            let position = parseInt(positionArr[positionArr.length-1].innerHTML.trim())+1;
+            $('#addCategoryPosition').val(position);
+            $('#addCategoryItemModal').modal('show');
+        }
+
+        function showEditCategoryModal(btnObj){
+            let trObj = btnObj.closest("tbody tr");
+            let trId =  $(trObj).attr('id');
+
+            console.log('row id:'+trId);
+
+            let categoryName =   $(trObj).find('td:eq(0)').text();
+            let position =       $(trObj).find('th:eq(0)').text();
+            let animalId =       $(trObj).find('td:eq(1)').text();
+
+
+            console.log("name: "+categoryName.trim()+";\npos:"+position.trim()+";\nanimal id:"+animalId.trim());
+
+            $('#editCategoryItemName')  .val(categoryName.trim());
+            $('#editCategoryPosition')  .val(position.trim());
+            $('#selectEditAnimal')      .val(animalId.trim()).change();
+
+            console.log("row id:" + $(trObj).attr('id'));
+
+            $('#selectedForEditItem')           .val(trId);
+
+            $('#editCategoryModal').modal('show');
+        }
+
+        function showConfirmationDeleteCategoryModal(btnObj){
+            let trObj = btnObj.closest("tbody tr");
+            let trId =  $(trObj).attr('id');
+
+            console.log("row id:" + $(trObj).attr('id'));
+
+            $('#selectedForDeleteItem').val(trId);
+
+            $('#deleteSubcategoryItemModal').modal('show');
+        }
+    </script>
+
+</body>
+</html>
