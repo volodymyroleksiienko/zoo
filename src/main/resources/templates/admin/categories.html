@@ -88,7 +88,7 @@
                                                 <li class="nav-item" th:each="a : ${animals}" th:id="${a.getId()}">
                                                     <a class="nav-link" th:classappend="${(activeTabId==a.getId())?'active':''}"  th:href="'/admin/category?id='+${a.getId()}">
                                                         <em class="icon ni ni-chevrons-right"></em>
-                                                        <span th:text="${a.getName()}">Tab 1</span>
+                                                        <span th:text="${a.getName()}"></span>
                                                     </a>
                                                 </li>
                                             </ul>
@@ -266,13 +266,20 @@
     <script>
         $( document ).ready(function() {
             document.getElementById("year").innerHTML = new Date().getFullYear();
+            document.getElementById('categoryLinkActive').classList.add('active');
         });
 
         function addCategory(){
             let animalId = document.getElementsByClassName('tab-pane active')[0].id;
             console.log("animal-id:"+animalId);
             let positionArr = document.getElementsByClassName("element-position");
-            let position = parseInt(positionArr[positionArr.length-1].innerHTML.trim())+1;
+            let position = 1;
+            if (positionArr.length>=1){
+                position = parseInt(positionArr[positionArr.length - 1].innerHTML.trim()) + 1;
+            }else {
+                position = 1;
+            }
+            console.log(position);
             $('#addCategoryPosition').val(position);
             $('#addCategoryItemModal').modal('show');
         }
