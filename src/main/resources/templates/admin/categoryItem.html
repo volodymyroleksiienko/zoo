@@ -223,10 +223,10 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-label">Вид варин</label>
+                                    <label class="form-label">Категорія</label>
                                     <div class="form-control-wrap">
-                                        <select class="form-select form-control form-control-lg" name="animal" id="selectEditAnimal">
-                                            <option th:each="a :${animals}" th:value="${a.getId()}" th:text="${a.getName()}"></option>
+                                        <select class="form-select form-control form-control-lg" name="category" id="selectCategoryEdit">
+                                            <option th:each="c :${categories}" th:value="${c.getId()}" th:text="${c.getName()}"></option>
                                         </select>
                                     </div>
                                 </div>
@@ -304,16 +304,16 @@
 
             console.log('row id:'+trId);
 
-            let categoryName =   $(trObj).find('td:eq(0)').text();
+            let subCategoryName =   $(trObj).find('td:eq(0)').text();
             let position =       $(trObj).find('th:eq(0)').text();
-            let animalId =       $(trObj).find('td:eq(1)').text();
+            let categoryId =       $(trObj).find('td:eq(1)').text();
 
 
-            console.log("name: "+categoryName.trim()+";\npos:"+position.trim()+";\nanimal id:"+animalId.trim());
+            console.log("name: "+subCategoryName.trim()+";\npos:"+position.trim()+";\ncategory id:"+categoryId.trim());
 
-            $('#editCategoryItemName')  .val(categoryName.trim());
+            $('#editCategoryItemName')  .val(subCategoryName.trim());
             $('#editCategoryPosition')  .val(position.trim());
-            $('#selectEditAnimal')      .val(animalId.trim()).change();
+            $('#selectCategoryEdit')      .val(categoryId.trim()).change();
 
             console.log("row id:" + $(trObj).attr('id'));
 
