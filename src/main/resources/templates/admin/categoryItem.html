@@ -98,7 +98,7 @@
                                                     <div class="card-inner">
                                                         <ul class="nav nav-tabs mt-n3">
                                                             <li class="nav-item" th:each="a : ${animals}" th:id="${a.getId()}">
-                                                                <a class="nav-link" th:classappend="${(activeTabId==a.getId())?'active':''}"  th:href="'/admin/category?id='+${a.getId()}">
+                                                                <a class="nav-link" th:classappend="${(activeTabId==a.getId())?'active':''}"  th:href="'/admin/categoryItem?id='+${a.getId()}">
                                                                     <em class="icon ni ni-chevrons-right"></em>
                                                                     <span th:text="${a.getName()}">Tab 1</span>
                                                                 </a>
@@ -111,7 +111,7 @@
                                                                     <tr>
                                                                         <th class="nk-tb-col">#</th>
                                                                         <th class="nk-tb-col">Назва</th>
-                                                                        <th class="nk-tb-col tb-col-md">Тварини</th>
+                                                                        <th class="nk-tb-col tb-col-md">Категорія</th>
                                                                         <th class="nk-tab-col" style="text-align: right; padding-right: 2rem;" >Дії</th>
                                                                     </tr>
                                                                     </thead>
