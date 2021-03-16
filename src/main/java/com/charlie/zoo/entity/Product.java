@@ -19,6 +19,8 @@ public class Product {
     private String shortDescription;
     private BigDecimal price;
 
+    private BigDecimal packSize;
+
     private boolean onSale;
     private BigDecimal newPrice;
 
