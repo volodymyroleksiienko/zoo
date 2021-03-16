@@ -15,7 +15,7 @@ public class Product {
     private int id;
 
     private String name;
-    private String description;
+    private String shortDescription;
     private BigDecimal price;
 
     private boolean onSale;
@@ -28,6 +28,8 @@ public class Product {
     private byte[] img;
     private String imgType;
     private String imgName;
+
+
 
     @ManyToOne
     private Producer producer;
