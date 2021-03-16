@@ -1,4 +1,4 @@
-package com.charlie.zoo.controller;
+package com.charlie.zoo.controller.admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,8 +12,4 @@ public class AdminController {
         return "animal";
     }
 
-    @GetMapping("/categories")
-    public String getCategories(){
-        return "admin/categories";
-    }
 }

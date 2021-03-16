@@ -1,4 +1,4 @@
-package com.charlie.zoo.controller;
+package com.charlie.zoo.controller.admin;
 
 import com.charlie.zoo.entity.Category;
 import com.charlie.zoo.entity.Producer;

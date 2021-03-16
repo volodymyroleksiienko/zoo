@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class AnimalServiceImpl implements AnimalService  {
-    private AnimalJPA animalJPA;
+    private final AnimalJPA animalJPA;
     @Override
     public Animal save(Animal animal) {
         return animalJPA.save(animal);

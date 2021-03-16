@@ -16,4 +16,12 @@ public class Animal {
 
     @OneToMany(mappedBy = "animal")
     private List<Category> categories;
+
+    @Override
+    public String toString() {
+        return "Animal{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

@@ -7,6 +7,7 @@ import java.util.List;
 public interface CategoryService {
     Category save(Category category);
     Category findById(int id);
+    List<Category> findByAnimalId(int id);
     List<Category> findAll();
     void deleteByID(int id);
 }

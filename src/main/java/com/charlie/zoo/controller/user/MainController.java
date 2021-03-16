@@ -1,4 +1,4 @@
-package com.charlie.zoo.controller;
+package com.charlie.zoo.controller.user;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +25,6 @@ public class MainController {
     public String getCart(){
         return "user/cart";
     }
-
 
     @GetMapping("/checkout")
     public String getCheckout(){
