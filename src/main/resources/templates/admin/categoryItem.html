@@ -97,10 +97,10 @@
 <!--                                                    -->
                                                     <div class="card-inner">
                                                         <ul class="nav nav-tabs mt-n3">
-                                                            <li class="nav-item" th:each="a : ${animals}" th:id="${a.getId()}">
-                                                                <a class="nav-link" th:classappend="${(activeTabId==a.getId())?'active':''}"  th:href="'/admin/categoryItem?id='+${a.getId()}">
+                                                            <li class="nav-item" th:each="ct : ${categories}" th:id="${ct.getId()}">
+                                                                <a class="nav-link" th:classappend="${(categoryTabId==ct.getId())?'active':''}"  th:href="@{'/admin/categoryItem/'+${animalId}+'/'+${ct.getId()}}">
                                                                     <em class="icon ni ni-chevrons-right"></em>
-                                                                    <span th:text="${a.getName()}">Tab 1</span>
+                                                                    <span th:text="${ct.getName()}">Tab 1</span>
                                                                 </a>
                                                             </li>
                                                         </ul>

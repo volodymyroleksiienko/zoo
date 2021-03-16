@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class CategoryItemServiceImpl implements CategoryItemService {
-    private CategoryItemJPA categoryItemJPA;
+    private final CategoryItemJPA categoryItemJPA;
 
     @Override
     public CategoryItem save(CategoryItem categoryItem) {
@@ -21,6 +21,11 @@ public class CategoryItemServiceImpl implements CategoryItemService {
     @Override
     public CategoryItem findById(int id) {
         return categoryItemJPA.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<CategoryItem> findByCategoryId(int id) {
+        return categoryItemJPA.findByCategoryId(id);
     }
 
     @Override
