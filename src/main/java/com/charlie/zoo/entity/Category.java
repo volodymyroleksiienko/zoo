@@ -8,11 +8,12 @@ import java.util.List;
 
 @Entity
 @Data
-public class Category {
+public class Category{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private int position;
     private String name;
 
     @OneToMany(mappedBy = "category")
@@ -23,4 +24,5 @@ public class Category {
 
     @Enumerated(EnumType.STRING)
     private StatusOfEntity statusOfEntity = StatusOfEntity.ACTIVE;
+
 }
