@@ -24,7 +24,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<Category> findByAnimalId(int id) {
-        return categoryJPA.findByAnimalId(id);
+        return categoryJPA.findByAnimalIdOrderByPositionAsc(id);
     }
 
     @Override

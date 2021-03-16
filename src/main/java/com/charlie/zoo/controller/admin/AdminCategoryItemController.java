@@ -27,7 +27,7 @@ public class AdminCategoryItemController {
             animalId=1;
         }
         if(categoryId==null){
-            model.addAttribute("categoryItems",categoryItemService.findAll());
+            model.addAttribute("categoryItems",categoryItemService.findByCategoryAnimalId(animalId));
         }else{
             model.addAttribute("categoryItems",categoryItemService.findByCategoryId(categoryId));
         }
@@ -41,12 +41,13 @@ public class AdminCategoryItemController {
     @PostMapping({"/add","/edit"})
     public String addCategoryItem(CategoryItem categoryItem){
         categoryItemService.save(categoryItem);
-        return "redirect:/admin/categoryItem";
+        return "redirect:/admin/categoryItem?animalId="+categoryItem.getCategory().getAnimal().getId()+"&categoryId="+categoryItem.getCategory().getId();
     }
 
     @PostMapping("/delete")
     public String deleteCategoryItem(int id){
+        CategoryItem categoryItem = categoryItemService.findById(id);
         categoryItemService.deleteByID(id);
-        return "redirect:/admin/categoryItem";
+        return "redirect:/admin/categoryItem?animalId="+categoryItem.getCategory().getAnimal().getId()+"&categoryId="+categoryItem.getCategory().getId();
     }
 }

@@ -24,8 +24,13 @@ public class CategoryItemServiceImpl implements CategoryItemService {
     }
 
     @Override
+    public List<CategoryItem> findByCategoryAnimalId(int animalId) {
+        return categoryItemJPA.findByCategoryAnimalId(animalId);
+    }
+
+    @Override
     public List<CategoryItem> findByCategoryId(int id) {
-        return categoryItemJPA.findByCategoryId(id);
+        return categoryItemJPA.findByCategoryIdOrderByPositionDesc(id);
     }
 
     @Override

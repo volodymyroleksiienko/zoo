@@ -8,5 +8,7 @@ import java.util.List;
 
 @Repository
 public interface CategoryItemJPA extends JpaRepository<CategoryItem,Integer> {
-    List<CategoryItem> findByCategoryId(int id);
+    List<CategoryItem> findByCategoryIdOrderByPositionDesc(int id);
+
+    List<CategoryItem> findByCategoryAnimalId(int animalId);
 }

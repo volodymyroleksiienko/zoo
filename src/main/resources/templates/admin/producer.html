@@ -90,14 +90,14 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr th:id="${a.getId()}" th:each="a:${animals} " class="nk-tb-item">
+                                                <tr th:id="${p.getId()}" th:each="p:${producers} " class="nk-tb-item">
 
                                                     <td class="nk-tb-col">
-                                                        <span th:text="${a.getName()}">Назва</span>
+                                                        <span th:text="${p.getName()}">Назва</span>
                                                     </td>
 
                                                     <td class="nk-tb-col tb-col-md">
-                                                        <span th:text="${a.getName()}">Країна</span>
+                                                        <span th:text="${p.getCountryName()}">Країна</span>
                                                     </td>
 
                                                     <td class="nk-tb-col nk-tb-col-tools">
