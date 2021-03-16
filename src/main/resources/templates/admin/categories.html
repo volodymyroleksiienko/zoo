@@ -86,7 +86,7 @@
                                         <div class="card-inner">
                                             <ul class="nav nav-tabs mt-n3">
                                                 <li class="nav-item" th:each="a : ${animals}" th:id="${a.getId()}">
-                                                    <a class="nav-link" th:classappend="${(activeTabId==a.getId())?'active':''}" data-toggle="tab" th:href="'/admin/category?id='+${a.getId()}">
+                                                    <a class="nav-link" th:classappend="${(activeTabId==a.getId())?'active':''}"  th:href="'/admin/category?id='+${a.getId()}">
                                                         <em class="icon ni ni-chevrons-right"></em>
                                                         <span th:text="${a.getName()}">Tab 1</span>
                                                     </a>
@@ -231,7 +231,7 @@
                             <h4 class="title">Видалення</h4>
                             <br>
                             <form action="/admin/category/delete" method="post">
-                                <input type="text" id="selectedForDeleteItem" hidden="" name="typeId">
+                                <input type="text" id="selectedForDeleteItem" hidden="" name="id">
                                 <p style="margin-bottom: 2rem;">Ви впеанені, що хочете видалити категорію? Підтвердивши дію, ви не зможете повернутися до попереднього стану.</p>
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-outline-primary">Підтвердити</button>

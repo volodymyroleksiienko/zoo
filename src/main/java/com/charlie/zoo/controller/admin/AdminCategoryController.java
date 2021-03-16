@@ -26,19 +26,19 @@ public class AdminCategoryController {
             model.addAttribute("activeTabId",id);
             model.addAttribute("categories",categoryService.findByAnimalId(id));
         }
-
         return "/admin/categories";
     }
 
     @PostMapping({"/add","/edit"})
-    public String addAnimal(Category animal){
-        categoryService.save(animal);
-        return "redirect:/admin/animal";
+    public String addAnimal(Category category){
+        categoryService.save(category);
+        return "redirect:/admin/category?id="+category.getAnimal().getId();
     }
 
     @PostMapping("/delete")
     public String deleteAnimal(int id){
+        int animalId = categoryService.findById(id).getAnimal().getId();
         categoryService.deleteByID(id);
-        return "redirect:/admin/animal";
+        return "redirect:/admin/category?id="+animalId;
     }
 }
