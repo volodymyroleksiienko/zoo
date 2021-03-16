@@ -268,6 +268,8 @@
         function addCategory(){
             let animalId = document.getElementsByClassName('tab-pane active')[0].id;
             console.log("animal-id:"+animalId);
+            let position = 1;
+            $('#editCategoryPosition').val(position);
             $('#addCategoryAnimal').val("{id}}");
             $('#addCategoryItemModal').modal('show');
         }
@@ -277,11 +279,14 @@
             let trId =  $(trObj).attr('id');
 
             let categoryName =   $(trObj).find('td:eq(1)').text().trim();
-            let position =       $(trObj).find('td:eq(0)').text().trim();;
-            let animalId =       $(trObj).find('td:eq(1)').text().trim();;
+            let position =       $(trObj).find('td:eq(0)').text().trim();
+            let animalId =       $(trObj).find('td:eq(2)').text().trim();
+
             console.log($(trObj).find('td:eq(1)').text());
 
             $('#editAnimalName').val(categoryName);
+            $('#editCategoryPosition').val(position);
+            $('#selectEditAnimal').val(animalId).change();
 
             console.log("row id:" + $(trObj).attr('id'));
 
