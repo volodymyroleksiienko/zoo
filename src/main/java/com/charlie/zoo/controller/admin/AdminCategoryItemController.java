@@ -2,11 +2,14 @@ package com.charlie.zoo.controller.admin;
 
 import com.charlie.zoo.entity.CategoryItem;
 import com.charlie.zoo.entity.Producer;
+import com.charlie.zoo.service.AnimalService;
 import com.charlie.zoo.service.CategoryItemService;
+import com.charlie.zoo.service.CategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -14,10 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin/categoryItem")
 @AllArgsConstructor
 public class AdminCategoryItemController {
+    private final CategoryService categoryService;
+    private final AnimalService animalService;
     private CategoryItemService categoryItemService;
 
-    @GetMapping
-    public String getCategoryItem(Model model){
+    @GetMapping("/{animalId}/{itemId}")
+    public String getCategoryItem(@PathVariable int animalId,@PathVariable int itemId, Model model){
+        model.addAttribute("activeTabId",animalId);
+        model.addAttribute("animals",animalService.findAll());
         model.addAttribute("categoryItems",categoryItemService.findAll());
         return "/admin/categoryItem";
     }
