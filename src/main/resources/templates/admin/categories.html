@@ -97,15 +97,17 @@
                                                     <table class="table table-striped">
                                                         <thead>
                                                             <tr>
-                                                                <th scope="col">#</th>
-                                                                <th scope="col">Назва</th>
+                                                                <th scope="nk-tb-col">#</th>
+                                                                <th scope="nk-tb-col">Назва</th>
+                                                                <th scope="nk-tb-col tb-col-md">Тварини</th>
                                                                 <th scope="col" style="text-align: right; padding-right: 2rem;" >Дії</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             <tr th:each="t, count : ${types}" th:id="${t.getId()}" >
-                                                                <th scope="row" th:text="${count.count}">1</th>
-                                                                <td th:text="${t.getName()}"></td>
+                                                                <th class="nk-tb-col" scope="row" th:text="${count.count}">1</th>
+                                                                <td class="nk-tb-col" th:text="${t.getName()}"></td>
+                                                                <td class="nk-tb-col tb-col-md" th:text="${t.getName()}"></td>
                                                                 <td class="nk-tb-col nk-tb-col-tools">
                                                                     <ul class="nk-tb-actions gx-1">
                                                                         <li>
@@ -147,12 +149,26 @@
                         <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
                         <div class="modal-body modal-body-sm">
                             <form action="/admin/category/add" method="post">
-                                <h4 class="title" id="addCategoryAnimalName">Добавлення</h4>
-                                <input type="text" id="addCategoryAnimal" hidden="" name="animal">
+                                <h4 class="title" id="addCategoryAnimalName">Добавлення категорії</h4>
+<!--                                <input type="text" id="addCategoryAnimal" hidden="" name="animal">-->
                                 <div class="form-group"  style="margin-top: 2rem;">
                                     <label class="form-label" for="addCategoryName">Назва</label>
                                     <div class="form-control-wrap">
                                         <input type="text" class="form-control" id="addCategoryName" placeholder="Не заповнено..." name="nameOfType">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="addCategoryPosition">Позиція</label>
+                                    <div class="form-control-wrap">
+                                        <input type="number" min="1" step="1" class="form-control" id="addCategoryPosition" placeholder="Не заповнено..." name="positionOfType">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Тварини</label>
+                                    <div class="form-control-wrap">
+                                        <select class="form-select form-control form-control-lg" name="typeOfProduct.id" id="selectAnimal">
+                                            <option th:each="t :${types}" th:value="${t.getId()}" th:text="${t.getName()}"></option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -179,6 +195,20 @@
                                     <label class="form-label" for="editCategoryItemName">Назва</label>
                                     <div class="form-control-wrap">
                                         <input type="text" class="form-control" id="editCategoryItemName" placeholder="Не заповнено..." name="name">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="editCategoryPosition">Позиція</label>
+                                    <div class="form-control-wrap">
+                                        <input type="number" min="1" step="1" class="form-control" id="editCategoryPosition" placeholder="Не заповнено..." name="positionOfType">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Тварини</label>
+                                    <div class="form-control-wrap">
+                                        <select class="form-select form-control form-control-lg" name="typeOfProduct.id" id="selectEditAnimal">
+                                            <option th:each="t :${types}" th:value="${t.getId()}" th:text="${t.getName()}"></option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -239,14 +269,16 @@
             let animalId = document.getElementsByClassName('tab-pane active')[0].id;
             console.log("animal-id:"+animalId);
             $('#addCategoryAnimal').val("{id}}");
-            $('#addCategoryAnimalName').text('Додати до {тварина}');
             $('#addCategoryItemModal').modal('show');
         }
+
         function showEditCategoryModal(btnObj){
             let trObj = btnObj.closest("tbody tr");
             let trId =  $(trObj).attr('id');
 
             let categoryName =   $(trObj).find('td:eq(1)').text().trim();
+            let position =       $(trObj).find('td:eq(0)').text().trim();;
+            let animalId =       $(trObj).find('td:eq(1)').text().trim();;
             console.log($(trObj).find('td:eq(1)').text());
 
             $('#editAnimalName').val(categoryName);
