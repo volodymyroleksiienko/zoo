@@ -6,6 +6,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Data
@@ -29,13 +30,28 @@ public class Product {
     private String imgType;
     private String imgName;
 
-
+    @Lob
+    @Type(type = "org.hibernate.type.TextType")
+    private String details;
+    @Lob
+    @Type(type = "org.hibernate.type.TextType")
+    private String dailyNorm;
+    @Lob
+    @Type(type = "org.hibernate.type.TextType")
+    private String producerDetails;
 
     @ManyToOne
     private Producer producer;
 
-    @ManyToOne
-    private CategoryItem categoryItem;
+
+
+    @ManyToMany
+    @JoinTable(
+            name = "product_item",
+            joinColumns = @JoinColumn(name = "product", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "item",referencedColumnName = "id")
+    )
+    private List<CategoryItem> categoryItem;
 
     @Enumerated(EnumType.STRING)
     private StatusOfEntity statusOfEntity=StatusOfEntity.ACTIVE;

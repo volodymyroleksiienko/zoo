@@ -190,7 +190,7 @@
                                         <label class="form-label">Виробник</label>
                                         <div class="form-control-wrap">
                                             <select class="form-select form-control form-control-lg" name="producer.id">
-                                                <option th:each="t :${types}" th:value="${t.getId()}" th:text="${t.getName()}"></option>
+                                                <option th:each="pr :${producers}" th:value="${pr.getId()}" th:text="${pr.getName()}"></option>
                                             </select>
                                         </div>
                                     </div>
@@ -206,28 +206,28 @@
                                 <div class="form-group">
                                     <label class="form-label" for="productDescription">Опис</label>
                                     <div class="form-control-wrap">
-                                        <textarea class="form-control" id="productDescription" placeholder="Введіть текст..." name="description"></textarea>
+                                        <textarea class="form-control" id="productDescription" placeholder="Введіть текст..." name="shortDescription"></textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="form-label" for="productDetailedDescription">Детальний опис</label>
                                     <div class="form-control-wrap">
-                                        <textarea class="form-control rich-editor" id="productDetailedDescription" placeholder="Введіть текст..." name="detailedDdescription"></textarea>
+                                        <textarea class="form-control rich-editor" id="productDetailedDescription" placeholder="Введіть текст..." name="details"></textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="form-label" for="productProportionsDescription">Рекомендована добова норма</label>
                                     <div class="form-control-wrap">
-                                        <textarea class="form-control rich-editor" id="productProportionsDescription" placeholder="Введіть текст..." name="proportionsDescription"></textarea>
+                                        <textarea class="form-control rich-editor" id="productProportionsDescription" placeholder="Введіть текст..." name="dailyNorm"></textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="form-label" for="productProducerDescription">Виробник</label>
                                     <div class="form-control-wrap">
-                                        <textarea class="form-control rich-editor" id="productProducerDescription" placeholder="Введіть текст..." name="producerDescription"></textarea>
+                                        <textarea class="form-control rich-editor" id="productProducerDescription" placeholder="Введіть текст..." name="producerDetails"></textarea>
                                     </div>
                                 </div>
 
@@ -257,7 +257,7 @@
                                         <div class="form-group">
                                             <div class="preview-block">
                                                 <div class="custom-control custom-switch">
-                                                    <input type="checkbox" class="custom-control-input" id="promotedProduct" name="productForSales">
+                                                    <input type="checkbox" class="custom-control-input" id="promotedProduct" name="onSale">
                                                     <label class="custom-control-label" for="promotedProduct">Акційний товар</label>
                                                 </div>
                                             </div>
@@ -270,7 +270,7 @@
                                         <label class="form-label">Категорія</label>
                                         <div class="form-control-wrap">
                                             <select class="form-select form-control form-control-lg" multiple="multiple" id="mainCategories" name="category">
-                                                <option th:each="t :${types}" th:value="${t.getId()}" th:text="${t.getName()}"></option>
+                                                <option th:each="ct :${categories}" th:value="${ct.getId()}" th:text="${ct.getName()}"></option>
                                             </select>
                                         </div>
                                     </div>
@@ -280,8 +280,8 @@
                                     <div class="col-md-12 form-group">
                                         <label class="form-label">Підкатегорія</label>
                                         <div class="form-control-wrap">
-                                            <select class="form-select form-control form-control-lg" multiple="multiple" id="subCategories" name="subCategory">
-                                                <option th:each="t :${types}" th:value="${t.getId()}" th:text="${t.getName()}"></option>
+                                            <select class="form-select form-control form-control-lg" multiple="multiple" id="subCategories" name="categoryItem">
+                                                <option th:each="it :${items}" th:value="${it.getId()}" th:text="${it.getName()}"></option>
                                             </select>
                                         </div>
                                     </div>
