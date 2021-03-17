@@ -269,7 +269,7 @@
                                                 </table>
                                             <!-- Table -->
                                                 <div class="form-group" style="margin-top: 1rem;">
-                                                    <button type="button" class="btn btn-outline-primary">Добавити</button>
+                                                    <button type="button" id="addProductBtn" class="btn btn-outline-primary">Добавити</button>
                                                     <a href="/admin/products" type="button" class="btn btn-outline-danger">Скасувати</a>
                                                 </div>
                                             </div>
@@ -474,7 +474,35 @@
             $( rowNode ).find('td').eq(6).addClass('nk-tb-col tb-col-lg');
             $( rowNode ).find('td').eq(7).addClass('nk-tb-col nk-tb-col-tools');
         } );
+
+        $('#addProductBtn').on( 'click', function () {
+
+            $.ajax({
+                method: "post",
+                url: "/admin/products/add,
+                contextType: "application/json",
+                data: {
+                    codeOfProduct: code,
+                    breedDescription: breedDescr,
+                    contrAgentId: supplierId,
+                    sizeOfHeight: thickness,
+                    sizeOfWidth: width,
+                    sizeOfLong: length,
+                    countOfDesk: count
+                },
+                traditional: true,
+                success: function () {
+                    alert("Success!")
+                },
+                error: function () {
+                    alert("Error!");
+                }
+            });
+
+        });
+
     } );
+
 
 
     function showEditItemModal(btnObj) {
