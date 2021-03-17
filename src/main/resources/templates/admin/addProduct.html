@@ -260,6 +260,7 @@
                                                         <td class="nk-tb-col">Ціна</td>
                                                         <td class="nk-tb-col tb-col-lg">Акційний товар</td>
                                                         <td class="nk-tb-col tb-col-lg">Акційна ціна</td>
+                                                        <td class="nk-tb-col tb-col-hide">ID</td>
                                                         <th class="nk-tb-col"><span class="sub-text" style="text-align: right; padding-right: 2rem;">Дії</span></th>
                                                     </tr>
                                                     </thead>
@@ -476,6 +477,7 @@
             let productPrice =              $('#productPrice').val().trim();
             let productPromotionalPrice =   $('#productPromotionalPrice').val().trim();
             let promotedProduct =           $('#promotedProduct').is(":checked");
+            let id =                        0;
 
             let rowNode = t.row.add([
                  packageType,
@@ -485,11 +487,11 @@
                  productPrice,
                  promotedProduct,
                  productPromotionalPrice,
+                 id,
                  btn
             ]).draw(false).node();
             $(rowNode).addClass('nk-tb-item');
             $(rowNode).attr('id', counterId);
-
 
             $( rowNode ).find('td').eq(0).addClass('nk-tb-col tb-col-lg');
             $( rowNode ).find('td').eq(1).addClass('nk-tb-col');
@@ -498,7 +500,8 @@
             $( rowNode ).find('td').eq(4).addClass('nk-tb-col');
             $( rowNode ).find('td').eq(5).addClass('nk-tb-col tb-col-lg');
             $( rowNode ).find('td').eq(6).addClass('nk-tb-col tb-col-lg');
-            $( rowNode ).find('td').eq(7).addClass('nk-tb-col nk-tb-col-tools');
+            $( rowNode ).find('td').eq(7).addClass('nk-tb-col tb-col-hide');
+            $( rowNode ).find('td').eq(8).addClass('nk-tb-col nk-tb-col-tools');
         } );
 
         $('#addProductBtn').on( 'click', function () {
@@ -508,27 +511,33 @@
 
                 console.log(this.data());
 
-                // obj.id = data.id;
-                // obj.countOfProduct = data.countOfProduct;
+                obj.packType = data[0];
+                obj.packSize = data[1];
+                obj.countOfProduct = data[2];
+                obj.statusOfEntity = data[3];
+                obj.price = data[4];
+                obj.onSale = data[5];
+                obj.newPrice = data[6];
+                obj.id = data[7];
 
+                objArr.push(obj);
             } );
 
-
-            // $.ajax({
-            //     method: "post",
-            //     url: "/admin/products/add",
-            //     contextType: "application/json",
-            //     data: {
-            //
-            //     },
-            //     traditional: true,
-            //     success: function () {
-            //         alert("Success!")
-            //     },
-            //     error: function () {
-            //         alert("Error!");
-            //     }
-            // }); //ajax end
+            $.ajax({
+                method: "post",
+                url: "/admin/products/add",
+                contextType: "application/json",
+                data: {
+                    packageTypes: objArr
+                },
+                traditional: true,
+                success: function () {
+                    alert("Success!")
+                },
+                error: function () {
+                    alert("Error!");
+                }
+            }); //ajax end
         });//button click end
     }); //ready() end
 
