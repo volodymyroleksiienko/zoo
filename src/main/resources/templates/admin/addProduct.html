@@ -449,7 +449,7 @@
             'select': false,
         });
 
-        let counterId = 0;
+        let counterId = 1;
 
         $('#addPosition').on( 'click', function () {
             counterId ++;
@@ -477,16 +477,16 @@
             let productPromotionalPrice =   $('#productPromotionalPrice').val().trim();
             let promotedProduct =           $('#promotedProduct').is(":checked");
 
-            let rowNode = t.row.add({
-                "packType": packageType,
-                "packSize": packSize,
-                "countOfProduct": inStock,
-                "statusOfEntity": activeProductItem,
-                "price": productPrice,
-                "onSale": promotedProduct,
-                "newPrice": productPromotionalPrice,
-                "btn": btn
-            }).draw(false).node();
+            let rowNode = t.row.add([
+                 packageType,
+                 packSize,
+                 inStock,
+                 activeProductItem,
+                 productPrice,
+                 promotedProduct,
+                 productPromotionalPrice,
+                 btn
+            ]).draw(false).node();
             $(rowNode).addClass('nk-tb-item');
             $(rowNode).attr('id', counterId);
 
