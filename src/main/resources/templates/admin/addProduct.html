@@ -479,16 +479,10 @@
 
             $.ajax({
                 method: "post",
-                url: "/admin/products/add,
+                url: "/admin/products/add",
                 contextType: "application/json",
                 data: {
-                    codeOfProduct: code,
-                    breedDescription: breedDescr,
-                    contrAgentId: supplierId,
-                    sizeOfHeight: thickness,
-                    sizeOfWidth: width,
-                    sizeOfLong: length,
-                    countOfDesk: count
+
                 },
                 traditional: true,
                 success: function () {
@@ -497,11 +491,9 @@
                 error: function () {
                     alert("Error!");
                 }
-            });
-
-        });
-
-    } );
+            }); //ajax end
+        });//button click end
+    }); //ready() end
 
 
 
