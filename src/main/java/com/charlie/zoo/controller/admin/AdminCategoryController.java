@@ -26,7 +26,7 @@ public class AdminCategoryController {
             model.addAttribute("activeTabId",id);
             model.addAttribute("categories",categoryService.findByAnimalId(id));
         }
-        return "/admin/categories";
+        return "admin/categories";
     }
 
     @PostMapping({"/add","/edit"})

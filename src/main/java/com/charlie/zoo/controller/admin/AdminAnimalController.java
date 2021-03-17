@@ -18,7 +18,7 @@ public class AdminAnimalController {
     @GetMapping
     public String getAnimal(Model model){
         model.addAttribute("animals",animalService.findAll());
-        return "/admin/animal";
+        return "admin/animal";
     }
 
     @PostMapping({"/add","/edit"})
