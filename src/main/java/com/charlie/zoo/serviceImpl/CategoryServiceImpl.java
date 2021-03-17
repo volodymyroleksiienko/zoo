@@ -4,6 +4,7 @@ import com.charlie.zoo.entity.Category;
 import com.charlie.zoo.jpa.CategoryJPA;
 import com.charlie.zoo.service.CategoryService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<Category> findAll() {
-        return categoryJPA.findAll();
+        return categoryJPA.findAll(Sort.by("position"));
     }
 
     @Override

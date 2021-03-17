@@ -556,7 +556,6 @@
         let counter = 1;
 
         $('#addPosition').on( 'click', function () {
-
             let rowNode = t.row.add([
                 '0',
                 '0',
@@ -565,11 +564,13 @@
                 '0',
                 '0',
                 'btn'
-            ]).draw(false);
+            ]).draw(false).node();
+            console.log(rowNode);
             $(rowNode).addClass('nk-tb-item');
-
             counter++;
         } );
+
+
 
         // Automatically add a first row of data
         $('#addPosition').click();
