@@ -174,18 +174,19 @@
                                                 <hr class="preview-hr">
                                                 <span class="preview-title-lg overline-title">Пакування і ціна</span>
                                                 <div class="row gy-4 align-center">
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-3">
                                                         <div class="form-group">
                                                             <label class="form-label">Тип пакування</label>
                                                             <div class="form-control-wrap">
-                                                                <select class="form-select form-control form-control-lg" id="packageType" name="category">
-                                                                    <option th:value="шт." th:text="штуки"></option>
-                                                                    <option th:value="кг" th:text="кілограми"></option>
-                                                                </select>
+                                                                <input type="text" class="form-control" id="packageType" placeholder="Тип пакування..." name="category">
+<!--                                                                <select class="form-select form-control form-control-lg" id="packageType" name="category">-->
+<!--                                                                    <option th:value="1" th:text="штуки"></option>-->
+<!--                                                                    <option th:value="2" th:text="кілограми"></option>-->
+<!--                                                                </select>-->
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-3">
                                                         <div class="form-group">
                                                             <label class="form-label" for="packSize">Одиниць</label>
                                                             <div class="form-control-wrap">
@@ -193,11 +194,21 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-3">
                                                         <div class="form-group">
                                                             <label class="form-label" for="inStock">К-сть на складі</label>
                                                             <div class="form-control-wrap">
                                                                 <input type="number" min="1" value="1" step="1" class="form-control" id="inStock" placeholder="Кількість..." name="inStock">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <div class="preview-block">
+                                                                <div class="custom-control custom-switch">
+                                                                    <input type="checkbox" class="custom-control-input" id="activeProductItem" name="activeItem">
+                                                                    <label class="custom-control-label" for="activeProductItem">Активний</label>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -245,6 +256,7 @@
                                                         <th class="nk-tb-col tb-col-lg">Тип пакування</th>
                                                         <td class="nk-tb-col">Кількість</td>
                                                         <td class="nk-tb-col tb-col-lg">К-сть на складі</td>
+                                                        <td class="nk-tb-col tb-col-lg">Активний</td>
                                                         <td class="nk-tb-col">Ціна</td>
                                                         <td class="nk-tb-col tb-col-lg">Акційний товар</td>
                                                         <td class="nk-tb-col tb-col-lg">Акційна ціна</td>
@@ -278,23 +290,24 @@
                     <div class="modal-content">
                         <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
                         <div class="modal-body modal-body-md">
-                            <h4 class="title">Змінити статус</h4>
+                            <h4 class="title">Змінити позицію</h4>
                             <br>
                             <form action="" method="post">
                                 <input type="number" id="selectedForChangingStatusItem" hidden="" name="productId">
                                 <div class="row gy-4 align-center">
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="form-label">Тип пакування</label>
                                             <div class="form-control-wrap">
-                                                <select class="form-select form-control form-control-lg" id="editPackageType" name="category">
-                                                    <option th:value="шт." th:text="штуки"></option>
-                                                    <option th:value="кг" th:text="кілограми"></option>
-                                                </select>
+                                                <input type="text" class="form-control" id="editPackageType" placeholder="Тип пакування..." name="category">
+<!--                                                <select class="form-select form-control form-control-lg" id="editPackageType" name="category">-->
+<!--                                                    <option th:value="шт." th:text="штуки"></option>-->
+<!--                                                    <option th:value="кг" th:text="кілограми"></option>-->
+<!--                                                </select>-->
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="form-label" for="editPackSize">Одиниць</label>
                                             <div class="form-control-wrap">
@@ -302,11 +315,21 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="form-label" for="editInStock">К-сть на складі</label>
                                             <div class="form-control-wrap">
                                                 <input type="number" min="1" value="1" step="1" class="form-control" id="editInStock" placeholder="Кількість..." name="inStock">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <div class="preview-block">
+                                                <div class="custom-control custom-switch">
+                                                    <input type="checkbox" class="custom-control-input" id="editActiveProductItem" name="activeItem">
+                                                    <label class="custom-control-label" for="editActiveProductItem">Активний</label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -401,7 +424,10 @@
             'select': false,
         });
 
+        let counterId = 0;
+
         $('#addPosition').on( 'click', function () {
+            counterId ++;
             let btn = "<td class='nk-tb-col nk-tb-col-tools'>\n" +
 "                                                            <ul class=\"nk-tb-actions gx-1\">\n" +
 "                                                                <li>\n" +
@@ -421,6 +447,7 @@
             let packageType =               $('#packageType').val().trim();
             let packSize =                  $('#packSize').val().trim();
             let inStock =                   $('#inStock').val().trim();
+            let activeProductItem =         $('#activeProductItem').is(":checked");
             let productPrice =              $('#productPrice').val().trim();
             let productPromotionalPrice =   $('#productPromotionalPrice').val().trim();
             let promotedProduct =           $('#promotedProduct').is(":checked");
@@ -429,19 +456,23 @@
                 packageType,
                 packSize,
                 inStock,
+                activeProductItem,
                 productPrice,
                 promotedProduct,
                 productPromotionalPrice,
                 btn
             ]).draw(false).node();
             $(rowNode).addClass('nk-tb-item');
+            $(rowNode).attr('id', counterId);
+
             $( rowNode ).find('td').eq(0).addClass('nk-tb-col tb-col-lg');
             $( rowNode ).find('td').eq(1).addClass('nk-tb-col');
             $( rowNode ).find('td').eq(2).addClass('nk-tb-col tb-col-lg');
-            $( rowNode ).find('td').eq(3).addClass('nk-tb-col');
-            $( rowNode ).find('td').eq(4).addClass('nk-tb-col tb-col-lg');
+            $( rowNode ).find('td').eq(3).addClass('nk-tb-col tb-col-lg');
+            $( rowNode ).find('td').eq(4).addClass('nk-tb-col');
             $( rowNode ).find('td').eq(5).addClass('nk-tb-col tb-col-lg');
-            $( rowNode ).find('td').eq(6).addClass('nk-tb-col nk-tb-col-tools');
+            $( rowNode ).find('td').eq(6).addClass('nk-tb-col tb-col-lg');
+            $( rowNode ).find('td').eq(7).addClass('nk-tb-col nk-tb-col-tools');
         } );
     } );
 
@@ -450,25 +481,34 @@
         let trObj = btnObj.closest("tbody tr");
         let trId =  $(trObj).attr('id');
 
+        console.log("row id: "+trId);
+
         let packageType =               $(trObj).find('td:eq(0)').text();
         let packSize =                  $(trObj).find('td:eq(1)').text();
         let inStock =                   $(trObj).find('td:eq(2)').text();
+        let activeProductItem =         $(trObj).find('td:eq(3)').text();
         let productPrice =              $(trObj).find('td:eq(4)').text();
-        let productPromotionalPrice =   $(trObj).find('td:eq(3)').text();
+        let productPromotionalPrice =   $(trObj).find('td:eq(6)').text();
         let promotedProduct =           $(trObj).find('td:eq(5)').text();
 
 
-        if (status.trim()==true){
+        if (promotedProduct.trim()=='true'){
             $('#editPromotedProduct').attr("checked", true);
-        }else if (status.trim()==false) {
+        }else if (promotedProduct.trim()=='false') {
             $('#editPromotedProduct').attr("checked", false);
         }
 
-        $('#editPackageType') .val(packageType);
-        $('#editPackSize') .val(packSize);
-        $('#editInStock') .val(inStock);
-        $('#editProductPrice') .val(productPrice);
-        $('#editProductPromotionalPrice') .val(productPromotionalPrice);
+        if (activeProductItem.trim()=='true'){
+            $('#editActiveProductItem').attr("checked", true);
+        }else if (activeProductItem.trim()=='false') {
+            $('#editActiveProductItem').attr("checked", false);
+        }
+
+        $('#editPackageType')               .val(packageType);
+        $('#editPackSize')                  .val(packSize);
+        $('#editInStock')                   .val(inStock);
+        $('#editProductPrice')              .val(productPrice);
+        $('#editProductPromotionalPrice')   .val(productPromotionalPrice);
         // $('#editPromotedProduct') .val(promotedProduct);
 
         $('#editItemModal').modal('show');
