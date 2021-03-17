@@ -252,41 +252,7 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr class="nk-tb-item">
-                                                        <td class="nk-tb-col tb-col-lg">
-                                                            <span>1</span>
-                                                        </td>
-                                                        <td class="nk-tb-col">
-                                                            <span>2</span>
-                                                        </td>
-                                                        <td class="nk-tb-col tb-col-lg">
-                                                            <span>3</span>
-                                                        </td>
-                                                        <td class="nk-tb-col">
-                                                            <span>4</span>
-                                                        </td>
-                                                        <td class="nk-tb-col tb-col-lg">
-                                                            <span>5</span>
-                                                        </td>
-                                                        <td class="nk-tb-col tb-col-lg">
-                                                            <span>6</span>
-                                                        </td>
-                                                        <td class="nk-tb-col nk-tb-col-tools">
-                                                            <ul class="nk-tb-actions gx-1">
-                                                                <li>
-                                                                    <div class="drodown">
-                                                                        <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-                                                                        <div class="dropdown-menu dropdown-menu-right">
-                                                                            <ul class="link-list-opt no-bdr">
-                                                                                <li><a data-toggle="modal" onclick="showEditProducerModal(this)"><em class="icon ni ni-edit-alt"></em><span>Редагувати</span></a></li>
-                                                                                <li><a data-toggle="modal" onclick="showConfirmationDeleteProducerModal(this)" ><em class="icon ni ni-trash"></em><span>Видалити</span></a></li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </td>
-                                                    </tr><!-- .nk-tb-item  -->
+
                                                     </tbody>
                                                 </table>
                                             <!-- Table -->
@@ -305,199 +271,81 @@
             </div>
 
 
-            <!-- Edit start -->
-            <div class="modal fade" tabindex="-1" role="dialog" id="editProductModal" aria-modal="true">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
-                        <div class="modal-body modal-body-md">
-                            <h4 class="title">Редагування</h4>
-                            <br>
-                            <form action="/admin/editProduct" method="post" enctype="multipart/form-data">
-                                <input type="text" id="selectedForEditItem" hidden="" name="id">
-                                <div class="row form-group mb-md-0">
-                                    <div class="col-md-6 form-group">
-                                        <!-- <div class="form-group"> -->
-                                        <label class="form-label" for="editProductImage">Зображення</label>
-                                        <div class="form-control-wrap">
-                                            <div class="custom-file">
-                                                <input type="file" multiple class="custom-file-input" id="editProductImage" name="multipartFile" onchange="validateimg(this)">
-                                                <label class="custom-file-label" for="editProductImage"></label>
-                                            </div>
-                                        </div>
-                                        <!-- </div> -->
-                                    </div>
-                                    <div class="col-md-6 form-group">
-                                        <!-- <div class="form-group"> -->
-                                        <label class="form-label" for="editArticleNumber">Артикул</label>
-                                        <div class="form-control-wrap">
-                                            <input type="text" class="form-control" id="editArticleNumber" name="article" placeholder="Артикул...">
-                                        </div>
-                                        <!-- </div> -->
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="form-label" for="editProductName">Назва продукту</label>
-                                    <div class="form-control-wrap">
-                                        <input type="text" class="form-control" id="editProductName" placeholder="Назва..." name="name">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="form-label" for="editProductDescription">Опис</label>
-                                    <div class="form-control-wrap">
-                                        <textarea class="form-control" id="editProductDescription" placeholder="Введіть текст..." name="description"></textarea>
-                                    </div>
-                                </div>
-
-                                <div class="row form-group mb-md-0">
-                                    <div class="col-md-6 form-group">
-                                        <div class="form-control-wrap">
-                                            <div class="form-text-hint" style="top: 50%;">
-                                                <span class="overline-title">UAH</span>
-                                            </div>
-                                            <label class="form-label" for="editProductPrice">Ціна</label>
-                                            <input type="text" class="form-control" id="editProductPrice" name="price" placeholder="Не заповнено...">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 form-group">
-                                        <div class="form-control-wrap">
-                                            <div class="form-text-hint" style="top: 50%;">
-                                                <span class="overline-title">UAH</span>
-                                            </div>
-                                            <label class="form-label" for="productPromotionalPriceEdit">Акційна ціна</label>
-                                            <input type="text" pattern="[0-9]*\.?[0-9]*" class="form-control" id="productPromotionalPriceEdit" placeholder="Не заповнено..." name="newPrice" value="0.00">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row form-group">
-                                    <div class="col-md-12 form-group">
-                                        <div class="form-group">
-                                            <div class="preview-block">
-                                                <div class="custom-control custom-switch">
-                                                    <input type="checkbox" class="custom-control-input" checked id="promotedProductEdit" name="productForSales">
-                                                    <label class="custom-control-label" for="promotedProductEdit">Акційний товар</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row form-group">
-                                    <div class="col-md-12 form-group">
-                                        <label class="form-label">Категорія</label>
-                                        <div class="form-control-wrap">
-                                            <select class="form-select form-control form-control-lg" id="mainCategoriesEdit" name="category">
-                                                <option value="CLOTHES">Одяг</option>
-                                                <option value="SHOES">Взуття</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Одяг start -->
-                                <div class="form-group row mb-md-0" id="clothesDetailsEdit">
-                                    <div class="col-12 form-group">
-                                        <label class="form-label">Сезон</label>
-                                        <div class="form-control-wrap">
-                                            <select class="form-select form-control form-control-lg" id="selectClothesSeasonEdit" onchange="setSingleHiddenValue(this.id, $(this).siblings('input').prop('id'))">
-                                                <option value="spring">Весна</option>
-                                                <option value="summer">Літо</option>
-                                                <option value="autumn">Осінь</option>
-                                                <option value="winter">Зима</option>
-                                                <option value="demiseason">Демісезон</option>
-                                            </select>
-                                            <input type="hidden" id="selectHiddenClothesSeasonEdit" name="season"/>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 form-group">
-                                        <label class="form-label">Тип</label>
-                                        <div class="form-control-wrap">
-                                            <select class="form-select form-control form-control-lg" name="typeOfProduct.id" id="selectClothesTypeEdit">
-                                                <option th:each="t :${types}" th:value="${t.getId()}" th:text="${t.getName()}"
-                                                        th:if="${t.getCategory().name().equals('CLOTHES')}"></option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 form-group">
-                                        <label class="form-label">Розміри</label>
-                                        <div class="form-control-wrap">
-                                            <select class="form-select" multiple="multiple" data-placeholder="Виберіть значення..." name="sizes" id="selectClothesSizesEdit">
-                                                <option th:each="s : ${sizes}" th:if="${s.getCategory().name().equals('CLOTHES')}" th:value="${s.getId()}" th:text="${s.getSize()}"></option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Одяг end -->
-                                <!-- Взуття start-->
-                                <div class="form-group row mb-md-0" id="shoesDetailsEdit" style="display: none;">
-                                    <div class="col-12 form-group">
-                                        <label class="form-label">Сезон</label>
-                                        <div class="form-control-wrap">
-                                            <select class="form-select form-control form-control-lg" id="selectShoesSeasonEdit" onchange="setSingleHiddenValue(this.id, $(this).siblings('input').prop('id'))">
-                                                <option value="spring">Весна</option>
-                                                <option value="summer">Літо</option>
-                                                <option value="autumn">Осінь</option>
-                                                <option value="winter">Зима</option>
-                                                <option value="demiseason">Демісезон</option>
-                                            </select>
-                                            <input type="hidden" id="selectHiddenShoesSeasonEdit" name="season"/>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 form-group">
-                                        <label class="form-label">Тип</label>
-                                        <div class="form-control-wrap">
-                                            <select class="form-select form-control form-control-lg" name="typeOfProduct.id" id="selectShoesTypesEdit">
-                                                <option th:each="t :${types}" th:value="${t.getId()}" th:text="${t.getName()}"
-                                                        th:if="${t.getCategory().name().equals('SHOES')}"></option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 form-group">
-                                        <label class="form-label">Розміри</label>
-                                        <div class="form-control-wrap">
-                                            <select class="form-select" multiple="multiple" name="sizes" data-placeholder="Виберіть значення..." id="selectShoesSizesEdit">
-                                                <option th:each="s : ${sizes}" th:if="${s.getCategory().name().equals('SHOES')}" th:value="${s.getId()}" th:text="${s.getSize()}"></option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Взуття end -->
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-outline-primary">Зберегти</button>
-                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Edit end -->
 
             <!-- Change status start -->
-            <div class="modal fade" tabindex="-1" role="dialog" id="changeProductStatusModal" aria-modal="true">
-                <div class="modal-dialog modal-md" role="document">
+            <div class="modal fade" tabindex="-1" role="dialog" id="editItemModal" aria-modal="true">
+                <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
                         <div class="modal-body modal-body-md">
                             <h4 class="title">Змінити статус</h4>
                             <br>
-                            <form action="/admin/changeStatusOfProduct" method="post">
+                            <form action="" method="post">
                                 <input type="number" id="selectedForChangingStatusItem" hidden="" name="productId">
-                                <div class="form-group">
-                                    <div class="preview-block">
-                                        <span class="preview-title overline-title">Статус товару</span>
-                                        <div class="custom-control custom-switch">
-                                            <input type="checkbox" class="custom-control-input" checked id="showItemSwitch" name="switchValue">
-                                            <label class="custom-control-label" for="showItemSwitch">Відображати в магазині</label>
+                                <div class="row gy-4 align-center">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Тип пакування</label>
+                                            <div class="form-control-wrap">
+                                                <select class="form-select form-control form-control-lg" id="editPackageType" name="category">
+                                                    <option th:value="шт." th:text="штуки"></option>
+                                                    <option th:value="кг" th:text="кілограми"></option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-outline-primary">Змінити</button>
-                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label" for="editPackSize">Одиниць</label>
+                                            <div class="form-control-wrap">
+                                                <input type="number" min="1" value="1" step="1" class="form-control" id="editPackSize" placeholder="Одиниць..." name="packSize">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label" for="editInStock">К-сть на складі</label>
+                                            <div class="form-control-wrap">
+                                                <input type="number" min="1" value="1" step="1" class="form-control" id="editInStock" placeholder="Кількість..." name="inStock">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form-control-wrap">
+                                                <div class="form-text-hint" style="top: 50%;">
+                                                    <span class="overline-title">UAH</span>
+                                                </div>
+                                                <label class="form-label" for="editProductPrice">Ціна</label>
+                                                <input type="text" pattern="[0-9]*\.?[0-9]*" class="form-control" id="editProductPrice" placeholder="Не заповнено..." name="price" value="0.00">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form-control-wrap">
+                                                <div class="form-text-hint" style="top: 50%;">
+                                                    <span class="overline-title">UAH</span>
+                                                </div>
+                                                <label class="form-label" for="editProductPromotionalPrice">Акційна ціна</label>
+                                                <input type="text" pattern="[0-9]*\.?[0-9]*" class="form-control" id="editProductPromotionalPrice" placeholder="Не заповнено..." name="newPrice" value="0.00">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="preview-block">
+                                                <div class="custom-control custom-switch">
+                                                    <input type="checkbox" class="custom-control-input" id="editPromotedProduct" name="onSale">
+                                                    <label class="custom-control-label" for="promotedProduct">Акційний товар</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-outline-primary">Підтвердити</button>
+                                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -517,7 +365,7 @@
                             <br>
                             <form action="/admin/deleteProductById" method="post">
                                 <input type="number" id="selectedForDeleteItem" hidden="" name="productId">
-                                <p style="margin-bottom: 2rem;">Ви впевнені, що хочете видалити товар? Підтвердивши дію, Ви не зможете повернутися до попереднього стану продукту.</p>
+                                <p style="margin-bottom: 2rem;">Ви впевнені, що хочете видалити позицію? Підтвердивши дію, Ви не зможете повернутися до попереднього стану.</p>
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-outline-primary">Підтвердити</button>
                                     <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
@@ -547,125 +395,86 @@
     $(document).ready(function() {
         let t = $('#positionsTable').DataTable({
             "autoWidth": false,
-            "bSort" : false,
             "searching": false,
             "paging": false,
             "info": false,
             'select': false,
         });
-        let counter = 1;
 
         $('#addPosition').on( 'click', function () {
+            let btn = "<td class='nk-tb-col nk-tb-col-tools'>\n" +
+"                                                            <ul class=\"nk-tb-actions gx-1\">\n" +
+"                                                                <li>\n" +
+"                                                                    <div class=\"drodown\">\n" +
+"                                                                        <a href=\"#\" class=\"dropdown-toggle btn btn-icon btn-trigger\" data-toggle=\"dropdown\"><em class=\"icon ni ni-more-h\"></em></a>\n" +
+"                                                                        <div class=\"dropdown-menu dropdown-menu-right\">\n" +
+"                                                                            <ul class=\"link-list-opt no-bdr\">\n" +
+"                                                                                <li><a data-toggle=\"modal\" onclick=\"showEditItemModal(this)\"><em class=\"icon ni ni-edit-alt\"></em><span>Редагувати</span></a></li>\n" +
+"                                                                                <li><a data-toggle=\"modal\" onclick=\"showConfirmationDeleteItemModal(this)\" ><em class=\"icon ni ni-trash\"></em><span>Видалити</span></a></li>\n" +
+"                                                                            </ul>\n" +
+"                                                                        </div>\n" +
+"                                                                    </div>\n" +
+"                                                                </li>\n" +
+"                                                            </ul>\n" +
+"                                                        </td>";
+
+            let packageType =               $('#packageType').val().trim();
+            let packSize =                  $('#packSize').val().trim();
+            let inStock =                   $('#inStock').val().trim();
+            let productPrice =              $('#productPrice').val().trim();
+            let productPromotionalPrice =   $('#productPromotionalPrice').val().trim();
+            let promotedProduct =           $('#promotedProduct').is(":checked");
+
             let rowNode = t.row.add([
-                '0',
-                '0',
-                '0',
-                '0',
-                '0',
-                '0',
-                'btn'
+                packageType,
+                packSize,
+                inStock,
+                productPrice,
+                promotedProduct,
+                productPromotionalPrice,
+                btn
             ]).draw(false).node();
-            console.log(rowNode);
             $(rowNode).addClass('nk-tb-item');
-            counter++;
+            $( rowNode ).find('td').eq(0).addClass('nk-tb-col tb-col-lg');
+            $( rowNode ).find('td').eq(1).addClass('nk-tb-col');
+            $( rowNode ).find('td').eq(2).addClass('nk-tb-col tb-col-lg');
+            $( rowNode ).find('td').eq(3).addClass('nk-tb-col');
+            $( rowNode ).find('td').eq(4).addClass('nk-tb-col tb-col-lg');
+            $( rowNode ).find('td').eq(5).addClass('nk-tb-col tb-col-lg');
+            $( rowNode ).find('td').eq(6).addClass('nk-tb-col nk-tb-col-tools');
         } );
-
-
-
-        // Automatically add a first row of data
-        $('#addPosition').click();
     } );
 
 
-
-    $('#mainCategoriesEdit').on('change', function (e) {
-        let optionSelected = $("option:selected", this);
-        let selectedValue = this.value;
-
-        console.log("OS: "+optionSelected+"\nSV: "+selectedValue);
-
-        if (selectedValue === "CLOTHES"){
-            $('#clothesDetailsEdit').show();
-            $('#shoesDetailsEdit').hide();
-        }else if (selectedValue === "SHOES"){
-            $('#clothesDetailsEdit').hide();
-            $('#shoesDetailsEdit').show();
-        }
-    });
-
-    function setSingleHiddenValue(idVal, idHiddenVal) {
-        console.log("1. selectId: "+$('#'+idVal).val()+"; hiddenId: "+ $("#"+idHiddenVal).val());
-        // $("#"+idHiddenVal).val($('#'+idVal).val().toString().split(',')[0]);
-        $("#"+idHiddenVal).val($('#'+idVal).val().toString());
-        console.log("2. selectId: "+$('#'+idVal).val()+"; hiddenId: "+ $("#"+idHiddenVal).val());
-    }
-
-    function showEditProductModal(btnObj) {
+    function showEditItemModal(btnObj) {
         let trObj = btnObj.closest("tbody tr");
         let trId =  $(trObj).attr('id');
 
-        console.log("row id:" + $(trObj).attr('id'));
+        let packageType =               $(trObj).find('td:eq(0)').text();
+        let packSize =                  $(trObj).find('td:eq(1)').text();
+        let inStock =                   $(trObj).find('td:eq(2)').text();
+        let productPrice =              $(trObj).find('td:eq(4)').text();
+        let productPromotionalPrice =   $(trObj).find('td:eq(3)').text();
+        let promotedProduct =           $(trObj).find('td:eq(5)').text();
 
-        let productName =       $(trObj).find('td:eq(1)').text();
-        let article =           $(trObj).find('td:eq(2)').text();
-        let price =             $(trObj).find('td:eq(3)').text();
-        let category =          $(trObj).find('td:eq(5)').text();
-        let description =       $(trObj).find('td:eq(6)').text();
-        let season =            $(trObj).find('td:eq(7)').text().split(',')[0];
-        let type =              $(trObj).find('td:eq(8)').text();
-        let size =              $(trObj).find('td:eq(9)').text();
-        let promotionPrice =    $(trObj).find('td:eq(10)').text();
-        let promotionProduct =  $(trObj).find('td:eq(11)').text();
-        size = size.replace(/[\[\]']+/g, '');
-        console.log("Sizes: "+size);
 
-        if (promotionProduct.trim()=="true"){
-            $('#promotedProductEdit').attr("checked", true);
-        }else if (promotionProduct.trim()=="false") {
-            $('#promotedProductEdit').attr("checked", false);
+        if (status.trim()==true){
+            $('#editPromotedProduct').attr("checked", true);
+        }else if (status.trim()==false) {
+            $('#editPromotedProduct').attr("checked", false);
         }
 
-        $('#selectedForEditItem')           .val(trId);
-        // $('#editProductImage')              .val(image.toString());
-        $('#editProductName')               .val(productName.trim());
-        $('#editArticleNumber')             .val(article.trim());
-        $('#editProductPrice')              .val(price.trim());
-        $('#mainCategoriesEdit')            .val(category.trim()).change();
-        $('#editProductDescription')        .val(description.trim());
-        $('#selectClothesSeasonEdit')       .val(season.trim()).change();
-        $('#selectClothesTypeEdit')         .val(type.trim()).change();
-        $('#productPromotionalPriceEdit')   .val(promotionPrice.trim());
+        $('#editPackageType') .val(packageType);
+        $('#editPackSize') .val(packSize);
+        $('#editInStock') .val(inStock);
+        $('#editProductPrice') .val(productPrice);
+        $('#editProductPromotionalPrice') .val(productPromotionalPrice);
+        // $('#editPromotedProduct') .val(promotedProduct);
 
-        $.each(size.split(","), function(i,e){
-            $("#selectClothesSizesEdit option[value='" + e.trim() + "']").prop("selected", true);
-            console.log("e: "+e.trim());
-        });
-
-        $('#selectClothesSizesEdit').change();
-
-        $('#editProductModal').modal('show');
+        $('#editItemModal').modal('show');
     }
 
-    function showEditProductStatusModal(btnObj) {
-        let trObj = btnObj.closest("tbody tr");
-        let trId =  $(trObj).attr('id');
-
-        let status = $(trObj).find('td:eq(4)').text();
-
-        if (status.trim()=="Active"){
-            $('#showItemSwitch').attr("checked", true);
-        }else if (status.trim()=="Archive") {
-            $('#showItemSwitch').attr("checked", false);
-        }
-
-        console.log("row id:" + $(trObj).attr('id'));
-
-        $('#selectedForChangingStatusItem') .val(trId);
-
-        $('#changeProductStatusModal').modal('show');
-    }
-
-    function showConfirmationDeleteProductModal(btnObj){
+    function showConfirmationDeleteItemModal(btnObj){
         let trObj = btnObj.closest("tbody tr");
         let trId =  $(trObj).attr('id');
 
