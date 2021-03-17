@@ -511,24 +511,24 @@
 
                 console.log(this.data());
 
-                obj.packType = data[0];
-                obj.packSize = data[1];
-                obj.countOfProduct = data[2];
-                obj.statusOfEntity = data[3];
-                obj.price = data[4];
+                // obj.packType = data[0];
+                // obj.packSize = data[1];
+                // obj.countOfProduct = data[2];
+                // obj.statusOfEntity = data[3];
+                // obj.price = data[4];
                 obj.onSale = data[5];
-                obj.newPrice = data[6];
+                // obj.newPrice = data[6];
                 obj.id = data[7];
 
                 objArr.push(obj);
             } );
-
+console.log(objArr);
             $.ajax({
                 method: "post",
                 url: "/admin/products/add",
-                contextType: "application/json",
+                contextType: "json",
                 data: {
-                    packageTypes: objArr
+                    packageTypes: JSON.stringify(objArr)
                 },
                 traditional: true,
                 success: function () {

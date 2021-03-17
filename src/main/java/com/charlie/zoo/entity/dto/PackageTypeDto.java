@@ -2,15 +2,9 @@ package com.charlie.zoo.entity.dto;
 
 import com.charlie.zoo.entity.PackageType;
 import com.charlie.zoo.enums.StatusOfEntity;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class PackageTypeDto {
     private int id;
 
@@ -21,6 +15,14 @@ public class PackageTypeDto {
     private boolean onSale;
     private int countOfProduct;
     private boolean statusOfEntity;
+
+    public PackageTypeDto() {
+    }
+
+    public PackageTypeDto(int id, boolean onSale) {
+        this.id = id;
+        this.onSale = onSale;
+    }
 
     public static PackageType convertToPackageType(PackageTypeDto packageTypeDto){
         PackageType packageType = new PackageType();
