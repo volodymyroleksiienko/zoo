@@ -1,52 +1,80 @@
 package com.charlie.zoo.controller.user;
 
-import com.charlie.zoo.entity.CategoryItem;
+import com.charlie.zoo.entity.OrderInfo;
 import com.charlie.zoo.service.AnimalService;
 import com.charlie.zoo.service.CategoryService;
+import com.charlie.zoo.service.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import java.util.UUID;
 
 @Controller
 @AllArgsConstructor
 public class MainController {
     private AnimalService animalService;
     private CategoryService categoryService;
+    private OrderService orderService;
 
     @GetMapping("/")
-    public String getIndex(Model model) {
-        modelConfig(model);
+    public String getIndex(@CookieValue(value = "id", defaultValue = "") String username, Model model,
+                           HttpServletResponse httpServletResponse) {
+        checkCookie(username,httpServletResponse,model);
         return "user/index";
     }
 
     @GetMapping("/shop")
-    public String getShop(Model model){
-        modelConfig(model);
+    public String getShop(@CookieValue(value = "id", defaultValue = "") String username,Model model,
+                          HttpServletResponse httpServletResponse){
+        checkCookie(username,httpServletResponse,model);
         return "user/shop";
     }
 
     @GetMapping("/contact")
-    public String getContact(Model model){
-        modelConfig(model);
+    public String getContact(@CookieValue(value = "id", defaultValue = "") String username,Model model,
+                             HttpServletResponse httpServletResponse){
+        checkCookie(username,httpServletResponse,model);
         return "user/contact";
     }
 
     @GetMapping("/cart")
-    public String getCart(Model model){
-        modelConfig(model);
+    public String getCart(@CookieValue(value = "id", defaultValue = "") String username,Model model,
+                          HttpServletResponse httpServletResponse){
+        checkCookie(username,httpServletResponse,model);
         return "user/cart";
     }
 
     @GetMapping("/checkout")
-    public String getCheckout(Model model){
-        modelConfig(model);
+    public String getCheckout(@CookieValue(value = "id", defaultValue = "") String username,Model model,
+                              HttpServletResponse httpServletResponse){
+        checkCookie(username,httpServletResponse,model);
         return "user/checkout";
     }
 
     private void modelConfig(Model model){
         model.addAttribute("animals",animalService.findAll());
         model.addAttribute("categories",categoryService.findAll());
+    }
+
+    public void checkCookie(String id, HttpServletResponse httpServletResponse, Model model){
+        if(!id.isEmpty()) {
+            OrderInfo orderInfo = orderService.findById(UUID.fromString(id));
+            if(orderInfo!=null) {
+                model.addAttribute("order", orderInfo);
+                return;
+            }
+        }
+        OrderInfo order = new OrderInfo();
+        order.setId(UUID.randomUUID());
+        order = orderService.save(order);
+        httpServletResponse.addCookie(new Cookie("id", order.getId().toString()));
+        model.addAttribute("order",order);
+        modelConfig(model);
     }
 }
 
