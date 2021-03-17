@@ -11,12 +11,13 @@
     <!-- Fav Icon  -->
     <link rel="shortcut icon" th:href="@{/images/OP_ico.png}">
     <!-- Page Title  -->
-    <title>Товари</title>
+    <title>Добавлення товару</title>
     <!-- StyleSheets  -->
     <link rel="stylesheet" th:href="@{/css/dashlite.css}">
     <link id="skin-default" rel="stylesheet" th:href="@{/css/theme.css}">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tiny.cloud/1/j7qa848foatnucsr63lz000n2e0yxzhelq772wnn61gpyclv/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 </head>
 
 <body class="nk-body bg-lighter npc-general has-sidebar ">
@@ -74,63 +75,201 @@
                             <div class="components-preview wide-md mx-auto">
                                 <div class="nk-block-head nk-block-head-lg wide-sm">
                                     <div class="nk-block-head-content">
-                                        <h3 class="nk-block-title fw-normal">Товари</h3>
+                                        <div class="nk-block-head-sub"><a class="back-to" href="/admin/products"><em class="icon ni ni-arrow-left"></em><span>Назад</span></a></div>
+                                        <h3 class="nk-block-title fw-normal">Добавлення товару</h3>
                                     </div>
                                 </div><!-- .nk-block-head -->
-
                                 <div class="nk-block nk-block-lg">
                                     <div class="card card-bordered card-preview">
                                         <div class="card-inner">
-                                            <table class="datatable-init nk-tb-list nk-tb-ulist" data-auto-responsive="false">
-                                                <thead>
+                                            <div class="preview-block">
+                                                <span class="preview-title-lg overline-title">Загальна інформація</span>
+                                                <div class="row gy-4">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="productImage">Зображення</label>
+                                                            <div class="form-control-wrap">
+                                                                <div class="custom-file">
+                                                                    <input type="file" multiple class="custom-file-input" id="productImage" name="multipartFile" onchange="validateimg(this)">
+                                                                    <label class="custom-file-label" for="productImage"></label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Виробник</label>
+                                                            <div class="form-control-wrap">
+                                                                <select class="form-select form-control form-control-lg" name="producer.id">
+                                                                    <option th:each="pr :${producers}" th:value="${pr.getId()}" th:text="${pr.getName()}"></option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Категорія</label>
+                                                            <div class="form-control-wrap">
+                                                                <select class="form-select form-control form-control-lg" multiple="multiple" id="mainCategories" name="category">
+                                                                    <option th:each="ct :${categories}" th:value="${ct.getId()}" th:text="${ct.getName()}"></option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Підкатегорія</label>
+                                                            <div class="form-control-wrap">
+                                                                <select class="form-select form-control form-control-lg" multiple="multiple" id="subCategories" name="categoryItem">
+                                                                    <option th:each="it :${items}" th:value="${it.getId()}" th:text="${it.getName()}"></option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="productName">Назва продукту</label>
+                                                            <div class="form-control-wrap">
+                                                                <input type="text" class="form-control" id="productName" placeholder="Назва..." name="name">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="productDescription">Опис</label>
+                                                            <div class="form-control-wrap">
+                                                                <textarea class="form-control" id="productDescription" placeholder="Введіть текст..." name="shortDescription"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr class="preview-hr">
+                                                <span class="preview-title-lg overline-title">Вкладки</span>
+                                                <div class="row gy-4">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="productDetailedDescription">Детальний опис</label>
+                                                            <div class="form-control-wrap">
+                                                                <textarea class="form-control rich-editor" id="productDetailedDescription" placeholder="Введіть текст..." name="details"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="productProportionsDescription">Рекомендована добова норма</label>
+                                                            <div class="form-control-wrap">
+                                                                <textarea class="form-control rich-editor" id="productProportionsDescription" placeholder="Введіть текст..." name="dailyNorm"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="productProducerDescription">Виробник</label>
+                                                            <div class="form-control-wrap">
+                                                                <textarea class="form-control rich-editor" id="productProducerDescription" placeholder="Введіть текст..." name="producerDetails"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr class="preview-hr">
+                                                <span class="preview-title-lg overline-title">Пакування і ціна</span>
+                                                <div class="row gy-4 align-center">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Тип пакування</label>
+                                                            <div class="form-control-wrap">
+                                                                <select class="form-select form-control form-control-lg" id="packageType" name="category">
+                                                                    <option th:value="шт." th:text="штуки"></option>
+                                                                    <option th:value="кг" th:text="кілограми"></option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="packSize">Одиниць</label>
+                                                            <div class="form-control-wrap">
+                                                                <input type="number" min="1" value="1" step="1" class="form-control" id="packSize" placeholder="Одиниць..." name="packSize">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="inStock">К-сть на складі</label>
+                                                            <div class="form-control-wrap">
+                                                                <input type="number" min="1" value="1" step="1" class="form-control" id="inStock" placeholder="Кількість..." name="inStock">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <div class="form-control-wrap">
+                                                                <div class="form-text-hint" style="top: 50%;">
+                                                                    <span class="overline-title">UAH</span>
+                                                                </div>
+                                                                <label class="form-label" for="productPrice">Ціна</label>
+                                                                <input type="text" pattern="[0-9]*\.?[0-9]*" class="form-control" id="productPrice" placeholder="Не заповнено..." name="price" value="0.00">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <div class="form-control-wrap">
+                                                                <div class="form-text-hint" style="top: 50%;">
+                                                                    <span class="overline-title">UAH</span>
+                                                                </div>
+                                                                <label class="form-label" for="productPromotionalPrice">Акційна ціна</label>
+                                                                <input type="text" pattern="[0-9]*\.?[0-9]*" class="form-control" id="productPromotionalPrice" placeholder="Не заповнено..." name="newPrice" value="0.00">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <div class="preview-block">
+                                                                <div class="custom-control custom-switch">
+                                                                    <input type="checkbox" class="custom-control-input" id="promotedProduct" name="onSale">
+                                                                    <label class="custom-control-label" for="promotedProduct">Акційний товар</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <button title="Добавити позицію" id="addPosition" class="btn btn-icon btn-lg btn-primary float-right" style="margin-left: auto; margin-right: 0.75rem;">
+                                                        <em class="icon ni ni-grid-add-c"></em>
+                                                    </button>
+                                                </div>
+                                            <!-- Table -->
+                                                <hr class="preview-hr">
+                                                <table class="nk-tb-list nk-tb-ulist table-stripped" id="positionsTable" style="margin-top: 2rem;" data-auto-responsive="false">
+                                                    <thead>
                                                     <tr class="nk-tb-item nk-tb-head">
-                                                        <th class="nk-tb-col">Зображення</th>
-                                                        <th class="nk-tb-col"><span class="sub-text">Назва</span></th>
-                                                        <th class="nk-tb-col tb-col-md"><span class="sub-text">Кількість</span></th>
-                                                        <th class="nk-tb-col tb-col-lg"><span class="sub-text">Опис</span></th>
-                                                        <th class="nk-tb-col tb-col-md"><span class="sub-text">Ціна</span></th>
-                                                        <th class="nk-tb-col tb-col-lg"><span class="sub-text">Акц. тов.</span></th>
-                                                        <th class="nk-tb-col tb-col-lg"><span class="sub-text">Акц. ціна</span></th>
-                                                        <th class="nk-tb-col tb-col-lg"><span class="sub-text">Виробник</span></th>
-                                                        <th class="nk-tb-col tb-col-lg"><span class="sub-text">Категорія</span></th>
-                                                        <th class="nk-tb-col tb-col-md"><span class="sub-text">Статус</span></th>
+                                                        <th class="nk-tb-col tb-col-lg">Тип пакування</th>
+                                                        <td class="nk-tb-col">Кількість</td>
+                                                        <td class="nk-tb-col tb-col-lg">К-сть на складі</td>
+                                                        <td class="nk-tb-col">Ціна</td>
+                                                        <td class="nk-tb-col tb-col-lg">Акційний товар</td>
+                                                        <td class="nk-tb-col tb-col-lg">Акційна ціна</td>
                                                         <th class="nk-tb-col"><span class="sub-text" style="text-align: right; padding-right: 2rem;">Дії</span></th>
                                                     </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr th:id="${p.getId()}" th:each="p :${products} " class="nk-tb-item">
-                                                        <td class="nk-tb-col" style="width: 20%;">
-                                                            <img th:src="@{'/shop/getImgByProductId/'+${p.getId()}}" alt="">
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr class="nk-tb-item">
+                                                        <td class="nk-tb-col tb-col-lg">
+                                                            <span>1</span>
                                                         </td>
                                                         <td class="nk-tb-col">
-                                                            <div class="user-info">
-                                                                <span class="tb-lead" th:text="${p.getName()}">Name<span class="dot dot-success d-md-none ml-1"></span></span>
-                                                            </div>
-                                                        </td>
-                                                        <td class="nk-tb-col tb-col-md">
-                                                            <span th:text="${p.getId}">Count</span>
+                                                            <span>2</span>
                                                         </td>
                                                         <td class="nk-tb-col tb-col-lg">
-                                                            <span th:text="${p.getId}">Descr</span>
+                                                            <span>3</span>
                                                         </td>
-                                                        <td class="nk-tb-col tb-col-md">
-                                                            <span th:text="${p.getId}">Price</span>
-                                                        </td>
-                                                        <td class="nk-tb-col tb-col-lg">
-                                                            <span th:text="${p.getId}">Prom prod</span>
+                                                        <td class="nk-tb-col">
+                                                            <span>4</span>
                                                         </td>
                                                         <td class="nk-tb-col tb-col-lg">
-                                                            <span th:text="${p.getId}">Prom price</span>
+                                                            <span>5</span>
                                                         </td>
                                                         <td class="nk-tb-col tb-col-lg">
-                                                            <span th:text="${p.getId}">Producer</span>
-                                                        </td>
-                                                        <td class="nk-tb-col tb-col-lg">
-                                                            <span th:text="${p.getId}">Category</span>
-                                                        </td>
-                                                        <td class="nk-tb-col tb-col-md">
-                                                            <span class="tb-status text-success" th:if="${p?.getStatusOfEntity()?.name()?.equals('ACTIVE')}">Active</span>
-                                                            <span class="tb-status text-danger" th:if="${p?.getStatusOfEntity()?.name()?.equals('ARCHIVED')}">Archive</span>
+                                                            <span>6</span>
                                                         </td>
                                                         <td class="nk-tb-col nk-tb-col-tools">
                                                             <ul class="nk-tb-actions gx-1">
@@ -139,10 +278,8 @@
                                                                         <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                                                         <div class="dropdown-menu dropdown-menu-right">
                                                                             <ul class="link-list-opt no-bdr">
-                                                                                <li><a target="_blank" th:href="@{|/singleProduct/${p?.getId()}|}"><em class="icon ni ni-eye"></em><span>Переглянути</span></a></li>
-                                                                                <li><a data-toggle="modal" onclick="showEditProductStatusModal(this)"><em class="icon ni ni-bullet"></em><span>Змінити статус</span></a></li>
-                                                                                <li><a data-toggle="modal" onclick="showEditProductModal(this)"><em class="icon ni ni-edit-alt"></em><span>Редагувати</span></a></li>
-                                                                                <li><a data-toggle="modal" onclick="showConfirmationDeleteProductModal(this)" ><em class="icon ni ni-trash"></em><span>Видалити</span></a></li>
+                                                                                <li><a data-toggle="modal" onclick="showEditProducerModal(this)"><em class="icon ni ni-edit-alt"></em><span>Редагувати</span></a></li>
+                                                                                <li><a data-toggle="modal" onclick="showConfirmationDeleteProducerModal(this)" ><em class="icon ni ni-trash"></em><span>Видалити</span></a></li>
                                                                             </ul>
                                                                         </div>
                                                                     </div>
@@ -150,152 +287,23 @@
                                                             </ul>
                                                         </td>
                                                     </tr><!-- .nk-tb-item  -->
-
-                                                </tbody>
-                                            </table>
+                                                    </tbody>
+                                                </table>
+                                            <!-- Table -->
+                                                <div class="form-group" style="margin-top: 1rem;">
+                                                    <button type="button" class="btn btn-outline-primary">Добавити</button>
+                                                    <a href="/admin/products" type="button" class="btn btn-outline-danger">Скасувати</a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div><!-- .card-preview -->
-                                </div> <!-- nk-block -->
+                                </div><!-- .nk-block -->
                             </div><!-- .components-preview -->
                         </div>
                     </div>
                 </div>
             </div>
 
-            <a href="products/add" title="Добавити товар" class="btn btn-icon btn-lg btn-primary float-right" style="position: fixed; bottom: 25px; right: 25px; z-index: 1000;">
-                <em class="icon ni ni-grid-add-c"></em>
-            </a>
-
-            <!-- Adding start -->
-            <div class="modal fade" tabindex="-1" role="dialog" id="addProductModal" aria-modal="true">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
-                        <div class="modal-body modal-body-md">
-                            <h4 class="title">Добавлення товару</h4>
-                            <br>
-                            <form action="/admin/products/add" method="post" enctype="multipart/form-data">
-                                <div class="row form-group mb-md-0">
-                                    <div class="col-md-6 form-group">
-                                        <label class="form-label" for="productImage">Зображення</label>
-                                        <div class="form-control-wrap">
-                                            <div class="custom-file">
-                                                <input type="file" multiple class="custom-file-input" id="productImage" name="multipartFile" onchange="validateimg(this)">
-                                                <label class="custom-file-label" for="productImage"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 form-group">
-                                        <label class="form-label">Виробник</label>
-                                        <div class="form-control-wrap">
-                                            <select class="form-select form-control form-control-lg" name="producer.id">
-                                                <option th:each="pr :${producers}" th:value="${pr.getId()}" th:text="${pr.getName()}"></option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="form-label" for="productName">Назва продукту</label>
-                                    <div class="form-control-wrap">
-                                        <input type="text" class="form-control" id="productName" placeholder="Назва..." name="name">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="form-label" for="productDescription">Опис</label>
-                                    <div class="form-control-wrap">
-                                        <textarea class="form-control" id="productDescription" placeholder="Введіть текст..." name="shortDescription"></textarea>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="form-label" for="productDetailedDescription">Детальний опис</label>
-                                    <div class="form-control-wrap">
-                                        <textarea class="form-control rich-editor" id="productDetailedDescription" placeholder="Введіть текст..." name="details"></textarea>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="form-label" for="productProportionsDescription">Рекомендована добова норма</label>
-                                    <div class="form-control-wrap">
-                                        <textarea class="form-control rich-editor" id="productProportionsDescription" placeholder="Введіть текст..." name="dailyNorm"></textarea>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="form-label" for="productProducerDescription">Виробник</label>
-                                    <div class="form-control-wrap">
-                                        <textarea class="form-control rich-editor" id="productProducerDescription" placeholder="Введіть текст..." name="producerDetails"></textarea>
-                                    </div>
-                                </div>
-
-                                <div class="row form-group mb-md-0">
-                                    <div class="col-md-6 form-group">
-                                        <div class="form-control-wrap">
-                                            <div class="form-text-hint" style="top: 50%;">
-                                                <span class="overline-title">UAH</span>
-                                            </div>
-                                            <label class="form-label" for="productPrice">Ціна</label>
-                                            <input type="text" pattern="[0-9]*\.?[0-9]*" class="form-control" id="productPrice" placeholder="Не заповнено..." name="price" value="0.00">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 form-group">
-                                        <div class="form-control-wrap">
-                                            <div class="form-text-hint" style="top: 50%;">
-                                                <span class="overline-title">UAH</span>
-                                            </div>
-                                            <label class="form-label" for="productPromotionalPrice">Акційна ціна</label>
-                                            <input type="text" pattern="[0-9]*\.?[0-9]*" class="form-control" id="productPromotionalPrice" placeholder="Не заповнено..." name="newPrice" value="0.00">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row form-group">
-                                    <div class="col-md-12 form-group">
-                                        <div class="form-group">
-                                            <div class="preview-block">
-                                                <div class="custom-control custom-switch">
-                                                    <input type="checkbox" class="custom-control-input" id="promotedProduct" name="onSale">
-                                                    <label class="custom-control-label" for="promotedProduct">Акційний товар</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row form-group">
-                                    <div class="col-md-12 form-group">
-                                        <label class="form-label">Категорія</label>
-                                        <div class="form-control-wrap">
-                                            <select class="form-select form-control form-control-lg" multiple="multiple" id="mainCategories" name="category">
-                                                <option th:each="ct :${categories}" th:value="${ct.getId()}" th:text="${ct.getName()}"></option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row form-group">
-                                    <div class="col-md-12 form-group">
-                                        <label class="form-label">Підкатегорія</label>
-                                        <div class="form-control-wrap">
-                                            <select class="form-select form-control form-control-lg" multiple="multiple" id="subCategories" name="categoryItem">
-                                                <option th:each="it :${items}" th:value="${it.getId()}" th:text="${it.getName()}"></option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-outline-primary">Добавити</button>
-                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Adding end -->
 
             <!-- Edit start -->
             <div class="modal fade" tabindex="-1" role="dialog" id="editProductModal" aria-modal="true">
@@ -534,29 +542,40 @@
 <!-- JavaScript -->
 <script th:src="@{/js/bundle.js}"></script>
 <script th:src="@{/js/scripts.js}"></script>
-<script th:src="@{/js/example-sweetalert.js}"></script>
+<!--<script th:src="@{/js/example-sweetalert.js}"></script>-->
 <script>
-    // $('#addProductModal').on('shown.bs.modal', function () {
-    //     setSingleHiddenValue('selectClothesSeason', 'selectHiddenShoesSeason');
-    //     setSingleHiddenValue('selectShoesSeason', 'selectHiddenShoesSeason');
-    //     console.log("Changed!");
-    //
-    // });
+    $(document).ready(function() {
+        let t = $('#positionsTable').DataTable({
+            "autoWidth": false,
+            "bSort" : false,
+            "searching": false,
+            "paging": false,
+            "info": false,
+            'select': false,
+        });
+        let counter = 1;
 
-    $('#mainCategories').on('change', function (e) {
-        let optionSelected = $("option:selected", this);
-        let selectedValue = this.value;
+        $('#addPosition').on( 'click', function () {
 
-        console.log("OS: "+optionSelected+"\nSV: "+selectedValue);
+            let rowNode = t.row.add([
+                '0',
+                '0',
+                '0',
+                '0',
+                '0',
+                '0',
+                'btn'
+            ]).draw(false);
+            $(rowNode).addClass('nk-tb-item');
 
-        if (selectedValue === "CLOTHES"){
-            $('#clothesDetails').show();
-            $('#shoesDetails').hide();
-        }else if (selectedValue === "SHOES"){
-            $('#clothesDetails').hide();
-            $('#shoesDetails').show();
-        }
-    });
+            counter++;
+        } );
+
+        // Automatically add a first row of data
+        $('#addPosition').click();
+    } );
+
+
 
     $('#mainCategoriesEdit').on('change', function (e) {
         let optionSelected = $("option:selected", this);
@@ -579,7 +598,6 @@
         $("#"+idHiddenVal).val($('#'+idVal).val().toString());
         console.log("2. selectId: "+$('#'+idVal).val()+"; hiddenId: "+ $("#"+idHiddenVal).val());
     }
-
 
     function showEditProductModal(btnObj) {
         let trObj = btnObj.closest("tbody tr");
@@ -694,6 +712,16 @@
         }
     }
 
+</script>
+<script>
+    tinymce.init({
+        selector: '.rich-editor',
+        plugins: 'advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed powerpaste table advtable',
+        toolbar: 'casechange code table',
+        toolbar_mode: 'floating',
+        tinycomments_mode: 'embedded',
+        tinycomments_author: 'Author name'
+    });
 </script>
 </body>
 

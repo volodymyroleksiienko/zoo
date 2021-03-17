@@ -40,6 +40,15 @@ public class AdminProductController {
         return "redirect:/admin/products";
     }
 
+    @GetMapping("/add")
+    public String addProducts(Model model){
+        model.addAttribute("categories",categoryService.findAll());
+        model.addAttribute("items",categoryItemService.findAll());
+        model.addAttribute("producers",producerService.findAll());
+        model.addAttribute("products",productService.findAll());
+        return "admin/addProduct";
+    }
+
     @PostMapping("/edit")
     public String editProduct(Product product,@RequestParam MultipartFile multipartFile){
         productService.update(product,multipartFile);
