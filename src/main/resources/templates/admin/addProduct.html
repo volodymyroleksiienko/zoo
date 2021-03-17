@@ -100,7 +100,7 @@
                                                         <div class="form-group">
                                                             <label class="form-label">Виробник</label>
                                                             <div class="form-control-wrap">
-                                                                <select class="form-select form-control form-control-lg" name="producer.id">
+                                                                <select class="form-select form-control form-control-lg" id="distributorsList" name="producer.id">
                                                                     <option th:each="pr :${producers}" th:value="${pr.getId()}" th:text="${pr.getName()}"></option>
                                                                 </select>
                                                             </div>
@@ -416,7 +416,6 @@
 <script th:src="@{/js/scripts.js}"></script>
 <!--<script th:src="@{/js/example-sweetalert.js}"></script>-->
 <script>
-
     class PackageType {
         id;
         price;
@@ -502,9 +501,27 @@
             $( rowNode ).find('td').eq(6).addClass('nk-tb-col tb-col-lg');
             $( rowNode ).find('td').eq(7).addClass('nk-tb-col tb-col-hide');
             $( rowNode ).find('td').eq(8).addClass('nk-tb-col nk-tb-col-tools');
-        } );
+        });// add position end
 
         $('#addProductBtn').on( 'click', function () {
+            let image = new FormData();
+            image.append('file', $('#productImage')[0].files[0]);
+
+
+            // let image = $('#productImage').files[0];
+            // console.log(image);
+            let producer =          $('#distributorsList').val();
+            console.log("producer: "+producer);
+            let name =              $('#productName').val().trim();
+            let category =          $('#mainCategories').val();
+            console.log("cat: "+category);
+            let subCategory =       $('#subCategories').val();
+            console.log("sub: "+subCategory);
+            let description =       $('#productDescription').val().trim();
+            let detailedDescr =     $('#productDetailedDescription').val().trim();
+            let dailyDose =         $('#productProportionsDescription').val().trim();
+            let distributorDetails =$('#productProducerDescription').val().trim();
+
             t.rows().every( function ( rowIdx, tableLoop, rowLoop ) {
                 let data = this.data();
                 let obj = new PackageType();
@@ -521,7 +538,7 @@
                 obj.id = data[7];
 
                 objArr.push(obj);
-            } );
+            });//for each all rows
 
             $.ajax({
                 method: "post",
