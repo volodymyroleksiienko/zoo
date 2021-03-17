@@ -438,6 +438,8 @@
         }
     }
 
+    let objArr = [];
+
     $(document).ready(function() {
         let t = $('#positionsTable').DataTable({
             "autoWidth": false,
@@ -475,18 +477,19 @@
             let productPromotionalPrice =   $('#productPromotionalPrice').val().trim();
             let promotedProduct =           $('#promotedProduct').is(":checked");
 
-            let rowNode = t.row.add([
-                packageType,
-                packSize,
-                inStock,
-                activeProductItem,
-                productPrice,
-                promotedProduct,
-                productPromotionalPrice,
-                btn
-            ]).draw(false).node();
+            let rowNode = t.row.add({
+                "packType": packageType,
+                "packSize": packSize,
+                "countOfProduct": inStock,
+                "statusOfEntity": activeProductItem,
+                "price": productPrice,
+                "onSale": promotedProduct,
+                "newPrice": productPromotionalPrice,
+                "btn": btn
+            }).draw(false).node();
             $(rowNode).addClass('nk-tb-item');
             $(rowNode).attr('id', counterId);
+
 
             $( rowNode ).find('td').eq(0).addClass('nk-tb-col tb-col-lg');
             $( rowNode ).find('td').eq(1).addClass('nk-tb-col');
@@ -499,22 +502,33 @@
         } );
 
         $('#addProductBtn').on( 'click', function () {
+            t.rows().every( function ( rowIdx, tableLoop, rowLoop ) {
+                let data = this.data();
+                let obj = new PackageType();
 
-            $.ajax({
-                method: "post",
-                url: "/admin/products/add",
-                contextType: "application/json",
-                data: {
+                console.log(this.data());
 
-                },
-                traditional: true,
-                success: function () {
-                    alert("Success!")
-                },
-                error: function () {
-                    alert("Error!");
-                }
-            }); //ajax end
+                // obj.id = data.id;
+                // obj.countOfProduct = data.countOfProduct;
+
+            } );
+
+
+            // $.ajax({
+            //     method: "post",
+            //     url: "/admin/products/add",
+            //     contextType: "application/json",
+            //     data: {
+            //
+            //     },
+            //     traditional: true,
+            //     success: function () {
+            //         alert("Success!")
+            //     },
+            //     error: function () {
+            //         alert("Error!");
+            //     }
+            // }); //ajax end
         });//button click end
     }); //ready() end
 
