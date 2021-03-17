@@ -17,14 +17,8 @@ public class Product {
 
     private String name;
     private String shortDescription;
-    private BigDecimal price;
 
-    private BigDecimal packSize;
 
-    private boolean onSale;
-    private BigDecimal newPrice;
-
-    private int countOfProduct;
 
     @Lob
     @Type(type = "org.hibernate.type.ImageType")
@@ -45,7 +39,8 @@ public class Product {
     @ManyToOne
     private Producer producer;
 
-
+    @OneToMany(mappedBy = "product")
+    private List<PackageType> packageType;
 
     @ManyToMany
     @JoinTable(
