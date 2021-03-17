@@ -39,7 +39,7 @@ public class Product {
     @ManyToOne
     private Producer producer;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
     private List<PackageType> packageType;
 
     @ManyToMany

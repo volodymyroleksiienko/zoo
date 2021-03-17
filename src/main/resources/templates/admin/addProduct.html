@@ -415,6 +415,29 @@
 <script th:src="@{/js/scripts.js}"></script>
 <!--<script th:src="@{/js/example-sweetalert.js}"></script>-->
 <script>
+
+    class PackageType {
+        id;
+        price;
+        newPrice;
+        packSize;
+        packType;
+        onSale;
+        active;
+        countOfProduct;
+
+        constructor(id,price,newPrice,packSize,packType,onSale,countOfProduct,active) {
+            this.id = id;
+            this.price = price;
+            this.newPrice = newPrice;
+            this.packSize = packSize;
+            this.packType = packType;
+            this.onSale = onSale;
+            this.active = active;
+            this.countOfProduct = countOfProduct;
+        }
+    }
+
     $(document).ready(function() {
         let t = $('#positionsTable').DataTable({
             "autoWidth": false,
