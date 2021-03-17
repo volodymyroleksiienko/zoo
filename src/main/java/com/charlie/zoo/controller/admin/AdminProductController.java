@@ -31,7 +31,7 @@ public class AdminProductController {
         model.addAttribute("items",categoryItemService.findAll());
         model.addAttribute("producers",producerService.findAll());
         model.addAttribute("products",productService.findAll());
-        return "/admin/products";
+        return "admin/products";
     }
 
     @PostMapping("/add")

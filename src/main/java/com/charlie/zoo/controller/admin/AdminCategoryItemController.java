@@ -35,7 +35,7 @@ public class AdminCategoryItemController {
         model.addAttribute("categoryTabId",categoryId);
         model.addAttribute("animals",animalService.findAll());
         model.addAttribute("categories",categoryService.findByAnimalId(animalId));
-        return "/admin/categoryItem";
+        return "admin/categoryItem";
     }
 
     @PostMapping({"/add","/edit"})
