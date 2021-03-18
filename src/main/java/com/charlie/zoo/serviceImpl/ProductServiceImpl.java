@@ -1,8 +1,10 @@
 package com.charlie.zoo.serviceImpl;
 
+import com.charlie.zoo.entity.PackageType;
 import com.charlie.zoo.entity.Product;
 import com.charlie.zoo.enums.StatusOfEntity;
 import com.charlie.zoo.jpa.ProductJpa;
+import com.charlie.zoo.service.ProducerService;
 import com.charlie.zoo.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ProductServiceImpl implements ProductService {
     private final ProductJpa productJpa;
+    private final ProducerService producerService;
 
     @Override
     public Product save(Product product) {
@@ -21,8 +24,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product save(Product product, MultipartFile multipartFile) {
-        if(multipartFile.getSize()>0){
+    public Product save(Product product, MultipartFile multipartFile,List<PackageType>  packageTypes) {
+        if(multipartFile!=null && multipartFile.getSize()>0){
             try {
                 product.setImg(multipartFile.getBytes());
                 product.setImgName(multipartFile.getOriginalFilename());
@@ -32,6 +35,10 @@ public class ProductServiceImpl implements ProductService {
                 e.printStackTrace();
             }
         }
+        for(PackageType type:packageTypes){
+            type.setProduct(product);
+        }
+        product.setPackageType(packageTypes);
         return productJpa.save(product);
     }
 

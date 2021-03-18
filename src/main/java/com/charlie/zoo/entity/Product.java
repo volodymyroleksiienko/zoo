@@ -6,6 +6,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -52,4 +53,21 @@ public class Product {
 
     @Enumerated(EnumType.STRING)
     private StatusOfEntity statusOfEntity=StatusOfEntity.ACTIVE;
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", shortDescription='" + shortDescription + '\'' +
+                ", img=" + Arrays.toString(img) +
+                ", imgType='" + imgType + '\'' +
+                ", imgName='" + imgName + '\'' +
+                ", details='" + details + '\'' +
+                ", dailyNorm='" + dailyNorm + '\'' +
+                ", producerDetails='" + producerDetails + '\'' +
+                ", producer=" + producer +
+                ", statusOfEntity=" + statusOfEntity +
+                '}';
+    }
 }

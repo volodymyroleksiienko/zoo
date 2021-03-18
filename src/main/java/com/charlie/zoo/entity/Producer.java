@@ -17,4 +17,13 @@ public class Producer {
 
     @OneToMany(mappedBy = "producer")
     private List<Product> products;
+
+    @Override
+    public String toString() {
+        return "Producer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", countryName='" + countryName + '\'' +
+                '}';
+    }
 }

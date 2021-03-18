@@ -1,21 +1,22 @@
 package com.charlie.zoo.controller.admin;
 
-import com.charlie.zoo.entity.Category;
 import com.charlie.zoo.entity.PackageType;
-import com.charlie.zoo.entity.Producer;
 import com.charlie.zoo.entity.Product;
 import com.charlie.zoo.entity.dto.PackageTypeDto;
+import com.charlie.zoo.entity.dto.ProductDto;
 import com.charlie.zoo.service.CategoryItemService;
 import com.charlie.zoo.service.CategoryService;
 import com.charlie.zoo.service.ProducerService;
 import com.charlie.zoo.service.ProductService;
+import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import net.minidev.json.JSONArray;
-import net.minidev.json.JSONObject;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -38,14 +39,12 @@ public class AdminProductController {
         return "admin/products";
     }
 
-    @PostMapping(value = "/add",consumes = {"application/x-www-form-urlencoded"})
-    public String addProduct( String packageTypes){
-
-
-        JSONArray jsonArray = new JSONArray();
-        JSONObject jsonObject = new JSONObject();
-        System.out.println(packageTypes);
-//        productService.save(product,multipartFile);
+    @PostMapping(value = "/add")
+    public String addProduct(@RequestParam String packageTypes,String product,
+                             MultipartFile file){
+        List<PackageType> packageTypeList = PackageTypeDto.getArrayOfPackageTypes(packageTypes);
+        Product productEntity = ProductDto.convertToProduct(product);
+        productService.save(productEntity,file,packageTypeList);
         return "redirect:/admin/products";
     }
 
