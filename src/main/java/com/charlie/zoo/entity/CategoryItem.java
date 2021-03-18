@@ -19,6 +19,6 @@ public class CategoryItem {
     @ManyToOne
     private Category category;
 
-    @ManyToMany(mappedBy = "categoryItem")
+    @ManyToMany(mappedBy = "categoryItems")
     private List<Product> products;
 }

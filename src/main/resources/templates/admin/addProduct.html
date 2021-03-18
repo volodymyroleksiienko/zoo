@@ -519,9 +519,6 @@
             let form = new FormData();
             form.append('file', $('#productImage')[0].files[0]);
 
-
-            // let image = $('#productImage').files[0];
-            // console.log(image);
             let producer =          $('#distributorsList').val();
             console.log("producer: "+producer);
             let name =              $('#productName').val().trim();
@@ -567,24 +564,24 @@
                 objArr.push(obj);
                 console.log("iter "+obj);
             });//for each all rows
-            console.log(objArr);
             form.append("packageTypes",JSON.stringify(objArr));
             form.append("product",JSON.stringify(product));
-            console.log(JSON.stringify(objArr));
-            // $.ajax({
-            //     method: "post",
-            //     url: "/admin/products/add",
-            //     enctype: 'multipart/form-data',
-            //     processData : false,
-            //     contentType : false,
-            //     data: form,
-            //     success: function () {
-            //         alert("Success!")
-            //     },
-            //     error: function () {
-            //         alert("Error!");
-            //     }
-            // }); //ajax end
+            form.append("category",JSON.stringify(category));
+            form.append("subCategory",JSON.stringify(subCategory));
+            $.ajax({
+                method: "post",
+                url: "/admin/products/add",
+                enctype: 'multipart/form-data',
+                processData : false,
+                contentType : false,
+                data: form,
+                success: function () {
+                    alert("Success!")
+                },
+                error: function () {
+                    alert("Error!");
+                }
+            }); //ajax end
         });//button click end
     });//ready() end
 

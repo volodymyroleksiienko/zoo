@@ -1,22 +1,30 @@
 package com.charlie.zoo.serviceImpl;
 
+import com.charlie.zoo.entity.Category;
+import com.charlie.zoo.entity.CategoryItem;
 import com.charlie.zoo.entity.PackageType;
 import com.charlie.zoo.entity.Product;
+import com.charlie.zoo.entity.dto.ProductDto;
 import com.charlie.zoo.enums.StatusOfEntity;
 import com.charlie.zoo.jpa.ProductJpa;
+import com.charlie.zoo.service.CategoryItemService;
+import com.charlie.zoo.service.CategoryService;
 import com.charlie.zoo.service.ProducerService;
 import com.charlie.zoo.service.ProductService;
+import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class ProductServiceImpl implements ProductService {
     private final ProductJpa productJpa;
-    private final ProducerService producerService;
+    private final CategoryService categoryService;
+    private final CategoryItemService categoryItemService;
 
     @Override
     public Product save(Product product) {
@@ -24,7 +32,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product save(Product product, MultipartFile multipartFile,List<PackageType>  packageTypes) {
+    public Product save(Product product, MultipartFile multipartFile,List<PackageType>  packageTypes,
+                        String category,String subCategory) {
         if(multipartFile!=null && multipartFile.getSize()>0){
             try {
                 product.setImg(multipartFile.getBytes());
@@ -37,6 +46,20 @@ public class ProductServiceImpl implements ProductService {
         }
         for(PackageType type:packageTypes){
             type.setProduct(product);
+        }
+        if(!category.isEmpty()) {
+            List<Category> categories = new ArrayList<>();
+            for (Integer cat : new Gson().fromJson(category, Integer[].class)) {
+                categories.add(categoryService.findById(cat));
+            }
+            product.setCategories(categories);
+        }
+        if(!subCategory.isEmpty()) {
+            List<CategoryItem> categoryItems = new ArrayList<>();
+            for (Integer cat : new Gson().fromJson(subCategory, Integer[].class)) {
+                categoryItems.add(categoryItemService.findById(cat));
+            }
+            product.setCategoryItems(categoryItems);
         }
         product.setPackageType(packageTypes);
         return productJpa.save(product);

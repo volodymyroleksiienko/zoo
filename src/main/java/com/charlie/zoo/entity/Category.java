@@ -22,6 +22,9 @@ public class Category{
     @ManyToOne
     private Animal animal;
 
+    @ManyToMany(mappedBy = "categories")
+    private List<Product> products;
+
     @Enumerated(EnumType.STRING)
     private StatusOfEntity statusOfEntity = StatusOfEntity.ACTIVE;
 

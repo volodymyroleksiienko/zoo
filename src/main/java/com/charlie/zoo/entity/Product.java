@@ -49,7 +49,15 @@ public class Product {
             joinColumns = @JoinColumn(name = "product", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "item",referencedColumnName = "id")
     )
-    private List<CategoryItem> categoryItem;
+    private List<CategoryItem> categoryItems;
+
+    @ManyToMany
+    @JoinTable(
+            name = "product_category",
+            joinColumns = @JoinColumn(name = "product", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "category",referencedColumnName = "id")
+    )
+    private List<Category> categories;
 
     @Enumerated(EnumType.STRING)
     private StatusOfEntity statusOfEntity=StatusOfEntity.ACTIVE;

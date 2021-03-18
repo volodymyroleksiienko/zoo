@@ -41,10 +41,10 @@ public class AdminProductController {
 
     @PostMapping(value = "/add")
     public String addProduct(@RequestParam String packageTypes,String product,
-                             MultipartFile file){
+                             MultipartFile file,String category,String subCategory){
         List<PackageType> packageTypeList = PackageTypeDto.getArrayOfPackageTypes(packageTypes);
         Product productEntity = ProductDto.convertToProduct(product);
-        productService.save(productEntity,file,packageTypeList);
+        productService.save(productEntity,file,packageTypeList,category,subCategory);
         return "redirect:/admin/products";
     }
 

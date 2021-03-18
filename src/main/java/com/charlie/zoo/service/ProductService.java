@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface ProductService {
     Product save(Product product);
-    Product save(Product product, MultipartFile multipartFile, List<PackageType>  packageTypes);
+    Product save(Product product, MultipartFile multipartFile, List<PackageType>  packageTypes,String category,String subCategory);
     Product update(Product product, MultipartFile multipartFile);
     Product findById(int id);
     Product changeStatus(int id, boolean status);
