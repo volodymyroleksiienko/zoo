@@ -13,10 +13,7 @@ import lombok.AllArgsConstructor;
 import net.minidev.json.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -55,6 +52,16 @@ public class AdminProductController {
         model.addAttribute("producers",producerService.findAll());
         model.addAttribute("products",productService.findAll());
         return "admin/addProduct";
+    }
+
+    @GetMapping("/edit/{productId}")
+    public String editProducts(@PathVariable int productId, Model model){
+        model.addAttribute("product",productService.findById(productId));
+        model.addAttribute("categories",categoryService.findAll());
+        model.addAttribute("items",categoryItemService.findAll());
+        model.addAttribute("producers",producerService.findAll());
+        model.addAttribute("products",productService.findAll());
+        return "admin/editProduct";
     }
 
     @PostMapping("/edit")
