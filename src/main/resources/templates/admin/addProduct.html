@@ -530,9 +530,14 @@
             let subCategory =       $('#subCategories').val();
             console.log("sub: "+subCategory);
             let description =       $('#productDescription').val().trim();
-            let detailedDescr =     $('#productDetailedDescription').val().trim();
-            let dailyDose =         $('#productProportionsDescription').val().trim();
-            let distributorDetails =$('#productProducerDescription').val().trim();
+            let detailedDescr =     tinyMCE.get('productDetailedDescription').getContent();
+            let dailyDose =         tinyMCE.get('productProportionsDescription').getContent();
+            let distributorDetails =tinyMCE.get('productProducerDescription').getContent();
+
+            console.log("detailed descr: "+ detailedDescr);
+            console.log("daily dose: "+ dailyDose);
+            console.log("producer descr: "+ distributorDetails);
+
 
             let product = new Product();
             product.id = 0;
@@ -566,20 +571,20 @@
             form.append("packageTypes",JSON.stringify(objArr));
             form.append("product",JSON.stringify(product));
             console.log(JSON.stringify(objArr));
-            $.ajax({
-                method: "post",
-                url: "/admin/products/add",
-                enctype: 'multipart/form-data',
-                processData : false,
-                contentType : false,
-                data: form,
-                success: function () {
-                    alert("Success!")
-                },
-                error: function () {
-                    alert("Error!");
-                }
-            }); //ajax end
+            // $.ajax({
+            //     method: "post",
+            //     url: "/admin/products/add",
+            //     enctype: 'multipart/form-data',
+            //     processData : false,
+            //     contentType : false,
+            //     data: form,
+            //     success: function () {
+            //         alert("Success!")
+            //     },
+            //     error: function () {
+            //         alert("Error!");
+            //     }
+            // }); //ajax end
         });//button click end
     });//ready() end
 
