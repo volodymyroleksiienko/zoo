@@ -162,13 +162,13 @@
                         <div class="modal-body modal-body-md">
                             <h4 class="title">Змінити статус</h4>
                             <br>
-                            <form action="/admin/changeStatusOfProduct" method="post">
-                                <input type="number" id="selectedForChangingStatusItem" hidden="" name="productId">
+                            <form action="/admin/products/changeStatus" method="post">
+                                <input type="number" id="selectedForChangingStatusItem" hidden="" name="id">
                                 <div class="form-group">
                                     <div class="preview-block">
                                         <span class="preview-title overline-title">Статус товару</span>
                                         <div class="custom-control custom-switch">
-                                            <input type="checkbox" class="custom-control-input" checked id="showItemSwitch" name="switchValue">
+                                            <input type="checkbox" class="custom-control-input" id="showItemSwitch" name="status">
                                             <label class="custom-control-label" for="showItemSwitch">Відображати в магазині</label>
                                         </div>
                                     </div>
