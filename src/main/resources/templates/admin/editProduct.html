@@ -278,7 +278,7 @@
                                                             <th class="nk-tb-col tb-col-lg" th:text="${type?.getPackType()}">Тип пакування</th>
                                                             <td class="nk-tb-col" th:text="${type?.getPackSize()}">Кількість</td>
                                                             <td class="nk-tb-col tb-col-lg" th:text="${type?.getCountOfProduct()}">К-сть на складі</td>
-                                                            <td class="nk-tb-col tb-col-lg" th:text="${type?.getStatusOfEntity()}">Активний</td>
+                                                            <td class="nk-tb-col tb-col-lg" th:text="${(type?.getStatusOfEntity().name().equals('ACTIVE'))?'true':'false'}">Активний</td>
                                                             <td class="nk-tb-col" th:text="${type?.getPrice()}">Ціна</td>
                                                             <td class="nk-tb-col tb-col-lg" th:text="${type?.isOnSale()}">Акційний товар</td>
                                                             <td class="nk-tb-col tb-col-lg" th:text="${type?.getNewPrice()}">Акційна ціна</td>
