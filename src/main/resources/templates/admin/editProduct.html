@@ -711,19 +711,19 @@
         let promotedProduct =           row[5];
         let discountVal =               row[7];
 
-        if (promotedProduct===true){
+        if (promotedProduct==="true"){
             $('#editPromotedProduct').attr("checked", true);
             $('#editProductPromotionalPrice').removeAttr("disabled");
             $('#editProductPromotionalPricePercentage').removeAttr("disabled");
-        }else if (promotedProduct===false) {
+        }else if (promotedProduct==="false") {
             $('#editPromotedProduct').attr("checked", false);
             $('#editProductPromotionalPrice').attr('disabled', 'disabled');
             $('#editProductPromotionalPricePercentage').attr('disabled', 'disabled');
         }
 
-        if (activeProductItem===true){
+        if (activeProductItem==="true"){
             $('#editActiveProductItem').attr("checked", true);
-        }else if (activeProductItem===false) {
+        }else if (activeProductItem==="false") {
             $('#editActiveProductItem').attr("checked", false);
         }
 
