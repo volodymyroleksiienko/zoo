@@ -73,6 +73,12 @@ public class AdminProductController {
         return "admin/editProduct";
     }
 
+    @PostMapping("/changeStatus")
+    public String changeStatus(int id, boolean status){
+        productService.changeStatus(id,status);
+        return "redirect:/admin/products";
+    }
+
     @PostMapping("/delete")
     public String deleteProduct(int id){
         productService.deleteByID(id);

@@ -100,6 +100,7 @@ public class ProductServiceImpl implements ProductService {
                 product.setStatusOfEntity(StatusOfEntity.ARCHIVE);
             }
         }
+        save(product);
         return product;
     }
 
