@@ -5,6 +5,7 @@ import com.charlie.zoo.jpa.PackageTypeJPA;
 import com.charlie.zoo.service.PackageTypeService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -31,5 +32,11 @@ public class PackageTypeServiceImpl implements PackageTypeService {
     @Override
     public void deleteByID(int id) {
         packageTypeJPA.deleteById(id);
+    }
+
+    @Override
+    @Transactional
+    public void deleteAllByProductId(int productId) {
+        packageTypeJPA.deleteAllByProductId(productId);
     }
 }

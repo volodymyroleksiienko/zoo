@@ -9,4 +9,5 @@ public interface PackageTypeService {
     PackageType findById(int id);
     List<PackageType> findAll();
     void deleteByID(int id);
+    void deleteAllByProductId(int productId);
 }

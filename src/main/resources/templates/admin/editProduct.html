@@ -84,6 +84,7 @@
                                         <div class="card-inner">
                                             <div class="preview-block">
                                                 <span class="preview-title-lg overline-title">Загальна інформація</span>
+                                                <input type="number" class="form-control" id="productId" hidden="hidden" placeholder="Назва..." name="id" th:value="${product?.getId()}">
                                                 <div class="row gy-4">
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
@@ -281,7 +282,7 @@
                                                             <td class="nk-tb-col" th:text="${type?.getPrice()}">Ціна</td>
                                                             <td class="nk-tb-col tb-col-lg" th:text="${type?.isOnSale()}">Акційний товар</td>
                                                             <td class="nk-tb-col tb-col-lg" th:text="${type?.getNewPrice()}">Акційна ціна</td>
-                                                            <td class="nk-tb-col tb-col-lg">Знижка</td>
+                                                            <td class="nk-tb-col tb-col-lg" th:text="${type?.getDiscount()}">Знижка</td>
                                                             <td class="nk-tb-col tb-col-hide" th:text="${type?.getId()}">ID</td>
                                                             <td class='nk-tb-col nk-tb-col-tools'>
                                                                <ul class="nk-tb-actions gx-1">
@@ -605,6 +606,7 @@
             let form = new FormData();
             form.append('file', $('#productImage')[0].files[0]);
 
+            let id =                $('#productId').val().trim();
             let producer =          $('#distributorsList').val();
             console.log("producer: "+producer);
             let name =              $('#productName').val().trim();
@@ -623,7 +625,7 @@
 
 
             let product = new Product();
-            product.id = 0;
+            product.id = id;
             product.name = name;
             product.shortDescription = description;
             product.details = detailedDescr;
@@ -656,7 +658,7 @@
             form.append("subCategory",JSON.stringify(subCategory));
             $.ajax({
                 method: "post",
-                url: "/admin/products/add",
+                url: "/admin/products/edit",
                 enctype: 'multipart/form-data',
                 processData : false,
                 contentType : false,

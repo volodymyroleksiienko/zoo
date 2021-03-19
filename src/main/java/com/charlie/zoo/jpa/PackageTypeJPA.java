@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PackageTypeJPA extends JpaRepository<PackageType,Integer> {
+    void deleteAllByProductId(int productId);
 }

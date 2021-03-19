@@ -20,6 +20,7 @@ public class PackageType {
     private BigDecimal price;
     private BigDecimal newPrice;
     private BigDecimal packSize;
+    private BigDecimal discount;
     private String packType;
     private boolean onSale;
 

@@ -18,6 +18,7 @@ public class PackageTypeDto {
     private double price;
     private double newPrice;
     private double packSize;
+    private double discount;
     private String packType;
     private boolean onSale;
     private int countOfProduct;
@@ -69,6 +70,7 @@ public class PackageTypeDto {
         packageType.setPackType(packageTypeDto.packType);
         packageType.setOnSale(packageTypeDto.onSale);
         packageType.setCountOfProduct(packageTypeDto.countOfProduct);
+        packageType.setDiscount(BigDecimal.valueOf(packageTypeDto.discount));
         if(packageTypeDto.statusOfEntity){
             packageType.setStatusOfEntity(StatusOfEntity.ACTIVE);
         }else{

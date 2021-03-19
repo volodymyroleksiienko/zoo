@@ -7,10 +7,7 @@ import com.charlie.zoo.entity.Product;
 import com.charlie.zoo.entity.dto.ProductDto;
 import com.charlie.zoo.enums.StatusOfEntity;
 import com.charlie.zoo.jpa.ProductJpa;
-import com.charlie.zoo.service.CategoryItemService;
-import com.charlie.zoo.service.CategoryService;
-import com.charlie.zoo.service.ProducerService;
-import com.charlie.zoo.service.ProductService;
+import com.charlie.zoo.service.*;
 import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,6 +20,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ProductServiceImpl implements ProductService {
     private final ProductJpa productJpa;
+    private final PackageTypeService packageTypeService;
     private final CategoryService categoryService;
     private final CategoryItemService categoryItemService;
 
@@ -66,34 +64,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product update(Product product, MultipartFile multipartFile) {
-        if(product!=null && product.getId()>0){
-            Product productDB = findById(product.getId());
-
-            productDB.setName(product.getName());
-            productDB.setShortDescription(product.getShortDescription());
-//            productDB.setCountOfProduct(product.getCountOfProduct());
-//            productDB.setOnSale(product.isOnSale());
-//            productDB.setPrice(product.getPrice());
-//            productDB.setNewPrice(product.getNewPrice());
-//            productDB.setProducer(product.getProducer());
-            productDB.setStatusOfEntity(product.getStatusOfEntity());
-
-            if(multipartFile.getSize()>0){
-                try {
-                    productDB.setImg(multipartFile.getBytes());
-                    productDB.setImgName(multipartFile.getOriginalFilename());
-                    productDB.setImgType(multipartFile.getContentType());
-                }
-                catch(Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            return save(productDB);
+    public Product update(Product product, MultipartFile multipartFile, List<PackageType> packageTypes, String category, String subCategory) {
+        if(product.getId()>0){
+            packageTypeService.deleteAllByProductId(product.getId());
         }
-        return null;
+        return save(product,multipartFile,packageTypes,category,subCategory);
     }
+
 
     @Override
     public Product findById(int id) {

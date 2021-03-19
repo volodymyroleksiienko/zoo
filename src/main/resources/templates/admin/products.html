@@ -101,17 +101,17 @@
                                                         </td>
                                                         <td class="nk-tb-col">
                                                             <div class="user-info">
-                                                                <span class="tb-lead" th:text="${p.getName()}">Name<span class="dot dot-success d-md-none ml-1"></span></span>
+                                                                <span class="tb-lead" th:text="${p?.getName()}">Name<span class="dot dot-success d-md-none ml-1"></span></span>
                                                             </div>
                                                         </td>
                                                         <td class="nk-tb-col tb-col-md">
-                                                            <span th:text="${p.getId()}">Категорія</span>
+                                                            <span th:text="${cat.getName()+' '}" th:each="cat : ${p.getCategories()}">Категорія</span>
                                                         </td>
                                                         <td class="nk-tb-col tb-col-md">
-                                                            <span th:text="${p.getId()}">Підкатегорія</span>
+                                                            <span th:text="${cat.getName()+' '}" th:each="cat : ${p.getCategoryItems()}">Підкатегорія</span>
                                                         </td>
                                                         <td class="nk-tb-col tb-col-lg">
-                                                            <span th:text="${p.getProducer().getName()}">Виробник</span>
+                                                            <span th:text="${p?.getProducer()?.getName()}">Виробник</span>
                                                         </td>
                                                         <td class="nk-tb-col tb-col-lg">
                                                             <span th:text="${p.getShortDescription()}">Опис</span>

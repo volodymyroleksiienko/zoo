@@ -54,6 +54,15 @@ public class AdminProductController {
         return "admin/addProduct";
     }
 
+    @PostMapping(value = "/edit")
+    public String editProduct(@RequestParam String packageTypes,String product,
+                              MultipartFile file,String category,String subCategory){
+        List<PackageType> packageTypeList = PackageTypeDto.getArrayOfPackageTypes(packageTypes);
+        Product productEntity = ProductDto.convertToProduct(product);
+        productService.update(productEntity,file,packageTypeList,category,subCategory);
+        return "redirect:/admin/products";
+    }
+
     @GetMapping("/edit/{productId}")
     public String editProducts(@PathVariable int productId, Model model){
         model.addAttribute("product",productService.findById(productId));
@@ -62,12 +71,6 @@ public class AdminProductController {
         model.addAttribute("producers",producerService.findAll());
         model.addAttribute("products",productService.findAll());
         return "admin/editProduct";
-    }
-
-    @PostMapping("/edit")
-    public String editProduct(Product product,@RequestParam MultipartFile multipartFile){
-        productService.update(product,multipartFile);
-        return "redirect:/admin/products";
     }
 
     @PostMapping("/delete")
