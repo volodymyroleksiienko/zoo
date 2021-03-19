@@ -603,6 +603,7 @@
         });
 
         $('#addProductBtn').on( 'click', function () {
+            objArr = [];
             let form = new FormData();
             form.append('file', $('#productImage')[0].files[0]);
 

@@ -51,6 +51,7 @@ public class PackageTypeDto {
 
     public static List<PackageType> getArrayOfPackageTypes(String types){
         List<PackageType> packageTypes = new ArrayList<>();
+        System.out.println(types);
         PackageTypeDto[] typeDtos = new Gson().fromJson(types,PackageTypeDto[].class);
 
         for(PackageTypeDto packageTypeDto : typeDtos){
