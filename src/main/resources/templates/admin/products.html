@@ -192,8 +192,8 @@
                         <div class="modal-body modal-body-md">
                             <h4 class="title">Видалення товару</h4>
                             <br>
-                            <form action="/admin/deleteProductById" method="post">
-                                <input type="number" id="selectedForDeleteItem" hidden="" name="productId">
+                            <form action="/admin/products/delete" method="post">
+                                <input type="number" id="selectedForDeleteItem" hidden="" name="id">
                                 <p style="margin-bottom: 2rem;">Ви впевнені, що хочете видалити товар? Підтвердивши дію, Ви не зможете повернутися до попереднього стану продукту.</p>
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-outline-primary">Підтвердити</button>
