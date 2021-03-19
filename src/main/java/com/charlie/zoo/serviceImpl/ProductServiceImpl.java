@@ -65,6 +65,19 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product update(Product product, MultipartFile multipartFile, List<PackageType> packageTypes, String category, String subCategory) {
+        if(multipartFile==null){
+           Product productDB = findById(product.getId());
+           if(productDB!=null){
+               try {
+                   product.setImg(productDB.getImg());
+                   product.setImgName(productDB.getImgName());
+                   product.setImgType(productDB.getImgType());
+               }
+               catch(Exception e) {
+                   e.printStackTrace();
+               }
+           }
+        }
         if(product.getId()>0){
             packageTypeService.deleteAllByProductId(product.getId());
         }
