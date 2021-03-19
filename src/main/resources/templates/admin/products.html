@@ -86,10 +86,10 @@
                                                     <tr class="nk-tb-item nk-tb-head">
                                                         <th class="nk-tb-col">Зображення</th>
                                                         <th class="nk-tb-col"><span class="sub-text">Назва</span></th>
-                                                        <th class="nk-tb-col tb-col-md"><span class="sub-text">Категорія</span></th>
-                                                        <th class="nk-tb-col tb-col-md"><span class="sub-text">Підкатегорія</span></th>
+                                                        <th class="nk-tb-col tb-col-hide"><span class="sub-text">Категорія</span></th>
+                                                        <th class="nk-tb-col tb-col-hide"><span class="sub-text">Підкатегорія</span></th>
                                                         <th class="nk-tb-col tb-col-lg"><span class="sub-text">Виробник</span></th>
-                                                        <th class="nk-tb-col tb-col-lg"><span class="sub-text">Опис</span></th>
+                                                        <th class="nk-tb-col tb-col-hide"><span class="sub-text">Опис</span></th>
                                                         <th class="nk-tb-col tb-col-md"><span class="sub-text">Статус</span></th>
                                                         <th class="nk-tb-col"><span class="sub-text" style="text-align: right; padding-right: 2rem;">Дії</span></th>
                                                     </tr>
@@ -104,16 +104,16 @@
                                                                 <span class="tb-lead" th:text="${p?.getName()}">Name<span class="dot dot-success d-md-none ml-1"></span></span>
                                                             </div>
                                                         </td>
-                                                        <td class="nk-tb-col tb-col-md">
+                                                        <td class="nk-tb-col tb-col-hide">
                                                             <span th:text="${cat.getName()+' '}" th:each="cat : ${p.getCategories()}">Категорія</span>
                                                         </td>
-                                                        <td class="nk-tb-col tb-col-md">
+                                                        <td class="nk-tb-col tb-col-hide">
                                                             <span th:text="${cat.getName()+' '}" th:each="cat : ${p.getCategoryItems()}">Підкатегорія</span>
                                                         </td>
                                                         <td class="nk-tb-col tb-col-lg">
                                                             <span th:text="${p?.getProducer()?.getName()}">Виробник</span>
                                                         </td>
-                                                        <td class="nk-tb-col tb-col-lg">
+                                                        <td class="nk-tb-col tb-col-hide">
                                                             <span th:text="${p.getShortDescription()}">Опис</span>
                                                         </td>
                                                         <td class="nk-tb-col tb-col-md">
