@@ -226,7 +226,7 @@
         let trObj = btnObj.closest("tbody tr");
         let trId =  $(trObj).attr('id');
 
-        let status = $(trObj).find('td:eq(4)').text();
+        let status = $(trObj).find('td:eq(6)').text();
 
         if (status.trim()=="Active"){
             $('#showItemSwitch').attr("checked", true);
