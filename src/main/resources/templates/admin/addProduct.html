@@ -267,6 +267,7 @@
                                                         <td class="nk-tb-col">Ціна</td>
                                                         <td class="nk-tb-col tb-col-lg">Акційний</td>
                                                         <td class="nk-tb-col tb-col-lg">Акц. ціна</td>
+                                                        <td class="nk-tb-col tb-col-lg">Знижка</td>
                                                         <td class="nk-tb-col tb-col-hide">ID</td>
                                                         <th class="nk-tb-col"><span class="sub-text" style="text-align: right; padding-right: 2rem;">Дії</span></th>
                                                     </tr>
@@ -289,7 +290,6 @@
                     </div>
                 </div>
             </div>
-
 
 
             <!-- Change item start -->
@@ -433,16 +433,18 @@
         packSize;
         packType;
         onSale;
+        discount;
         statusOfEntity;
         countOfProduct;
 
-        constructor(id,price,newPrice,packSize,packType,onSale,countOfProduct,statusOfEntity) {
+        constructor(id,price,newPrice,packSize,packType,onSale,discount,countOfProduct,statusOfEntity) {
             this.id = id;
             this.price = price;
             this.newPrice = newPrice;
             this.packSize = packSize;
             this.packType = packType;
             this.onSale = onSale;
+            this.discount = discount;
             this.statusOfEntity = statusOfEntity;
             this.countOfProduct = countOfProduct;
         }
@@ -493,6 +495,7 @@
             let productPrice =              $('#productPrice').val().trim();
             let productPromotionalPrice =   $('#productPromotionalPrice').val().trim();
             let promotedProduct =           $('#promotedProduct').is(":checked");
+            let discountVal =               $('#productPromotionalPricePercentage').val().trim();
             let id =                        0;
 
             let rowNode = t.row.add([
@@ -503,6 +506,7 @@
                  productPrice,
                  promotedProduct,
                  productPromotionalPrice,
+                 discountVal,
                  id,
                  btn
             ]).draw(false).node();
@@ -515,8 +519,9 @@
             $( rowNode ).find('td').eq(4).addClass('nk-tb-col');
             $( rowNode ).find('td').eq(5).addClass('nk-tb-col tb-col-lg');
             $( rowNode ).find('td').eq(6).addClass('nk-tb-col tb-col-lg');
-            $( rowNode ).find('td').eq(7).addClass('nk-tb-col tb-col-hide');
-            $( rowNode ).find('td').eq(8).addClass('nk-tb-col nk-tb-col-tools');
+            $( rowNode ).find('td').eq(7).addClass('nk-tb-col tb-col-lg');
+            $( rowNode ).find('td').eq(8).addClass('nk-tb-col tb-col-hide');
+            $( rowNode ).find('td').eq(9).addClass('nk-tb-col nk-tb-col-tools');
 
             $('#packageType').val('');
             $('#packSize').val(1);
@@ -675,6 +680,7 @@
         let productPrice =              row[4];
         let productPromotionalPrice =   row[6];
         let promotedProduct =           row[5];
+        let discountVal =               row[7];
 
         if (promotedProduct===true){
             $('#editPromotedProduct').attr("checked", true);
@@ -698,6 +704,7 @@
         $('#editInStock')                   .val(inStock);
         $('#editProductPrice')              .val(productPrice);
         $('#editProductPromotionalPrice')   .val(productPromotionalPrice);
+        $('#editProductPromotionalPricePercentage')   .val(discountVal);
 
         $('#editItemModal').modal('show');
     }//show edit modal
@@ -711,9 +718,10 @@
         let productPrice =              $('#editProductPrice').val().trim();
         let productPromotionalPrice =   $('#editProductPromotionalPrice').val().trim();
         let promotedProduct =           $('#editPromotedProduct').is(":checked");
+        let discountVal =               $('#editProductPromotionalPricePercentage').val().trim();
         let id =                        0;
 
-        let arrayData = [packageType, packSize, inStock, activeProductItem, productPrice, promotedProduct, productPromotionalPrice, id, btn];
+        let arrayData = [packageType, packSize, inStock, activeProductItem, productPrice, promotedProduct, productPromotionalPrice, discountVal, id, btn];
 
         t.row(rowToSaveIndex).data(arrayData).draw();
 
