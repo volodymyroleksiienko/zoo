@@ -1,9 +1,11 @@
 package com.charlie.zoo.controller.user;
 
 import com.charlie.zoo.entity.OrderInfo;
+import com.charlie.zoo.entity.Product;
 import com.charlie.zoo.service.AnimalService;
 import com.charlie.zoo.service.CategoryService;
 import com.charlie.zoo.service.OrderService;
+import com.charlie.zoo.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +22,7 @@ public class MainController {
     private AnimalService animalService;
     private CategoryService categoryService;
     private OrderService orderService;
+    private ProductService productService;
 
     @GetMapping("/")
     public String getIndex(@CookieValue(value = "id", defaultValue = "") String username, Model model,
@@ -34,6 +37,7 @@ public class MainController {
                           HttpServletResponse httpServletResponse){
         checkCookie(username,httpServletResponse,model);
         modelConfig(model);
+        model.addAttribute("products",productService.findAll());
         return "user/shop";
     }
 

@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ShopController {
     private final ProductService productService;
 
+
+
     @GetMapping("/getImgByProductId/{productId}")
     public ResponseEntity<ByteArrayResource> getImgByProductId(@PathVariable int productId){
         Product doc = productService.findById(productId);
