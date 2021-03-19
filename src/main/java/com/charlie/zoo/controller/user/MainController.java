@@ -25,6 +25,7 @@ public class MainController {
     public String getIndex(@CookieValue(value = "id", defaultValue = "") String username, Model model,
                            HttpServletResponse httpServletResponse) {
         checkCookie(username,httpServletResponse,model);
+        modelConfig(model);
         return "user/index";
     }
 
@@ -32,6 +33,7 @@ public class MainController {
     public String getShop(@CookieValue(value = "id", defaultValue = "") String username,Model model,
                           HttpServletResponse httpServletResponse){
         checkCookie(username,httpServletResponse,model);
+        modelConfig(model);
         return "user/shop";
     }
 
@@ -39,6 +41,7 @@ public class MainController {
     public String getContact(@CookieValue(value = "id", defaultValue = "") String username,Model model,
                              HttpServletResponse httpServletResponse){
         checkCookie(username,httpServletResponse,model);
+        modelConfig(model);
         return "user/contact";
     }
 
@@ -46,6 +49,7 @@ public class MainController {
     public String getCart(@CookieValue(value = "id", defaultValue = "") String username,Model model,
                           HttpServletResponse httpServletResponse){
         checkCookie(username,httpServletResponse,model);
+        modelConfig(model);
         return "user/cart";
     }
 
@@ -53,6 +57,7 @@ public class MainController {
     public String getCheckout(@CookieValue(value = "id", defaultValue = "") String username,Model model,
                               HttpServletResponse httpServletResponse){
         checkCookie(username,httpServletResponse,model);
+        modelConfig(model);
         return "user/checkout";
     }
 
@@ -74,7 +79,6 @@ public class MainController {
         order = orderService.save(order);
         httpServletResponse.addCookie(new Cookie("id", order.getId().toString()));
         model.addAttribute("order",order);
-        modelConfig(model);
     }
 }
 
