@@ -1,6 +1,8 @@
 package com.charlie.zoo.entity;
 
+import com.charlie.zoo.entity.dto.PackageTypeDto;
 import com.charlie.zoo.enums.StatusOfEntity;
+import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,4 +34,9 @@ public class PackageType {
 
     @Enumerated(EnumType.STRING)
     private StatusOfEntity statusOfEntity = StatusOfEntity.ACTIVE;
+
+    @Override
+    public String toString() {
+        return new Gson().toJson(PackageTypeDto.convertToDto(this));
+    }
 }

@@ -61,6 +61,26 @@ public class PackageTypeDto {
         return packageTypes;
     }
 
+    public static PackageTypeDto convertToDto(PackageType packageType){
+        PackageTypeDto packageTypeDto = new PackageTypeDto();
+        packageTypeDto.id=packageType.getId();
+        packageTypeDto.price=packageType.getPrice().doubleValue();
+        packageTypeDto.newPrice=packageType.getNewPrice().doubleValue();
+        packageTypeDto.packSize=packageType.getPackSize().doubleValue();
+        packageTypeDto.discount=packageType.getDiscount().doubleValue();
+        packageTypeDto.packType=packageType.getPackType();
+        packageTypeDto.onSale=packageType.isOnSale();
+        packageTypeDto.countOfProduct=packageType.getCountOfProduct();
+
+        if(packageType.getStatusOfEntity()==StatusOfEntity.ACTIVE) {
+            packageTypeDto.statusOfEntity=true;
+        }else {
+            packageTypeDto.statusOfEntity=false;
+        }
+
+        return packageTypeDto;
+    }
+
     public static PackageType convertToPackageType(PackageTypeDto packageTypeDto){
         PackageType packageType = new PackageType();
 
