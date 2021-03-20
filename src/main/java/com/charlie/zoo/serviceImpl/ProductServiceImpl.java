@@ -125,6 +125,9 @@ public class ProductServiceImpl implements ProductService {
         }else{
             producer = Arrays.asList(producerId);
         }
+        System.out.println(category);
+        System.out.println(packSize);
+        System.out.println(producer);
         if(packSizeArr==null || packSizeArr.length==0){
             packSize = packageTypeService.getListOfSizes();
         }else {
@@ -132,7 +135,7 @@ public class ProductServiceImpl implements ProductService {
                 packSize.add(new BigDecimal(val));
             }
         }
-        products = productJpa.findByCategoriesIdInAndPackageTypePackSizeInAndProducerIdInAndStatusOfEntity(category,packSize,producer,StatusOfEntity.ACTIVE);
+        products = productJpa.findByCategoriesIdInAAndCategoryItemsIdInAndPackageTypePackSizeInAndProducerIdInAndStatusOfEntity(category,categoryItem,packSize,producer,StatusOfEntity.ACTIVE);
 
         return products;
     }

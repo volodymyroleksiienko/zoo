@@ -14,11 +14,5 @@ public interface ProductJpa extends JpaRepository<Product,Integer> {
     Set<Product> findByCategoriesIdInAndStatusOfEntity(List<Integer> categoryId, StatusOfEntity statusOfentity);
 
 
-    Set<Product> findByCategoriesIdInAndPackageTypePackSizeInAndProducerIdInAndStatusOfEntity(List<Integer> categoryId,List<BigDecimal> packId,List<Integer> producerId, StatusOfEntity statusOfentity);
-
-    Set<Product> findByCategoryItemsIdInAndPackageTypeIdInAndProducerIdInAndStatusOfEntity(List<Integer> categoryId,List<Integer> packId,List<Integer> producerId, StatusOfEntity statusOfentity);
-
-
-    Set<Product> findByPackageTypePackSizeInAndStatusOfEntity(List<BigDecimal> packSize, StatusOfEntity statusOfEntity);
-
+    Set<Product> findByCategoriesIdInAAndCategoryItemsIdInAndPackageTypePackSizeInAndProducerIdInAndStatusOfEntity(List<Integer> categoryId,List<Integer> categoryItem,List<BigDecimal> packId,List<Integer> producerId, StatusOfEntity statusOfentity);
 }

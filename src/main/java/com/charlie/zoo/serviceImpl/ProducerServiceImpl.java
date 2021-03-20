@@ -30,7 +30,7 @@ public class ProducerServiceImpl implements ProducerService {
 
     @Override
     public List<Integer> getListOfId() {
-        return null;
+        return producerJPA.getListOfId();
     }
 
     @Override
