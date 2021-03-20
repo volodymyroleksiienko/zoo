@@ -13,8 +13,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.math.BigDecimal;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -23,6 +23,7 @@ public class ProductServiceImpl implements ProductService {
     private final PackageTypeService packageTypeService;
     private final CategoryService categoryService;
     private final CategoryItemService categoryItemService;
+    private final ProducerService producerService;
 
     @Override
     public Product save(Product product) {
@@ -102,6 +103,38 @@ public class ProductServiceImpl implements ProductService {
         }
         save(product);
         return product;
+    }
+
+    @Override
+    public Set<Product> getFilteredProduct(Integer[] categoryIdArr,Integer[] categoryItemIdArr,Integer[] producerId, Double[] packSizeArr){
+        Set<Product> products = new HashSet<>();
+        List<Integer> category,categoryItem,producer;
+        List<BigDecimal> packSize=new ArrayList<>();
+        if(categoryIdArr==null || categoryIdArr.length==0){
+            category = categoryService.getListOfId();
+        }else{
+            category = Arrays.asList(categoryIdArr);
+        }
+        if(categoryItemIdArr==null || categoryItemIdArr.length==0){
+            categoryItem = categoryItemService.getListOfId();
+        }else{
+            categoryItem = Arrays.asList(categoryItemIdArr);
+        }
+        if(producerId==null || producerId.length==0){
+            producer = producerService.getListOfId();
+        }else{
+            producer = Arrays.asList(producerId);
+        }
+        if(packSizeArr==null || packSizeArr.length==0){
+            packSize = packageTypeService.getListOfSizes();
+        }else {
+            for(Double val:packSizeArr) {
+                packSize.add(new BigDecimal(val));
+            }
+        }
+        products = productJpa.findByCategoriesIdInAndPackageTypePackSizeInAndProducerIdInAndStatusOfEntity(category,packSize,producer,StatusOfEntity.ACTIVE);
+
+        return products;
     }
 
     @Override

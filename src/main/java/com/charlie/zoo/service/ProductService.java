@@ -7,6 +7,7 @@ import com.charlie.zoo.enums.StatusOfEntity;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Set;
 
 public interface ProductService {
     Product save(Product product);
@@ -14,6 +15,7 @@ public interface ProductService {
     Product update(Product product, MultipartFile multipartFile, List<PackageType>  packageTypes,String category,String subCategory);
     Product findById(int id);
     Product changeStatus(int id, boolean status);
+    Set<Product> getFilteredProduct(Integer[] categoryIdArr,Integer[] categoryItemIdArr,Integer[] producerId, Double[] packSizeArr);
     List<Product> findAll();
 //    List<Product> getFilteredProducts(Integer type, Integer size,Integer page);
 //    int getCountOfElements(Integer type, Integer size,Integer page);

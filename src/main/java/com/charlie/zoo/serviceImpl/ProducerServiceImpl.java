@@ -29,6 +29,11 @@ public class ProducerServiceImpl implements ProducerService {
     }
 
     @Override
+    public List<Integer> getListOfId() {
+        return null;
+    }
+
+    @Override
     public void deleteByID(int id) {
         producerJPA.deleteById(id);
     }

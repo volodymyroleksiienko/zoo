@@ -39,6 +39,11 @@ public class CategoryItemServiceImpl implements CategoryItemService {
     }
 
     @Override
+    public List<Integer> getListOfId() {
+        return categoryItemJPA.getListOfId();
+    }
+
+    @Override
     public void deleteByID(int id) {
         categoryItemJPA.deleteById(id);
     }
