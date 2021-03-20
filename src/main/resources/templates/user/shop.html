@@ -314,6 +314,7 @@
                                                 <button class="btn" th:text="${type.getPackSize()+' '+type.getPackType()}" th:value="${type.toString()}"></button>
                                             </li>
                                         </ul>
+
                                         <ul class="product__price">
                                             <li class="old__price">$16.00</li>
                                             <li class="new__price">$10.00</li>
@@ -565,6 +566,36 @@
     <script th:src="@{/js/waypoints.min.js}"></script>
     <!-- Main js file that contents all jQuery plugins activation. -->
     <script th:src="@{/js/main.js}"></script>
+
+<script>
+    $( document ).ready(function() {
+        let active = 'active';
+
+        let ulList = document.getElementsByClassName('product-types');
+
+        for (let i=0;i<ulList.length;i++){
+            // ulList[i].getElementsByTagName('button')[0].click(this);
+            $(ulList[i]).find('.btn')[0].click();
+            // console.log(ulList[i].getElementsByTagName('button')[0]);
+        }
+
+        $('.btn').click(function() {
+            $(this).parent().siblings().find('.' + active).removeClass(active);
+            $(this).addClass(active);
+            let jsonObj = JSON.parse($(this).val());
+            console.log(jsonObj);
+            if (jsonObj["onSale"]===true) {
+                $(this).parent().parent().parent().find('.old__price').text(jsonObj["price"]+' UAH');
+                $(this).parent().parent().parent().find('.old__price').css("display", "inline-block");
+                $(this).parent().parent().parent().find('.new__price').text(jsonObj["newPrice"]+' UAH');
+            }else {
+                $(this).parent().parent().parent().find('.new__price').text(jsonObj["price"]+' UAH');
+                $(this).parent().parent().parent().find('.old__price').css("display", "none");
+            }
+        });
+    });
+
+</script>
 
 </body>
 
