@@ -135,7 +135,7 @@ public class ProductServiceImpl implements ProductService {
                 packSize.add(new BigDecimal(val));
             }
         }
-        products = productJpa.findByCategoriesIdInAAndCategoryItemsIdInAndPackageTypePackSizeInAndProducerIdInAndStatusOfEntity(category,categoryItem,packSize,producer,StatusOfEntity.ACTIVE);
+        products = productJpa.findByCategoriesIdInAndCategoryItemsIdInAndPackageTypePackSizeInAndProducerIdInAndStatusOfEntity(category,categoryItem,packSize,producer,StatusOfEntity.ACTIVE);
 
         return products;
     }
