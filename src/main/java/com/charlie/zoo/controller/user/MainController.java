@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -39,6 +40,14 @@ public class MainController {
         modelConfig(model);
         model.addAttribute("products",productService.findAll());
         return "user/shop";
+    }
+
+    @GetMapping("/singleProduct/{id}")
+    public String getSingleProduct(@PathVariable int id, Model model){
+        Product product = productService.findById(id);
+        modelConfig(model);
+        model.addAttribute("product",product);
+        return "user/product-details";
     }
 
     @GetMapping("/contact")
