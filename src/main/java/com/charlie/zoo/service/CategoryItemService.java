@@ -10,5 +10,6 @@ public interface CategoryItemService {
     List<CategoryItem> findByCategoryAnimalId(int animalId);
     List<CategoryItem> findByCategoryId(int id);
     List<CategoryItem> findAll();
+    List<Integer> getListOfId();
     void deleteByID(int id);
 }

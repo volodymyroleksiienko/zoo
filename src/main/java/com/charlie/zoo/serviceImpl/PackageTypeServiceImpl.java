@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -32,6 +33,11 @@ public class PackageTypeServiceImpl implements PackageTypeService {
     @Override
     public void deleteByID(int id) {
         packageTypeJPA.deleteById(id);
+    }
+
+    @Override
+    public List<BigDecimal> getListOfSizes() {
+        return packageTypeJPA.getListOfSizes();
     }
 
     @Override

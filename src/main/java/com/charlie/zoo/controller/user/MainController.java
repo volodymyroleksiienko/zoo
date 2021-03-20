@@ -35,17 +35,19 @@ public class MainController {
 
     @GetMapping("/shop")
     public String getShop(@CookieValue(value = "id", defaultValue = "") String username,Model model,
-                          HttpServletResponse httpServletResponse){
+                          HttpServletResponse httpServletResponse,Integer[] category,Integer[] categoryItem,Integer[] producer,Double[] packSize){
         checkCookie(username,httpServletResponse,model);
         modelConfig(model);
-        model.addAttribute("products",productService.findAll());
+        model.addAttribute("products",productService.getFilteredProduct(category,categoryItem,producer,packSize));
         return "user/shop";
     }
 
     @GetMapping("/singleProduct/{id}")
-    public String getSingleProduct(@PathVariable int id, Model model){
-        Product product = productService.findById(id);
+    public String getSingleProduct(@CookieValue(value = "id", defaultValue = "") String username,
+                                   @PathVariable int id, Model model,HttpServletResponse httpServletResponse){
         modelConfig(model);
+        checkCookie(username,httpServletResponse,model);
+        Product product = productService.findById(id);
         model.addAttribute("product",product);
         return "user/product-details";
     }

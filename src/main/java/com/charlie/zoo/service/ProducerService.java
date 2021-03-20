@@ -8,5 +8,6 @@ public interface ProducerService {
     Producer save(Producer producer);
     Producer findById(int id);
     List<Producer> findAll();
+    List<Integer> getListOfId();
     void deleteByID(int id);
 }
