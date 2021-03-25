@@ -574,15 +574,7 @@
     $( document ).ready(function() {
         let active = 'active';
 
-        let ulList = document.getElementsByClassName('product-types');
-
-        for (let i=0;i<ulList.length;i++){
-            // ulList[i].getElementsByTagName('button')[0].click(this);
-            $(ulList[i]).find('.btn')[0].click();
-            // console.log(ulList[i].getElementsByTagName('button')[0]);
-        }
-
-        $('.btn').click(function() {
+        $('.btn').on( 'click', function () {
             $(this).parent().siblings().find('.' + active).removeClass(active);
             $(this).addClass(active);
             let jsonObj = JSON.parse($(this).val());
@@ -597,6 +589,7 @@
             }
         });
     });
+
 
 </script>
 
