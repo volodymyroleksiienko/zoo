@@ -316,11 +316,11 @@
                                         </ul>
 
                                         <ul class="product__price">
-                                            <li class="old__price" th:if="${pr.getPackageType().get(0).isOnSale()}" th:text="${pr.getPackageType().get(0).getPrice()}">$16.00</li>
-                                            <li class="new__price" th:if="${pr.getPackageType().get(0).isOnSale()}" th:text="${pr.getPackageType().get(0).getNewPrice()}">$10.00</li>
+                                            <li class="old__price" th:if="${pr?.getPackageType()?.get(0)?.isOnSale()}" th:text="${pr?.getPackageType()?.get(0)?.getPrice()}">$16.00</li>
+                                            <li class="new__price" th:if="${pr?.getPackageType()?.get(0)?.isOnSale()}" th:text="${pr.getPackageType()?.get(0)?.getNewPrice()}">$10.00</li>
 
-                                            <li class="old__price" style="display: none" th:if="${!pr.getPackageType().get(0).isOnSale()}">$16.00</li>
-                                            <li class="new__price" th:if="${!pr.getPackageType().get(0).isOnSale()}" th:text="${pr.getPackageType().get(0).getPrice()}">$10.00</li>
+                                            <li class="old__price" style="display: none" th:if="${!pr?.getPackageType()?.get(0)?.isOnSale()}">$16.00</li>
+                                            <li class="new__price" th:if="${!pr?.getPackageType()?.get(0)?.isOnSale()}" th:text="${pr?.getPackageType()?.get(0)?.getPrice()}">$10.00</li>
                                         </ul>
                                     </div>
                                 </div>
