@@ -15,6 +15,8 @@ public class CategoryItem {
 
     private int position;
     private String name;
+    @Column(unique = true)
+    private String url;
 
     @ManyToOne
     private Category category;

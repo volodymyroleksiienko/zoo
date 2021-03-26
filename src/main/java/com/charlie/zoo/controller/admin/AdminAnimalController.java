@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/admin/animal")
@@ -22,8 +23,8 @@ public class AdminAnimalController {
     }
 
     @PostMapping({"/add","/edit"})
-    public String addAnimal(Animal animal){
-        animalService.save(animal);
+    public String addAnimal(Animal animal, MultipartFile multipartFile){
+        animalService.save(animal,multipartFile);
         return "redirect:/admin/animal";
     }
 

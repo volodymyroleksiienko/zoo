@@ -5,6 +5,7 @@ import com.charlie.zoo.jpa.AnimalJPA;
 import com.charlie.zoo.service.AnimalService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -15,6 +16,21 @@ public class AnimalServiceImpl implements AnimalService  {
     @Override
     public Animal save(Animal animal) {
         return animalJPA.save(animal);
+    }
+
+    @Override
+    public Animal save(Animal animal, MultipartFile multipartFile) {
+        if(multipartFile!=null && multipartFile.getSize()>0){
+            try {
+                animal.setImg(multipartFile.getBytes());
+                animal.setImgName(multipartFile.getOriginalFilename());
+                animal.setImgType(multipartFile.getContentType());
+            }
+            catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return save(animal);
     }
 
     @Override

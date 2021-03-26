@@ -93,13 +93,15 @@
                                                 <tbody>
                                                 <tr th:id="${a.getId()}" th:each="a:${animals} " class="nk-tb-item">
 
-                                                    <td class="nk-tb-col"></td>
+                                                    <td class="nk-tb-col" style="width: 20%;">
+                                                        <img th:src="@{'/shop/getAnimalImg/'+${a.getId()}}" alt="">
+                                                    </td>
 
                                                     <td class="nk-tb-col">
                                                         <span th:text="${a.getName()}">Назва</span>
                                                     </td>
 
-                                                    <td class="nk-tb-col tb-col-lg"></td>
+                                                    <td class="nk-tb-col tb-col-lg" th:text="${a.getUrl()}"></td>
 
                                                     <td class="nk-tb-col nk-tb-col-tools">
                                                         <ul class="nk-tb-actions gx-1">
