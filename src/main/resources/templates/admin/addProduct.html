@@ -251,6 +251,59 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <div class="preview-block">
+                                                                <div class="custom-control custom-switch">
+                                                                    <input type="checkbox" class="custom-control-input" id="wholeSaleProduct" name="wholeSale">
+                                                                    <label class="custom-control-label" for="wholeSaleProduct">Оптова торгівля</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <div class="form-control-wrap">
+                                                                <div class="form-text-hint" style="top: 50%;">
+                                                                    <span class="overline-title">UAH</span>
+                                                                </div>
+                                                                <label class="form-label" for="wholeSaleProductPrice">Оптова ціна</label>
+                                                                <input type="number" min="0" disabled="disabled" class="form-control" id="wholeSaleProductPrice" placeholder="Не заповнено..." name="wholeSalePrice" value="0.00">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <div class="form-control-wrap">
+                                                                <div class="form-text-hint" style="top: 50%;">
+                                                                    <span class="overline-title">UAH</span>
+                                                                </div>
+                                                                <label class="form-label" for="wholeSaleProductPromotionalPrice">Акційна ціна</label>
+                                                                <input type="number" min="0" disabled="disabled" class="form-control" id="wholeSaleProductPromotionalPrice" placeholder="Не заповнено..." name="wholeSaleNewPrice" value="0.00">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <div class="form-control-wrap">
+                                                                <div class="form-text-hint" style="top: 50%;">
+                                                                    <span class="overline-title">%</span>
+                                                                </div>
+                                                                <label class="form-label" for="wholeSaleProductPromotionalPricePercentage">Знижка</label>
+                                                                <input type="number" disabled="disabled" class="form-control" id="wholeSaleProductPromotionalPricePercentage" placeholder="Не заповнено..." value="0.00">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <div class="preview-block">
+                                                                <div class="custom-control custom-switch">
+                                                                    <input type="checkbox" class="custom-control-input" id="wholeSalePromotedProduct" name="wholeSaleOnSale">
+                                                                    <label class="custom-control-label" for="wholeSalePromotedProduct">Акційний товар</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <button title="Добавити позицію" id="addPosition" class="btn btn-icon btn-lg btn-primary float-right" style="margin-left: auto; margin-right: 0.75rem;">
                                                         <em class="icon ni ni-grid-add-c"></em>
                                                     </button>
@@ -268,6 +321,13 @@
                                                         <td class="nk-tb-col tb-col-lg">Акційний</td>
                                                         <td class="nk-tb-col tb-col-lg">Акц. ціна</td>
                                                         <td class="nk-tb-col tb-col-lg">Знижка</td>
+
+                                                        <td class="nk-tb-col tb-col-lg">Опт</td>
+                                                        <td class="nk-tb-col tb-col-lg">Ціна</td>
+                                                        <td class="nk-tb-col tb-col-lg">Акційний</td>
+                                                        <td class="nk-tb-col tb-col-lg">Акц. ціна</td>
+                                                        <td class="nk-tb-col tb-col-lg">Знижка</td>
+
                                                         <td class="nk-tb-col tb-col-hide">ID</td>
                                                         <th class="nk-tb-col"><span class="sub-text" style="text-align: right; padding-right: 2rem;">Дії</span></th>
                                                     </tr>
@@ -294,7 +354,7 @@
 
             <!-- Change item start -->
             <div class="modal fade" tabindex="-1" role="dialog" id="editItemModal" aria-modal="true">
-                <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-dialog modal-xl" role="document">
                     <div class="modal-content">
                         <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
                         <div class="modal-body modal-body-md">
@@ -379,6 +439,59 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <div class="preview-block">
+                                                <div class="custom-control custom-switch">
+                                                    <input type="checkbox" class="custom-control-input" id="editWholeSaleProduct">
+                                                    <label class="custom-control-label" for="editWholeSaleProduct">Оптова торгівля</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <div class="form-control-wrap">
+                                                <div class="form-text-hint" style="top: 50%;">
+                                                    <span class="overline-title">UAH</span>
+                                                </div>
+                                                <label class="form-label" for="editWholeSaleProductPrice">Ціна</label>
+                                                <input type="number" min="0" class="form-control" id="editWholeSaleProductPrice" placeholder="Не заповнено..." value="0.00">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <div class="form-control-wrap">
+                                                <div class="form-text-hint" style="top: 50%;">
+                                                    <span class="overline-title">UAH</span>
+                                                </div>
+                                                <label class="form-label" for="editWholeSaleProductPromotionalPrice">Акційна ціна</label>
+                                                <input type="number" min="0" class="form-control" id="editWholeSaleProductPromotionalPrice" placeholder="Не заповнено..." value="0.00">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <div class="form-control-wrap">
+                                                <div class="form-text-hint" style="top: 50%;">
+                                                    <span class="overline-title">%</span>
+                                                </div>
+                                                <label class="form-label" for="editWholeSaleProductPromotionalPricePercentage">Знижка</label>
+                                                <input type="number" class="form-control" id="editWholeSaleProductPromotionalPricePercentage" placeholder="Не заповнено..." value="0.00">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <div class="preview-block">
+                                                <div class="custom-control custom-switch">
+                                                    <input type="checkbox" class="custom-control-input" id="editWholeSalePromotedProduct">
+                                                    <label class="custom-control-label" for="editWholeSalePromotedProduct">Акційний товар</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="form-group col-12">
                                         <button type="button" onclick="submitChanges($('#rowIndex').val())" class="btn btn-outline-primary">Підтвердити</button>
                                         <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
@@ -429,22 +542,30 @@
     class PackageType {
         id;
         price;
+        wholeSalePrice;
         newPrice;
+        wholeSaleNewPrice;
         packSize;
         packType;
         onSale;
+        wholeSaleOnSale;
         discount;
+        wholeSaleDiscount;
         statusOfEntity;
         countOfProduct;
 
-        constructor(id,price,newPrice,packSize,packType,onSale,discount,countOfProduct,statusOfEntity) {
+        constructor(id,price,wholeSalePrice,newPrice,wholeSaleNewPrice,packSize,packType,onSale,wholeSaleOnSale,discount,wholeSaleDiscount,countOfProduct,statusOfEntity) {
             this.id = id;
             this.price = price;
+            this.wholeSalePrice = wholeSalePrice;
             this.newPrice = newPrice;
+            this.wholeSaleNewPrice = wholeSaleNewPrice;
             this.packSize = packSize;
             this.packType = packType;
             this.onSale = onSale;
+            this.wholeSaleOnSale = wholeSaleOnSale;
             this.discount = discount;
+            this.wholeSaleDiscount = wholeSaleDiscount;
             this.statusOfEntity = statusOfEntity;
             this.countOfProduct = countOfProduct;
         }
@@ -496,6 +617,13 @@
             let productPromotionalPrice =   $('#productPromotionalPrice').val().trim();
             let promotedProduct =           $('#promotedProduct').is(":checked");
             let discountVal =               $('#productPromotionalPricePercentage').val().trim();
+
+            let wholeSaleProduct =                          $('#wholeSaleProduct').is(":checked");
+            let wholeSaleProductPrice =                     $('#wholeSaleProductPrice').val().trim();
+            let wholeSaleProductPromotionalPrice =          $('#wholeSaleProductPromotionalPrice').val().trim();
+            let wholeSalePromotedProduct =                  $('#wholeSalePromotedProduct').is(":checked");
+            let wholeSaleProductPromotionalPricePercentage= $('#wholeSaleProductPromotionalPricePercentage').val().trim();
+
             let id =                        0;
 
             let rowNode = t.row.add([
@@ -507,6 +635,13 @@
                  promotedProduct,
                  productPromotionalPrice,
                  discountVal,
+
+                 wholeSaleProduct,
+                 wholeSaleProductPrice,
+                 wholeSaleProductPromotionalPrice,
+                 wholeSalePromotedProduct,
+                 wholeSaleProductPromotionalPricePercentage,
+
                  id,
                  btn
             ]).draw(false).node();
@@ -520,8 +655,15 @@
             $( rowNode ).find('td').eq(5).addClass('nk-tb-col tb-col-lg');
             $( rowNode ).find('td').eq(6).addClass('nk-tb-col tb-col-lg');
             $( rowNode ).find('td').eq(7).addClass('nk-tb-col tb-col-lg');
-            $( rowNode ).find('td').eq(8).addClass('nk-tb-col tb-col-hide');
-            $( rowNode ).find('td').eq(9).addClass('nk-tb-col nk-tb-col-tools');
+
+            $( rowNode ).find('td').eq(8).addClass('nk-tb-col tb-col-lg');
+            $( rowNode ).find('td').eq(9).addClass('nk-tb-col tb-col-lg');
+            $( rowNode ).find('td').eq(10).addClass('nk-tb-col tb-col-lg');
+            $( rowNode ).find('td').eq(11).addClass('nk-tb-col tb-col-lg');
+            $( rowNode ).find('td').eq(12).addClass('nk-tb-col tb-col-lg');
+
+            $( rowNode ).find('td').eq(13).addClass('nk-tb-col tb-col-hide');
+            $( rowNode ).find('td').eq(14).addClass('nk-tb-col nk-tb-col-tools');
 
             $('#packageType').val('');
             $('#packSize').val(1);
@@ -532,8 +674,17 @@
             $('#productPromotionalPricePercentage').val('0.00');
             $('#promotedProduct').prop("checked", false);
 
+            $('#wholeSaleProductPrice').val('0.00');
+            $('#wholeSaleProductPromotionalPrice').val('0.00');
+            $('#wholeSaleProductPromotionalPricePercentage').val('0.00');
+            $('#wholeSalePromotedProduct').prop("checked", false);
+            $('#wholeSaleProduct').prop("checked", false);
+
             $('#productPromotionalPrice').attr('disabled', 'disabled');
             $('#productPromotionalPricePercentage').attr('disabled', 'disabled');
+            $('#wholeSaleProductPrice').attr('disabled', 'disabled');
+            $('#wholeSaleProductPromotionalPrice').attr('disabled', 'disabled');
+            $('#wholeSaleProductPromotionalPricePercentage').attr('disabled', 'disabled');
         });// add position end
 
         $('#promotedProduct').on( 'click', function (){
@@ -543,6 +694,30 @@
             }else {
                 $('#productPromotionalPrice').attr('disabled', 'disabled');
                 $('#productPromotionalPricePercentage').attr('disabled', 'disabled');
+            }
+        });// disable/enable promotion end
+
+        $('#wholeSalePromotedProduct').on( 'click', function (){
+            if ($('#wholeSaleProduct').is(':checked')) {
+                if ($(this).is(':checked')) {
+                    $('#wholeSaleProductPromotionalPrice').removeAttr("disabled");
+                    $('#wholeSaleProductPromotionalPricePercentage').removeAttr("disabled");
+                } else {
+                    $('#wholeSaleProductPromotionalPrice').attr('disabled', 'disabled');
+                    $('#wholeSaleProductPromotionalPricePercentage').attr('disabled', 'disabled');
+                }
+            }
+        });// disable/enable promotion end
+
+        $('#wholeSaleProduct').on( 'click', function (){
+            if($(this).is(':checked')) {
+                $('#wholeSaleProductPrice').removeAttr("disabled");
+            }else {
+                $('#wholeSalePromotedProduct').prop("checked", false);
+                $('#wholeSaleProductPrice').attr('disabled', 'disabled');
+                $('#wholeSaleProductPromotionalPrice').attr('disabled', 'disabled');
+                $('#wholeSaleProductPromotionalPricePercentage').attr('disabled', 'disabled');
+
             }
         });// disable/enable promotion end
 
@@ -565,6 +740,7 @@
         $('#productPromotionalPricePercentage').on('input', function() {
             calculatePromotionPrice($('#productPrice'), $('#productPromotionalPrice'), $('#productPromotionalPricePercentage'));
         });
+
         // modal
         $('#editProductPrice').on('input', function() {
             calculatePercentage($('#editProductPrice'), $('#editProductPromotionalPrice'), $('#editProductPromotionalPricePercentage'));
@@ -747,7 +923,7 @@
 
     function validateimg(ctrl) {
         var fileUpload = ctrl;
-        var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.png|.gif)$");
+        var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.png)$");
         if (regex.test(fileUpload.value.toLowerCase())) {
             if (typeof (fileUpload.files) != "undefined") {
                 var reader = new FileReader();
@@ -759,7 +935,7 @@
                         let height = this.height;
                         let width = this.width;
                         let aspectRatio = width/height;
-                        if ((aspectRatio.toFixed(2)>0.60) && (aspectRatio.toFixed(2)<0.70)) {
+                        if ((aspectRatio.toFixed(2)>0.95) && (aspectRatio.toFixed(2)<1.05)) {
                             console.log("Asp rat: "+aspectRatio.toFixed(2));
                             return true;
                         }else{
