@@ -323,7 +323,7 @@
                                                         <td class="nk-tb-col tb-col-hide">Знижка</td>
 
                                                         <td class="nk-tb-col tb-col-hide">Опт</td>
-                                                        <td class="nk-tb-col tb-col-lg">Ціна</td>
+                                                        <td class="nk-tb-col tb-col-lg">Ціна (опт)</td>
                                                         <td class="nk-tb-col tb-col-hide">Акційний</td>
                                                         <td class="nk-tb-col tb-col-lg">Акц. ціна</td>
                                                         <td class="nk-tb-col tb-col-hide">Знижка</td>
@@ -816,7 +816,7 @@
             calculatePercentage($('#editWholeSaleProductPrice'), $('#editWholeSaleProductPromotionalPrice'), $('#editWholeSaleProductPromotionalPricePercentage'));
         });
         $('#editWholeSaleProductPromotionalPricePercentage').on('input', function() {
-            calculatePercentage($('#editWholeSaleProductPrice'), $('#editWholeSaleProductPromotionalPrice'), $('#editWholeSaleProductPromotionalPricePercentage'));
+            calculatePromotionPrice($('#editWholeSaleProductPrice'), $('#editWholeSaleProductPromotionalPrice'), $('#editWholeSaleProductPromotionalPricePercentage'));
         });
 
 
