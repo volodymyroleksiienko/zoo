@@ -1,6 +1,7 @@
 package com.charlie.zoo.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,6 +14,14 @@ public class Animal {
     private int id;
 
     private String name;
+    @Column(unique = true)
+    private String url;
+
+    @Lob
+    @Type(type = "org.hibernate.type.ImageType")
+    private byte[] img;
+    private String imgType;
+    private String imgName;
 
     @OneToMany(mappedBy = "animal")
     private List<Category> categories;
