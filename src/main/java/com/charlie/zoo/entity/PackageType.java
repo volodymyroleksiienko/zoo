@@ -21,8 +21,15 @@ public class PackageType {
 
     private BigDecimal price;
     private BigDecimal newPrice;
-    private BigDecimal packSize;
     private BigDecimal discount;
+
+
+    private BigDecimal wholeSalePrice;
+    private BigDecimal wholeSaleNewPrice;
+    private BigDecimal wholeSaleDiscount;
+    private boolean wholeSaleOnSale;
+
+    private BigDecimal packSize;
     private String packType;
     private boolean onSale;
 
