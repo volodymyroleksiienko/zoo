@@ -28,6 +28,7 @@ public class PackageType {
     private BigDecimal wholeSaleNewPrice;
     private BigDecimal wholeSaleDiscount;
     private boolean wholeSaleOnSale;
+    private boolean wholeSaleStatus;
 
     private BigDecimal packSize;
     private String packType;
