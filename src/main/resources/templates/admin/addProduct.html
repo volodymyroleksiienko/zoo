@@ -711,9 +711,28 @@
             }
         });// disable/enable promotion end
 
+        $('#editWholeSalePromotedProduct').on( 'click', function (){
+            if ($('#editWholeSaleProduct').is(':checked')) {
+                if ($(this).is(':checked')) {
+                    $('#editWholeSaleProductPromotionalPrice').removeAttr("disabled");
+                    $('#editWholeSaleProductPromotionalPricePercentage').removeAttr("disabled");
+                } else {
+                    $('#editWholeSaleProductPromotionalPrice').attr('disabled', 'disabled');
+                    $('#editWholeSaleProductPromotionalPricePercentage').attr('disabled', 'disabled');
+                }
+            }
+        });// disable/enable promotion end
+
         $('#wholeSaleProduct').on( 'click', function (){
             if($(this).is(':checked')) {
                 $('#wholeSaleProductPrice').removeAttr("disabled");
+                if ($('#wholeSalePromotedProduct').is(':checked')){
+                    $('#wholeSaleProductPromotionalPrice').removeAttr("disabled");
+                    $('#wholeSaleProductPromotionalPricePercentage').removeAttr("disabled");
+                }else {
+                    $('#wholeSaleProductPromotionalPrice').attr('disabled', 'disabled');
+                    $('#wholeSaleProductPromotionalPricePercentage').attr('disabled', 'disabled');
+                }
             }else {
                 $('#wholeSalePromotedProduct').prop("checked", false);
                 $('#wholeSaleProductPrice').attr('disabled', 'disabled');
@@ -726,6 +745,13 @@
         $('#editWholeSaleProduct').on( 'click', function (){
             if($(this).is(':checked')) {
                 $('#editWholeSaleProductPrice').removeAttr("disabled");
+                if ($('#editWholeSalePromotedProduct').is(':checked')){
+                    $('#editWholeSaleProductPromotionalPrice').removeAttr("disabled");
+                    $('#editWholeSaleProductPromotionalPricePercentage').removeAttr("disabled");
+                }else {
+                    $('#wholeSaleProductPromotionalPrice').attr('disabled', 'disabled');
+                    $('#wholeSaleProductPromotionalPricePercentage').attr('disabled', 'disabled');
+                }
             }else {
                 $('#editWholeSalePromotedProduct').prop("checked", false);
                 $('#editWholeSaleProductPrice').attr('disabled', 'disabled');
@@ -734,6 +760,7 @@
 
             }
         });// disable/enable promotion end
+
 
         $('#editPromotedProduct').on( 'click', function (){
             if($(this).is(':checked')) {
@@ -745,15 +772,8 @@
             }
         });// disable/enable promotion end
 
-        $('#editWholeSalePromotedProduct').on( 'click', function (){
-            if($(this).is(':checked')) {
-                $('#editWholeSaleProductPromotionalPrice').removeAttr("disabled");
-                $('#editWholeSaleProductPromotionalPricePercentage').removeAttr("disabled");
-            }else {
-                $('#editWholeSaleProductPromotionalPrice').attr('disabled', 'disabled');
-                $('#editWholeSaleProductPromotionalPricePercentage').attr('disabled', 'disabled');
-            }
-        });// disable/enable promotion end
+
+
 
         $('#productPrice').on('input', function() {
             calculatePercentage($('#productPrice'), $('#productPromotionalPrice'), $('#productPromotionalPricePercentage'));
