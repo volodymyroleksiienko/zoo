@@ -723,6 +723,18 @@
             }
         });// disable/enable promotion end
 
+        $('#editWholeSaleProduct').on( 'click', function (){
+            if($(this).is(':checked')) {
+                $('#editWholeSaleProductPrice').removeAttr("disabled");
+            }else {
+                $('#editWholeSalePromotedProduct').prop("checked", false);
+                $('#editWholeSaleProductPrice').attr('disabled', 'disabled');
+                $('#editWholeSaleProductPromotionalPrice').attr('disabled', 'disabled');
+                $('#editWholeSaleProductPromotionalPricePercentage').attr('disabled', 'disabled');
+
+            }
+        });// disable/enable promotion end
+
         $('#editPromotedProduct').on( 'click', function (){
             if($(this).is(':checked')) {
                 $('#editProductPromotionalPrice').removeAttr("disabled");
@@ -977,7 +989,7 @@
 
         let id =                        0;
 
-        let arrayData = [packageType, packSize, inStock, activeProductItem, productPrice, promotedProduct, productPromotionalPrice, discountVal, wholeSale, wholeSaleProductPrice, wholeSaleProductPromotionalPrice, wholeSalePromotedProduct, wholeSaleDiscountVal, id, btn];
+        let arrayData = [packageType, packSize, inStock, activeProductItem, productPrice, promotedProduct, productPromotionalPrice, discountVal, wholeSale, wholeSaleProductPrice, wholeSalePromotedProduct, wholeSaleProductPromotionalPrice, wholeSaleDiscountVal, id, btn];
 
         t.row(rowToSaveIndex).data(arrayData).draw();
 
