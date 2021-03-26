@@ -111,6 +111,7 @@
                                                                     <tr>
                                                                         <th class="nk-tb-col">#</th>
                                                                         <th class="nk-tb-col">Назва</th>
+                                                                        <th class="nk-tb-col tb-col-md">URL</th>
                                                                         <th class="nk-tb-col tb-col-hide">Категорія</th>
                                                                         <th class="nk-tb-col tb-col-md">Категорія</th>
                                                                         <th class="nk-tab-col" style="text-align: right; padding-right: 2rem;" >Дії</th>
@@ -120,6 +121,7 @@
                                                                     <tr th:each="ct : ${categoryItems}" th:id="${ct.getId()}" >
                                                                         <th class="nk-tb-col element-position" th:text="${ct.getPosition()}"></th>
                                                                         <td class="nk-tb-col" th:text="${ct.getName()}"></td>
+                                                                        <td class="nk-tb-col tb-col-md">URL</td>
                                                                         <td class="nk-tb-col tb-col-hide" th:text="${ct.getCategory().getId()}"></td>
                                                                         <td class="nk-tb-col tb-col-md" th:text="${ct.getCategory().getName()}"></td>
                                                                         <td class="nk-tb-col nk-tb-col-tools">
@@ -177,6 +179,12 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="form-label" for="subCategoryURL">URL</label>
+                                    <div class="form-control-wrap">
+                                        <input type="text" class="form-control" id="subCategoryURL" required="required" placeholder="URL..." name="url">
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="form-label" for="addCategoryPosition">Позиція</label>
                                     <div class="form-control-wrap">
                                         <input type="number" min="1" step="1" class="form-control" id="addCategoryPosition" placeholder="Не заповнено..." name="position">
@@ -214,6 +222,12 @@
                                     <label class="form-label" for="editCategoryItemName">Назва</label>
                                     <div class="form-control-wrap">
                                         <input type="text" class="form-control" id="editCategoryItemName" placeholder="Не заповнено..." name="name">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="editSubCategoryURL">URL</label>
+                                    <div class="form-control-wrap">
+                                        <input type="text" class="form-control" id="editSubCategoryURL" required="required" placeholder="URL..." name="url">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -294,7 +308,6 @@
             }else {
                 position = 1;
             }
-            console.log(position);            $('#addCategoryPosition').val(position);
             $('#addCategoryItemModal').modal('show');
         }
 
@@ -305,15 +318,15 @@
             console.log('row id:'+trId);
 
             let subCategoryName =   $(trObj).find('td:eq(0)').text();
-            let position =       $(trObj).find('th:eq(0)').text();
-            let categoryId =       $(trObj).find('td:eq(1)').text();
+            let url =               $(trObj).find('td:eq(1)').text();
+            let position =          $(trObj).find('th:eq(0)').text();
+            let categoryId =        $(trObj).find('td:eq(2)').text();
 
-
-            console.log("name: "+subCategoryName.trim()+";\npos:"+position.trim()+";\ncategory id:"+categoryId.trim());
 
             $('#editCategoryItemName')  .val(subCategoryName.trim());
+            $('#editSubCategoryURL')    .val(url.trim());
             $('#editCategoryPosition')  .val(position.trim());
-            $('#selectCategoryEdit')      .val(categoryId.trim()).change();
+            $('#selectCategoryEdit')    .val(categoryId.trim()).change();
 
             console.log("row id:" + $(trObj).attr('id'));
 

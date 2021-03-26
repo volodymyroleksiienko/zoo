@@ -99,7 +99,8 @@
                                                             <tr>
                                                                 <th class="nk-tb-col">#</th>
                                                                 <th class="nk-tb-col">Назва</th>
-                                                                <th class="nk-tb-col tb-col-md">Тварини</th>
+                                                                <th class="nk-tb-col tb-col-md">URL</th>
+                                                                <th class="nk-tb-col tb-col-hide">Тварини</th>
                                                                 <th class="nk-tb-col tb-col-md">Тварини</th>
                                                                 <th class="nk-tab-col" style="text-align: right; padding-right: 2rem;" >Дії</th>
                                                             </tr>
@@ -108,7 +109,8 @@
                                                             <tr th:each="ct : ${categories}" th:id="${ct.getId()}" >
                                                                 <th class="nk-tb-col element-position" th:text="${ct.getPosition()}"></th>
                                                                 <td class="nk-tb-col" th:text="${ct.getName()}"></td>
-                                                                <td class="nk-tb-col tb-col-md" th:text="${ct.getAnimal().getId()}"></td>
+                                                                <td class="nk-tb-col tb-col-md"></td>
+                                                                <td class="nk-tb-col tb-col-hide" th:text="${ct.getAnimal().getId()}"></td>
                                                                 <td class="nk-tb-col tb-col-md" th:text="${ct.getAnimal().getName()}"></td>
                                                                 <td class="nk-tb-col nk-tb-col-tools">
                                                                     <ul class="nk-tb-actions gx-1">
@@ -161,13 +163,19 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="form-label" for="categoryURL">URL</label>
+                                    <div class="form-control-wrap">
+                                        <input type="text" class="form-control" id="categoryURL" required="required" placeholder="URL..." name="url">
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="form-label" for="addCategoryPosition">Позиція</label>
                                     <div class="form-control-wrap">
                                         <input type="number" min="1" step="1" class="form-control" id="addCategoryPosition" placeholder="Не заповнено..." name="position">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-label">Вид варин</label>
+                                    <label class="form-label">Вид тварин</label>
                                     <div class="form-control-wrap">
                                         <select class="form-select form-control form-control-lg" name="animal" id="selectAnimal">
                                             <option th:each="a :${animals}" th:value="${a.getId()}" th:text="${a.getName()}"></option>
@@ -198,6 +206,12 @@
                                     <label class="form-label" for="editCategoryItemName">Назва</label>
                                     <div class="form-control-wrap">
                                         <input type="text" class="form-control" id="editCategoryItemName" placeholder="Не заповнено..." name="name">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="editCategoryURL">URL</label>
+                                    <div class="form-control-wrap">
+                                        <input type="text" class="form-control" id="editCategoryURL" required="required" placeholder="URL..." name="url">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -291,13 +305,15 @@
             console.log('row id:'+trId);
 
             let categoryName =   $(trObj).find('td:eq(0)').text();
+            let url =            $(trObj).find('td:eq(1)').text();
             let position =       $(trObj).find('th:eq(0)').text();
-            let animalId =       $(trObj).find('td:eq(1)').text();
+            let animalId =       $(trObj).find('td:eq(2)').text();
 
 
             console.log("name: "+categoryName.trim()+";\npos:"+position.trim()+";\nanimal id:"+animalId.trim());
 
             $('#editCategoryItemName')  .val(categoryName.trim());
+            $('#editCategoryURL')       .val(url.trim());
             $('#editCategoryPosition')  .val(position.trim());
             $('#selectEditAnimal')      .val(animalId.trim()).change();
 
