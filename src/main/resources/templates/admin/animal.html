@@ -84,16 +84,22 @@
                                             <table class="datatable-init nk-tb-list nk-tb-ulist" data-auto-responsive="false">
                                                 <thead>
                                                 <tr class="nk-tb-item nk-tb-head">
-                                                    <th class="nk-tb-col">Назва</th>
+                                                    <th class="nk-tb-col">Зображення</th>
+                                                    <th class="nk-tb-col"><span class="sub-text">Назва</span></th>
+                                                    <th class="nk-tb-col tb-col-lg">URL</th>
                                                     <th class="nk-tb-col"><span class="sub-text" style="text-align: right; padding-right: 2rem;">Дії</span></th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 <tr th:id="${a.getId()}" th:each="a:${animals} " class="nk-tb-item">
 
+                                                    <td class="nk-tb-col"></td>
+
                                                     <td class="nk-tb-col">
                                                         <span th:text="${a.getName()}">Назва</span>
                                                     </td>
+
+                                                    <td class="nk-tb-col tb-col-lg"></td>
 
                                                     <td class="nk-tb-col nk-tb-col-tools">
                                                         <ul class="nk-tb-actions gx-1">
@@ -137,9 +143,24 @@
                             <br>
                             <form action="/admin/animal/add" method="post" enctype="multipart/form-data">
                                 <div class="form-group">
+                                    <label class="form-label" for="productImage">Зображення</label>
+                                    <div class="form-control-wrap">
+                                        <div class="custom-file">
+                                            <input type="file" multiple class="custom-file-input" id="productImage" name="multipartFile" onchange="validateimg(this)">
+                                            <label class="custom-file-label" for="productImage"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="form-label" for="animalName">Назва</label>
                                     <div class="form-control-wrap">
-                                        <input type="text" class="form-control" id="animalName" placeholder="Назва..." name="name">
+                                        <input type="text" class="form-control" id="animalName" required="required" placeholder="Назва..." name="name">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="animalNameURL">URL</label>
+                                    <div class="form-control-wrap">
+                                        <input type="text" class="form-control" id="animalNameURL" required="required" placeholder="URL..." name="url">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -164,12 +185,25 @@
                             <form action="/admin/animal/edit" method="post" enctype="multipart/form-data">
                                 <input type="text" id="selectedForEditItem" hidden="" name="id">
                                 <div class="form-group">
-                                    <!-- <div class="form-group"> -->
+                                    <label class="form-label" for="productImage">Зображення</label>
+                                    <div class="form-control-wrap">
+                                        <div class="custom-file">
+                                            <input type="file" multiple class="custom-file-input" id="productImage" name="multipartFile" onchange="validateimg(this)">
+                                            <label class="custom-file-label" for="productImage"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="form-label" for="editAnimalName">Назва</label>
                                     <div class="form-control-wrap">
                                         <input type="text" class="form-control" id="editAnimalName" name="name" placeholder="Назва...">
                                     </div>
-                                    <!-- </div> -->
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="editAnimalNameURL">URL</label>
+                                    <div class="form-control-wrap">
+                                        <input type="text" class="form-control" id="editAnimalNameURL" required="required" placeholder="URL..." name="url">
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-outline-primary">Зберегти</button>
@@ -230,10 +264,12 @@
         let trObj = btnObj.closest("tbody tr");
         let trId =  $(trObj).attr('id');
 
-        let animalName =   $(trObj).find('td:eq(0)').text().trim();
+        let animalName =   $(trObj).find('td:eq(1)').text().trim();
+        let animalNameURL =   $(trObj).find('td:eq(2)').text().trim();
         console.log($(trObj).find('td:eq(0)').text());
 
         $('#editAnimalName').val(animalName);
+        $('#editAnimalNameURL').val(animalNameURL);
 
         console.log("row id:" + $(trObj).attr('id'));
 
