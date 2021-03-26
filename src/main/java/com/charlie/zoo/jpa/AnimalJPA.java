@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AnimalJPA extends JpaRepository<Animal,Integer> {
+    Animal findByUrl(String url);
 }

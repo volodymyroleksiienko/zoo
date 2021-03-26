@@ -121,7 +121,7 @@
                                                                     <tr th:each="ct : ${categoryItems}" th:id="${ct.getId()}" >
                                                                         <th class="nk-tb-col element-position" th:text="${ct.getPosition()}"></th>
                                                                         <td class="nk-tb-col" th:text="${ct.getName()}"></td>
-                                                                        <td class="nk-tb-col tb-col-md">URL</td>
+                                                                        <td class="nk-tb-col tb-col-md" th:text="${ct.getUrl()}">URL</td>
                                                                         <td class="nk-tb-col tb-col-hide" th:text="${ct.getCategory().getId()}"></td>
                                                                         <td class="nk-tb-col tb-col-md" th:text="${ct.getCategory().getName()}"></td>
                                                                         <td class="nk-tb-col nk-tb-col-tools">

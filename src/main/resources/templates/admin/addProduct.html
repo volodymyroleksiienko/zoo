@@ -111,7 +111,7 @@
                                                             <label class="form-label">Категорія</label>
                                                             <div class="form-control-wrap">
                                                                 <select class="form-select form-control form-control-lg" multiple="multiple" id="mainCategories" name="category">
-                                                                    <option th:each="ct :${categories}" th:value="${ct.getId()}" th:text="${ct.getName()}"></option>
+                                                                    <option th:each="ct :${categories}" th:value="${ct.getId()}" th:text="${ct.getAnimal().getName()+' -> '+ct.getName()}"></option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -121,7 +121,7 @@
                                                             <label class="form-label">Підкатегорія</label>
                                                             <div class="form-control-wrap">
                                                                 <select class="form-select form-control form-control-lg" multiple="multiple" id="subCategories" name="categoryItem">
-                                                                    <option th:each="it :${items}" th:value="${it.getId()}" th:text="${it.getName()}"></option>
+                                                                    <option th:each="it :${items}" th:value="${it.getId()}" th:text="${it.getCategory().getAnimal().getName()+' -> '+it.getCategory().getName()+' -> '+it.getName()}"></option>
                                                                 </select>
                                                             </div>
                                                         </div>

@@ -1,8 +1,10 @@
 package com.charlie.zoo.controller.user;
 
 import com.charlie.zoo.entity.Animal;
+import com.charlie.zoo.entity.Category;
 import com.charlie.zoo.entity.Product;
 import com.charlie.zoo.service.AnimalService;
+import com.charlie.zoo.service.CategoryService;
 import com.charlie.zoo.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
@@ -10,6 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,14 +23,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ShopController {
     private final ProductService productService;
     private final AnimalService animalService;
+    private final CategoryService categoryService;
 
     @GetMapping("/{animalUrl}")
-    public String getByAnimal(@PathVariable String animalUrl,String sortType, Double maxPrice, Double minPrice, Integer producerId ){
+    public String getByAnimal(@PathVariable String animalUrl, Model model, String sortType, Double maxPrice, Double minPrice, Integer producerId ){
+        Animal animal = animalService.findByUrl(animalUrl);
+        if(animal!=null) {
+            model.addAttribute("products", productService.findByAnimal(animal));
+            model.addAttribute("categoryBtn", animal.getCategories());
+        }
         return "user/shop";
     }
 
-//    @GetMapping("/${animalUrl}/${categoryUrl}")
-//
+    @GetMapping("/{animalUrl}/{categoryUrl}")
+    public String getByAnimalByCategory(@PathVariable String animalUrl, @PathVariable String categoryUrl,Model model){
+        Category category = categoryService.findByUrl(categoryUrl);
+        if(category!=null) {
+            model.addAttribute("products", productService.findByAnimalByCategory(category));
+            model.addAttribute("categoryBtn", category.getCategoryItems());
+        }
+        return "user/shop";
+    }
+
 //    @GetMapping("/${animalUrl}/${categoryUrl}/${subCategoryUrl}")
 
 

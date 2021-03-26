@@ -1,9 +1,6 @@
 package com.charlie.zoo.serviceImpl;
 
-import com.charlie.zoo.entity.Category;
-import com.charlie.zoo.entity.CategoryItem;
-import com.charlie.zoo.entity.PackageType;
-import com.charlie.zoo.entity.Product;
+import com.charlie.zoo.entity.*;
 import com.charlie.zoo.entity.dto.ProductDto;
 import com.charlie.zoo.enums.StatusOfEntity;
 import com.charlie.zoo.jpa.ProductJpa;
@@ -89,6 +86,18 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product findById(int id) {
         return productJpa.findById(id).orElse(null);
+    }
+
+    @Override
+    public Set<Product> findByAnimal(Animal animal) {
+        return productJpa.findByCategoriesIn(animal.getCategories());
+    }
+
+    @Override
+    public Set<Product> findByAnimalByCategory(Category category) {
+        List<Category> categories = new ArrayList<>();
+        categories.add(category);
+        return productJpa.findByCategoriesIn(categories);
     }
 
     @Override

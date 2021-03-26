@@ -24,6 +24,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public Category findByUrl(String url) {
+        return categoryJPA.findByUrl(url);
+    }
+
+    @Override
     public List<Category> findByAnimalId(int id) {
         return categoryJPA.findByAnimalIdOrderByPositionAsc(id);
     }
