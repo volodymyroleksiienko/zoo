@@ -39,6 +39,11 @@ public class AnimalServiceImpl implements AnimalService  {
     }
 
     @Override
+    public Animal findByUrl(String url) {
+        return animalJPA.findByUrl(url);
+    }
+
+    @Override
     public List<Animal> findAll() {
         return animalJPA.findAll();
     }

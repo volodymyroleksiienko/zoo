@@ -109,7 +109,7 @@
                                                             <tr th:each="ct : ${categories}" th:id="${ct.getId()}" >
                                                                 <th class="nk-tb-col element-position" th:text="${ct.getPosition()}"></th>
                                                                 <td class="nk-tb-col" th:text="${ct.getName()}"></td>
-                                                                <td class="nk-tb-col tb-col-md"></td>
+                                                                <td class="nk-tb-col tb-col-md" th:text="${ct.getUrl()}"></td>
                                                                 <td class="nk-tb-col tb-col-hide" th:text="${ct.getAnimal().getId()}"></td>
                                                                 <td class="nk-tb-col tb-col-md" th:text="${ct.getAnimal().getName()}"></td>
                                                                 <td class="nk-tb-col nk-tb-col-tools">

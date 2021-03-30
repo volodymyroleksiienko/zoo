@@ -90,6 +90,7 @@
                                                             <label class="form-label" for="productImage">Зображення</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="custom-file">
+                                                                    <input id="hiddenIdOfProduct" type="number" hidden="" th:value="${product.getId()}">
                                                                     <input type="file" multiple class="custom-file-input" id="productImage" name="multipartFile" onchange="validateimg(this)">
                                                                     <label class="custom-file-label" for="productImage"></label>
                                                                 </div>
@@ -111,7 +112,7 @@
                                                             <label class="form-label">Категорія</label>
                                                             <div class="form-control-wrap">
                                                                 <select class="form-select form-control form-control-lg" multiple="multiple" id="mainCategories" name="category">
-                                                                    <option th:each="ct :${categories}" th:value="${ct.getId()}" th:text="${ct.getName()}" th:selected="${product?.getCategories()?.contains(ct)}"></option>
+                                                                    <option th:each="ct :${categories}" th:value="${ct.getId()}" th:text="${ct.getAnimal().getName()+'>'+ct.getName()}" th:selected="${product?.getCategories()?.contains(ct)}"></option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -121,7 +122,7 @@
                                                             <label class="form-label">Підкатегорія</label>
                                                             <div class="form-control-wrap">
                                                                 <select class="form-select form-control form-control-lg" multiple="multiple" id="subCategories" name="categoryItem">
-                                                                    <option th:each="it :${items}" th:value="${it.getId()}" th:text="${it.getName()}" th:selected="${product?.getCategoryItems()?.contains(it)}"></option>
+                                                                    <option th:each="it :${items}" th:value="${it.getId()}" th:text="${it.getCategory().getAnimal().getName()+'>'+it.getCategory().getName()+'>'+it.getName()}" th:selected="${product?.getCategoryItems()?.contains(it)}"></option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -874,7 +875,7 @@
 
 
             let product = new Product();
-            product.id = 0;
+            product.id = $('#hiddenIdOfProduct').val();
             product.name = name;
             product.shortDescription = description;
             product.details = detailedDescr;
@@ -904,7 +905,7 @@
                 obj.wholeSaleNewPrice = data[11];
                 obj.wholeSaleDiscount = data[12];
 
-                obj.id = data[13];
+                // obj.id = data[13];
 
                 objArr.push(obj);
                 console.log("iter "+obj);
@@ -915,7 +916,7 @@
             form.append("subCategory",JSON.stringify(subCategory));
             $.ajax({
                 method: "post",
-                url: "/admin/products/add",
+                url: "/admin/products/edit",
                 enctype: 'multipart/form-data',
                 processData : false,
                 contentType : false,

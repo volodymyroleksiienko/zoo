@@ -1,5 +1,6 @@
 package com.charlie.zoo.jpa;
 
+import com.charlie.zoo.entity.Category;
 import com.charlie.zoo.entity.Product;
 import com.charlie.zoo.enums.StatusOfEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,5 +18,5 @@ public interface ProductJpa extends JpaRepository<Product,Integer> {
 
     Set<Product> findByCategoriesIdInAndCategoryItemsIdInAndPackageTypePackSizeInAndProducerIdInAndStatusOfEntity(List<Integer> categoryId,List<Integer> categoryItem,List<BigDecimal> packId,List<Integer> producerId, StatusOfEntity statusOfentity);
 
-    Set<Product> findByCategoriesIdIn(List<Integer> categoryId);
+    Set<Product> findByCategoriesIn(List<Category> category);
 }
