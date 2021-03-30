@@ -15,9 +15,11 @@
     <!-- StyleSheets  -->
     <link rel="stylesheet" th:href="@{/css/dashlite.css}">
     <link id="skin-default" rel="stylesheet" th:href="@{/css/theme.css}">
+    <link rel="stylesheet" th:href="@{/css/multipleUpload.css}">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tiny.cloud/1/j7qa848foatnucsr63lz000n2e0yxzhelq772wnn61gpyclv/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 
 <body class="nk-body bg-lighter npc-general has-sidebar ">
@@ -85,13 +87,23 @@
                                             <div class="preview-block">
                                                 <span class="preview-title-lg overline-title">Загальна інформація</span>
                                                 <div class="row gy-4">
-                                                    <div class="col-sm-6">
+                                                    <div class="col-sm-12">
                                                         <div class="form-group">
-                                                            <label class="form-label" for="productImage">Зображення</label>
-                                                            <div class="form-control-wrap">
-                                                                <div class="custom-file">
-                                                                    <input type="file" multiple class="custom-file-input" id="productImage" name="multipartFile" onchange="validateimg(this)">
-                                                                    <label class="custom-file-label" for="productImage"></label>
+<!--                                                            <label class="form-label" for="productImage">Зображення</label>-->
+<!--                                                            <div class="form-control-wrap">-->
+<!--                                                                <div class="custom-file">-->
+<!--                                                                    <input type="file" multiple class="custom-file-input" id="productImage" name="multipartFile" onchange="validateimg(this)">-->
+<!--                                                                    <label class="custom-file-label" for="productImage"></label>-->
+<!--                                                                </div>-->
+<!--                                                            </div>-->
+                                                            <label class="form-label" for="pro-image">Зображення</label>
+                                                            <div class="container">
+                                                                <fieldset class="form-group">
+                                                                    <a href="javascript:void(0)" onclick="$('#pro-image').click()">вибрати</a>
+                                                                    <input type="file" id="pro-image" name="pro-image" style="display: none;" class="form-control" multiple>
+                                                                </fieldset>
+                                                                <div class="preview-images-zone">
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -537,6 +549,38 @@
 <!-- JavaScript -->
 <script th:src="@{/js/bundle.js}"></script>
 <script th:src="@{/js/scripts.js}"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    var num = 4;
+    function readImage() {
+        if (window.File && window.FileList && window.FileReader) {
+            var files = event.target.files; //FileList object
+            var output = $(".preview-images-zone");
+
+            for (let i = 0; i < files.length; i++) {
+                var file = files[i];
+                if (!file.type.match('image')) continue;
+
+                var picReader = new FileReader();
+
+                picReader.addEventListener('load', function (event) {
+                    var picFile = event.target;
+                    var html =  '<div class="preview-image preview-show-' + num + '">' +
+                        '<div class="image-cancel" data-no="' + num + '">x</div>' +
+                        '<div class="image-zone"><img id="pro-img-' + num + '" src="' + picFile.result + '"></div>';
+                    output.append(html);
+                    num = num + 1;
+                });
+
+                picReader.readAsDataURL(file);
+            }
+            $("#pro-image").val('');
+        } else {
+            console.log('Browser not support');
+        }
+    }
+
+</script>
 <!--<script th:src="@{/js/example-sweetalert.js}"></script>-->
 <script>
     class PackageType {
@@ -610,6 +654,16 @@
 "                                                        </td>";
 
     $(document).ready(function() {
+        //multiple image upload start
+        document.getElementById('pro-image').addEventListener('change', readImage, false);
+
+        $( ".preview-images-zone" ).sortable();
+
+        $(document).on('click', '.image-cancel', function() {
+            let no = $(this).data('no');
+            $(".preview-image.preview-show-"+no).remove();
+        });
+        //multiple image upload end
         $('#addPosition').on( 'click', function () {
             let packageType =               $('#packageType').val().trim();
             let packSize =                  $('#packSize').val().trim();
