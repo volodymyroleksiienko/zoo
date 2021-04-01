@@ -2,9 +2,11 @@ package com.charlie.zoo.controller.user;
 
 import com.charlie.zoo.entity.Animal;
 import com.charlie.zoo.entity.Category;
+import com.charlie.zoo.entity.Image;
 import com.charlie.zoo.entity.Product;
 import com.charlie.zoo.service.AnimalService;
 import com.charlie.zoo.service.CategoryService;
+import com.charlie.zoo.service.ImageService;
 import com.charlie.zoo.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
@@ -24,6 +26,7 @@ public class ShopController {
     private final ProductService productService;
     private final AnimalService animalService;
     private final CategoryService categoryService;
+    private final ImageService imageService;
 
     @GetMapping("/{animalUrl}")
     public String getByAnimal(@PathVariable String animalUrl, Model model, String sortType, Double maxPrice, Double minPrice, Integer producerId ){
@@ -51,7 +54,7 @@ public class ShopController {
 
     @GetMapping("/getImgByProductId/{productId}")
     public ResponseEntity<ByteArrayResource> getImgByProductId(@PathVariable int productId){
-        Product doc = productService.findById(productId);
+        Image doc = imageService.findMainByProductId(productId);
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(doc.getImgType()))
                 .header(HttpHeaders.CONTENT_DISPOSITION,"attachment:filename=\""+doc.getImgName()+"\"")
@@ -66,5 +69,4 @@ public class ShopController {
                 .header(HttpHeaders.CONTENT_DISPOSITION,"attachment:filename=\""+doc.getImgName()+"\"")
                 .body(new ByteArrayResource(doc.getImg()));
     }
-
 }

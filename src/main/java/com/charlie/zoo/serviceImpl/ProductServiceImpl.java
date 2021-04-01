@@ -21,6 +21,7 @@ public class ProductServiceImpl implements ProductService {
     private final CategoryService categoryService;
     private final CategoryItemService categoryItemService;
     private final ProducerService producerService;
+    private final ImageService imageService;
 
     @Override
     public Product save(Product product) {
@@ -28,18 +29,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product save(Product product, MultipartFile multipartFile,List<PackageType>  packageTypes,
+    public Product save(Product product, List<MultipartFile> multipartFile,List<PackageType>  packageTypes,
                         String category,String subCategory) {
-        if(multipartFile!=null && multipartFile.getSize()>0){
-            try {
-                product.setImg(multipartFile.getBytes());
-                product.setImgName(multipartFile.getOriginalFilename());
-                product.setImgType(multipartFile.getContentType());
-            }
-            catch(Exception e) {
-                e.printStackTrace();
-            }
-        }
+        save(product);
+        List<Image> imageList = imageService.save(multipartFile,product);
+        product.setImages(imageList);
+
         for(PackageType type:packageTypes){
             type.setProduct(product);
         }
@@ -62,20 +57,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product update(Product product, MultipartFile multipartFile, List<PackageType> packageTypes, String category, String subCategory) {
-        if(multipartFile==null){
-           Product productDB = findById(product.getId());
-           if(productDB!=null){
-               try {
-                   product.setImg(productDB.getImg());
-                   product.setImgName(productDB.getImgName());
-                   product.setImgType(productDB.getImgType());
-               }
-               catch(Exception e) {
-                   e.printStackTrace();
-               }
-           }
-        }
+    public Product update(Product product, List<MultipartFile> multipartFile, List<PackageType> packageTypes, String category, String subCategory) {
+        List<Image> imageList = imageService.save(multipartFile,product);
+        product.setImages(imageList);
+
         if(product.getId()>0){
             packageTypeService.deleteAllByProductId(product.getId());
         }
