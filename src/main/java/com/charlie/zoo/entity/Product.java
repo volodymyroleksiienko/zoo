@@ -20,12 +20,8 @@ public class Product {
     private String shortDescription;
 
 
-
-    @Lob
-    @Type(type = "org.hibernate.type.ImageType")
-    private byte[] img;
-    private String imgType;
-    private String imgName;
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
+    private List<Image> images;
 
     @Lob
     @Type(type = "org.hibernate.type.TextType")
@@ -68,9 +64,6 @@ public class Product {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", shortDescription='" + shortDescription + '\'' +
-                ", img=" + Arrays.toString(img) +
-                ", imgType='" + imgType + '\'' +
-                ", imgName='" + imgName + '\'' +
                 ", details='" + details + '\'' +
                 ", dailyNorm='" + dailyNorm + '\'' +
                 ", producerDetails='" + producerDetails + '\'' +

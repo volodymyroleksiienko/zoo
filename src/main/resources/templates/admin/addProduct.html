@@ -952,7 +952,10 @@
         $('#addProductBtn').on( 'click', function () {
             objArr = [];
             let form = new FormData();
-            form.append('file', $('#productImage')[0].files[0]);
+            form.append('img1', $('#productImage-1')[0].files[0]);
+            form.append('img2', $('#productImage-2')[0].files[0]);
+            form.append('img3', $('#productImage-3')[0].files[0]);
+            form.append('img4', $('#productImage-4')[0].files[0]);
 
             let producer =          $('#distributorsList').val();
             console.log("producer: "+producer);
