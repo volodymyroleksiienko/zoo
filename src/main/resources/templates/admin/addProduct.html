@@ -87,106 +87,86 @@
                                             <div class="preview-block">
                                                 <span class="preview-title-lg overline-title">Загальна інформація</span>
                                                 <div class="row gy-4">
-<!--                                                    <div class="col-sm-8">-->
-<!--                                                        <div class="form-group" id="imagesBlock">-->
-<!--                                                            <label class="form-label" for="productImage">Зображення</label>-->
-<!--                                                            <div class="form-control-wrap">-->
-<!--                                                                <div class="custom-file">-->
-<!--&lt;!&ndash;                                                                    <input type="file" class="custom-file-input" id="productImage" name="multipartFile" onchange="validateimg(this)">&ndash;&gt;-->
-<!--&lt;!&ndash;                                                                    <input type="file" class="custom-file-input" id="productImage" onchange="loadFile(event)" accept="image/png, image/jpeg" name="multipartFile">&ndash;&gt;-->
-<!--&lt;!&ndash;                                                                    <label class="custom-file-label" id="productImageName" for="productImage"></label>&ndash;&gt;-->
-<!--                                                                </div>-->
-<!--                                                            </div>-->
-<!--                                                        </div>-->
-<!--                                                    </div>-->
-<!--                                                    <div class="col-sm-3">-->
-<!--                                                        <div class="form-group">-->
-<!--                                                            <label class="form-label" for="imagePosition">Позиція</label>-->
-<!--                                                            <div class="form-control-wrap">-->
-<!--                                                                <input type="number" min="1" step="1" autocomplete="off" class="form-control" id="imagePosition" placeholder="Позиція..." value="1" name="position">-->
-<!--                                                            </div>-->
-<!--                                                        </div>-->
-<!--                                                    </div>-->
                                                     <div class="col-sm-12">
                                                         <div class="form-group">
                                                             <table class="nk-tb-list nk-tb-ulist table-stripped" id="imagesTable" style="margin-top: 2rem;" data-auto-responsive="false">
                                                                 <thead>
                                                                 <tr class="nk-tb-item nk-tb-head">
-                                                                    <td class="nk-tb-col">Зображення</td>
+                                                                    <td class="nk-tb-col" style="width: 30%">Зображення</td>
                                                                     <td class="nk-tb-col">Файл</td>
                                                                     <td class="nk-tb-col"></td>
                                                                 </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    <tr>
-                                                                        <td>
-
+                                                                    <tr class="nk-tb-item">
+                                                                        <td class="nk-tb-col">
+                                                                            1
                                                                         </td>
-                                                                        <td>
+                                                                        <td class="nk-tb-col">
                                                                             <div class="form-control-wrap">
                                                                                 <div class="custom-file">
                                                                                     <input type="file" class="custom-file-input" id="productImage-1" onchange="loadFile(event, this.id)" accept="image/png, image/jpeg" name="multipartFile">
-                                                                                    <label class="custom-file-label" id="productImageName" for="productImage"></label>
+                                                                                    <label class="custom-file-label" id="productImage1Name" for="productImage-1"></label>
                                                                                 </div>
                                                                             </div>
                                                                         </td>
-                                                                        <td>
-                                                                            <button title="Добавити позицію" id="deleteImageBtn" class="btn btn-icon btn-lg btn-primary float-right" onclick="deleteImg()" style="height: fit-content;margin-left: auto;margin-right: 0.75rem;">
-                                                                                <em class="icon ni ni-grid-add-c"></em>
+                                                                        <td class="nk-tb-col">
+                                                                            <button title="Добавити позицію" class="btn btn-icon btn-lg btn-primary float-right" onclick="deleteImg('#productImage-1', '#productImage1Name')" style="height: fit-content;margin-left: auto;margin-right: 0.75rem;">
+                                                                                <em class="icon ni ni-cross-c"></em>
                                                                             </button>
                                                                         </td>
                                                                     </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            img
+                                                                    <tr class="nk-tb-item">
+                                                                        <td class="nk-tb-col">
+                                                                            2
                                                                         </td>
-                                                                        <td>
+                                                                        <td class="nk-tb-col">
                                                                             <div class="form-control-wrap">
                                                                                 <div class="custom-file">
                                                                                     <input type="file" class="custom-file-input" id="productImage-2" onchange="loadFile(event, this.id)" accept="image/png, image/jpeg" name="multipartFile">
-                                                                                    <label class="custom-file-label" id="productImageName" for="productImage"></label>
+                                                                                    <label class="custom-file-label" id="productImage2Name" for="productImage-2"></label>
                                                                                 </div>
                                                                             </div>
                                                                         </td>
-                                                                        <td>
-                                                                            <button title="Добавити позицію" id="deleteImageBtn" class="btn btn-icon btn-lg btn-primary float-right" onclick="deleteImg()" style="height: fit-content;margin-left: auto;margin-right: 0.75rem;">
-                                                                                <em class="icon ni ni-grid-add-c"></em>
+                                                                        <td class="nk-tb-col">
+                                                                            <button title="Добавити позицію" class="btn btn-icon btn-lg btn-primary float-right" onclick="deleteImg('#productImage-2', '#productImage2Name')" style="height: fit-content;margin-left: auto;margin-right: 0.75rem;">
+                                                                                <em class="icon ni ni-cross-c"></em>
                                                                             </button>
                                                                         </td>
                                                                     </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            img
+                                                                    <tr class="nk-tb-item">
+                                                                        <td class="nk-tb-col">
+                                                                            3
                                                                         </td>
-                                                                        <td>
+                                                                        <td class="nk-tb-col">
                                                                             <div class="form-control-wrap">
                                                                                 <div class="custom-file">
                                                                                     <input type="file" class="custom-file-input" id="productImage-3" onchange="loadFile(event, this.id)" accept="image/png, image/jpeg" name="multipartFile">
-                                                                                    <label class="custom-file-label" id="productImageName" for="productImage"></label>
+                                                                                    <label class="custom-file-label" id="productImage3Name" for="productImage-3"></label>
                                                                                 </div>
                                                                             </div>
                                                                         </td>
-                                                                        <td>
-                                                                            <button title="Добавити позицію" id="deleteImageBtn" class="btn btn-icon btn-lg btn-primary float-right" onclick="deleteImg()" style="height: fit-content;margin-left: auto;margin-right: 0.75rem;">
-                                                                                <em class="icon ni ni-grid-add-c"></em>
+                                                                        <td class="nk-tb-col">
+                                                                            <button title="Добавити позицію" class="btn btn-icon btn-lg btn-primary float-right" onclick="deleteImg('#productImage-3', '#productImage3Name')" style="height: fit-content;margin-left: auto;margin-right: 0.75rem;">
+                                                                                <em class="icon ni ni-cross-c"></em>
                                                                             </button>
                                                                         </td>
                                                                     </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            img
+                                                                    <tr class="nk-tb-item">
+                                                                        <td class="nk-tb-col">
+                                                                            4
                                                                         </td>
-                                                                        <td>
+                                                                        <td class="nk-tb-col">
                                                                             <div class="form-control-wrap">
                                                                                 <div class="custom-file">
                                                                                     <input type="file" class="custom-file-input" id="productImage-4" onchange="loadFile(event, this.id)" accept="image/png, image/jpeg" name="multipartFile">
-                                                                                    <label class="custom-file-label" id="productImageName" for="productImage"></label>
+                                                                                    <label class="custom-file-label" id="productImage4Name" for="productImage-4"></label>
                                                                                 </div>
                                                                             </div>
                                                                         </td>
-                                                                        <td>
-                                                                            <button title="Добавити позицію" id="deleteImageBtn" class="btn btn-icon btn-lg btn-primary float-right" onclick="deleteImg()" style="height: fit-content;margin-left: auto;margin-right: 0.75rem;">
-                                                                                <em class="icon ni ni-grid-add-c"></em>
+                                                                        <td class="nk-tb-col">
+                                                                            <button title="Добавити позицію" class="btn btn-icon btn-lg btn-primary float-right" onclick="deleteImg('#productImage-4', '#productImage4Name')" style="height: fit-content;margin-left: auto;margin-right: 0.75rem;">
+                                                                                <em class="icon ni ni-cross-c"></em>
                                                                             </button>
                                                                         </td>
                                                                     </tr>
@@ -602,53 +582,6 @@
             </div>
             <!-- Change item end -->
 
-<!--            &lt;!&ndash; Edit image start &ndash;&gt;-->
-<!--            <div class="modal fade" tabindex="-1" role="dialog" id="editImageModal" aria-modal="true">-->
-<!--                <div class="modal-dialog modal-md" role="document">-->
-<!--                    <div class="modal-content">-->
-<!--                        <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>-->
-<!--                        <div class="modal-body modal-body-md">-->
-<!--                            <h4 class="title">Змінити зображення</h4>-->
-<!--                            <br>-->
-<!--                            <input type="number" id="rowImageIndex" hidden="hidden">-->
-<!--                            <input type="text" id="originalImage" hidden="hidden">-->
-<!--                            <div class="row gy-4 align-center">-->
-<!--&lt;!&ndash;                                <div class="col-12">&ndash;&gt;-->
-<!--&lt;!&ndash;                                    <div class="form-group" id="editImagePreview">&ndash;&gt;-->
-
-<!--&lt;!&ndash;                                    </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                                </div>&ndash;&gt;-->
-<!--                                <div class="col-md-9">-->
-<!--                                    <div class="form-group">-->
-<!--                                        <label class="form-label" for="productImage">Зображення</label>-->
-<!--                                        <div class="form-control-wrap">-->
-<!--                                            <div class="custom-file">-->
-<!--                                                <input type="file" class="custom-file-input" id="editImage" onchange="loadEditFile(event)" accept="image/png, image/jpeg" name="multipartFile">-->
-<!--                                                <label class="custom-file-label" id="editImageLabel" for="editImage"></label>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="col-md-3">-->
-<!--                                    <div class="form-group">-->
-<!--                                        <label class="form-label" for="editImagePosition">Позиція</label>-->
-<!--                                        <div class="form-control-wrap">-->
-<!--                                            <input type="number" min="1" step="1" autocomplete="off" class="form-control" id="editImagePosition" placeholder="Позиція..." name="position">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="form-group col-12">-->
-<!--                                    <button type="button" onclick="submitImageChanges($('#rowImageIndex').val())" class="btn btn-outline-primary">Підтвердити</button>-->
-<!--                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            &lt;!&ndash; Edit image end &ndash;&gt;-->
-
-
             <!-- Delete item start -->
             <div class="modal fade" tabindex="-1" role="dialog" id="deleteProductModal" aria-modal="true">
                 <div class="modal-dialog modal-md" role="document">
@@ -767,21 +700,6 @@
         'select': false,
     });
 
-    let imgBtn = "<td class='nk-tb-col nk-tb-col-tools'>\n" +
-        "                                                            <ul class=\"nk-tb-actions gx-1\">\n" +
-        "                                                                <li>\n" +
-        "                                                                    <div class=\"drodown\">\n" +
-        "                                                                        <a href=\"#\" class=\"dropdown-toggle btn btn-icon btn-trigger\" data-toggle=\"dropdown\"><em class=\"icon ni ni-more-h\"></em></a>\n" +
-        "                                                                        <div class=\"dropdown-menu dropdown-menu-right\">\n" +
-        "                                                                            <ul class=\"link-list-opt no-bdr\">\n" +
-        "                                                                                <li><a data-toggle=\"modal\" onclick=\"showEditImageModal(this)\"><em class=\"icon ni ni-edit-alt\"></em><span>Редагувати</span></a></li>\n" +
-        "                                                                                <li><a data-toggle=\"modal\" onclick=\"showConfirmationDeleteImageModal(this)\" ><em class=\"icon ni ni-trash\"></em><span>Видалити</span></a></li>\n" +
-        "                                                                            </ul>\n" +
-        "                                                                        </div>\n" +
-        "                                                                    </div>\n" +
-        "                                                                </li>\n" +
-        "                                                            </ul>\n" +
-        "                                                        </td>";
 
     let btn = "<td class='nk-tb-col nk-tb-col-tools'>\n" +
 "                                                            <ul class=\"nk-tb-actions gx-1\">\n" +
@@ -799,39 +717,26 @@
 "                                                            </ul>\n" +
 "                                                        </td>";
 
-    // function addImage(){
-    //     let image = "<img src='"+imageFile+"'width='200' />";
-    //     let position = parseInt($('#imagePosition').val());
-    //
-    //     if (imageFile!=='' && position!=='') {
-    //         $('#productImageName').empty();
-    //
-    //         let rowNode = imagesTab.row.add([
-    //             image,
-    //             position,
-    //             imgBtn
-    //         ]).draw(false).node();
-    //         $(rowNode).addClass('nk-tb-item');
-    //
-    //         $(rowNode).find('td').eq(0).addClass('nk-tb-col');
-    //         $(rowNode).find('td').eq(1).addClass('nk-tb-col');
-    //         $(rowNode).find('td').eq(2).addClass('nk-tb-col nk-tb-col-tools');
-    //
-    //         imageFile = '';
-    //         $('#imagePosition').val(position + 1);
-    //     }
-    // }
 
     function loadFile(event, inputId) {
         let imageFile = URL.createObjectURL(event.target.files[0]);
-        let trObj = inputId.closest("tbody tr");
-        alert( table.cell( this ).data() );
-        imagesTab.row(rowToSaveIndex).data(arrayData).draw();
+        let tdObj = $("#"+inputId).parent().parent().parent().parent().find('td:eq(0)');
+        console.log(inputId);
+        console.log(tdObj);
+        tdObj.empty();
+        tdObj.prepend("<img src='"+imageFile+"'width='100%' />");
     }
 
-    // function loadEditFile(event) {
-    //     editImageFile = URL.createObjectURL(event.target.files[0]);
-    // }
+    function deleteImg(inputId, labelId) {
+        let tdObj = $(inputId).parent().parent().parent().parent().find('td:eq(0)');
+        console.log(inputId);
+        console.log(tdObj);
+        console.log(labelId);
+        tdObj.empty();
+        $(labelId).empty();
+        tdObj.html(inputId.match(/\d+/)[0]);
+        $(inputId).val(null);
+    }
 
     $(document).ready(function() {
 
@@ -1213,53 +1118,6 @@
 
         $('#editItemModal').modal('show');
     }//show edit modal
-
-    // function showEditImageModal(btnObj) {
-    //     let trObj = btnObj.closest("tbody tr");
-    //
-    //     let row = imagesTab.row(trObj).data();
-    //     $('#rowImageIndex').val(imagesTab.row(trObj).index());
-    //
-    //     let image =               row[0];
-    //     console.log("img: "+image);
-    //     let position =             row[1];
-    //
-    //     // $('#editImagePreview').prepend( image );
-    //     $('#originalImage').val(image);
-    //     $('#editImagePosition').val(position);
-    //
-    //     $('#editImageModal').modal('show');
-    // }//show edit modal
-
-    // $("#editImageModal").on('hide.bs.modal', function(){
-    //     $('#editImageLabel').empty();
-    //     $('#editImage').empty();
-    //     $('#originalImage').val('');
-    //     editImageFile = '';
-    // });
-
-    // function submitImageChanges(rowToSaveIndex) {
-    //     console.log("row to save: "+rowToSaveIndex);
-    //     let image = "<img src='"+editImageFile+"'width='200' />";
-    //     if (image===''){
-    //         let val = $('#originalImage').val();
-    //         image = "<img src='"+val+"'width='200' />";
-    //     }
-    //     let position = $('#editImagePosition').val().trim();
-    //
-    //     let arrayData = [image, position, imgBtn];
-    //
-    //     imagesTab.row(rowToSaveIndex).data(arrayData).draw();
-    //
-    //     console.log(imagesTab.row(rowToSaveIndex).data());
-    //
-    //     // editImageFile = '';
-    //     // $('#editImageLabel').empty();
-    //     // $('#editImage').empty();
-    //     // $('#originalImage').val('');
-    //
-    //     $('#editImageModal').modal('hide');
-    // }//submit changes end
 
     function submitChanges(rowToSaveIndex) {
         console.log("row to save: "+rowToSaveIndex);
