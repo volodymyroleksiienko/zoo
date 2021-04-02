@@ -103,7 +103,7 @@
                                                                         <td class="nk-tb-col">
                                                                             <div class="form-control-wrap">
                                                                                 <div class="custom-file">
-                                                                                    <input type="file" class="custom-file-input" id="productImage-1" onchange="loadFile(event, this.id)" accept="image/png, image/jpeg" name="multipartFile">
+                                                                                    <input type="file" required="required" class="custom-file-input" id="productImage-1" onchange="loadFile(event, this.id)" accept="image/png, image/jpeg" name="multipartFile">
                                                                                     <label class="custom-file-label" id="productImage1Name" for="productImage-1"></label>
                                                                                 </div>
                                                                             </div>
@@ -1075,9 +1075,17 @@
             }
         }else if (wholeSaleProduct===false) {
             $('#editWholeSaleProduct').attr("checked", false);
-            $('#editWholeSaleProductPromotionalPrice').attr('disabled', 'disabled');
-            $('#editWholeSaleProductPromotionalPricePercentage').attr('disabled', 'disabled');
+            if (wholeSalePromotedProduct===true){
+                $('#editWholeSalePromotedProduct').attr("checked", true);
+                $('#editWholeSaleProductPromotionalPrice').removeAttr("disabled");
+                $('#editWholeSaleProductPromotionalPricePercentage').removeAttr("disabled");
+            }else {
+                $('#editWholeSalePromotedProduct').attr("checked", false);
+                $('#editWholeSaleProductPromotionalPrice').attr('disabled', 'disabled');
+                $('#editWholeSaleProductPromotionalPricePercentage').attr('disabled', 'disabled');
+            }
         }
+
 
         if (activeProductItem===true){
             $('#editActiveProductItem').attr("checked", true);

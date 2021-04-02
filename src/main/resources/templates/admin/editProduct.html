@@ -109,7 +109,7 @@
                                                                         </div>
                                                                     </td>
                                                                     <td class="nk-tb-col">
-                                                                        <button title="Видалити" class="btn btn-icon btn-lg btn-primary float-right" onclick="deleteImg('#productImage-1', '#productImage1Name')" style="height: fit-content;margin-left: auto;margin-right: 0.75rem;" th:id="${product?.getImages()?.get(0)?.getId()}">
+                                                                        <button title="Видалити" class="btn btn-icon btn-lg btn-primary float-right" onclick="deleteImg('#productImage-1', '#productImage1Name', this.id)" style="height: fit-content;margin-left: auto;margin-right: 0.75rem;" th:id="${product?.getImages()?.get(0)?.getId()}">
                                                                             <em class="icon ni ni-cross-c"></em>
                                                                         </button>
                                                                     </td>
@@ -127,7 +127,7 @@
                                                                         </div>
                                                                     </td>
                                                                     <td class="nk-tb-col">
-                                                                        <button title="Видалити" class="btn btn-icon btn-lg btn-primary float-right" onclick="deleteImg('#productImage-2', '#productImage2Name')" style="height: fit-content;margin-left: auto;margin-right: 0.75rem;" th:id="${product?.getImages()?.get(0)?.getId()}">
+                                                                        <button title="Видалити" class="btn btn-icon btn-lg btn-primary float-right" onclick="deleteImg('#productImage-2', '#productImage2Name', this.id)" style="height: fit-content;margin-left: auto;margin-right: 0.75rem;" th:id="${product?.getImages()?.get(1)?.getId()}">
                                                                             <em class="icon ni ni-cross-c"></em>
                                                                         </button>
                                                                     </td>
@@ -145,7 +145,7 @@
                                                                         </div>
                                                                     </td>
                                                                     <td class="nk-tb-col">
-                                                                        <button title="Видалити" class="btn btn-icon btn-lg btn-primary float-right" onclick="deleteImg('#productImage-3', '#productImage3Name')" style="height: fit-content;margin-left: auto;margin-right: 0.75rem;" th:id="${product?.getImages()?.get(0)?.getId()}">
+                                                                        <button title="Видалити" class="btn btn-icon btn-lg btn-primary float-right" onclick="deleteImg('#productImage-3', '#productImage3Name', this.id)" style="height: fit-content;margin-left: auto;margin-right: 0.75rem;" th:id="${product?.getImages()?.get(2)?.getId()}">
                                                                             <em class="icon ni ni-cross-c"></em>
                                                                         </button>
                                                                     </td>
@@ -163,7 +163,7 @@
                                                                         </div>
                                                                     </td>
                                                                     <td class="nk-tb-col">
-                                                                        <button title="Видалити" class="btn btn-icon btn-lg btn-primary float-right" onclick="deleteImg('#productImage-4', '#productImage4Name')" style="height: fit-content;margin-left: auto;margin-right: 0.75rem;" th:id="${product?.getImages()?.get(0)?.getId()}">
+                                                                        <button title="Видалити" class="btn btn-icon btn-lg btn-primary float-right" onclick="deleteImg('#productImage-4', '#productImage4Name', this.id)" style="height: fit-content;margin-left: auto;margin-right: 0.75rem;" th:id="${product?.getImages()?.get(3)?.getId()}">
                                                                             <em class="icon ni ni-cross-c"></em>
                                                                         </button>
                                                                     </td>
@@ -747,15 +747,26 @@
         tdObj.prepend("<img src='"+imageFile+"'width='100%' />");
     }
 
-    function deleteImg(inputId, labelId) {
-        let tdObj = $(inputId).parent().parent().parent().parent().find('td:eq(0)');
-        console.log(inputId);
-        console.log(tdObj);
-        console.log(labelId);
-        tdObj.empty();
-        $(labelId).empty();
-        tdObj.html(inputId.match(/\d+/)[0]);
-        $(inputId).val(null);
+    function deleteImg(inputId, labelId, imgId) {
+        $.ajax({
+            method: "post",
+            url: "/shop/deleteImg/"+imgId,
+            contextType: "application/json",
+            traditional: true,
+            success: function () {
+                let tdObj = $(inputId).parent().parent().parent().parent().find('td:eq(0)');
+                console.log(inputId);
+                console.log(tdObj);
+                console.log(labelId);
+                tdObj.empty();
+                $(labelId).empty();
+                tdObj.html(inputId.match(/\d+/)[0]);
+                $(inputId).val(null);
+            },
+            error: function () {
+                alert("Error!");
+            }
+        });
     }
 
     $(document).ready(function() {
@@ -1117,8 +1128,15 @@
             }
         }else if (wholeSaleProduct==="false") {
             $('#editWholeSaleProduct').attr("checked", false);
-            $('#editWholeSaleProductPromotionalPrice').attr('disabled', 'disabled');
-            $('#editWholeSaleProductPromotionalPricePercentage').attr('disabled', 'disabled');
+            if (wholeSalePromotedProduct===true){
+                $('#editWholeSalePromotedProduct').attr("checked", true);
+                $('#editWholeSaleProductPromotionalPrice').removeAttr("disabled");
+                $('#editWholeSaleProductPromotionalPricePercentage').removeAttr("disabled");
+            }else {
+                $('#editWholeSalePromotedProduct').attr("checked", false);
+                $('#editWholeSaleProductPromotionalPrice').attr('disabled', 'disabled');
+                $('#editWholeSaleProductPromotionalPricePercentage').attr('disabled', 'disabled');
+            }
         }
 
         if (activeProductItem==="true"){
