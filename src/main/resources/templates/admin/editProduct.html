@@ -1121,7 +1121,7 @@
 
         if (wholeSaleProduct==="true"){
             $('#editWholeSaleProduct').attr("checked", true);
-            if (wholeSalePromotedProduct===true){
+            if (wholeSalePromotedProduct==="true"){
                 $('#editWholeSalePromotedProduct').attr("checked", true);
                 $('#editWholeSaleProductPromotionalPrice').removeAttr("disabled");
                 $('#editWholeSaleProductPromotionalPricePercentage').removeAttr("disabled");
@@ -1132,7 +1132,7 @@
             }
         }else if (wholeSaleProduct==="false") {
             $('#editWholeSaleProduct').attr("checked", false);
-            if (wholeSalePromotedProduct===true){
+            if (wholeSalePromotedProduct==="true"){
                 $('#editWholeSalePromotedProduct').attr("checked", true);
                 $('#editWholeSaleProductPromotionalPrice').removeAttr("disabled");
                 $('#editWholeSaleProductPromotionalPricePercentage').removeAttr("disabled");
