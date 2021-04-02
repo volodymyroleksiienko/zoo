@@ -13,5 +13,6 @@ public interface ImageService {
     Image update(MultipartFile multipartFile, Image imageDB);
     Image findMainByProductId(int id);
     List<Image> findAllByProductId(int id);
+    Image findById(int id);
     void deleteById(int id);
 }

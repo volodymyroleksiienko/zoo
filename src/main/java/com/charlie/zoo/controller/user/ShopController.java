@@ -61,6 +61,20 @@ public class ShopController {
                 .body(new ByteArrayResource(doc.getImg()));
     }
 
+    @GetMapping("/getImg/{imgId}")
+    public ResponseEntity<ByteArrayResource> getImg(@PathVariable int imgId){
+        Image doc = imageService.findById(imgId);
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(doc.getImgType()))
+                .header(HttpHeaders.CONTENT_DISPOSITION,"attachment:filename=\""+doc.getImgName()+"\"")
+                .body(new ByteArrayResource(doc.getImg()));
+    }
+
+    @GetMapping("/deleteImg/{imgId}")
+    public void deleteImg(@PathVariable int imgId){
+        imageService.deleteById(imgId);
+    }
+
     @GetMapping("/getAnimalImg/{animalId}")
     public ResponseEntity<ByteArrayResource> getAnimalImg(@PathVariable int animalId){
         Animal doc = animalService.findById(animalId);

@@ -58,7 +58,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product update(Product product, List<MultipartFile> multipartFile, List<PackageType> packageTypes, String category, String subCategory) {
-        List<Image> imageList = imageService.save(multipartFile,product);
+        List<Image> imageList = imageService.update(multipartFile,product);
         product.setImages(imageList);
 
         if(product.getId()>0){

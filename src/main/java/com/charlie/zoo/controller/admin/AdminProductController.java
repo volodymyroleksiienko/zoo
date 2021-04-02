@@ -60,14 +60,20 @@ public class AdminProductController {
         return "admin/addProduct";
     }
 
-//    @PostMapping(value = "/edit")
-//    public String editProduct(@RequestParam String packageTypes,String product,
-//                              MultipartFile[] file,String category,String subCategory){
-//        List<PackageType> packageTypeList = PackageTypeDto.getArrayOfPackageTypes(packageTypes);
-//        Product productEntity = ProductDto.convertToProduct(product);
-//        productService.update(productEntity,Arrays.asList(file),packageTypeList,category,subCategory);
-//        return "redirect:/admin/products";
-//    }
+    @PostMapping(value = "/edit")
+    public String editProduct(@RequestParam String packageTypes,String product,
+                              MultipartFile img1,MultipartFile img2,MultipartFile img3,MultipartFile img4,
+                              String category,String subCategory){
+        List<MultipartFile> multipartFiles = new ArrayList<>();
+        multipartFiles.add(img1);
+        multipartFiles.add(img2);
+        multipartFiles.add(img3);
+        multipartFiles.add(img4);
+        List<PackageType> packageTypeList = PackageTypeDto.getArrayOfPackageTypes(packageTypes);
+        Product productEntity = ProductDto.convertToProduct(product);
+        productService.update(productEntity,multipartFiles,packageTypeList,category,subCategory);
+        return "redirect:/admin/products";
+    }
 
     @GetMapping("/edit/{productId}")
     public String editProducts(@PathVariable int productId, Model model){

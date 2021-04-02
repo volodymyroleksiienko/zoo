@@ -79,11 +79,12 @@ public class ImageServiceImpl implements ImageService {
                 update(fileList.get(i),images.get(i));
             }else{
                 Image newImage = save(fileList.get(i));
-                newImage.setProduct(product);
-                imageJPA.save(newImage);
+                if(newImage!=null) {
+                    newImage.setProduct(product);
+                    imageJPA.save(newImage);
+                }
             }
         }
-
         return images;
     }
 
@@ -112,6 +113,11 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public List<Image> findAllByProductId(int id) {
         return imageJPA.findAllByProductId(id);
+    }
+
+    @Override
+    public Image findById(int id) {
+        return imageJPA.findById(id).orElse(null);
     }
 
     @Override

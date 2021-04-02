@@ -98,7 +98,7 @@
                                                                 <tbody>
                                                                 <tr class="nk-tb-item">
                                                                     <td class="nk-tb-col">
-                                                                        1
+                                                                        <img th:if="${product.getImages().size>0}" th:src="@{'/shop/getImg/'+${product?.getImages()?.get(0)?.getId()}}" width="100%">
                                                                     </td>
                                                                     <td class="nk-tb-col">
                                                                         <div class="form-control-wrap">
@@ -109,14 +109,14 @@
                                                                         </div>
                                                                     </td>
                                                                     <td class="nk-tb-col">
-                                                                        <button title="Видалити" class="btn btn-icon btn-lg btn-primary float-right" onclick="deleteImg('#productImage-1', '#productImage1Name')" style="height: fit-content;margin-left: auto;margin-right: 0.75rem;">
+                                                                        <button title="Видалити" class="btn btn-icon btn-lg btn-primary float-right" onclick="deleteImg('#productImage-1', '#productImage1Name')" style="height: fit-content;margin-left: auto;margin-right: 0.75rem;" th:id="${product?.getImages()?.get(0)?.getId()}">
                                                                             <em class="icon ni ni-cross-c"></em>
                                                                         </button>
                                                                     </td>
                                                                 </tr>
                                                                 <tr class="nk-tb-item">
                                                                     <td class="nk-tb-col">
-                                                                        2
+                                                                        <img th:if="${product.getImages().size>1}" th:src="@{'/shop/getImg/'+${product?.getImages()?.get(1)?.getId()}}" width="100%">
                                                                     </td>
                                                                     <td class="nk-tb-col">
                                                                         <div class="form-control-wrap">
@@ -127,14 +127,14 @@
                                                                         </div>
                                                                     </td>
                                                                     <td class="nk-tb-col">
-                                                                        <button title="Видалити" class="btn btn-icon btn-lg btn-primary float-right" onclick="deleteImg('#productImage-2', '#productImage2Name')" style="height: fit-content;margin-left: auto;margin-right: 0.75rem;">
+                                                                        <button title="Видалити" class="btn btn-icon btn-lg btn-primary float-right" onclick="deleteImg('#productImage-2', '#productImage2Name')" style="height: fit-content;margin-left: auto;margin-right: 0.75rem;" th:id="${product?.getImages()?.get(0)?.getId()}">
                                                                             <em class="icon ni ni-cross-c"></em>
                                                                         </button>
                                                                     </td>
                                                                 </tr>
                                                                 <tr class="nk-tb-item">
                                                                     <td class="nk-tb-col">
-                                                                        3
+                                                                        <img th:if="${product.getImages().size>2}" th:src="@{'/shop/getImg/'+${product?.getImages()?.get(2)?.getId()}}" width="100%">
                                                                     </td>
                                                                     <td class="nk-tb-col">
                                                                         <div class="form-control-wrap">
@@ -145,14 +145,14 @@
                                                                         </div>
                                                                     </td>
                                                                     <td class="nk-tb-col">
-                                                                        <button title="Видалити" class="btn btn-icon btn-lg btn-primary float-right" onclick="deleteImg('#productImage-3', '#productImage3Name')" style="height: fit-content;margin-left: auto;margin-right: 0.75rem;">
+                                                                        <button title="Видалити" class="btn btn-icon btn-lg btn-primary float-right" onclick="deleteImg('#productImage-3', '#productImage3Name')" style="height: fit-content;margin-left: auto;margin-right: 0.75rem;" th:id="${product?.getImages()?.get(0)?.getId()}">
                                                                             <em class="icon ni ni-cross-c"></em>
                                                                         </button>
                                                                     </td>
                                                                 </tr>
                                                                 <tr class="nk-tb-item">
                                                                     <td class="nk-tb-col">
-                                                                        4
+                                                                        <img th:if="${product.getImages().size>3}" th:src="@{'/shop/getImg/'+${product?.getImages()?.get(3)?.getId()}}" width="100%">
                                                                     </td>
                                                                     <td class="nk-tb-col">
                                                                         <div class="form-control-wrap">
@@ -163,7 +163,7 @@
                                                                         </div>
                                                                     </td>
                                                                     <td class="nk-tb-col">
-                                                                        <button title="Видалити" class="btn btn-icon btn-lg btn-primary float-right" onclick="deleteImg('#productImage-4', '#productImage4Name')" style="height: fit-content;margin-left: auto;margin-right: 0.75rem;">
+                                                                        <button title="Видалити" class="btn btn-icon btn-lg btn-primary float-right" onclick="deleteImg('#productImage-4', '#productImage4Name')" style="height: fit-content;margin-left: auto;margin-right: 0.75rem;" th:id="${product?.getImages()?.get(0)?.getId()}">
                                                                             <em class="icon ni ni-cross-c"></em>
                                                                         </button>
                                                                     </td>
@@ -972,7 +972,10 @@
         $('#addProductBtn').on( 'click', function () {
             objArr = [];
             let form = new FormData();
-            form.append('file', $('#productImage')[0].files[0]);
+            form.append('img1', $('#productImage-1')[0].files[0]);
+            form.append('img2', $('#productImage-2')[0].files[0]);
+            form.append('img3', $('#productImage-3')[0].files[0]);
+            form.append('img4', $('#productImage-4')[0].files[0]);
 
             let producer =          $('#distributorsList').val();
             console.log("producer: "+producer);
