@@ -204,45 +204,25 @@
                             <div class="product__big__images">
                                 <div class="portfolio-full-image tab-content">
                                     <div role="tabpanel" class="tab-pane fade in active product-video-position" id="img-tab-5">
-                                        <img src="/images/product-details/big-img/4.jpg" alt="full-image">
-<!--                                        <img th:src="@{'/shop/getImgByProductId/'+${product.getId()}}" alt="full-image">-->
-                                        <div class="product-video">
-                                            <a class="video-popup" href="https://www.youtube.com/watch?v=cDDWvj_q-o8">
-                                                <i class="zmdi zmdi-videocam"></i> View Video
-                                            </a>
-                                        </div>
+<!--                                        <img src="/images/product-details/big-img/4.jpg" alt="full-image">-->
+                                        <img th:src="@{'/shop/getImgByProductId/'+${product.getId()}}" alt="full-image">
                                     </div>
                                     <div role="tabpanel" class="tab-pane fade product-video-position" id="img-tab-6">
                                         <img src="/images/product-details/big-img/6.jpg" alt="full-image">
-                                        <div class="product-video">
-                                            <a class="video-popup" href="https://www.youtube.com/watch?v=cDDWvj_q-o8">
-                                                <i class="zmdi zmdi-videocam"></i> View Video
-                                            </a>
-                                        </div>
                                     </div>
                                     <div role="tabpanel" class="tab-pane fade product-video-position" id="img-tab-7">
                                         <img src="/images/product-details/big-img/5.jpg" alt="full-image">
-                                        <div class="product-video">
-                                            <a class="video-popup" href="https://www.youtube.com/watch?v=cDDWvj_q-o8">
-                                                <i class="zmdi zmdi-videocam"></i> View Video
-                                            </a>
-                                        </div>
                                     </div>
                                     <div role="tabpanel" class="tab-pane fade product-video-position" id="img-tab-8">
                                         <img src="/images/product-details/big-img/6.jpg" alt="full-image">
-                                        <div class="product-video">
-                                            <a class="video-popup" href="https://www.youtube.com/watch?v=cDDWvj_q-o8">
-                                                <i class="zmdi zmdi-videocam"></i> View Video
-                                            </a>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <!-- Start Small images -->
-                            <ul class="product__small__images" role="tablist">
+                            <ul class="product__small__images" role="tablist" style="text-align: center">
                                 <li role="presentation" class="pot-small-img active">
                                     <a href="#img-tab-5" role="tab" data-toggle="tab">
-                                        <img src="/images/product-details/small-img/1.jpg" alt="small-image">
+                                        <img th:src="@{'/shop/getImgByProductId/'+${product.getId()}}" alt="small-image">
                                     </a>
                                 </li>
                                 <li role="presentation" class="pot-small-img">
@@ -255,7 +235,7 @@
                                         <img src="/images/product-details/small-img/3.jpg" alt="small-image">
                                     </a>
                                 </li>
-                                <li role="presentation" class="pot-small-img hidden-xs">
+                                <li role="presentation" class="pot-small-img">
                                     <a href="#img-tab-8" role="tab" data-toggle="tab">
                                         <img src="/images/product-details/small-img/2.jpg" alt="small-image">
                                     </a>
@@ -267,17 +247,7 @@
                     <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12 smt-30 xmt-30">
                         <div class="htc__product__details__inner">
                             <div class="pro__detl__title">
-                                <h2 th:text="${product.getName()}">Black Clock</h2>
-                            </div>
-                            <div class="pro__dtl__rating">
-                                <ul class="pro__rating">
-                                    <li><span class="ti-star"></span></li>
-                                    <li><span class="ti-star"></span></li>
-                                    <li><span class="ti-star"></span></li>
-                                    <li><span class="ti-star"></span></li>
-                                    <li><span class="ti-star"></span></li>
-                                </ul>
-                                <span class="rat__qun">(Based on 0 Ratings)</span>
+                                <h2 th:text="${product.getName()}">Black Cock</h2>
                             </div>
                             <div class="pro__details">
                                 <p th:text="${product.getShortDescription()}">Lorem ipsum dolor sit amet consectetur adipisicing elit, sed do eiusmod temf incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, nostr exercitation ullamco laboris nisi ut aliquip ex ea. </p>
@@ -299,26 +269,16 @@
                                     <form id='myform' method='POST' action='#'>
                                         <div class="product-quantity">
                                             <div class="cart-plus-minus">
-                                                <input class="cart-plus-minus-box" type="text" name="qtybutton" value="02">
+                                                <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1">
                                             </div>
                                         </div>
                                     </form>
                                 </div>
                             </div>
                             <ul class="pro__dtl__btn">
-                                <li class="buy__now__btn"><a href="#">buy now</a></li>
-                                <li><a href="#"><span class="ti-heart"></span></a></li>
-                                <li><a href="#"><span class="ti-email"></span></a></li>
+                                <li class="buy__now__btn"><a href="#">Замовити зараз</a></li>
+                                <li><a href="#" title="До кошика"><span class="ti-shopping-cart-full"></span></a></li>
                             </ul>
-                            <div class="pro__social__share">
-                                <h2>Share :</h2>
-                                <ul class="pro__soaial__link">
-                                    <li><a href="#"><i class="zmdi zmdi-twitter"></i></a></li>
-                                    <li><a href="#"><i class="zmdi zmdi-instagram"></i></a></li>
-                                    <li><a href="#"><i class="zmdi zmdi-facebook"></i></a></li>
-                                    <li><a href="#"><i class="zmdi zmdi-google-plus"></i></a></li>
-                                </ul>
-                            </div>
                         </div>
                     </div>
                 </div>
