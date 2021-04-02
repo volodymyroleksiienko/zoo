@@ -1,6 +1,7 @@
 package com.charlie.zoo.serviceImpl;
 
 import com.charlie.zoo.entity.Image;
+import com.charlie.zoo.entity.Producer;
 import com.charlie.zoo.entity.Product;
 import com.charlie.zoo.jpa.ImageJPA;
 import com.charlie.zoo.service.ImageService;
@@ -98,6 +99,29 @@ public class ImageServiceImpl implements  ImageService {
         if(imageDB==null){
             imageDB = new Image();
         }
+        if(multipartFile!=null && multipartFile.getSize()>0){
+            try {
+                imageDB.setImg(multipartFile.getBytes());
+                imageDB.setImgName(multipartFile.getOriginalFilename());
+                imageDB.setImgType(multipartFile.getContentType());
+            }
+            catch(Exception e) {
+                e.printStackTrace();
+            }
+            return imageJPA.save(imageDB);
+        }
+        return null;
+    }
+
+    @Override
+    public Image update(MultipartFile multipartFile, Producer producer) {
+        Image imageDB;
+        if(producer.getImage()==null){
+             imageDB = new Image();
+        }else {
+            imageDB = producer.getImage();
+        }
+        imageDB.setProducer(producer);
         if(multipartFile!=null && multipartFile.getSize()>0){
             try {
                 imageDB.setImg(multipartFile.getBytes());

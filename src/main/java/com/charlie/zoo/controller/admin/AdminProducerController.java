@@ -1,6 +1,5 @@
 package com.charlie.zoo.controller.admin;
 
-import com.charlie.zoo.entity.Category;
 import com.charlie.zoo.entity.Producer;
 import com.charlie.zoo.service.ProducerService;
 import lombok.AllArgsConstructor;
@@ -9,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/admin/producer")
@@ -22,8 +22,8 @@ public class AdminProducerController {
     }
 
     @PostMapping({"/add","/edit"})
-    public String addProducer(Producer producer){
-        producerService.save(producer);
+    public String addProducer(MultipartFile multipartFile,Producer producer){
+        producerService.save(multipartFile,producer);
         return "redirect:/admin/producer";
     }
 

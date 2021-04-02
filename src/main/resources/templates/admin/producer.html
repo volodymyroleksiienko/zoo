@@ -94,7 +94,7 @@
                                                 <tr th:id="${p.getId()}" th:each="p:${producers} " class="nk-tb-item">
                                                     <td class="nk-tb-col">
 <!--                                                        <span th:text="${p.getId()}">img</span>-->
-                                                        <img src="/images/product/1.png">
+                                                        <img th:src="@{'/shop/getImg/'+${p?.getImage()?.getId()}}">
                                                     </td>
 
                                                     <td class="nk-tb-col">

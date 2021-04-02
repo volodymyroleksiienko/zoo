@@ -23,6 +23,9 @@ public class Image {
     @ManyToOne
     private Product product;
 
+    @OneToOne(cascade = CascadeType.PERSIST)
+    private Producer producer;
+
     @Override
     public String toString() {
         return "Image{" +

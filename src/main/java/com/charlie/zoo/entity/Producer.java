@@ -15,6 +15,9 @@ public class Producer {
     private String name;
     private String countryName;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private Image image;
+
     @OneToMany(mappedBy = "producer")
     private List<Product> products;
 

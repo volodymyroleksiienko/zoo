@@ -2,19 +2,23 @@ package com.charlie.zoo.serviceImpl;
 
 import com.charlie.zoo.entity.Producer;
 import com.charlie.zoo.jpa.ProducerJPA;
+import com.charlie.zoo.service.ImageService;
 import com.charlie.zoo.service.ProducerService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class ProducerServiceImpl implements ProducerService {
-    private ProducerJPA producerJPA;
+    private final ProducerJPA producerJPA;
+    private final ImageService imageService;
 
     @Override
-    public Producer save(Producer producer) {
+    public Producer save(MultipartFile multipartFile,Producer producer) {
+        producer.setImage(imageService.update(multipartFile,producer));
         return producerJPA.save(producer);
     }
 
