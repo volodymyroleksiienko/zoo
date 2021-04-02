@@ -269,7 +269,7 @@
         if (target.value.length === 0) {
             console.log("No file selected.");
             $("#addProducerForm> img").remove();
-            $('#producerImage').val('');
+            $('#producerImage').val(null);
             document.getElementById("producerImageLabel").innerHTML = "";
         } else {
             console.log("File selected: ", target.value);
@@ -285,7 +285,7 @@
         if (target.value.length === 0) {
             console.log("No file selected.");
             $("#editProducerForm> img").remove();
-            $('#editProducerImage').val('');
+            $('#editProducerImage').val(null);
             $('#editProducerImageLabel').empty();
             document.getElementById("editProducerImageLabel").innerHTML = "";
         } else {
@@ -300,7 +300,7 @@
         let trObj = btnObj.closest("tbody tr");
         let trId =  $(trObj).attr('id');
 
-        $('#editProducerImage').val('');
+        $('#editProducerImage').val(null);
         document.getElementById("editProducerImageLabel").innerHTML = "";
 
         let producerImg =     $(trObj).find('td:eq(0)').find('img').attr('src');

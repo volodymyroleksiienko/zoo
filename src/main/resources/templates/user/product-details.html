@@ -247,20 +247,32 @@
                     <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12 smt-30 xmt-30">
                         <div class="htc__product__details__inner">
                             <div class="pro__detl__title">
-                                <h2 th:text="${product.getName()}">Black Cock</h2>
+                                <h2 th:text="${product.getName()}"></h2>
                             </div>
                             <div class="pro__details">
-                                <p th:text="${product.getShortDescription()}">Lorem ipsum dolor sit amet consectetur adipisicing elit, sed do eiusmod temf incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, nostr exercitation ullamco laboris nisi ut aliquip ex ea. </p>
+                                <p th:text="${product.getShortDescription()}"></p>
                             </div>
                             <ul class="pro__dtl__prize">
                                 <li class="old__prize">$15.21</li>
-                                <li>$10.00</li>
+                                <li class="new__price">$10.00</li>
                             </ul>
+<!--                            <ul class="product__price pro__dtl__prize">-->
+<!--                                <li class="old__price old__prize" th:if="${product?.getPackageType()?.get(0)?.isOnSale()}" th:text="${product?.getPackageType()?.get(0)?.getPrice()}">$16.00</li>-->
+<!--                                <li class="new__price" th:if="${product?.getPackageType()?.get(0)?.isOnSale()}" th:text="${product.getPackageType()?.get(0)?.getNewPrice()}">$10.00</li>-->
+
+<!--                                <li class="old__price old__prize" style="display: none" th:if="${!product?.getPackageType()?.get(0)?.isOnSale()}">$16.00</li>-->
+<!--                                <li class="new__price" th:if="${!product?.getPackageType()?.get(0)?.isOnSale()}" th:text="${product?.getPackageType()?.get(0)?.getPrice()}">$10.00</li>-->
+<!--                            </ul>-->
                             <div class="pro__dtl__size">
                                 <h2 class="title__5">Size</h2>
-                                <ul class="pro__choose__size">
+<!--                                <ul class="pro__choose__size">-->
+<!--                                    <li th:each="type : ${product.getPackageType()}">-->
+<!--                                        <a href="" th:text="${type.getPackSize()}"></a></li>-->
+<!--                                </ul>-->
+                                <ul class="product-types">
                                     <li th:each="type : ${product.getPackageType()}">
-                                        <a href="#" th:text="${type.getPackSize()}"></a></li>
+                                        <button class="btn" th:text="${type.getPackSize()+' '+type.getPackType()}" th:value="${type.toString()}"></button>
+                                    </li>
                                 </ul>
                             </div>
                             <div class="product-action-wrap">
@@ -560,6 +572,27 @@
     <script th:src="@{/js/waypoints.min.js}"></script>
     <!-- Main js file that contents all jQuery plugins activation. -->
     <script th:src="@{/js/main.js}"></script>
+
+    <script>
+        $( document ).ready(function() {
+            let active = 'active';
+
+            $('.btn').on( 'click', function () {
+                $(this).parent().siblings().find('.' + active).removeClass(active);
+                $(this).addClass(active);
+                let jsonObj = JSON.parse($(this).val());
+                console.log(jsonObj);
+                if (jsonObj["onSale"]===true) {
+                    $(this).parent().parent().parent().find('.old__prize').text(jsonObj["price"]+' UAH');
+                    $(this).parent().parent().parent().find('.old__prize').css("display", "inline-block");
+                    $(this).parent().parent().parent().find('.new__price').text(jsonObj["newPrice"]+' UAH');
+                }else {
+                    $(this).parent().parent().parent().find('.new__price').text(jsonObj["price"]+' UAH');
+                    $(this).parent().parent().parent().find('.old__prize').css("display", "none");
+                }
+            });
+        });
+    </script>
 
 </body>
 
