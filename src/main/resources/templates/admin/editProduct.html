@@ -748,25 +748,29 @@
     }
 
     function deleteImg(inputId, labelId, imgId) {
-        $.ajax({
-            method: "post",
-            url: "/shop/deleteImg/"+imgId,
-            contextType: "application/json",
-            traditional: true,
-            success: function () {
-                let tdObj = $(inputId).parent().parent().parent().parent().find('td:eq(0)');
-                console.log(inputId);
-                console.log(tdObj);
-                console.log(labelId);
-                tdObj.empty();
-                $(labelId).empty();
-                tdObj.html(inputId.match(/\d+/)[0]);
-                $(inputId).val(null);
-            },
-            error: function () {
-                alert("Error!");
-            }
-        });
+        if (imgId !== 0){
+            $.ajax({
+                method: "post",
+                url: "/shop/deleteImg/" + imgId,
+                contextType: "application/json",
+                traditional: true,
+                success: function () {
+                    let tdObj = $(inputId).parent().parent().parent().parent().find('td:eq(0)');
+                    console.log(inputId);
+                    console.log(tdObj);
+                    console.log(labelId);
+                    tdObj.empty();
+                    $(labelId).empty();
+                    tdObj.html(inputId.match(/\d+/)[0]);
+                    $(inputId).val(null);
+                },
+                error: function () {
+                    alert("Error!");
+                }
+            });
+        }else {
+            console.log("img id 0!");
+        }
     }
 
     $(document).ready(function() {
