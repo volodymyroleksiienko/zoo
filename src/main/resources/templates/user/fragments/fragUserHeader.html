@@ -7,7 +7,7 @@
                 <div class="col-md-2 col-lg-2 col-sm-3 col-xs-3">
                     <div class="logo">
                         <a href="/">
-                            <img src="images/logo/logo.png" alt="logo">
+                            <img src="/images/logo/logo.png" alt="logo">
                         </a>
                     </div>
                 </div>
@@ -21,7 +21,7 @@
                                 <ul class="dropdown mega_dropdown">
                                     <!-- Start Single Mega MEnu -->
                                     <li th:each="a :${animals}">
-                                        <a class="mega__title" href="/shop" th:text="${a.getName()}">Собаки</a>
+                                        <a class="mega__title" th:href="@{|/shop/${a.getUrl()}|}" th:text="${a.getName()}">Собаки</a>
                                         <ul class="mega__item">
                                             <li th:each="ct : ${categories}" th:if="${ct.getAnimal.getId()==a.getId()}"><a href="shop.html" th:text="${ct.getName()}">default shop</a></li>
                                         </ul>
@@ -32,7 +32,7 @@
                                         <ul class="mega__item">
                                             <li>
                                                 <div class="mega-item-img">
-                                                    <a href="shop.html">
+                                                    <a href="#">
                                                         <img src="images/feature-img/3.png" alt="">
                                                     </a>
                                                 </div>
