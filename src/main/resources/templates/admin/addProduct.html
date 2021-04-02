@@ -15,11 +15,9 @@
     <!-- StyleSheets  -->
     <link rel="stylesheet" th:href="@{/css/dashlite.css}">
     <link id="skin-default" rel="stylesheet" th:href="@{/css/theme.css}">
-    <link rel="stylesheet" th:href="@{/css/multipleUpload.css}">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tiny.cloud/1/j7qa848foatnucsr63lz000n2e0yxzhelq772wnn61gpyclv/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 
 <body class="nk-body bg-lighter npc-general has-sidebar ">
@@ -111,7 +109,7 @@
                                                                             </div>
                                                                         </td>
                                                                         <td class="nk-tb-col">
-                                                                            <button title="Добавити позицію" class="btn btn-icon btn-lg btn-primary float-right" onclick="deleteImg('#productImage-1', '#productImage1Name')" style="height: fit-content;margin-left: auto;margin-right: 0.75rem;">
+                                                                            <button title="Видалити" class="btn btn-icon btn-lg btn-primary float-right" onclick="deleteImg('#productImage-1', '#productImage1Name')" style="height: fit-content;margin-left: auto;margin-right: 0.75rem;">
                                                                                 <em class="icon ni ni-cross-c"></em>
                                                                             </button>
                                                                         </td>
@@ -129,7 +127,7 @@
                                                                             </div>
                                                                         </td>
                                                                         <td class="nk-tb-col">
-                                                                            <button title="Добавити позицію" class="btn btn-icon btn-lg btn-primary float-right" onclick="deleteImg('#productImage-2', '#productImage2Name')" style="height: fit-content;margin-left: auto;margin-right: 0.75rem;">
+                                                                            <button title="Видалити" class="btn btn-icon btn-lg btn-primary float-right" onclick="deleteImg('#productImage-2', '#productImage2Name')" style="height: fit-content;margin-left: auto;margin-right: 0.75rem;">
                                                                                 <em class="icon ni ni-cross-c"></em>
                                                                             </button>
                                                                         </td>
@@ -147,7 +145,7 @@
                                                                             </div>
                                                                         </td>
                                                                         <td class="nk-tb-col">
-                                                                            <button title="Добавити позицію" class="btn btn-icon btn-lg btn-primary float-right" onclick="deleteImg('#productImage-3', '#productImage3Name')" style="height: fit-content;margin-left: auto;margin-right: 0.75rem;">
+                                                                            <button title="Видалити" class="btn btn-icon btn-lg btn-primary float-right" onclick="deleteImg('#productImage-3', '#productImage3Name')" style="height: fit-content;margin-left: auto;margin-right: 0.75rem;">
                                                                                 <em class="icon ni ni-cross-c"></em>
                                                                             </button>
                                                                         </td>
@@ -165,7 +163,7 @@
                                                                             </div>
                                                                         </td>
                                                                         <td class="nk-tb-col">
-                                                                            <button title="Добавити позицію" class="btn btn-icon btn-lg btn-primary float-right" onclick="deleteImg('#productImage-4', '#productImage4Name')" style="height: fit-content;margin-left: auto;margin-right: 0.75rem;">
+                                                                            <button title="Видалити" class="btn btn-icon btn-lg btn-primary float-right" onclick="deleteImg('#productImage-4', '#productImage4Name')" style="height: fit-content;margin-left: auto;margin-right: 0.75rem;">
                                                                                 <em class="icon ni ni-cross-c"></em>
                                                                             </button>
                                                                         </td>
@@ -601,26 +599,6 @@
                 </div>
             </div>
             <!-- Delete item end -->
-
-            <!-- Delete image start -->
-            <div class="modal fade" tabindex="-1" role="dialog" id="deleteImageModal" aria-modal="true">
-                <div class="modal-dialog modal-md" role="document">
-                    <div class="modal-content">
-                        <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
-                        <div class="modal-body modal-body-md">
-                            <h4 class="title">Видалення позиції</h4>
-                            <br>
-                            <input type="number" id="selectedForDeleteImage" hidden="" >
-                            <p style="margin-bottom: 2rem;">Ви впевнені, що хочете видалити позицію? Підтвердивши дію, Ви не зможете повернутися до попереднього стану.</p>
-                            <div class="form-group">
-                                <button type="button" onclick="removeImageRow($('#rowImageIndex').val())" class="btn btn-outline-primary">Підтвердити</button>
-                                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Delete image end -->
 
             <!-- content @e -->
             <!-- footer @s -->
@@ -1161,18 +1139,6 @@
         t.row(rowToDeleteIndex).remove().draw();
         $('#deleteProductModal').modal('hide');
     }
-
-    function showConfirmationDeleteImageModal(btnObj){
-        let trObj = btnObj.closest("tbody tr");
-        $('#selectedForDeleteImage').val(imagesTab.row(trObj).index());
-        $('#deleteImageModal').modal('show');
-    }
-
-    function removeImageRow(rowToDeleteIndex) {
-        imagesTab.row(rowToDeleteIndex).remove().draw();
-        $('#deleteImageModal').modal('hide');
-    }
-    // delete rows end
 
     function validateimg(ctrl) {
         var fileUpload = ctrl;

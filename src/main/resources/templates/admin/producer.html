@@ -84,6 +84,7 @@
                                             <table class="datatable-init nk-tb-list nk-tb-ulist" data-auto-responsive="false">
                                                 <thead>
                                                 <tr class="nk-tb-item nk-tb-head">
+                                                    <td class="nk-tb-col" style="width: 30%">Зображення</td>
                                                     <th class="nk-tb-col">Назва</th>
                                                     <td class="nk-tb-col tb-col-md">Країна</td>
                                                     <th class="nk-tb-col"><span class="sub-text" style="text-align: right; padding-right: 2rem;">Дії</span></th>
@@ -91,6 +92,10 @@
                                                 </thead>
                                                 <tbody>
                                                 <tr th:id="${p.getId()}" th:each="p:${producers} " class="nk-tb-item">
+                                                    <td class="nk-tb-col">
+<!--                                                        <span th:text="${p.getId()}">img</span>-->
+                                                        <img src="/images/product/1.png">
+                                                    </td>
 
                                                     <td class="nk-tb-col">
                                                         <span th:text="${p.getName()}">Назва</span>
@@ -140,7 +145,16 @@
                         <div class="modal-body modal-body-sm">
                             <h4 class="title">Добавлення виробника</h4>
                             <br>
-                            <form action="/admin/producer/add" method="post" enctype="multipart/form-data">
+                            <form action="/admin/producer/add" method="post" enctype="multipart/form-data" id="addProducerForm">
+                                <div class="form-group" style="margin-top: 1rem">
+                                    <label class="form-label" for="producerImage">Зображення</label>
+                                    <div class="form-control-wrap">
+                                        <div class="custom-file">
+                                            <input type="file" onchange="loadFile(event)" accept="image/png, image/jpeg" class="custom-file-input" id="producerImage" name="multipartFile">
+                                            <label class="custom-file-label" id="producerImageLabel" for="producerImage"></label>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <label class="form-label" for="producerName">Назва</label>
                                     <div class="form-control-wrap">
@@ -172,8 +186,17 @@
                         <div class="modal-body modal-body-sm">
                             <h4 class="title">Редагування</h4>
                             <br>
-                            <form action="/admin/producer/edit" method="post" enctype="multipart/form-data">
+                            <form action="/admin/producer/edit" method="post" enctype="multipart/form-data" id="editProducerForm">
                                 <input type="text" id="selectedForEditItem" hidden="" name="id">
+                                <div class="form-group" style="margin-top: 1rem">
+                                    <label class="form-label" for="editProducerImage">Нове зображення</label>
+                                    <div class="form-control-wrap">
+                                        <div class="custom-file">
+                                            <input type="file" onchange="changeFile(event)" accept="image/png, image/jpeg" class="custom-file-input" id="editProducerImage" name="multipartFile">
+                                            <label class="custom-file-label" id="editProducerImageLabel" for="editProducerImage"></label>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <label class="form-label" for="editProducerName">Назва</label>
                                     <div class="form-control-wrap">
@@ -219,7 +242,6 @@
             </div>
             <!-- Delete product end -->
 
-
             <!-- content @e -->
 
             <!-- footer @s -->
@@ -241,13 +263,54 @@
         document.getElementById("year").innerHTML = new Date().getFullYear();
     });
 
+    function loadFile(event) {
+        let target = event.target || event.srcElement;
+
+        if (target.value.length === 0) {
+            console.log("No file selected.");
+            $("#addProducerForm> img").remove();
+            $('#producerImage').val('');
+            document.getElementById("producerImageLabel").innerHTML = "";
+        } else {
+            console.log("File selected: ", target.value);
+            let imageFile = URL.createObjectURL(event.target.files[0]);
+            $("#addProducerForm> img").remove();
+            $("#addProducerForm").prepend("<img src='"+imageFile+"'width='100%' />");
+        }
+    }
+
+    function changeFile(event) {
+        let target = event.target || event.srcElement;
+
+        if (target.value.length === 0) {
+            console.log("No file selected.");
+            $("#editProducerForm> img").remove();
+            $('#editProducerImage').val('');
+            $('#editProducerImageLabel').empty();
+            document.getElementById("editProducerImageLabel").innerHTML = "";
+        } else {
+            console.log("File selected: ", target.value);
+            let imageFile = URL.createObjectURL(event.target.files[0]);
+            $("#editProducerForm> img").remove();
+            $("#editProducerForm").prepend("<img src='"+imageFile+"'width='100%' />");
+        }
+    }
+
     function showEditProducerModal(btnObj) {
         let trObj = btnObj.closest("tbody tr");
         let trId =  $(trObj).attr('id');
 
-        let producerName =    $(trObj).find('td:eq(0)').text().trim();
-        let producerCountry = $(trObj).find('td:eq(1)').text().trim();
+        $('#editProducerImage').val('');
+        document.getElementById("editProducerImageLabel").innerHTML = "";
+
+        let producerImg =     $(trObj).find('td:eq(0)').find('img').attr('src');
+        console.log(producerImg);
+        let producerName =    $(trObj).find('td:eq(1)').text().trim();
+        let producerCountry = $(trObj).find('td:eq(2)').text().trim();
         console.log($(trObj).find('td:eq(0)').text());
+
+        $('#editProducerForm > img').remove();
+        $('#editProducerForm').prepend("<img src='"+producerImg+"'width='100%' />");
 
         $('#editProducerName').val(producerName);
         $('#editProducerCountry').val(producerCountry);
