@@ -20,7 +20,7 @@ public class Product {
     private String shortDescription;
 
 
-    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product",cascade = CascadeType.REMOVE)
     private List<Image> images;
 
     @Lob

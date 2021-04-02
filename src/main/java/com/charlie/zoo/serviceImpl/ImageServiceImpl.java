@@ -12,10 +12,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-public class ImageServiceImpl implements ImageService {
+public class ImageServiceImpl implements  ImageService {
 
     private ImageJPA imageJPA;
     private ProductService productService;
@@ -66,31 +68,37 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public List<Image> update(List<MultipartFile> fileList, Product product) {
-        if (fileList.size()>0){
-            if(fileList.get(0)!=null){
-                Image main = update(fileList.get(0),findMainByProductId(product.getId()));
-                main.setMain(true);
-                imageJPA.save(main);
-            }
+        if(fileList.size()>0 && fileList.get(0)!=null){
+            Image main = findMainByProductId(product.getId());
+            Image image = update(fileList.get(0),main);
+            image.setProduct(product);
+            image.setMain(true);
+            imageJPA.save(image);
         }
-        List<Image> images = findAllByProductId(product.getId());
+        List<Image> images = imageJPA.findByProductIdAndMainFalse(product.getId());
         for(int i=1;i<fileList.size();i++){
-            if((images.size()-i)>0){
-                update(fileList.get(i),images.get(i));
-            }else{
-                Image newImage = save(fileList.get(i));
-                if(newImage!=null) {
-                    newImage.setProduct(product);
-                    imageJPA.save(newImage);
+            if(fileList.get(i)!=null){
+                Image imageDB;
+                if(i<=images.size()){
+                    imageDB=images.get(i-1);
+                }else {
+                    imageDB = null;
                 }
+                Image image = update(fileList.get(i),imageDB);
+                image.setProduct(product);
+                imageJPA.save(image);
             }
         }
+        System.out.println("end of update");
         return images;
     }
 
     @Override
     public Image update(MultipartFile multipartFile, Image imageDB) {
-        if(imageDB!=null && imageDB.getId()>0 && multipartFile!=null && multipartFile.getSize()>0){
+        if(imageDB==null){
+            imageDB = new Image();
+        }
+        if(multipartFile!=null && multipartFile.getSize()>0){
             try {
                 imageDB.setImg(multipartFile.getBytes());
                 imageDB.setImgName(multipartFile.getOriginalFilename());
@@ -111,8 +119,15 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
+    public List<Image> findByProductIdAndMainFalse(int id) {
+        return imageJPA.findByProductIdAndMainFalse(id);
+    }
+
+    @Override
     public List<Image> findAllByProductId(int id) {
-        return imageJPA.findAllByProductId(id);
+        return imageJPA.findAllByProductId(id).stream()
+                .sorted(Comparator.comparing(Image::isMain,Comparator.reverseOrder()))
+                .collect(Collectors.toList());
     }
 
     @Override

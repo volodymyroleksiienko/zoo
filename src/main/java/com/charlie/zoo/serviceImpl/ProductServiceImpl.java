@@ -35,6 +35,13 @@ public class ProductServiceImpl implements ProductService {
         List<Image> imageList = imageService.save(multipartFile,product);
         product.setImages(imageList);
 
+        product = productInit(product,packageTypes,category,subCategory);
+
+        return productJpa.save(product);
+    }
+
+    private Product productInit(Product product,List<PackageType>  packageTypes,
+                                String category,String subCategory){
         for(PackageType type:packageTypes){
             type.setProduct(product);
         }
@@ -53,18 +60,17 @@ public class ProductServiceImpl implements ProductService {
             product.setCategoryItems(categoryItems);
         }
         product.setPackageType(packageTypes);
-        return productJpa.save(product);
+        return product;
     }
 
     @Override
     public Product update(Product product, List<MultipartFile> multipartFile, List<PackageType> packageTypes, String category, String subCategory) {
-        List<Image> imageList = imageService.update(multipartFile,product);
-        product.setImages(imageList);
-
+        imageService.update(multipartFile,product);
         if(product.getId()>0){
             packageTypeService.deleteAllByProductId(product.getId());
         }
-        return save(product,multipartFile,packageTypes,category,subCategory);
+        product = productInit(product,packageTypes,category,subCategory);
+        return productJpa.save(product);
     }
 
 

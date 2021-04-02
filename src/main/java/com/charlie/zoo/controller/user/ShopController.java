@@ -15,9 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/shop")
@@ -64,13 +62,15 @@ public class ShopController {
     @GetMapping("/getImg/{imgId}")
     public ResponseEntity<ByteArrayResource> getImg(@PathVariable int imgId){
         Image doc = imageService.findById(imgId);
+        if(doc==null) return null;
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(doc.getImgType()))
                 .header(HttpHeaders.CONTENT_DISPOSITION,"attachment:filename=\""+doc.getImgName()+"\"")
                 .body(new ByteArrayResource(doc.getImg()));
     }
 
-    @GetMapping("/deleteImg/{imgId}")
+    @ResponseBody
+    @PostMapping("/deleteImg/{imgId}")
     public void deleteImg(@PathVariable int imgId){
         imageService.deleteById(imgId);
     }

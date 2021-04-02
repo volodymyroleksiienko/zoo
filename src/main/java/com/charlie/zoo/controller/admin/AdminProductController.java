@@ -4,10 +4,7 @@ import com.charlie.zoo.entity.PackageType;
 import com.charlie.zoo.entity.Product;
 import com.charlie.zoo.entity.dto.PackageTypeDto;
 import com.charlie.zoo.entity.dto.ProductDto;
-import com.charlie.zoo.service.CategoryItemService;
-import com.charlie.zoo.service.CategoryService;
-import com.charlie.zoo.service.ProducerService;
-import com.charlie.zoo.service.ProductService;
+import com.charlie.zoo.service.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +23,7 @@ public class AdminProductController {
     private final ProducerService producerService;
     private final CategoryService categoryService;
     private final CategoryItemService categoryItemService;
+    private final ImageService imageService;
 
     @GetMapping
     public String getProduct(Model model){
@@ -78,6 +76,8 @@ public class AdminProductController {
     @GetMapping("/edit/{productId}")
     public String editProducts(@PathVariable int productId, Model model){
         model.addAttribute("product",productService.findById(productId));
+        model.addAttribute("productImg",imageService.findByProductIdAndMainFalse(productId));
+        model.addAttribute("productMainImg",imageService.findMainByProductId(productId));
         model.addAttribute("categories",categoryService.findAll());
         model.addAttribute("items",categoryItemService.findAll());
         model.addAttribute("producers",producerService.findAll());

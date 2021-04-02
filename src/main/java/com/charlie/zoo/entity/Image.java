@@ -22,4 +22,14 @@ public class Image {
 
     @ManyToOne
     private Product product;
+
+    @Override
+    public String toString() {
+        return "Image{" +
+                "id=" + id +
+                ", imgType='" + imgType + '\'' +
+                ", imgName='" + imgName + '\'' +
+                ", main=" + main +
+                '}';
+    }
 }
