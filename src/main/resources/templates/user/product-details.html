@@ -232,9 +232,6 @@
                                 <p th:text="${product.getShortDescription()}"></p>
                             </div>
                             <ul class="pro__dtl__prize">
-<!--                                <li id="old__prize" class="old__prize">$15.21</li>-->
-<!--                                <li id="new__price" class="new__price">$10.00</li>-->
-
                                 <li id="old__prize" class="old__prize" th:if="${product?.getPackageType()?.get(0)?.isOnSale()}" th:text="${product?.getPackageType()?.get(0)?.getPrice()}+' UAH'">$16.00</li>
                                 <li id="new__price" class="new__price" th:if="${product?.getPackageType()?.get(0)?.isOnSale()}" th:text="${product.getPackageType()?.get(0)?.getNewPrice()}+' UAH'">$10.00</li>
 
@@ -243,29 +240,27 @@
                             </ul>
 
                             <div class="pro__dtl__size">
-                                <h2 class="title__5">Size</h2>
+                                <h2 class="title__5">Пакування</h2>
                                 <ul class="product-types">
                                     <li th:each="type, info : ${product.getPackageType()}">
-                                        <button class="btn" th:classappend="${(info.count==1)?'active':''}" th:text="${type.getPackSize()+' '+type.getPackType()}" th:value="${type.toString()}"></button>
+                                        <button class="btn package-type-btn" th:classappend="${(info.count==1)?'active':''}" th:text="${type.getPackSize()+' '+type.getPackType()}" th:value="${type.toString()}"></button>
                                     </li>
                                 </ul>
                             </div>
 
                             <div class="product-action-wrap">
-                                <div class="prodict-statas"><span>Quantity :</span></div>
+                                <div class="prodict-statas"><span>Кількість :</span></div>
                                 <div class="product-quantity">
-                                    <form id='myform' method='POST' action='#'>
-                                        <div class="product-quantity">
-                                            <div class="cart-plus-minus">
-                                                <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1">
-                                            </div>
+                                    <div class="product-quantity">
+                                        <div class="cart-plus-minus">
+                                            <input class="cart-plus-minus-box" id="itemsCount" type="text" name="qtybutton" value="1">
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
                             </div>
                             <ul class="pro__dtl__btn">
-                                <li class="buy__now__btn"><a href="#">Замовити зараз</a></li>
-                                <li><a href="#" title="До кошика"><span class="ti-shopping-cart-full"></span></a></li>
+                                <li class="buy__now__btn"><button href="#">Замовити зараз</button></li>
+                                <li><button title="До кошика" onclick="addProductToTheCart();"><span class="ti-shopping-cart-full"></span></button></li>
                             </ul>
                         </div>
                     </div>
@@ -568,6 +563,34 @@
                 }
             });
         });
+
+        function addProductToTheCart() {
+            let button = $('button.active')[0];
+            let jsonObj = JSON.parse($(button).val());
+            let packageType = jsonObj["id"];
+
+            let count = $('#itemsCount').val();
+
+            console.log("package id: "+packageType+"; count: "+count);
+
+            $.ajax({
+                method: "post",
+                url: "/addToCart/",
+                contextType: "application/json",
+                data: {
+                    packageType: packageType,
+                    count: count,
+                },
+                traditional: true,
+                success: function () {
+                    alert("Success!");
+                    location.reload();
+                },
+                error: function () {
+                    alert("Error!");
+                }
+            });
+        }
     </script>
 
 </body>

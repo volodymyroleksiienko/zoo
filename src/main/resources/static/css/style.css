@@ -2615,7 +2615,7 @@ select.select-color {
 .pro__dtl__btn li + li {
     margin-left: 16px;
 }
-.pro__dtl__btn li a {
+.pro__dtl__btn li button {
     border: 1px solid #d5d5d5;
     display: block;
     font-size: 18px;
@@ -2625,19 +2625,19 @@ select.select-color {
     width: 44px;
     transition: 0.3s;
 }
-.pro__dtl__btn li a:hover {
+.pro__dtl__btn li button:hover {
     background: #ff4136;
     border: 1px solid #ff4136;
     color: #fff;
 }
-.pro__dtl__btn li.buy__now__btn a {
+.pro__dtl__btn li.buy__now__btn button {
     color: #4b4b4b;
     font-size: 14px;
     text-transform: uppercase;
     width: 175px;
     transition: 0.3s;
 }
-.pro__dtl__btn li.buy__now__btn a:hover {
+.pro__dtl__btn li.buy__now__btn button:hover {
     color: #fff;
     background: #ff4136;
     border: 1px solid #ff4136;
