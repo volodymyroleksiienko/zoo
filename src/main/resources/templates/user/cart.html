@@ -131,7 +131,7 @@
                         <a href="#"><i class="zmdi zmdi-close"></i></a>
                     </div>
                     <div class="shp__cart__wrap">
-                        <div class="shp__single__product">
+                        <div class="shp__single__product" th:each="dt : ${orderInfo.getOrderDetails()}">
                             <div class="shp__pro__thumb">
                                 <a href="#">
                                     <img src="images/product/sm-img/1.jpg" alt="product images">
@@ -141,21 +141,6 @@
                                 <h2><a href="product-details.html">BO&Play Wireless Speaker</a></h2>
                                 <span class="quantity">QTY: 1</span>
                                 <span class="shp__price">$105.00</span>
-                            </div>
-                            <div class="remove__btn">
-                                <a href="#" title="Remove this item"><i class="zmdi zmdi-close"></i></a>
-                            </div>
-                        </div>
-                        <div class="shp__single__product">
-                            <div class="shp__pro__thumb">
-                                <a href="#">
-                                    <img src="images/product/sm-img/2.jpg" alt="product images">
-                                </a>
-                            </div>
-                            <div class="shp__pro__details">
-                                <h2><a href="product-details.html">Brone Candle</a></h2>
-                                <span class="quantity">QTY: 1</span>
-                                <span class="shp__price">$25.00</span>
                             </div>
                             <div class="remove__btn">
                                 <a href="#" title="Remove this item"><i class="zmdi zmdi-close"></i></a>
@@ -205,30 +190,32 @@
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th class="product-thumbnail">Image</th>
-                                            <th class="product-name">Product</th>
-                                            <th class="product-price">Price</th>
-                                            <th class="product-quantity">Quantity</th>
-                                            <th class="product-subtotal">Total</th>
-                                            <th class="product-remove">Remove</th>
+                                            <th class="product-thumbnail">Фото</th>
+                                            <th class="product-name">Назва</th>
+                                            <th class="product-price">Ціна</th>
+                                            <th class="product-quantity">Кількість</th>
+                                            <th class="product-subtotal">Разом</th>
+                                            <th class="product-remove">Видалити</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td class="product-thumbnail"><a href="#"><img src="images/product/4.png" alt="product img" /></a></td>
-                                            <td class="product-name"><a href="#">Vestibulum suscipit</a></td>
-                                            <td class="product-price"><span class="amount">£165.00</span></td>
-                                            <td class="product-quantity"><input type="number" value="1" /></td>
-                                            <td class="product-subtotal">£165.00</td>
-                                            <td class="product-remove"><a href="#">X</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="product-thumbnail"><a href="#"><img src="images/product/3.png" alt="product img" /></a></td>
-                                            <td class="product-name"><a href="#">Vestibulum dictum magna</a></td>
-                                            <td class="product-price"><span class="amount">£50.00</span></td>
-                                            <td class="product-quantity"><input type="number" value="1" /></td>
-                                            <td class="product-subtotal">£50.00</td>
-                                            <td class="product-remove"><a href="#">X</a></td>
+                                        <tr th:each="dt : ${orderInfo.getOrderDetails()}">
+                                            <td class="product-thumbnail">
+                                                <a th:href="'/singleProduct/'+${dt.getPackageType().getProduct().getId()}">
+                                                <img th:src="'/shop/getImgByProductId/'+${dt.getPackageType().getProduct().getId()}" alt="product img" />
+                                                </a>
+                                            </td>
+                                            <td class="product-name">
+                                                <a th:href="'/singleProduct/'+${dt.getPackageType().getProduct().getId()}" th:text="${dt.getPackageType().getProduct().getName()}">Vestibulum suscipit</a>
+                                            </td>
+                                            <td class="product-price">
+                                                <span class="amount" th:text="${dt.getPackageType().getPrice()}" th:if="${!dt.getPackageType().isOnSale()}">$105.00</span>
+                                                <span class="amount" th:text="${dt.getPackageType().getNewPrice()}" th:if="${dt.getPackageType().isOnSale()}">$105.00</span>
+                                            </td>
+                                            <td class="product-quantity"><input type="number" th:value="${dt.getCount()}" /></td>
+                                            <td class="product-subtotal" th:text="${dt.getPackageType().getPrice()*dt.getCount()}" th:if="${!dt.getPackageType().isOnSale()}">£165.00</td>
+                                            <td class="product-subtotal" th:text="${dt.getPackageType().getNewPrice()*dt.getCount()}" th:if="${dt.getPackageType().isOnSale()}">£165.00</td>
+                                            <td class="product-remove"><a th:href="'/removeFromCart?id='+${dt.getId()}+'&uuid='+${orderInfo.getId().toString()}">X</a></td>
                                         </tr>
                                     </tbody>
                                 </table>

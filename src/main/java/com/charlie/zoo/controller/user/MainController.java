@@ -1,6 +1,5 @@
 package com.charlie.zoo.controller.user;
 
-import com.charlie.zoo.entity.OrderInfo;
 import com.charlie.zoo.entity.Product;
 import com.charlie.zoo.service.*;
 import lombok.AllArgsConstructor;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
@@ -21,11 +19,13 @@ public class MainController {
     private final CategoryService categoryService;
     private final ProductService productService;
     private final CookieService cookieService;
+    private final  OrderService orderService;
 
     @GetMapping("/")
     public String getIndex(@CookieValue(value = "id", defaultValue = "") String username, Model model,
                            HttpServletResponse httpServletResponse) {
         cookieService.checkCookie(username,httpServletResponse,model);
+        model.addAttribute("orderInfo",orderService.findById(UUID.fromString(username)));
         modelConfig(model);
         return "user/index";
     }
@@ -61,6 +61,7 @@ public class MainController {
     public String getCart(@CookieValue(value = "id", defaultValue = "") String username,Model model,
                           HttpServletResponse httpServletResponse){
         cookieService.checkCookie(username,httpServletResponse,model);
+        model.addAttribute("orderInfo",orderService.findById(UUID.fromString(username)));
         modelConfig(model);
         return "user/cart";
     }
