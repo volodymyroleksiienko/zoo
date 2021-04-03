@@ -567,9 +567,9 @@
         function addProductToTheCart() {
             let button = $('button.active')[0];
             let jsonObj = JSON.parse($(button).val());
-            let packageType = jsonObj["id"];
+            let packageType = parseInt(jsonObj["id"]);
 
-            let count = $('#itemsCount').val();
+            let count = parseInt($('#itemsCount').val());
 
             console.log("package id: "+packageType+"; count: "+count);
 
