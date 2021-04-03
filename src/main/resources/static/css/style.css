@@ -228,6 +228,9 @@
     opacity: 1;
     top: 50%;
 }
+.productOpacity{
+    opacity: 0;
+}
 .product__hover__info {
     left: 50%;
     position: absolute;
