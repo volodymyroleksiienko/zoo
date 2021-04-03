@@ -13,6 +13,7 @@ public interface ProductService {
     Product save(Product product, List<MultipartFile> multipartFile, List<PackageType>  packageTypes,String category,String subCategory);
     Product update(Product product, List<MultipartFile> multipartFile, List<PackageType>  packageTypes,String category,String subCategory);
     Product findById(int id);
+    List<Product> findByStatus(StatusOfEntity status);
     Set<Product> findByAnimal(Animal animal);
     Set<Product> findByAnimalByCategory(Category ct);
     Set<Product> findByAnimalByCategoryBySubCategory(CategoryItem item);
