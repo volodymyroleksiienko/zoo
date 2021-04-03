@@ -30,14 +30,6 @@ public class MainController {
         return "user/index";
     }
 
-    @GetMapping("/shop")
-    public String getShop(@CookieValue(value = "id", defaultValue = "") String username,Model model,
-                          HttpServletResponse httpServletResponse,Integer[] category,Integer[] categoryItem,Integer[] producer,Double[] packSize){
-        cookieService.checkCookie(username,httpServletResponse,model);
-        modelConfig(model);
-        model.addAttribute("products",productService.getFilteredProduct(category,categoryItem,producer,packSize));
-        return "user/shop";
-    }
 
     @GetMapping("/singleProduct/{id}")
     public String getSingleProduct(@CookieValue(value = "id", defaultValue = "") String username,

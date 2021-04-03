@@ -158,8 +158,8 @@
                         <div class="col-md-12">
                             <div class="filter__menu__container">
                                 <div class="product__menu">
-                                    <button class="is-checked">All</button>
-                                    <button th:each="ct : ${categoryBtn}" th:text="${ct.getName()}">All</button>
+                                    <a class="is-checked">All</a>
+                                    <a th:href="${currentUrl+ct.getUrl()}"  th:each="ct : ${categoryBtn}" th:text="${ct.getName()}">All</a>
                                 </div>
                                 <div class="filter__box">
                                     <a class="filter__menu" href="#">filter</a>

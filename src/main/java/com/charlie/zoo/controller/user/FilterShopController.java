@@ -3,16 +3,16 @@ package com.charlie.zoo.controller.user;
 import com.charlie.zoo.entity.Animal;
 import com.charlie.zoo.entity.Category;
 import com.charlie.zoo.entity.CategoryItem;
-import com.charlie.zoo.service.AnimalService;
-import com.charlie.zoo.service.CategoryItemService;
-import com.charlie.zoo.service.CategoryService;
-import com.charlie.zoo.service.ProductService;
+import com.charlie.zoo.service.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("/shop")
@@ -22,6 +22,19 @@ public class FilterShopController {
     private final CategoryService categoryService;
     private final CategoryItemService subCategoryService;
     private final AnimalService animalService;
+    private final CookieService cookieService;
+
+    @GetMapping
+    public String getShop(@CookieValue(value = "id", defaultValue = "") String username, Model model,
+                          HttpServletResponse httpServletResponse, Integer[] category, Integer[] categoryItem, Integer[] producer, Double[] packSize){
+        cookieService.checkCookie(username,httpServletResponse,model);
+        model.addAttribute("animals",animalService.findAll());
+        model.addAttribute("categories",categoryService.findAll());
+        model.addAttribute("categoryBtn", animalService.findAll());
+        model.addAttribute("currentUrl","/shop/");
+        model.addAttribute("products",productService.getFilteredProduct(category,categoryItem,producer,packSize));
+        return "user/shop";
+    }
 
     @GetMapping("/{animalUrl}")
     public String getByAnimal(@PathVariable String animalUrl, Model model, String sortType, Double maxPrice, Double minPrice, Integer producerId ){
