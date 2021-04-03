@@ -11,10 +11,11 @@ public interface OrderDetailsService {
     OrderDetails save(OrderDetails orderDetails);
     void save(List<Integer> id, List<Integer> count);
     OrderDetails update(OrderDetails orderDetails);
-    OrderDetails addProductToOrder(UUID orderId, int packageId,int sizeId, int count);
+    OrderDetails addProductToOrder(UUID orderId, int packageId, int count);
     void deleteProductFromOrder(UUID orderId, int packageId);
     OrderDetails findById(int id);
     OrderDetails findByOrderInfoIdAndOrderByPackageId(UUID orderId, int packageId);
     List<OrderDetails> findAll();
     void deleteByID(int id);
+    void delete(Integer id, String uuid);
 }

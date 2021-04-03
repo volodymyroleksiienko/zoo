@@ -46,7 +46,7 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
     }
 
     @Override
-    public OrderDetails addProductToOrder(UUID orderId, int packageId,int sizeId, int count) {
+    public OrderDetails addProductToOrder(UUID orderId, int packageId, int count) {
         OrderDetails orderDetails = findByOrderInfoIdAndOrderByPackageId(orderId,packageId);
         if (orderDetails==null){
             orderDetails = new OrderDetails();
@@ -92,5 +92,13 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
     @Override
     public void deleteByID(int id) {
         detailsJPA.deleteById(id);
+    }
+
+    @Override
+    public void delete(Integer id, String uuid) {
+        OrderDetails details = findById(id);
+        if (details.getOrderInfo().getId().equals(UUID.fromString(uuid))){
+            deleteByID(id);
+        }
     }
 }
