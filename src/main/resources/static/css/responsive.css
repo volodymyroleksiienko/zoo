@@ -1123,6 +1123,7 @@
         padding-top: 55px;
     }
     .logo img {
+        width: 125px;
         max-width: inherit;
     }
     .menu-extra {
