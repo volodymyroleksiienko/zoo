@@ -2,7 +2,9 @@ package com.charlie.zoo.controller.user;
 
 import com.charlie.zoo.entity.Animal;
 import com.charlie.zoo.entity.Category;
+import com.charlie.zoo.entity.CategoryItem;
 import com.charlie.zoo.service.AnimalService;
+import com.charlie.zoo.service.CategoryItemService;
 import com.charlie.zoo.service.CategoryService;
 import com.charlie.zoo.service.ProductService;
 import lombok.AllArgsConstructor;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class FilterShopController {
     private final ProductService productService;
     private final CategoryService categoryService;
+    private final CategoryItemService subCategoryService;
     private final AnimalService animalService;
 
     @GetMapping("/{animalUrl}")
@@ -32,7 +35,7 @@ public class FilterShopController {
 
     @GetMapping("/{animalUrl}/{categoryUrl}")
     public String getByAnimalByCategory(@PathVariable String animalUrl, @PathVariable String categoryUrl,Model model){
-        Category category = categoryService.findByUrl(categoryUrl);
+        Category category = categoryService.findByUrl(animalUrl,categoryUrl);
         if(category!=null) {
             model.addAttribute("products", productService.findByAnimalByCategory(category));
             model.addAttribute("categoryBtn", category.getCategoryItems());
@@ -40,9 +43,12 @@ public class FilterShopController {
         return "user/shop";
     }
 
-//    @GetMapping("/${animalUrl}/${categoryUrl}/${subCategoryUrl}")
-//    public String getBySubCategory(@PathVariable String uhgug, @PathVariable String categoryUrl,@PathVariable String subCategoryUrl){
-//
-//        return "user/shop";
-//    }
+    @GetMapping("/{animalUrl}/{categoryUrl}/{subCategoryUrl}")
+    public String getBySubCategory(@PathVariable String animalUrl, @PathVariable String categoryUrl,@PathVariable String subCategoryUrl,Model  model){
+        CategoryItem item = subCategoryService.findByUrl(animalUrl,categoryUrl,subCategoryUrl);
+        if(item!=null) {
+            model.addAttribute("products", productService.findByAnimalByCategoryBySubCategory(item));
+        }
+        return "user/shop";
+    }
 }

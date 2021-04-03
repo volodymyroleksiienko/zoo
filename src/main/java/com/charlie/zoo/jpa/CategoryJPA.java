@@ -14,5 +14,5 @@ public interface CategoryJPA extends JpaRepository<Category,Integer> {
     @Query("select c.id from Category  c")
     List<Integer> getListOfId();
 
-    Category findByUrl(String url);
+    Category findFirstByAnimalUrlAndUrl(String animalUrl,String url);
 }

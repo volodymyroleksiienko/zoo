@@ -24,6 +24,11 @@ public class CategoryItemServiceImpl implements CategoryItemService {
     }
 
     @Override
+    public CategoryItem findByUrl(String animalUrl, String categoryUrl, String subCategoryUrl) {
+        return categoryItemJPA.findFirstByAnimalUrlAndUrl(animalUrl,categoryUrl,subCategoryUrl);
+    }
+
+    @Override
     public List<CategoryItem> findByCategoryAnimalId(int animalId) {
         return categoryItemJPA.findByCategoryAnimalId(animalId);
     }

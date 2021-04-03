@@ -85,11 +85,19 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Set<Product> findByAnimalByCategory(Category category) {
-        List<Category> categories = new ArrayList<>();
-        categories.add(category);
-        return productJpa.findByCategoriesIn(categories);
+    public Set<Product> findByAnimalByCategory(Category ct) {
+        List<Integer> category = new ArrayList<>();
+        category.add(ct.getId());
+        return productJpa.findByCategoriesIdInAndStatusOfEntity(category,StatusOfEntity.ACTIVE);
     }
+
+    @Override
+    public Set<Product> findByAnimalByCategoryBySubCategory(CategoryItem item) {
+        List<Integer> category = new ArrayList<>();
+        category.add(item.getId());
+        return productJpa.findByCategoryItemsIdInAndStatusOfEntity(category,StatusOfEntity.ACTIVE);
+    }
+
 
     @Override
     public Product changeStatus(int id, boolean status) {

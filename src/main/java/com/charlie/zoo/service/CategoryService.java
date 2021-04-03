@@ -7,7 +7,7 @@ import java.util.List;
 public interface CategoryService {
     Category save(Category category);
     Category findById(int id);
-    Category findByUrl(String url);
+    Category findByUrl(String animalUrl,String url);
     List<Category> findByAnimalId(int id);
     List<Category> findAll();
     List<Integer> getListOfId();

@@ -1,10 +1,7 @@
 package com.charlie.zoo.service;
 
 
-import com.charlie.zoo.entity.Animal;
-import com.charlie.zoo.entity.Category;
-import com.charlie.zoo.entity.PackageType;
-import com.charlie.zoo.entity.Product;
+import com.charlie.zoo.entity.*;
 import com.charlie.zoo.enums.StatusOfEntity;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,7 +14,8 @@ public interface ProductService {
     Product update(Product product, List<MultipartFile> multipartFile, List<PackageType>  packageTypes,String category,String subCategory);
     Product findById(int id);
     Set<Product> findByAnimal(Animal animal);
-    Set<Product> findByAnimalByCategory(Category category);
+    Set<Product> findByAnimalByCategory(Category ct);
+    Set<Product> findByAnimalByCategoryBySubCategory(CategoryItem item);
     Product changeStatus(int id, boolean status);
     Set<Product> getFilteredProduct(Integer[] categoryIdArr,Integer[] categoryItemIdArr,Integer[] producerId, Double[] packSizeArr);
     List<Product> findAll();

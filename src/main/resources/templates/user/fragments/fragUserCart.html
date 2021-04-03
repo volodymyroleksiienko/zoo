@@ -4,9 +4,9 @@
             <a href="#"><i class="zmdi zmdi-close"></i></a>
         </div>
         <div class="shp__cart__wrap">
-            <div class="shp__single__product" th:each="dt : ${orderInfo.getOrderDetails()}">
+            <div class="shp__single__product" th:each="dt : ${orderInfo?.getOrderDetails()}">
                 <div class="shp__pro__thumb">
-                    <a th:href="'/singleProduct/'+${dt.getPackageType().getProduct().getId()}">
+                    <a th:href="'/singleProduct/'+${dt.getPackageType()?.getProduct()?.getId()}">
                         <img th:src="'/shop/getImgByProductId/'+${dt.getPackageType().getProduct().getId()}" alt="product images">
                     </a>
                 </div>
