@@ -39,9 +39,10 @@ public class FilterShopController {
     @GetMapping("/{animalUrl}")
     public String getByAnimal(@PathVariable String animalUrl, Model model, String sortType, Double maxPrice, Double minPrice, Integer producerId ){
         Animal animal = animalService.findByUrl(animalUrl);
+        model.addAttribute("categoryBtn", animal.getCategories());
+        model.addAttribute("currentUrl","/shop/"+animalUrl+"/");
         if(animal!=null) {
             model.addAttribute("products", productService.findByAnimal(animal));
-            model.addAttribute("categoryBtn", animal.getCategories());
         }
         return "user/shop";
     }
@@ -49,9 +50,10 @@ public class FilterShopController {
     @GetMapping("/{animalUrl}/{categoryUrl}")
     public String getByAnimalByCategory(@PathVariable String animalUrl, @PathVariable String categoryUrl,Model model){
         Category category = categoryService.findByUrl(animalUrl,categoryUrl);
+        model.addAttribute("categoryBtn", category.getCategoryItems());
+        model.addAttribute("currentUrl","/shop/"+animalUrl+"/"+categoryUrl+"/");
         if(category!=null) {
             model.addAttribute("products", productService.findByAnimalByCategory(category));
-            model.addAttribute("categoryBtn", category.getCategoryItems());
         }
         return "user/shop";
     }
