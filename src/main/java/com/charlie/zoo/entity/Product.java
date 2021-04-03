@@ -5,6 +5,7 @@ import lombok.Data;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.awt.*;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
@@ -17,6 +18,8 @@ public class Product {
     private int id;
 
     private String name;
+    @Lob
+    @Type(type = "org.hibernate.type.TextType")
     private String shortDescription;
 
 

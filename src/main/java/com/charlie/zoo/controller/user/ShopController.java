@@ -62,7 +62,7 @@ public class ShopController {
     @GetMapping("/getImg/{imgId}")
     public ResponseEntity<ByteArrayResource> getImg(@PathVariable int imgId){
         Image doc = imageService.findById(imgId);
-        if(doc==null) return null;
+        if(doc==null || doc.getImgName()==null) return null;
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(doc.getImgType()))
                 .header(HttpHeaders.CONTENT_DISPOSITION,"attachment:filename=\""+doc.getImgName()+"\"")

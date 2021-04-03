@@ -131,9 +131,8 @@ public class ImageServiceImpl implements  ImageService {
             catch(Exception e) {
                 e.printStackTrace();
             }
-            return imageJPA.save(imageDB);
         }
-        return null;
+        return imageJPA.save(imageDB);
     }
 
     @Override

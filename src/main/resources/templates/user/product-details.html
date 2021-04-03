@@ -203,41 +203,20 @@
                         <div class="product__details__container">
                             <div class="product__big__images">
                                 <div class="portfolio-full-image tab-content">
-                                    <div role="tabpanel" class="tab-pane fade in active product-video-position" id="img-tab-5">
+                                    <div role="tabpanel" class="tab-pane fade  product-video-position" id="img-tab-5">
 <!--                                        <img src="/images/product-details/big-img/4.jpg" alt="full-image">-->
                                         <img th:src="@{'/shop/getImgByProductId/'+${product.getId()}}" alt="full-image">
                                     </div>
-                                    <div role="tabpanel" class="tab-pane fade product-video-position" id="img-tab-6">
-                                        <img src="/images/product-details/big-img/6.jpg" alt="full-image">
-                                    </div>
-                                    <div role="tabpanel" class="tab-pane fade product-video-position" id="img-tab-7">
-                                        <img src="/images/product-details/big-img/5.jpg" alt="full-image">
-                                    </div>
-                                    <div role="tabpanel" class="tab-pane fade product-video-position" id="img-tab-8">
-                                        <img src="/images/product-details/big-img/6.jpg" alt="full-image">
+                                    <div role="tabpanel" th:classappend="${(index.index==0)?' in active ':''}" class="tab-pane fade product-video-position" th:id="'img-tab-'+${img.getId()}" th:each="img,index:${product.getImages()}">
+                                        <img th:src="@{'/shop/getImg/'+${img.getId()}}" alt="full-image">
                                     </div>
                                 </div>
                             </div>
                             <!-- Start Small images -->
                             <ul class="product__small__images" role="tablist" style="text-align: center">
-                                <li role="presentation" class="pot-small-img active">
-                                    <a href="#img-tab-5" role="tab" data-toggle="tab">
-                                        <img th:src="@{'/shop/getImgByProductId/'+${product.getId()}}" alt="small-image">
-                                    </a>
-                                </li>
-                                <li role="presentation" class="pot-small-img">
-                                    <a href="#img-tab-6" role="tab" data-toggle="tab">
-                                        <img src="/images/product-details/small-img/2.jpg" alt="small-image">
-                                    </a>
-                                </li>
-                                <li role="presentation" class="pot-small-img">
-                                    <a href="#img-tab-7" role="tab" data-toggle="tab">
-                                        <img src="/images/product-details/small-img/3.jpg" alt="small-image">
-                                    </a>
-                                </li>
-                                <li role="presentation" class="pot-small-img">
-                                    <a href="#img-tab-8" role="tab" data-toggle="tab">
-                                        <img src="/images/product-details/small-img/2.jpg" alt="small-image">
+                                <li role="presentation" class="pot-small-img" th:each="img:${product.getImages()}">
+                                    <a role="tab" data-toggle="tab" th:href="'#img-tab-'+${img.getId()}" >
+                                        <img th:src="@{'/shop/getImg/'+${img.getId()}}" alt="small-image">
                                     </a>
                                 </li>
                             </ul>

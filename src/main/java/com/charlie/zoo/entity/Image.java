@@ -23,7 +23,7 @@ public class Image {
     @ManyToOne
     private Product product;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne
     private Producer producer;
 
     @Override

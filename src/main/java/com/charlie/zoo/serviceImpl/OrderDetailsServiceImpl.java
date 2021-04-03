@@ -2,9 +2,11 @@ package com.charlie.zoo.serviceImpl;
 
 
 import com.charlie.zoo.entity.OrderDetails;
+import com.charlie.zoo.entity.PackageType;
 import com.charlie.zoo.jpa.OrderDetailsJPA;
 import com.charlie.zoo.service.OrderDetailsService;
 import com.charlie.zoo.service.OrderService;
+import com.charlie.zoo.service.PackageTypeService;
 import com.charlie.zoo.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,9 +17,9 @@ import java.util.UUID;
 @Service
 @AllArgsConstructor
 public class OrderDetailsServiceImpl implements OrderDetailsService {
-    private OrderDetailsJPA detailsJPA;
-    private OrderService orderService;
-    private ProductService productService;
+    private final OrderDetailsJPA detailsJPA;
+    private final OrderService orderService;
+    private final PackageTypeService packageTypeService;
 
 
     @Override
@@ -44,12 +46,12 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
     }
 
     @Override
-    public OrderDetails addProductToOrder(UUID orderId, int productId,int sizeId, int count) {
-        OrderDetails orderDetails = findByOrderInfoIdAndOrderByProductId(orderId,productId);
+    public OrderDetails addProductToOrder(UUID orderId, int packageId,int sizeId, int count) {
+        OrderDetails orderDetails = findByOrderInfoIdAndOrderByPackageId(orderId,packageId);
         if (orderDetails==null){
             orderDetails = new OrderDetails();
             orderDetails.setOrderInfo(orderService.findById(orderId));
-            orderDetails.setProduct(productService.findById(productId));
+            orderDetails.setPackageType(packageTypeService.findById(packageId));
             if(count<=0) {
                 orderDetails.setCount(1);
             }else{
@@ -65,8 +67,8 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
     }
 
     @Override
-    public void deleteProductFromOrder(UUID orderId, int productId) {
-        OrderDetails orderDetails = findByOrderInfoIdAndOrderByProductId(orderId,productId);
+    public void deleteProductFromOrder(UUID orderId, int packageId) {
+        OrderDetails orderDetails = findByOrderInfoIdAndOrderByPackageId(orderId,packageId);
         if(orderDetails!=null){
             deleteByID(orderDetails.getId());
         }
@@ -78,8 +80,8 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
     }
 
     @Override
-    public OrderDetails findByOrderInfoIdAndOrderByProductId(UUID orderId, int productId) {
-        return detailsJPA.findByOrderInfoByProduct(orderId,productId);
+    public OrderDetails findByOrderInfoIdAndOrderByPackageId(UUID orderId, int packageId) {
+        return detailsJPA.findFirstByByOrderInfoByPackage(orderId,packageId);
     }
 
     @Override

@@ -19,6 +19,7 @@ public class OrderInfo {
     private String phone;
     private String description;
 
+
     @OneToMany(mappedBy = "orderInfo")
     private List<OrderDetails> orderDetails;
 

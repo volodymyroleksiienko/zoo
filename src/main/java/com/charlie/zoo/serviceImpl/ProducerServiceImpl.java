@@ -18,8 +18,16 @@ public class ProducerServiceImpl implements ProducerService {
 
     @Override
     public Producer save(MultipartFile multipartFile,Producer producer) {
-        producer.setImage(imageService.update(multipartFile,producer));
-        return producerJPA.save(producer);
+        Producer producerDB = new Producer();
+        if(producer.getId()!=0){
+            producerDB = findById(producer.getId());
+        }
+        producerDB.setCountryName(producer.getCountryName());
+        producerDB.setName(producer.getName());
+        if(multipartFile!=null && multipartFile.getSize()>0) {
+            producerDB.setImage(imageService.update(multipartFile, producer));
+        }
+        return producerJPA.save(producerDB);
     }
 
     @Override

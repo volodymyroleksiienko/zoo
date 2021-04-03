@@ -13,7 +13,7 @@ public class OrderDetails {
 
     int count;
     @ManyToOne
-    private Product product;
+    private PackageType packageType;
     @ManyToOne
     private OrderInfo orderInfo;
 

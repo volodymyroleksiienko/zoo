@@ -2,10 +2,7 @@ package com.charlie.zoo.controller.user;
 
 import com.charlie.zoo.entity.OrderInfo;
 import com.charlie.zoo.entity.Product;
-import com.charlie.zoo.service.AnimalService;
-import com.charlie.zoo.service.CategoryService;
-import com.charlie.zoo.service.OrderService;
-import com.charlie.zoo.service.ProductService;
+import com.charlie.zoo.service.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,15 +17,15 @@ import java.util.UUID;
 @Controller
 @AllArgsConstructor
 public class MainController {
-    private AnimalService animalService;
-    private CategoryService categoryService;
-    private OrderService orderService;
-    private ProductService productService;
+    private final AnimalService animalService;
+    private final CategoryService categoryService;
+    private final ProductService productService;
+    private final CookieService cookieService;
 
     @GetMapping("/")
     public String getIndex(@CookieValue(value = "id", defaultValue = "") String username, Model model,
                            HttpServletResponse httpServletResponse) {
-        checkCookie(username,httpServletResponse,model);
+        cookieService.checkCookie(username,httpServletResponse,model);
         modelConfig(model);
         return "user/index";
     }
@@ -36,7 +33,7 @@ public class MainController {
     @GetMapping("/shop")
     public String getShop(@CookieValue(value = "id", defaultValue = "") String username,Model model,
                           HttpServletResponse httpServletResponse,Integer[] category,Integer[] categoryItem,Integer[] producer,Double[] packSize){
-        checkCookie(username,httpServletResponse,model);
+        cookieService.checkCookie(username,httpServletResponse,model);
         modelConfig(model);
         model.addAttribute("products",productService.getFilteredProduct(category,categoryItem,producer,packSize));
         return "user/shop";
@@ -46,7 +43,7 @@ public class MainController {
     public String getSingleProduct(@CookieValue(value = "id", defaultValue = "") String username,
                                    @PathVariable int id, Model model,HttpServletResponse httpServletResponse){
         modelConfig(model);
-        checkCookie(username,httpServletResponse,model);
+        cookieService.checkCookie(username,httpServletResponse,model);
         Product product = productService.findById(id);
         model.addAttribute("product",product);
         return "user/product-details";
@@ -55,7 +52,7 @@ public class MainController {
     @GetMapping("/contact")
     public String getContact(@CookieValue(value = "id", defaultValue = "") String username,Model model,
                              HttpServletResponse httpServletResponse){
-        checkCookie(username,httpServletResponse,model);
+        cookieService.checkCookie(username,httpServletResponse,model);
         modelConfig(model);
         return "user/contact";
     }
@@ -63,7 +60,7 @@ public class MainController {
     @GetMapping("/cart")
     public String getCart(@CookieValue(value = "id", defaultValue = "") String username,Model model,
                           HttpServletResponse httpServletResponse){
-        checkCookie(username,httpServletResponse,model);
+        cookieService.checkCookie(username,httpServletResponse,model);
         modelConfig(model);
         return "user/cart";
     }
@@ -71,7 +68,7 @@ public class MainController {
     @GetMapping("/checkout")
     public String getCheckout(@CookieValue(value = "id", defaultValue = "") String username,Model model,
                               HttpServletResponse httpServletResponse){
-        checkCookie(username,httpServletResponse,model);
+        cookieService.checkCookie(username,httpServletResponse,model);
         modelConfig(model);
         return "user/checkout";
     }
@@ -81,19 +78,5 @@ public class MainController {
         model.addAttribute("categories",categoryService.findAll());
     }
 
-    public void checkCookie(String id, HttpServletResponse httpServletResponse, Model model){
-        if(!id.isEmpty()) {
-            OrderInfo orderInfo = orderService.findById(UUID.fromString(id));
-            if(orderInfo!=null) {
-                model.addAttribute("order", orderInfo);
-                return;
-            }
-        }
-        OrderInfo order = new OrderInfo();
-        order.setId(UUID.randomUUID());
-        order = orderService.save(order);
-        httpServletResponse.addCookie(new Cookie("id", order.getId().toString()));
-        model.addAttribute("order",order);
-    }
 }
 
