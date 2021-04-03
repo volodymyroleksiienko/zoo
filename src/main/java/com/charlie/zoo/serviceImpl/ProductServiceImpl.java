@@ -80,6 +80,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> findByStatus(StatusOfEntity status) {
+        return productJpa.findByStatusOfEntity(status);
+    }
+
+    @Override
     public Set<Product> findByAnimal(Animal animal) {
         return productJpa.findByCategoriesIn(animal.getCategories());
     }
