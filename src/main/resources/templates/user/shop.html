@@ -250,13 +250,6 @@
                                                 <img th:src="@{'/shop/getImgByProductId/'+${pr.getId()}}" alt="product images">
 <!--                                            </a>-->
                                         </div>
-                                        <div class="product__hover__info">
-                                            <ul class="product__action">
-                                                <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="#"><span class="ti-plus"></span></a></li>
-                                                <li><a title="Add TO Cart" href="cart.html"><span class="ti-shopping-cart"></span></a></li>
-                                                <li><a title="Wishlist" href="wishlist.html"><span class="ti-heart"></span></a></li>
-                                            </ul>
-                                        </div>
                                     </div>
                                     <div class="product__details">
                                         <h2><a th:href="@{'/singleProduct/'+${pr.getId()}}" th:text="${pr.getName()}">Simple Black Clock</a></h2>
@@ -273,6 +266,13 @@
                                             <li class="old__price" style="display: none" th:if="${!pr?.getPackageType()?.get(0)?.isOnSale()}"></li>
                                             <li class="new__price" th:if="${!pr?.getPackageType()?.get(0)?.isOnSale()}" th:text="${pr?.getPackageType()?.get(0)?.getPrice()}+' UAH'"></li>
                                         </ul>
+                                        <div class="product__info">
+                                            <ul class="product__action">
+                                                <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="#"><span class="ti-plus"></span></a></li>
+                                                <li><a title="До кошика" href="cart.html"><span class="ti-shopping-cart-full"></span></a></li>
+                                                <li><a title="Wishlist" href="wishlist.html"><span class="ti-heart"></span></a></li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -540,14 +540,16 @@
             }
         });
 
-        let productItem = document.getElementsByClassName('product__inner');
 
-        Array.prototype.forEach.call(productItem, function (el) {
-            el.addEventListener("click", function () {
-                $(el).find('.product__hover__info').toggleClass("productOpacity");
-                console.log("toogle");
-            });
-        });
+        // let productItem = document.getElementsByClassName('product__inner');
+        //
+        // Array.prototype.forEach.call(productItem, function (el) {
+        //     el.addEventListener("click", function () {
+        //         $(el).find('.product__hover__info').toggle();
+        //         // toggleClass("productOpacity");
+        //         console.log("toogle");
+        //     });
+        // });
     });
 </script>
 
