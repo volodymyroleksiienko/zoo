@@ -292,9 +292,9 @@
                                 <div class="product foo">
                                     <div class="product__inner">
                                         <div class="pro__thumb">
-                                            <a href="#">
+<!--                                            <a href="#">-->
                                                 <img th:src="@{'/shop/getImgByProductId/'+${pr.getId()}}" alt="product images">
-                                            </a>
+<!--                                            </a>-->
                                         </div>
                                         <div class="product__hover__info">
                                             <ul class="product__action">
@@ -313,11 +313,11 @@
                                         </ul>
 
                                         <ul class="product__price">
-                                            <li class="old__price" th:if="${pr?.getPackageType()?.get(0)?.isOnSale()}" th:text="${pr?.getPackageType()?.get(0)?.getPrice()}">$16.00</li>
-                                            <li class="new__price" th:if="${pr?.getPackageType()?.get(0)?.isOnSale()}" th:text="${pr.getPackageType()?.get(0)?.getNewPrice()}">$10.00</li>
+                                            <li class="old__price" th:if="${pr?.getPackageType()?.get(0)?.isOnSale()}" th:text="${pr?.getPackageType()?.get(0)?.getPrice()}+' UAH'"></li>
+                                            <li class="new__price" th:if="${pr?.getPackageType()?.get(0)?.isOnSale()}" th:text="${pr.getPackageType()?.get(0)?.getNewPrice()}+' UAH'"></li>
 
-                                            <li class="old__price" style="display: none" th:if="${!pr?.getPackageType()?.get(0)?.isOnSale()}">$16.00</li>
-                                            <li class="new__price" th:if="${!pr?.getPackageType()?.get(0)?.isOnSale()}" th:text="${pr?.getPackageType()?.get(0)?.getPrice()}">$10.00</li>
+                                            <li class="old__price" style="display: none" th:if="${!pr?.getPackageType()?.get(0)?.isOnSale()}"></li>
+                                            <li class="new__price" th:if="${!pr?.getPackageType()?.get(0)?.isOnSale()}" th:text="${pr?.getPackageType()?.get(0)?.getPrice()}+' UAH'"></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -577,13 +577,22 @@
             let jsonObj = JSON.parse($(this).val());
             console.log(jsonObj);
             if (jsonObj["onSale"]===true) {
-                $(this).parent().parent().parent().find('.old__price').text(jsonObj["price"]+' UAH');
+                $(this).parent().parent().parent().find('.old__price').text(parseFloat(jsonObj["price"]).toFixed(2)+' UAH');
                 $(this).parent().parent().parent().find('.old__price').css("display", "inline-block");
-                $(this).parent().parent().parent().find('.new__price').text(jsonObj["newPrice"]+' UAH');
+                $(this).parent().parent().parent().find('.new__price').text(parseFloat(jsonObj["newPrice"]).toFixed(2)+' UAH');
             }else {
-                $(this).parent().parent().parent().find('.new__price').text(jsonObj["price"]+' UAH');
+                $(this).parent().parent().parent().find('.new__price').text(parseFloat(jsonObj["price"]).toFixed(2)+' UAH');
                 $(this).parent().parent().parent().find('.old__price').css("display", "none");
             }
+        });
+
+        let productItem = document.getElementsByClassName('product__inner');
+
+        Array.prototype.forEach.call(productItem, function (el) {
+            el.addEventListener("click", function () {
+                $(el).find('.product__hover__info').toggleClass("productOpacity");
+                console.log("toogle");
+            });
         });
     });
 </script>
