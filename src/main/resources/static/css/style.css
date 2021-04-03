@@ -4191,6 +4191,7 @@ a.shipping-calculator-button:hover {
 
 .product-types li button {
     outline: none;
+    border-radius: 18px;
 }
 
 .product-types li button:hover {
