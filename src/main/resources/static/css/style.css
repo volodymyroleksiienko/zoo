@@ -4188,13 +4188,20 @@ a.shipping-calculator-button:hover {
 }
 
 .product-types li button {
-
+    outline: none;
 }
 
 .product-types li button:hover {
+    outline: none;
+    background-color: grey;
+}
+
+.product-types li button:focus {
+    outline: none!important;
     background-color: grey;
 }
 
 .product-types li .active {
+    outline: none;
     background-color: #808080;
 }

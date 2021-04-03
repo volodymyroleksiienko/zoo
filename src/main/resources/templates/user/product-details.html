@@ -253,28 +253,25 @@
                                 <p th:text="${product.getShortDescription()}"></p>
                             </div>
                             <ul class="pro__dtl__prize">
-                                <li class="old__prize">$15.21</li>
-                                <li class="new__price">$10.00</li>
-                            </ul>
-<!--                            <ul class="product__price pro__dtl__prize">-->
-<!--                                <li class="old__price old__prize" th:if="${product?.getPackageType()?.get(0)?.isOnSale()}" th:text="${product?.getPackageType()?.get(0)?.getPrice()}">$16.00</li>-->
-<!--                                <li class="new__price" th:if="${product?.getPackageType()?.get(0)?.isOnSale()}" th:text="${product.getPackageType()?.get(0)?.getNewPrice()}">$10.00</li>-->
+<!--                                <li id="old__prize" class="old__prize">$15.21</li>-->
+<!--                                <li id="new__price" class="new__price">$10.00</li>-->
 
-<!--                                <li class="old__price old__prize" style="display: none" th:if="${!product?.getPackageType()?.get(0)?.isOnSale()}">$16.00</li>-->
-<!--                                <li class="new__price" th:if="${!product?.getPackageType()?.get(0)?.isOnSale()}" th:text="${product?.getPackageType()?.get(0)?.getPrice()}">$10.00</li>-->
-<!--                            </ul>-->
+                                <li id="old__prize" class="old__prize" th:if="${product?.getPackageType()?.get(0)?.isOnSale()}" th:text="${product?.getPackageType()?.get(0)?.getPrice()}+' UAH'">$16.00</li>
+                                <li id="new__price" class="new__price" th:if="${product?.getPackageType()?.get(0)?.isOnSale()}" th:text="${product.getPackageType()?.get(0)?.getNewPrice()}+' UAH'">$10.00</li>
+
+                                <li id="old__prize" class="old__prize" style="display: none" th:if="${!product?.getPackageType()?.get(0)?.isOnSale()}">$16.00</li>
+                                <li id="new__price" class="new__price" th:if="${!product?.getPackageType()?.get(0)?.isOnSale()}" th:text="${product?.getPackageType()?.get(0)?.getPrice()}+' UAH'">$10.00</li>
+                            </ul>
+
                             <div class="pro__dtl__size">
                                 <h2 class="title__5">Size</h2>
-<!--                                <ul class="pro__choose__size">-->
-<!--                                    <li th:each="type : ${product.getPackageType()}">-->
-<!--                                        <a href="" th:text="${type.getPackSize()}"></a></li>-->
-<!--                                </ul>-->
                                 <ul class="product-types">
-                                    <li th:each="type : ${product.getPackageType()}">
-                                        <button class="btn" th:text="${type.getPackSize()+' '+type.getPackType()}" th:value="${type.toString()}"></button>
+                                    <li th:each="type, info : ${product.getPackageType()}">
+                                        <button class="btn" th:classappend="${(info.count==1)?'active':''}" th:text="${type.getPackSize()+' '+type.getPackType()}" th:value="${type.toString()}"></button>
                                     </li>
                                 </ul>
                             </div>
+
                             <div class="product-action-wrap">
                                 <div class="prodict-statas"><span>Quantity :</span></div>
                                 <div class="product-quantity">
@@ -583,12 +580,12 @@
                 let jsonObj = JSON.parse($(this).val());
                 console.log(jsonObj);
                 if (jsonObj["onSale"]===true) {
-                    $(this).parent().parent().parent().find('.old__prize').text(jsonObj["price"]+' UAH');
-                    $(this).parent().parent().parent().find('.old__prize').css("display", "inline-block");
-                    $(this).parent().parent().parent().find('.new__price').text(jsonObj["newPrice"]+' UAH');
+                    $('#old__prize').text(parseFloat(jsonObj["price"]).toFixed(2)+' UAH');
+                    $('#old__prize').css("display", "inline-block");
+                    $('#new__price').text(parseFloat(jsonObj["newPrice"]).toFixed(2)+' UAH');
                 }else {
-                    $(this).parent().parent().parent().find('.new__price').text(jsonObj["price"]+' UAH');
-                    $(this).parent().parent().parent().find('.old__prize').css("display", "none");
+                    $('#new__price').text(parseFloat(jsonObj["price"]).toFixed(2)+' UAH');
+                    $('#old__prize').css("display", "none");
                 }
             });
         });
