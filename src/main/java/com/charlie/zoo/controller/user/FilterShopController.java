@@ -45,14 +45,16 @@ public class FilterShopController {
     }
 
     @GetMapping("/{animalUrl}")
-    public String getByAnimal(@PathVariable String animalUrl, Model model, String sortType, Integer maxPrice, Integer minPrice,String packSize, Integer producerId ){
+    public String getByAnimal(@PathVariable String animalUrl, Model model, String sortType, Integer max, Integer min,String packSize, Integer producerId ){
         Animal animal = animalService.findByUrl(animalUrl);
+        System.out.println(max);
+        System.out.println(min);
         if(animal!=null) {
             Set<Product> products = productService.findByAnimal(animal);
             model.addAttribute("categoryBtn", animal.getCategories());
             model.addAttribute("currentUrl","/shop/"+animalUrl+"/");
             model.addAttribute("currentAll",animal.getName());
-            model.addAttribute("products", productService.getFiltered(products,minPrice,maxPrice,packSize,producerId));
+            model.addAttribute("products", productService.getFiltered(products,min,max,packSize,producerId));
             config(model,products);
         }
         return "user/shop";

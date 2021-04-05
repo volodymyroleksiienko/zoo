@@ -168,7 +168,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="dt : ${orderInfo.getOrderDetails()}">
+                                        <tr th:each="dt : ${orderInfo.getOrderDetails()}" >
                                             <td class="product-thumbnail">
                                                 <a th:href="'/singleProduct/'+${dt.getPackageType().getProduct().getId()}">
                                                 <img th:src="'/shop/getImgByProductId/'+${dt.getPackageType().getProduct().getId()}" alt="product img" />
@@ -182,7 +182,7 @@
                                                 <span class="amount" th:text="${dt.getPackageType().getNewPrice()}" th:if="${dt.getPackageType().isOnSale()}">$105.00</span>
                                             </td>
                                             <td class="product-quantity">
-                                                <input type="number" min="1" step="1" pattern="\d+" oninput="this.value = this.value.replace(/[e\+\-\.\,]/gi, '');calculateRowSum(this)" th:value="${dt.getCount()}" />
+                                                <input type="number" min="1" step="1" th:id="${dt.getId()}" pattern="\d+" oninput="this.value = this.value.replace(/[e\+\-\.\,]/gi, '');calculateRowSum(this)" th:value="${dt.getCount()}" />
                                             </td>
                                             <td class="product-subtotal row-calculated-sum" th:text="${dt.getPackageType().getPrice()*dt.getCount()}" th:if="${!dt.getPackageType().isOnSale()}">£165.00</td>
                                             <td class="product-subtotal row-calculated-sum" th:text="${dt.getPackageType().getNewPrice()*dt.getCount()}" th:if="${dt.getPackageType().isOnSale()}">£165.00</td>

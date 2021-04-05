@@ -194,7 +194,7 @@
                                             <!-- Start Range -->
                                                 <div class="content-shopby">
                                                     <div class="price_filter s-filter clear">
-                                                        <form action="/test" method="GET">
+                                                        <form th:action="${currentUrl}" method="GET">
                                                             <input type="text" hidden="hidden" th:value="${minPrice}" id="priceSliderStartRangePoint" name="min">
                                                             <input type="text" hidden="hidden" th:value="${maxPrice}" id="priceSliderEndRangePoint" name="max">
                                                             <div id="slider-range"></div>

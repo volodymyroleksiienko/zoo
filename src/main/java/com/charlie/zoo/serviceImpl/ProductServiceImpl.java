@@ -12,6 +12,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -216,42 +219,75 @@ public class ProductServiceImpl implements ProductService {
         return packSizes;
     }
 
+//    @Override
+//    public List<Product> getFiltered(Set<Product> products, Integer minPrice, Integer maxPrice, String packSize, Integer producerId) {
+//        List<Product> filteredList = new ArrayList<>();
+//
+//        for(Product product:products){
+//            for(int i=0;i<product.getPackageType().size();i++) {
+//                PackageType type = product.getPackageType().get(i);
+//                if (minPrice != null && maxPrice != null) {
+//                    int priceValue = 0;
+//                    if (type.isOnSale()) {
+//                        priceValue = type.getNewPrice().intValue();
+//                    }else
+//                    {priceValue = type.getPrice().intValue();}
+//                    System.out.println("Price value "+priceValue);
+//                    if(priceValue<minPrice || priceValue>maxPrice){
+//                        System.out.println("check");
+//                        product.getPackageType().remove(type);
+//                        continue;
+//                    }
+//                }
+//                System.out.println(product.getPackageType());
+//                if(packSize!=null && !packSize.isEmpty()){
+//                    String packValue = type.getPackSize().doubleValue()+type.getPackType();
+//                    if(!packSize.equals(packValue)){
+//                        product.getPackageType().remove(type);
+//                    }
+//                }
+//            }
+//            if (producerId!=null && product.getProducer().getId() != producerId) {
+//                filteredList.remove(product);
+//            }
+//            if(product.getPackageType().size()==0){
+//                filteredList.remove(product);
+//            }
+//        }
+//        return filteredList;
+//    }
+
+
     @Override
     public List<Product> getFiltered(Set<Product> products, Integer minPrice, Integer maxPrice, String packSize, Integer producerId) {
-        List<Product> filteredList = new ArrayList<>(products);
-        boolean price,producer,size;
-        for(Product product:filteredList){
-            producer = false;
+        List<Product> productList = new ArrayList<>(products);
+        if(packSize!=null && !packSize.isEmpty()){
+            productList = filteredBySize(productList,packSize);
+        }
+        return productList;
+    }
 
+    private List<Product> filteredByProducer(List<Product> products, Integer id ){
+        return products.parallelStream().filter(product -> product.getProducer().getId()==id).collect(Collectors.toList());
+    }
 
-            for(PackageType  type:product.getPackageType()) {
-                if (minPrice != null && maxPrice != null) {
-                    int priceValue = 0;
-                    if (type.isOnSale()) {
-                        priceValue = type.getNewPrice().intValue();
-                    }else
-                    {priceValue = type.getPrice().intValue();}
-
-                    if(priceValue<=minPrice && priceValue>=maxPrice){
-                        product.getPackageType().remove(type);
-                        continue;
-                    }
-                }
-                if(packSize!=null && !packSize.isEmpty()){
-                    String packValue = type.getPackSize().doubleValue()+type.getPackType();
-                    if(!packSize.equals(packValue)){
-                        product.getPackageType().remove(type);
-                    }
+    private  List<Product> filteredBySize(List<Product> products,String packSize){
+        List<Product> filtered = new ArrayList<>();
+        for(int i=0;i<products.size();i++){
+            Product product = products.get(i);
+            for(int j=0;j<products.get(i).getPackageType().size();j++){
+                PackageType type = products.get(i).getPackageType().get(j);
+                String packValue = type.getPackSize().doubleValue()+type.getPackType();
+                if(!packSize.equals(packValue)){
+                    product.getPackageType().remove(type);
                 }
             }
-            if (producerId!=null && product.getProducer().getId() != producerId) {
-                products.remove(product);
-            }
-            if(product.getPackageType().size()==0){
-                products.remove(product);
+            if(product.getPackageType().size()>0){
+                filtered.add(product);
             }
         }
-        return filteredList;
+
+        return filtered;
     }
 
     @Override
