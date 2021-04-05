@@ -13,8 +13,8 @@
                 <div class="shp__pro__details">
                     <h2><a th:href="'/singleProduct/'+${dt.getPackageType().getProduct().getId()}" th:text="${dt.getPackageType().getProduct().getName()}">BO&Play Wireless Speaker</a></h2>
                     <span class="quantity" th:text="${dt.getCount()}">QTY: 1</span>
-                    <span class="shp__price" th:text="${dt.getPackageType().getPrice()}" th:if="${!dt.getPackageType().isOnSale()}">$105.00</span>
-                    <span class="shp__price" th:text="${dt.getPackageType().getNewPrice()}" th:if="${dt.getPackageType().isOnSale()}">$105.00</span>
+                    <span class="shp__price" th:text="${dt.getPackageType().getPrice()*dt.getCount()}" th:if="${!dt.getPackageType().isOnSale()}">$105.00</span>
+                    <span class="shp__price" th:text="${dt.getPackageType().getNewPrice()*dt.getCount()}" th:if="${dt.getPackageType().isOnSale()}">$105.00</span>
                 </div>
                 <div class="remove__btn">
                     <a th:href="'/removeFromCart?id='+${dt.getId()}+'&uuid='+${orderInfo.getId().toString()}" title="Remove this item"><i class="zmdi zmdi-close"></i></a>

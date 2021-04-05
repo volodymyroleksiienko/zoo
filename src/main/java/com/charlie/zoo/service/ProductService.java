@@ -21,11 +21,11 @@ public interface ProductService {
     Set<Product> getFilteredProduct(Integer[] categoryIdArr,Integer[] categoryItemIdArr,Integer[] producerId, Double[] packSizeArr);
     List<Product> findAll();
 
-    Integer getMaxPrice(List<Product> products);
-    Integer getMinPrice(List<Product> products);
-    Set<Producer> getProducers(List<Product> products);
-    Set<String> getPackSize(List<Product> products);
-    List<Product> getFiltered(List<Product> products, Integer minPrice,Integer maxPrice,String packSize,Integer producerId);
+    Integer getMaxPrice(Set<Product> products);
+    Integer getMinPrice(Set<Product> products);
+    Set<Producer> getProducers(Set<Product> products);
+    Set<String> getPackSize(Set<Product> products);
+    List<Product> getFiltered(Set<Product> products, Integer minPrice,Integer maxPrice,String packSize,Integer producerId);
 
 //    List<Product> getFilteredProducts(Integer type, Integer size,Integer page);
 //    int getCountOfElements(Integer type, Integer size,Integer page);

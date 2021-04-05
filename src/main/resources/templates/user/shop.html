@@ -194,9 +194,9 @@
                                             <!-- Start Range -->
                                                 <div class="content-shopby">
                                                     <div class="price_filter s-filter clear">
-                                                        <form action="#" method="GET">
-                                                            <input type="text" hidden="hidden" value="0" id="priceSliderStartRangePoint">
-                                                            <input type="text" hidden="hidden" value="1000" id="priceSliderEndRangePoint">
+                                                        <form action="/test" method="GET">
+                                                            <input type="text" hidden="hidden" th:value="${minPrice}" id="priceSliderStartRangePoint" name="min">
+                                                            <input type="text" hidden="hidden" th:value="${maxPrice}" id="priceSliderEndRangePoint" name="max">
                                                             <div id="slider-range"></div>
                                                             <div class="slider__range--output">
                                                                 <div class="price__output--wrap">
@@ -216,26 +216,14 @@
                                         <div class="single__filter">
                                             <h2>Пакування</h2>
                                             <ul class="filter__list" id="packageTypesList">
-                                                <li><a href="#xxl">XXL</a></li>
-                                                <li><a href="#xl">XL</a></li>
-                                                <li><a href="#x">X</a></li>
-                                                <li><a href="#l">L</a></li>
-                                                <li><a href="#m">M</a></li>
-                                                <li><a href="#s">S</a></li>
-                                                <li><a href="#xxl">XXL</a></li>
-                                                <li><a href="#xl">XL</a></li>
-                                                <li><a href="#x">X</a></li>
-                                                <li><a href="#l">L</a></li>
-                                                <li><a href="#m">M</a></li>
-                                                <li><a href="#s">S</a></li>
+                                                <li th:each="pack :${packSizes}"><a href="#xxl" th:text="${pack}">XXL</a></li>
                                                 <li id="loadMoreTypes">Більше <span class="ti-angle-double-down"></span></li>
                                             </ul>
                                         </div>
                                         <div class="single__filter">
                                             <h2>Виробник</h2>
                                             <ul class="filter__list" id="producersList">
-                                                <li><a href="#">All</a></li>
-                                                <li><a href="#">Accessories</a></li>
+                                                <li th:each="pr :${producerList}"><a href="#" th:text="${pr.getName()}">All</a></li>
                                                 <li id="loadMoreProducers">Більше <span class="ti-angle-double-down"></span></li>
                                             </ul>
                                         </div>

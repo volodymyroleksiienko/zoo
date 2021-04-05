@@ -159,7 +159,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Integer getMaxPrice(List<Product> products) {
+    public Integer getMaxPrice(Set<Product> products) {
         int maxPrice = 0;
         for (Product product:products){
             for(PackageType type:product.getPackageType()){
@@ -178,7 +178,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Integer getMinPrice(List<Product> products) {
+    public Integer getMinPrice(Set<Product> products) {
         int maxPrice = Integer.MAX_VALUE;
         for (Product product:products){
             for(PackageType type:product.getPackageType()){
@@ -197,7 +197,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Set<Producer> getProducers(List<Product> products) {
+    public Set<Producer> getProducers(Set<Product> products) {
         Set<Producer> producers = new HashSet<>();
         for(Product product:products){
             producers.add(product.getProducer());
@@ -206,20 +206,52 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Set<String> getPackSize(List<Product> products) {
-        return null;
+    public Set<String> getPackSize(Set<Product> products) {
+        Set<String> packSizes = new TreeSet<>();
+        for(Product product:products){
+            for(PackageType packageType:product.getPackageType()){
+                packSizes.add(packageType.getPackSize().doubleValue()+packageType.getPackType());
+            }
+        }
+        return packSizes;
     }
 
     @Override
-    public List<Product> getFiltered(List<Product> products, Integer minPrice, Integer maxPrice, String packSize, Integer producerId) {
-        List<Product> filteredList = new ArrayList<>();
-        for(Product product:products){
-            if(minPrice!=null && maxPrice!=null){
+    public List<Product> getFiltered(Set<Product> products, Integer minPrice, Integer maxPrice, String packSize, Integer producerId) {
+        List<Product> filteredList = new ArrayList<>(products);
+        boolean price,producer,size;
+        for(Product product:filteredList){
+            producer = false;
 
+
+            for(PackageType  type:product.getPackageType()) {
+                if (minPrice != null && maxPrice != null) {
+                    int priceValue = 0;
+                    if (type.isOnSale()) {
+                        priceValue = type.getNewPrice().intValue();
+                    }else
+                    {priceValue = type.getPrice().intValue();}
+
+                    if(priceValue<=minPrice && priceValue>=maxPrice){
+                        product.getPackageType().remove(type);
+                        continue;
+                    }
+                }
+                if(packSize!=null && !packSize.isEmpty()){
+                    String packValue = type.getPackSize().doubleValue()+type.getPackType();
+                    if(!packSize.equals(packValue)){
+                        product.getPackageType().remove(type);
+                    }
+                }
+            }
+            if (producerId!=null && product.getProducer().getId() != producerId) {
+                products.remove(product);
+            }
+            if(product.getPackageType().size()==0){
+                products.remove(product);
             }
         }
-
-        return null;
+        return filteredList;
     }
 
     @Override
