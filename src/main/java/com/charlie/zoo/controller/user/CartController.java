@@ -26,6 +26,13 @@ public class CartController {
         orderDetailsService.addProductToOrder(UUID.fromString(id),idOfPackageType,count);
     }
 
+    @PostMapping("/changeCount")
+    public void changeCount(@CookieValue(value = "id", defaultValue = "") String id,Model model, HttpServletResponse httpServletResponse,
+                          Integer idOfPackageType, Integer count){
+        cookieService.checkCookie(id,httpServletResponse,model);
+        orderDetailsService.changeCount(idOfPackageType,count);
+    }
+
     @GetMapping("/addToCart/{idOfPackageType}")
     public String addToCartOne(@CookieValue(value = "id", defaultValue = "") String id, Model model, HttpServletResponse httpServletResponse,
                              @PathVariable int idOfPackageType){
