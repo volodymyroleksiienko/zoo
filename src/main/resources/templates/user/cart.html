@@ -444,11 +444,11 @@
             let count = parseInt($('#'+itemId).val());
             $.ajax({
                 method: "post",
-                url: "/saveCartChanges/",
+                url: "/changeCount",
                 contextType: "application/json",
                 data: {
-                    itemId: itemId,
-                    value: count,
+                    idOfPackageType: itemId,
+                    count: count,
                 },
                 traditional: true,
                 success: function () {
