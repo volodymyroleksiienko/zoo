@@ -529,15 +529,17 @@ $('.image-popup').magnificPopup({
 --------------------------------*/
   $("#slider-range").slider({
       range: true,
-      min: 10,
-      max: 500,
-      values: [110, 400],
+      min: parseInt($('#priceSliderStartRangePoint').val()),
+      max: parseInt($('#priceSliderEndRangePoint').val()),
+      values: [parseInt($('#priceSliderStartRangePoint').val()), parseInt($('#priceSliderEndRangePoint').val())],
       slide: function(event, ui) {
-          $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+          $("#amount").val(ui.values[0] + " UAH - " + ui.values[1]+" UAH");
+          $("#priceSliderStartRangePoint").val(parseInt(ui.values[0]));
+          $("#priceSliderEndRangePoint").val(parseInt(ui.values[1]));
       }
   });
-  $("#amount").val("$" + $("#slider-range").slider("values", 0) +
-      " - $" + $("#slider-range").slider("values", 1));
+  $("#amount").val($("#slider-range").slider("values", 0) +
+      " UAH - " + $("#slider-range").slider("values", 1) + " UAH");
 
 
 /*-------------------------------

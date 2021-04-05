@@ -809,6 +809,7 @@
 }
 .product-images {
     min-width: 50%;
+    width: 50%;
     padding-right: 50px;
 }
 .product-info h1 {
@@ -1679,6 +1680,14 @@ product__style--7
     color: #fff;
     background: #ff4136;
 }
+
+.pager li:first-child{
+    margin-right: 1rem;
+}
+
+.pager li:last-child{
+    margin-left: 1rem;
+}
 /*------------------------------
   13. Newsletter Area
 --------------------------------*/
@@ -1964,11 +1973,14 @@ product__style--7
     display: flex;
     justify-content: space-between;
 }
-.filter__box a {
+.filter__box button {
     color: #666666;
     font-size: 17px;
     text-transform: uppercase;
+    border: none;
+    background-color: transparent;
 }
+
 .filter__wrap.filter__menu__on {
     opacity: 1;
     right: calc(0px - 16px);
@@ -1984,7 +1996,7 @@ product__style--7
     right: -100%;
     top: 0;
     transition: all 0.25s ease 0s;
-    width: 500px;
+    width: 300px;
     z-index: 99999;
 }
 .filter__cart__inner {
@@ -2007,7 +2019,7 @@ product__style--7
 }
 .single__filter {
     margin-top: 50px;
-    width: 50%;
+    width: 100%;
 }
 .filter__content {
     margin-top: -40px;
@@ -2029,15 +2041,58 @@ product__style--7
     color: #999;
     transition: all 0.3s ease 0s;
 }
-.filter__list li:hover a,
-.filter__menu__close__btn a:hover i {
+
+#packageTypesList li{
+    display: none;
+}
+
+#packageTypesList li:last-child{
+    color: #999;
+    display: list-item;
+}
+
+#packageTypesList li:last-child span{
+    color: #ff4136;
+    font-size: 13px;
+}
+
+#packageTypesList li:last-child:hover{
     color: #ff4136;
 }
-.filter__menu__close__btn a i {
+
+#producersList li{
+    display: none;
+}
+
+#producersList li:last-child{
+    color: #999;
+    display: list-item;
+}
+
+#producersList li:last-child span{
+    color: #ff4136;
+    font-size: 13px;
+}
+
+#producersList li:last-child:hover{
+    color: #ff4136;
+}
+
+.filter__menu__close__btn button{
+    border: none;
+    background-color: transparent;
+}
+
+.filter__list li:hover a,
+.filter__menu__close__btn button:hover i {
+    color: #ff4136;
+}
+.filter__menu__close__btn button i {
     color: #999;
     font-size: 36px;
     transition: 0.3s;
 }
+
 .filter__list.sidebar__list li {
     line-height: 24px;
 }
@@ -2146,17 +2201,35 @@ product__style--7
 .price--output > span {
     float: left;
 }
-.price--filter a {
-    font-family: poppins;
-    text-transform: uppercase;
+
+.price--filter{
+    margin: 1rem 0;
 }
+
+.price--filter button {
+    text-transform: uppercase;
+    border: 1px solid #d5d5d5;
+    color: #4b4b4b;
+    font-size: 14px;
+    width: 100%;
+    transition: 0.3s;
+    height: 35px;
+}
+.price--filter button:hover {
+    color: #fff;
+    background: #ff4136;
+    border: 1px solid #ff4136;
+}
+
+
 .price--output > * {
     display: inline-block;
     float: left;
 }
 .price--output input {
+    text-align: center;
     padding-left: 10px;
-    width: 70%;
+    width: 100%;
 }
 .slider__range--output {
     margin-top: 18px;

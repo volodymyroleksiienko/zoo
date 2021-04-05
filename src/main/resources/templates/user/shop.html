@@ -162,7 +162,7 @@
                                     <a th:href="${currentUrl+ct.getUrl()}"  th:each="ct : ${categoryBtn}" th:text="${ct.getName()}">All</a>
                                 </div>
                                 <div class="filter__box">
-                                    <a class="filter__menu" href="#">filter</a>
+                                    <button class="filter__menu">фільтри</button>
                                 </div>
                             </div>
                         </div>
@@ -172,63 +172,67 @@
                         <div class="filter__cart">
                             <div class="filter__cart__inner">
                                 <div class="filter__menu__close__btn">
-                                    <a href="#"><i class="zmdi zmdi-close"></i></a>
+                                    <button><i class="zmdi zmdi-close"></i></button>
                                 </div>
                                 <div class="filter__content">
                                     <!-- Start Single Content -->
                                     <div class="fiter__content__inner">
                                         <div class="single__filter">
-                                            <h2>Sort By</h2>
+                                            <h2 class="sorting-header">Сортування</h2>
                                             <ul class="filter__list">
-                                                <li><a href="#default">Default</a></li>
-                                                <li><a href="#accessories">Accessories</a></li>
-                                                <li><a href="#bags">Bags</a></li>
-                                                <li><a href="#chair">Chair</a></li>
-                                                <li><a href="#decoration">Decoration</a></li>
-                                                <li><a href="#fashion">Fashion</a></li>
+                                                <li><a href="#newerFirst">Спочатку найновіші</a></li>
+                                                <li><a href="#priceAscFirst">Спочатку найдешевші</a></li>
+                                                <li><a href="#priceDescFirst">Спочатку найдорожчі</a></li>
                                             </ul>
                                         </div>
                                         <div class="single__filter">
-                                            <h2>Size</h2>
-                                            <ul class="filter__list">
+                                            <h2>Ціна</h2>
+                                            <!-- Start Range -->
+                                                <div class="content-shopby">
+                                                    <div class="price_filter s-filter clear">
+                                                        <form action="#" method="GET">
+                                                            <input type="text" hidden="hidden" value="0" id="priceSliderStartRangePoint">
+                                                            <input type="text" hidden="hidden" value="1000" id="priceSliderEndRangePoint">
+                                                            <div id="slider-range"></div>
+                                                            <div class="slider__range--output">
+                                                                <div class="price__output--wrap">
+                                                                    <div class="price--output">
+                                                                        <input type="text" id="amount" readonly>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="price--filter">
+                                                                    <button>Фільтрувати</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            <!-- End Range -->
+                                        </div>
+                                        <div class="single__filter">
+                                            <h2>Пакування</h2>
+                                            <ul class="filter__list" id="packageTypesList">
                                                 <li><a href="#xxl">XXL</a></li>
                                                 <li><a href="#xl">XL</a></li>
                                                 <li><a href="#x">X</a></li>
                                                 <li><a href="#l">L</a></li>
                                                 <li><a href="#m">M</a></li>
                                                 <li><a href="#s">S</a></li>
+                                                <li><a href="#xxl">XXL</a></li>
+                                                <li><a href="#xl">XL</a></li>
+                                                <li><a href="#x">X</a></li>
+                                                <li><a href="#l">L</a></li>
+                                                <li><a href="#m">M</a></li>
+                                                <li><a href="#s">S</a></li>
+                                                <li id="loadMoreTypes">Більше <span class="ti-angle-double-down"></span></li>
                                             </ul>
                                         </div>
                                         <div class="single__filter">
-                                            <h2>Tags</h2>
-                                            <ul class="filter__list">
+                                            <h2>Виробник</h2>
+                                            <ul class="filter__list" id="producersList">
                                                 <li><a href="#">All</a></li>
                                                 <li><a href="#">Accessories</a></li>
-                                                <li><a href="#">Bags</a></li>
-                                                <li><a href="#">Chair</a></li>
-                                                <li><a href="#">Decoration</a></li>
-                                                <li><a href="#">Fashion</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="single__filter">
-                                            <h2>Price</h2>
-                                            <ul class="filter__list">
-                                                <li><a href="#">$0.00 - $50.00</a></li>
-                                                <li><a href="#">$50.00 - $100.00</a></li>
-                                                <li><a href="#">$100.00 - $150.00</a></li>
-                                                <li><a href="#">$150.00 - $200.00</a></li>
-                                                <li><a href="#">$300.00 - $500.00</a></li>
-                                                <li><a href="#">$500.00 - $700.00</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="single__filter">
-                                            <h2>Color</h2>
-                                            <ul class="filter__list sidebar__list">
-                                                <li class="black"><a href="#"><i class="zmdi zmdi-circle"></i>Black</a></li>
-                                                <li class="blue"><a href="#"><i class="zmdi zmdi-circle"></i>Blue</a></li>
-                                                <li class="brown"><a href="#"><i class="zmdi zmdi-circle"></i>Brown</a></li>
-                                                <li class="red"><a href="#"><i class="zmdi zmdi-circle"></i>Red</a></li>
-                                                <li class="orange"><a href="#"><i class="zmdi zmdi-circle"></i>Orange</a></li>
+                                                <li id="loadMoreProducers">Більше <span class="ti-angle-double-down"></span></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -242,23 +246,29 @@
                     <div class="row">
                         <div class="product__list another-product-style">
                             <!-- Start Single Product -->
-                            <div class="col-md-3 single__pro col-lg-3 cat--1 col-sm-4 col-xs-12" th:each="pr : ${products}">
+                            <div class="col-md-3 single__pro col-lg-3 cat--1 col-sm-4 col-xs-12" th:each="pr : ${products}" th:id="'product-'+${pr.getId()}">
                                 <div class="product foo">
                                     <div class="product__inner">
                                         <div class="pro__thumb">
 <!--                                            <a href="#">-->
-                                                <img th:src="@{'/shop/getImgByProductId/'+${pr.getId()}}" alt="product images">
+                                                <img th:src="@{'/shop/getImgByProductId/'+${pr.getId()}}" width="100%" alt="product images">
 <!--                                            </a>-->
+                                        </div>
+                                        <div th:if="${pr?.getPackageType()?.get(0)?.isOnSale()}" class="on-sale">
+                                            <span>on sale</span>
+                                        </div>
+                                        <div class="on-sale" style="display: none;">
+                                            <span>on sale</span>
                                         </div>
                                     </div>
                                     <div class="product__details">
-                                        <h2><a th:href="@{'/singleProduct/'+${pr.getId()}}" th:text="${pr.getName()}">Simple Black Clock</a></h2>
+                                        <h2><a class="product-item-name" th:href="@{'/singleProduct/'+${pr.getId()}}" th:text="${pr.getName()}"></a></h2>
                                         <ul class="product-types">
                                             <li th:each="type, info: ${pr.getPackageType()}">
                                                 <button class="btn" th:classappend="${(info.count==1)?'active':''}" th:text="${type.getPackSize()+' '+type.getPackType()}" th:value="${type.toString()}"></button>
                                             </li>
                                         </ul>
-
+                                        <p class="product-short-description" style="display: none" th:text="${pr.getShortDescription()}"></p>
                                         <ul class="product__price">
                                             <li class="old__price" th:if="${pr?.getPackageType()?.get(0)?.isOnSale()}" th:text="${pr?.getPackageType()?.get(0)?.getPrice()}+' UAH'"></li>
                                             <li class="new__price" th:if="${pr?.getPackageType()?.get(0)?.isOnSale()}" th:text="${pr.getPackageType()?.get(0)?.getNewPrice()}+' UAH'"></li>
@@ -268,9 +278,9 @@
                                         </ul>
                                         <div class="product__info">
                                             <ul class="product__action">
-                                                <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="#"><span class="ti-plus"></span></a></li>
+                                                <li><a data-toggle="modal" onclick="quickViewProduct(this.closest('.single__pro').id)" title="Швидкий перегляд" class="quick-view modal-view detail-link" href="#"><span class="ti-plus"></span></a></li>
                                                 <li><a title="До кошика" href="cart.html"><span class="ti-shopping-cart-full"></span></a></li>
-                                                <li><a title="Wishlist" href="wishlist.html"><span class="ti-heart"></span></a></li>
+                                                <li><a title="Купити зараз" href="wishlist.html"><span class="ti-wallet"></span></a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -282,9 +292,13 @@
                     <!-- Start Load More BTn -->
                     <div class="row mt--60">
                         <div class="col-md-12">
-                            <div class="htc__loadmore__btn">
-                                <a href="#">load more</a>
-                            </div>
+                            <ul class="pager">
+                                <li><a href="#">Попередня</a></li>
+                                <li>1</li>
+                                <li>/</li>
+                                <li>5</li>
+                                <li><a href="#">Наступна</a></li>
+                            </ul>
                         </div>
                     </div>
                     <!-- End Load More BTn -->
@@ -436,66 +450,26 @@
                             <!-- Start product images -->
                             <div class="product-images">
                                 <div class="main-image images">
-                                    <img alt="big images" src="/images/product/big-img/1.jpg">
+                                    <img id="productImageModal" width="100%">
                                 </div>
                             </div>
                             <!-- end product images -->
                             <div class="product-info">
-                                <h1>Simple Fabric Bags</h1>
-                                <div class="rating__and__review">
-                                    <ul class="rating">
-                                        <li><span class="ti-star"></span></li>
-                                        <li><span class="ti-star"></span></li>
-                                        <li><span class="ti-star"></span></li>
-                                        <li><span class="ti-star"></span></li>
-                                        <li><span class="ti-star"></span></li>
-                                    </ul>
-                                    <div class="review">
-                                        <a href="#">4 customer reviews</a>
-                                    </div>
+                                <h1 id="productNameModal"></h1>
+                                <div class="pro__details" style="margin-bottom: 1rem">
+                                    <p id="productPackageTypeModal"></p>
                                 </div>
                                 <div class="price-box-3">
                                     <div class="s-price-box">
-                                        <span class="new-price">$17.20</span>
-                                        <span class="old-price">$45.00</span>
+                                        <span id="productNewPriceModal" class="new-price"></span>
+                                        <span id="productOldPriceModal" class="old-price"></span>
                                     </div>
                                 </div>
-                                <div class="quick-desc">
+                                <div class="quick-desc" id="productDescriptionModal">
                                     Designed for simplicity and made from high quality materials. Its sleek geometry and material combinations creates a modern look.
                                 </div>
-                                <div class="select__color">
-                                    <h2>Select color</h2>
-                                    <ul class="color__list">
-                                        <li class="red"><a title="Red" href="#">Red</a></li>
-                                        <li class="gold"><a title="Gold" href="#">Gold</a></li>
-                                        <li class="orange"><a title="Orange" href="#">Orange</a></li>
-                                        <li class="orange"><a title="Orange" href="#">Orange</a></li>
-                                    </ul>
-                                </div>
-                                <div class="select__size">
-                                    <h2>Select size</h2>
-                                    <ul class="color__list">
-                                        <li class="l__size"><a title="L" href="#">L</a></li>
-                                        <li class="m__size"><a title="M" href="#">M</a></li>
-                                        <li class="s__size"><a title="S" href="#">S</a></li>
-                                        <li class="xl__size"><a title="XL" href="#">XL</a></li>
-                                        <li class="xxl__size"><a title="XXL" href="#">XXL</a></li>
-                                    </ul>
-                                </div>
-                                <div class="social-sharing">
-                                    <div class="widget widget_socialsharing_widget">
-                                        <h3 class="widget-title-modal">Share this product</h3>
-                                        <ul class="social-icons">
-                                            <li><a target="_blank" title="rss" href="#" class="rss social-icon"><i class="zmdi zmdi-rss"></i></a></li>
-                                            <li><a target="_blank" title="Linkedin" href="#" class="linkedin social-icon"><i class="zmdi zmdi-linkedin"></i></a></li>
-                                            <li><a target="_blank" title="Pinterest" href="#" class="pinterest social-icon"><i class="zmdi zmdi-pinterest"></i></a></li>
-                                            <li><a target="_blank" title="Tumblr" href="#" class="tumblr social-icon"><i class="zmdi zmdi-tumblr"></i></a></li>
-                                            <li><a target="_blank" title="Pinterest" href="#" class="pinterest social-icon"><i class="zmdi zmdi-pinterest"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
                                 <div class="addtocart-btn">
-                                    <a href="#">Add to cart</a>
+                                    <a href="#">до кошика</a>
                                 </div>
                             </div><!-- .product-info -->
                         </div><!-- .modal-product -->
@@ -531,26 +505,87 @@
             let jsonObj = JSON.parse($(this).val());
             console.log(jsonObj);
             if (jsonObj["onSale"]===true) {
+                $(this).closest('.product').find('.on-sale').css('display', 'block');
                 $(this).parent().parent().parent().find('.old__price').text(parseFloat(jsonObj["price"]).toFixed(2)+' UAH');
                 $(this).parent().parent().parent().find('.old__price').css("display", "inline-block");
                 $(this).parent().parent().parent().find('.new__price').text(parseFloat(jsonObj["newPrice"]).toFixed(2)+' UAH');
             }else {
+                $(this).closest('.product').find('.on-sale').css('display', 'none');
                 $(this).parent().parent().parent().find('.new__price').text(parseFloat(jsonObj["price"]).toFixed(2)+' UAH');
                 $(this).parent().parent().parent().find('.old__price').css("display", "none");
             }
         });
 
+        $("li.animal-img").hide();
+        $("li.animal-img").first().show();
 
-        // let productItem = document.getElementsByClassName('product__inner');
-        //
-        // Array.prototype.forEach.call(productItem, function (el) {
-        //     el.addEventListener("click", function () {
-        //         $(el).find('.product__hover__info').toggle();
-        //         // toggleClass("productOpacity");
-        //         console.log("toogle");
-        //     });
-        // });
+        $('.animal').mouseover(function() {
+            let selected = this.id;
+            $("li.animal-img").hide();
+            $('#animal-image-'+selected).show();
+        });
+
+        let  size_package_li = $("#packageTypesList li").size();
+        let t=3;
+        if(t >= size_package_li){
+            // console.log("t: "+t+"; s: "+size_package_li);
+            $('#loadMoreTypes').hide();
+        }
+        $('#packageTypesList li:lt('+t+')').show();
+        $('#loadMoreTypes').click(function () {
+            t = (t+5 <= size_package_li) ? t+5 : size_package_li;
+            $('#packageTypesList li:lt('+t+')').show();
+            if(t === size_package_li){
+                $('#loadMoreTypes').hide();
+            }
+        });
+
+        let  size_producer_li = $("#producersList li").size();
+        let p=3;
+        if(p >= size_producer_li){
+            // console.log("p: "+p+"; s: "+size_producer_li);
+            $('#loadMoreProducers').hide();
+        }
+        $('#producersList li:lt('+p+')').show();
+        $('#loadMoreProducers').click(function () {
+            p = (p+5 <= size_producer_li) ? p+5 : size_producer_li;
+            $('#producersList li:lt('+t+')').show();
+            if(p === size_producer_li){
+                $('#loadMoreProducers').hide();
+            }
+        });
     });
+
+    function quickViewProduct(prodId) {
+        let productItem = $('#'+prodId);
+
+        let productName = productItem.find('.product__details .product-item-name').text();
+        let productImage = productItem.find('.product__inner .pro__thumb img').attr('src');
+        let productDescription = productItem.find('.product__details .product-short-description').text();
+
+        let button = productItem.find('.product-types li button.active');
+        let productPackageType = productItem.find('.product-types li button.active').text();
+        let jsonObj = JSON.parse($(button).val());
+
+        console.log(jsonObj);
+
+        if (jsonObj["onSale"]===true) {
+            $('#productOldPriceModal').text(parseFloat(jsonObj["price"]).toFixed(2)+' UAH');
+            $('#productOldPriceModal').css("display", "inline-block");
+            $('#productNewPriceModal').text(parseFloat(jsonObj["newPrice"]).toFixed(2)+' UAH');
+        }else {
+            $('#productNewPriceModal').text(parseFloat(jsonObj["price"]).toFixed(2)+' UAH');
+            $('#productOldPriceModal').css("display", "none");
+        }
+
+        $('#productNameModal').text(productName);
+        $('#productImageModal').attr('src', productImage);
+        $('#productDescriptionModal').text(productDescription);
+        $('#productPackageTypeModal').text("Пакування: "+productPackageType);
+
+
+        $('#productModal').modal('show');
+    }
 </script>
 
 </body>

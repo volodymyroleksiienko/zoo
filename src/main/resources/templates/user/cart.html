@@ -427,6 +427,19 @@
     <script src="js/waypoints.min.js"></script>
     <!-- Main js file that contents all jQuery plugins activation. -->
     <script src="js/main.js"></script>
+    <script>
+        $( document ).ready(function() {
+
+            $("li.animal-img").hide();
+            $("li.animal-img").first().show();
+
+            $('.animal').mouseover(function() {
+                let selected = this.id;
+                $("li.animal-img").hide();
+                $('#animal-image-'+selected).show();
+            });
+        });
+    </script>
 
 </body>
 

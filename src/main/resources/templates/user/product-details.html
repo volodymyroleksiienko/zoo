@@ -190,7 +190,7 @@
                             </ul>
 
                             <div class="pro__dtl__size">
-                                <h2 class="title__5">Пакування</h2>
+                                <h2 class="title__5">Пакування:</h2>
                                 <ul class="product-types">
                                     <li th:each="type, info : ${product.getPackageType()}">
                                         <button class="btn package-type-btn" th:classappend="${(info.count==1)?'active':''}" th:text="${type.getPackSize()+' '+type.getPackType()}" th:value="${type.toString()}"></button>

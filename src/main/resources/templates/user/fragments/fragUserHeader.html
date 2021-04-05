@@ -18,28 +18,29 @@
                             <li><a href="/">Головна</a>
                             </li>
                             <li class="drop"><a href="/shop">Магазин</a>
-                                <ul class="dropdown mega_dropdown">
+                                <ul class="dropdown mega_dropdown" >
                                     <!-- Start Single Mega MEnu -->
-                                    <li th:each="a :${animals}">
-                                        <a class="mega__title" th:href="@{|/shop/${a.getUrl()}|}" th:text="${a.getName()}">Собаки</a>
+                                    <li th:each="a :${animals}" th:id="${a.getUrl()}" class="animal">
+                                        <a class="mega__title" th:href="@{|/shop/${a.getUrl()}|}" th:text="${a.getName()}"></a>
                                         <ul class="mega__item">
-                                            <li th:each="ct : ${categories}" th:if="${ct.getAnimal.getId()==a.getId()}"><a href="shop.html" th:text="${ct.getName()}">default shop</a></li>
+                                            <li th:each="ct : ${categories}" th:if="${ct.getAnimal.getId()==a.getId()}"><a href="shop.html" th:text="${ct.getName()}"></a></li>
                                         </ul>
                                     </li>
                                     <!-- End Single Mega MEnu -->
                                     <!-- Start Single Mega MEnu -->
-                                    <li>
+                                    <li th:each="a :${animals}" th:id="'animal-image-'+${a.getUrl()}" class="animal-img">
                                         <ul class="mega__item">
                                             <li>
                                                 <div class="mega-item-img">
-                                                    <a href="#">
-                                                        <img src="/images/feature-img/3.png" alt="">
+                                                    <a th:href="@{|/shop/${a.getUrl()}|}">
+                                                        <img th:src="@{'/shop/getAnimalImg/'+${a.getId()}}" alt="" width="100%">
                                                     </a>
                                                 </div>
                                             </li>
                                         </ul>
                                     </li>
                                     <!-- End Single Mega MEnu -->
+
                                 </ul>
                             </li>
                             <li><a href="/contact">Контакти</a></li>
