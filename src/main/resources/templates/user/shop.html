@@ -279,8 +279,8 @@
                                         <div class="product__info">
                                             <ul class="product__action">
                                                 <li><a data-toggle="modal" onclick="quickViewProduct(this.closest('.single__pro').id)" title="Швидкий перегляд" class="quick-view modal-view detail-link" href="#"><span class="ti-plus"></span></a></li>
-                                                <li><a title="До кошика" href="cart.html"><span class="ti-shopping-cart-full"></span></a></li>
-                                                <li><a title="Купити зараз" href="wishlist.html"><span class="ti-wallet"></span></a></li>
+                                                <li><a title="До кошика" class="send-item-to-card" href="cart.html"><span class="ti-shopping-cart-full"></span></a></li>
+                                                <li><a title="Купити зараз" class="buy-item-now" href="wishlist.html"><span class="ti-wallet"></span></a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -504,6 +504,10 @@
             $(this).addClass(active);
             let jsonObj = JSON.parse($(this).val());
             console.log(jsonObj);
+
+            $(this).parent().parent().parent().find('.send-item-to-card').prop("href", "/addToCartOne/"+jsonObj["id"]);
+            $(this).parent().parent().parent().find('.buy-item-now').prop("href", "/buyNow/"+jsonObj["id"]);
+
             if (jsonObj["onSale"]===true) {
                 $(this).closest('.product').find('.on-sale').css('display', 'block');
                 $(this).parent().parent().parent().find('.old__price').text(parseFloat(jsonObj["price"]).toFixed(2)+' UAH');
