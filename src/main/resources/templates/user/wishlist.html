@@ -367,6 +367,18 @@
                 $("li.animal-img").hide();
                 $('#animal-image-'+selected).show();
             });
+
+            //calculate cart total sum start
+            let sum = 0.0;
+            let allCartItems = document.getElementsByClassName('shp__pro__details');
+            Array.prototype.forEach.call(allCartItems, function(el) {
+                let quantity = parseInt(($(el).find('.quantity').text()).match(/(\d+)/));
+                let price = parseFloat($(el).find('.shp__price').text());
+                console.log("q: "+quantity+"; price: "+ price);
+                sum+=(price);
+            });
+            $('#totalCartSum').text(parseFloat(sum).toFixed(2)+" UAH");
+            //calculate cart total sum end
         });
     </script>
 

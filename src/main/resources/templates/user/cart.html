@@ -125,38 +125,7 @@
             </div>
             <!-- End Offset MEnu -->
             <!-- Start Cart Panel -->
-            <div class="shopping__cart">
-                <div class="shopping__cart__inner">
-                    <div class="offsetmenu__close__btn">
-                        <a href="#"><i class="zmdi zmdi-close"></i></a>
-                    </div>
-                    <div class="shp__cart__wrap">
-                        <div class="shp__single__product" th:each="dt : ${orderInfo.getOrderDetails()}">
-                            <div class="shp__pro__thumb">
-                                <a href="#">
-                                    <img src="images/product/sm-img/1.jpg" alt="product images">
-                                </a>
-                            </div>
-                            <div class="shp__pro__details">
-                                <h2><a href="product-details.html">BO&Play Wireless Speaker</a></h2>
-                                <span class="quantity">QTY: 1</span>
-                                <span class="shp__price">$105.00</span>
-                            </div>
-                            <div class="remove__btn">
-                                <a href="#" title="Remove this item"><i class="zmdi zmdi-close"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <ul class="shoping__total">
-                        <li class="subtotal">Subtotal:</li>
-                        <li class="total__price">$130.00</li>
-                    </ul>
-                    <ul class="shopping__btn">
-                        <li><a href="cart.html">View Cart</a></li>
-                        <li class="shp__checkout"><a href="checkout.html">Checkout</a></li>
-                    </ul>
-                </div>
-            </div>
+            <div th:replace="~{user/fragments/fragUserCart.html}"></div>
             <!-- End Cart Panel -->
         </div>
         <!-- End Offset Wrapper -->
@@ -187,7 +156,7 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <form action="#">               
                             <div class="table-content table-responsive">
-                                <table>
+                                <table id="cartTable">
                                     <thead>
                                         <tr>
                                             <th class="product-thumbnail">Фото</th>
@@ -212,9 +181,11 @@
                                                 <span class="amount" th:text="${dt.getPackageType().getPrice()}" th:if="${!dt.getPackageType().isOnSale()}">$105.00</span>
                                                 <span class="amount" th:text="${dt.getPackageType().getNewPrice()}" th:if="${dt.getPackageType().isOnSale()}">$105.00</span>
                                             </td>
-                                            <td class="product-quantity"><input type="number" th:value="${dt.getCount()}" /></td>
-                                            <td class="product-subtotal" th:text="${dt.getPackageType().getPrice()*dt.getCount()}" th:if="${!dt.getPackageType().isOnSale()}">£165.00</td>
-                                            <td class="product-subtotal" th:text="${dt.getPackageType().getNewPrice()*dt.getCount()}" th:if="${dt.getPackageType().isOnSale()}">£165.00</td>
+                                            <td class="product-quantity">
+                                                <input type="number" min="1" step="1" pattern="\d+" oninput="this.value = this.value.replace(/[e\+\-\.\,]/gi, '');calculateRowSum(this)" th:value="${dt.getCount()}" />
+                                            </td>
+                                            <td class="product-subtotal row-calculated-sum" th:text="${dt.getPackageType().getPrice()*dt.getCount()}" th:if="${!dt.getPackageType().isOnSale()}">£165.00</td>
+                                            <td class="product-subtotal row-calculated-sum" th:text="${dt.getPackageType().getNewPrice()*dt.getCount()}" th:if="${dt.getPackageType().isOnSale()}">£165.00</td>
                                             <td class="product-remove"><a th:href="'/removeFromCart?id='+${dt.getId()}+'&uuid='+${orderInfo.getId().toString()}">X</a></td>
                                         </tr>
                                     </tbody>
@@ -264,9 +235,9 @@
                                                     </td>
                                                 </tr>
                                                 <tr class="order-total">
-                                                    <th>Total</th>
+                                                    <th>Всього</th>
                                                     <td>
-                                                        <strong><span class="amount">£215.00</span></strong>
+                                                        <strong><span id="totalOrderSum" class="amount">£215.00</span></strong>
                                                     </td>
                                                 </tr>                                           
                                             </tbody>
@@ -438,7 +409,48 @@
                 $("li.animal-img").hide();
                 $('#animal-image-'+selected).show();
             });
+
+            //calculate main cart total sum start
+            calculateTotalCartSum();
+            //calculate main cart total sum end
+
+            //calculate sidebar cart total sum start
+            let sum = 0.0;
+            let allCartItems = document.getElementsByClassName('shp__pro__details');
+            Array.prototype.forEach.call(allCartItems, function(el) {
+                let quantity = parseInt(($(el).find('.quantity').text()).match(/(\d+)/));
+                let price = parseFloat($(el).find('.shp__price').text());
+                console.log("q: "+quantity+"; price: "+ price);
+                sum+=(price);
+            });
+            $('#totalCartSum').text(parseFloat(sum).toFixed(2)+" UAH");
+            //calculate sidebar cart total sum end
         });
+
+        function calculateRowSum(inputElement) {
+            let quantity = parseInt($(inputElement).val());
+            let itemPrice  = parseFloat($(inputElement).parent().parent().find('.product-price .amount').text());
+            console.log("mq: "+ quantity+"; mp: "+itemPrice);
+            let totalRowSum = quantity*itemPrice;
+            if (!isNaN(quantity)) {
+                $(inputElement).parent().parent().find('.product-subtotal').text(parseFloat(totalRowSum).toFixed(2));
+            }else {
+                $(inputElement).parent().parent().find('.product-subtotal').text('0.00');
+            }
+            calculateTotalCartSum();
+        }
+
+        function calculateTotalCartSum() {
+            let allRowItemsTotalPrices = document.getElementsByClassName('row-calculated-sum');
+            console.log("len: "+allRowItemsTotalPrices.length);
+            let totalOrderSum = 0.0;
+            Array.prototype.forEach.call(allRowItemsTotalPrices, function(el) {
+                let price = parseFloat($(el).text());
+                totalOrderSum+=price;
+                console.log("total price: "+ totalOrderSum);
+                $('#totalOrderSum').text(parseFloat(totalOrderSum).toFixed(2)+' UAH');
+            });
+        }
     </script>
 
 </body>

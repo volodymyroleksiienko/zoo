@@ -11,10 +11,10 @@
                     </a>
                 </div>
                 <div class="shp__pro__details">
-                    <h2><a th:href="'/singleProduct/'+${dt.getPackageType().getProduct().getId()}" th:text="${dt.getPackageType().getProduct().getName()}">BO&Play Wireless Speaker</a></h2>
-                    <span class="quantity" th:text="${dt.getCount()}">QTY: 1</span>
-                    <span class="shp__price" th:text="${dt.getPackageType().getPrice().doubleValue()*dt.getCount()}" th:if="${!dt.getPackageType().isOnSale()}">$105.00</span>
-                    <span class="shp__price" th:text="${dt.getPackageType().getNewPrice().doubleValue()*dt.getCount()}" th:if="${dt.getPackageType().isOnSale()}">$105.00</span>
+                    <h2><a th:href="'/singleProduct/'+${dt.getPackageType().getProduct().getId()}" th:text="${dt.getPackageType().getProduct().getName()}">r</a></h2>
+                    <span class="quantity" th:text="'Кількість: '+${dt.getCount()}"></span>
+                    <span class="shp__price" th:text="${dt.getPackageType().getPrice().doubleValue()*dt.getCount()}+' UAH'" th:if="${!dt.getPackageType().isOnSale()}"></span>
+                    <span class="shp__price" th:text="${dt.getPackageType().getNewPrice().doubleValue()*dt.getCount()}+' UAH'" th:if="${dt.getPackageType().isOnSale()}"></span>
                 </div>
                 <div class="remove__btn">
                     <a th:href="'/removeFromCart?id='+${dt.getId()}+'&uuid='+${orderInfo.getId().toString()}" title="Remove this item"><i class="zmdi zmdi-close"></i></a>
@@ -22,12 +22,12 @@
             </div>
         </div>
         <ul class="shoping__total">
-            <li class="subtotal">Subtotal:</li>
-            <li class="total__price">$130.00</li>
+            <li class="subtotal">До оплати:</li>
+            <li id="totalCartSum" class="total__price"></li>
         </ul>
         <ul class="shopping__btn">
-            <li><a href="/cart">View Cart</a></li>
-            <li class="shp__checkout"><a href="/checkout">Checkout</a></li>
+            <li><a href="/cart">Переглянути кошик</a></li>
+            <li class="shp__checkout"><a href="/checkout">Оформити замовлення</a></li>
         </ul>
     </div>
 </div>
