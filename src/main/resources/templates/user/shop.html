@@ -184,9 +184,10 @@
                                         <div class="single__filter">
                                             <h2 class="sorting-header">Сортування</h2>
                                             <ul class="filter__list">
-                                                <li><a href="#newerFirst">Спочатку найновіші</a></li>
-                                                <li><a href="#priceAscFirst">Спочатку найдешевші</a></li>
-                                                <li><a href="#priceDescFirst">Спочатку найдорожчі</a></li>
+                                                <li><a th:href="${currentUrlFiltered}+'sortType=bestseller'">Спочатку бестселлери</a></li>
+                                                <li><a th:href="${currentUrlFiltered}+'sortType=new'">Спочатку найновіші</a></li>
+                                                <li><a th:href="${currentUrlFiltered}+'sortType=cheap'">Спочатку найдешевші</a></li>
+                                                <li><a th:href="${currentUrlFiltered}+'sortType=expensive'">Спочатку найдорожчі</a></li>
                                             </ul>
                                         </div>
                                         <div class="single__filter">
@@ -194,7 +195,7 @@
                                             <!-- Start Range -->
                                                 <div class="content-shopby">
                                                     <div class="price_filter s-filter clear">
-                                                        <form th:action="${currentUrl}" method="GET">
+                                                        <form th:action="${currentUrlFiltered}" method="GET">
                                                             <input type="text" hidden="hidden" th:value="${minPrice}" id="priceSliderStartRangePoint" name="min">
                                                             <input type="text" hidden="hidden" th:value="${maxPrice}" id="priceSliderEndRangePoint" name="max">
                                                             <div id="slider-range"></div>
@@ -216,14 +217,14 @@
                                         <div class="single__filter">
                                             <h2>Пакування</h2>
                                             <ul class="filter__list" id="packageTypesList">
-                                                <li th:each="pack :${packSizes}"><a href="#xxl" th:text="${pack}">XXL</a></li>
+                                                <li th:each="pack :${packSizes}"><a th:href="${currentUrlFiltered}+'packSize='+${pack}" th:text="${pack}">XXL</a></li>
                                                 <li id="loadMoreTypes">Більше <span class="ti-angle-double-down"></span></li>
                                             </ul>
                                         </div>
                                         <div class="single__filter">
                                             <h2>Виробник</h2>
                                             <ul class="filter__list" id="producersList">
-                                                <li th:each="pr :${producerList}"><a href="#" th:text="${pr.getName()}">All</a></li>
+                                                <li th:each="pr :${producerList}"><a th:href="${currentUrlFiltered}+'producerId='+${pr.getId()}" th:text="${pr.getName()}">All</a></li>
                                                 <li id="loadMoreProducers">Більше <span class="ti-angle-double-down"></span></li>
                                             </ul>
                                         </div>

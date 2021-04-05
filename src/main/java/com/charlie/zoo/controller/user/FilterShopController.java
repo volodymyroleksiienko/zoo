@@ -40,22 +40,24 @@ public class FilterShopController {
         model.addAttribute("currentAll","Всі товари");
         Set<Product> products = new HashSet<>(productService.findByStatus(StatusOfEntity.ACTIVE));
         model.addAttribute("products",products);
-        config(model,products);
+        config(model,username);
         return "user/shop";
     }
 
     @GetMapping("/{animalUrl}")
-    public String getByAnimal(@PathVariable String animalUrl, Model model, String sortType, Integer max, Integer min,String packSize, Integer producerId ){
+    public String getByAnimal(@CookieValue(value = "id", defaultValue = "") String username,
+                              HttpServletResponse httpServletResponse,@PathVariable String animalUrl, Model model, String sortType, Integer max, Integer min,String packSize, Integer producerId ){
+        cookieService.checkCookie(username,httpServletResponse,model);
         Animal animal = animalService.findByUrl(animalUrl);
-        System.out.println(max);
-        System.out.println(min);
         if(animal!=null) {
-            Set<Product> products = productService.findByAnimal(animal);
+            List<Product> products = productService.getFiltered(productService.findByAnimal(animal),min,max,packSize,producerId,sortType);
             model.addAttribute("categoryBtn", animal.getCategories());
             model.addAttribute("currentUrl","/shop/"+animalUrl+"/");
+            model.addAttribute("currentUrlFiltered",generateUrl("/shop/"+animalUrl,sortType,max,min,packSize,producerId));
             model.addAttribute("currentAll",animal.getName());
-            model.addAttribute("products", productService.getFiltered(products,min,max,packSize,producerId));
-            config(model,products);
+            model.addAttribute("products", products);
+            config(model,username);
+            configFilter(model,new HashSet<>(products),packSize,min,max,producerId);
         }
         return "user/shop";
     }
@@ -70,7 +72,8 @@ public class FilterShopController {
             model.addAttribute("categoryBtn", category.getCategoryItems());
             model.addAttribute("currentAll",category.getName());
             model.addAttribute("products", products);
-            config(model,products);
+//            config(model,products);
+//            configFilter()
         }
         return "user/shop";
     }
@@ -84,18 +87,43 @@ public class FilterShopController {
             Set<Product> products = productService.findByAnimalByCategoryBySubCategory(item);
             model.addAttribute("currentAll", item.getName());
             model.addAttribute("products", products);
-            config(model,products);
+//            config(model,products);
         }
         return "user/shop";
     }
 
-    private void config(Model  model,Set<Product> products){
+    private void config(Model  model,String username){
         model.addAttribute("animals",animalService.findAll());
         model.addAttribute("categories",categoryService.findAll());
 //        model.addAttribute("orderInfo",orderService.findById(UUID.fromString(username)));
-        model.addAttribute("packSizes",productService.getPackSize(products));
-        model.addAttribute("producerList",productService.getProducers(products));
-        model.addAttribute("maxPrice",productService.getMaxPrice(products));
-        model.addAttribute("minPrice",productService.getMinPrice(products));
+    }
+    private void configFilter(Model model,Set<Product> products,String packSize, Integer min,Integer max,Integer providerId) {
+        if(packSize==null || packSize.isEmpty()){
+            model.addAttribute("packSizes",productService.getPackSize(products));
+        }
+        if(providerId==null){
+            model.addAttribute("producerList",productService.getProducers(products));
+        }
+        if(min==null && max==null){
+            model.addAttribute("maxPrice",productService.getMaxPrice(products));
+            model.addAttribute("minPrice",productService.getMinPrice(products));
+        }
+    }
+
+    private String generateUrl(String current,String sortType, Integer max, Integer min,String packSize, Integer producerId){
+        current = current+"?";
+        if(sortType!=null && !sortType.isEmpty()){
+            current+="sortType="+sortType+"&";
+        }
+        if(max!=null && min!=null){
+            current+="min="+min+"&max="+max+"&";
+        }
+        if(packSize!=null && !packSize.isEmpty()){
+            current+="packSize="+packSize+"&";
+        }
+        if(producerId!=null){
+            current+="producerId="+producerId+"&";
+        }
+        return current;
     }
 }

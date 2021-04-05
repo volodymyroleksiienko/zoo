@@ -259,10 +259,19 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
-    public List<Product> getFiltered(Set<Product> products, Integer minPrice, Integer maxPrice, String packSize, Integer producerId) {
+    public List<Product> getFiltered(Set<Product> products, Integer minPrice, Integer maxPrice, String packSize, Integer producerId,String sortType) {
         List<Product> productList = new ArrayList<>(products);
         if(packSize!=null && !packSize.isEmpty()){
             productList = filteredBySize(productList,packSize);
+        }
+        if(producerId!=null){
+            productList = filteredByProducer(productList,producerId);
+        }
+        if(maxPrice!=null && minPrice!=null) {
+            productList = filteredByPrice(productList,maxPrice,minPrice);
+        }
+        if(sortType!=null && !sortType.isEmpty()){
+            productList = sort(productList,sortType);
         }
         return productList;
     }
@@ -278,16 +287,74 @@ public class ProductServiceImpl implements ProductService {
             for(int j=0;j<products.get(i).getPackageType().size();j++){
                 PackageType type = products.get(i).getPackageType().get(j);
                 String packValue = type.getPackSize().doubleValue()+type.getPackType();
-                if(!packSize.equals(packValue)){
-                    product.getPackageType().remove(type);
+                System.out.println(packSize);
+                System.out.println(packValue);
+                if(packSize.equals(packValue)){
+                    filtered.add(product);
+                    break;
                 }
             }
-            if(product.getPackageType().size()>0){
-                filtered.add(product);
+        }
+        return filtered;
+    }
+
+    private  List<Product> filteredByPrice(List<Product> products,int max,int min){
+        List<Product> filtered = new ArrayList<>();
+        for(int i=0;i<products.size();i++){
+            Product product = products.get(i);
+            for(int j=0;j<products.get(i).getPackageType().size();j++){
+                PackageType type = products.get(i).getPackageType().get(j);
+                int packValue;
+                if(type.isOnSale()) {
+                    packValue = type.getNewPrice().intValue();
+                }else{
+                    packValue = type.getPrice().intValue();
+                }
+                if(packValue>=min && packValue<=max){
+                    filtered.add(product);
+                    break;
+                }
             }
         }
-
         return filtered;
+    }
+
+    private List<Product> sort(List<Product> products,String sortType){
+        if(sortType.equals("cheap")) {
+            products.sort((o1, o2) -> {
+                if(o1.getPackageType().size()>0 && o2.getPackageType().size()>0){
+                    PackageType type1 = o1.getPackageType().get(0);
+                    PackageType type2 = o2.getPackageType().get(0);
+                    double o1Value = (type1.isOnSale())?type1.getNewPrice().doubleValue():type1.getPrice().doubleValue();
+                    double o2Value = (type2.isOnSale())?type2.getNewPrice().doubleValue():type2.getPrice().doubleValue();
+                    if(o1Value>o2Value){
+                        return 1;
+                    }else
+                    {return -1;}
+                }
+                return 0;
+            });
+        }
+        if(sortType.equals("expensive")) {
+            System.out.println(sortType);
+            products.sort((o1, o2) -> {
+                if(o1.getPackageType().size()>0 && o2.getPackageType().size()>0){
+                    PackageType type1 = o1.getPackageType().get(0);
+                    PackageType type2 = o2.getPackageType().get(0);
+                    double o1Value = (type1.isOnSale())?type1.getNewPrice().doubleValue():type1.getPrice().doubleValue();
+                    double o2Value = (type2.isOnSale())?type2.getNewPrice().doubleValue():type2.getPrice().doubleValue();
+                    if(o1Value<o2Value){
+                        return 1;
+                    }else
+                    {return -1;}
+                }
+                return 0;
+            });
+        }
+        if(sortType.equals("cheap")) {
+            products.sort(Comparator.comparingInt(Product::getId));
+        }
+        return products;
     }
 
     @Override

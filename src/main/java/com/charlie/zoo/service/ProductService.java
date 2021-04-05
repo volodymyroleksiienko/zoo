@@ -25,7 +25,7 @@ public interface ProductService {
     Integer getMinPrice(Set<Product> products);
     Set<Producer> getProducers(Set<Product> products);
     Set<String> getPackSize(Set<Product> products);
-    List<Product> getFiltered(Set<Product> products, Integer minPrice,Integer maxPrice,String packSize,Integer producerId);
+    List<Product> getFiltered(Set<Product> products, Integer minPrice,Integer maxPrice,String packSize,Integer producerId,String sortType);
 
 //    List<Product> getFilteredProducts(Integer type, Integer size,Integer page);
 //    int getCountOfElements(Integer type, Integer size,Integer page);
