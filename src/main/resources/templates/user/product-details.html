@@ -514,6 +514,15 @@
             });
         });
 
+        $("li.animal-img").hide();
+        $("li.animal-img").first().show();
+
+        $('.animal').mouseover(function() {
+            let selected = this.id;
+            $("li.animal-img").hide();
+            $('#animal-image-'+selected).show();
+        });
+
         function addProductToTheCart() {
             let button = $('button.active')[0];
             let jsonObj = JSON.parse($(button).val());
