@@ -182,7 +182,7 @@
                                                 <span class="amount" th:text="${dt.getPackageType().getNewPrice()}" th:if="${dt.getPackageType().isOnSale()}">$105.00</span>
                                             </td>
                                             <td class="product-quantity">
-                                                <input type="number" min="1" step="1" th:id="${dt.getId()}" pattern="\d+" oninput="this.value = this.value.replace(/[e\+\-\.\,]/gi, '');calculateRowSum(this)" th:value="${dt.getCount()}" />
+                                                <input type="number" min="1" step="1" th:id="${dt.getId()}" pattern="\d+" onchange="saveChanges(this.id)" oninput="this.value = this.value.replace(/[e\+\-\.\,]/gi, '');calculateRowSum(this)" th:value="${dt.getCount()}" />
                                             </td>
                                             <td class="product-subtotal row-calculated-sum" th:text="${dt.getPackageType().getPrice()*dt.getCount()}" th:if="${!dt.getPackageType().isOnSale()}">£165.00</td>
                                             <td class="product-subtotal row-calculated-sum" th:text="${dt.getPackageType().getNewPrice()*dt.getCount()}" th:if="${dt.getPackageType().isOnSale()}">£165.00</td>
@@ -438,6 +438,26 @@
                 $(inputElement).parent().parent().find('.product-subtotal').text('0.00');
             }
             calculateTotalCartSum();
+        }
+
+        function saveChanges(itemId) {
+            let count = parseInt($('#'+itemId).val());
+            $.ajax({
+                method: "post",
+                url: "/saveCartChanges/",
+                contextType: "application/json",
+                data: {
+                    itemId: itemId,
+                    value: count,
+                },
+                traditional: true,
+                success: function () {
+                    console.log('Updated!');
+                },
+                error: function () {
+                    alert("Помилка!!");
+                }
+            });
         }
 
         function calculateTotalCartSum() {
