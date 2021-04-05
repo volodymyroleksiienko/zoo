@@ -67,6 +67,15 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
     }
 
     @Override
+    public void changeCount(int id, int count){
+        OrderDetails details = findById(id);
+        if(details!=null){
+            details.setCount(count);
+            save(details);
+        }
+    }
+
+    @Override
     public void deleteProductFromOrder(UUID orderId, int packageId) {
         OrderDetails orderDetails = findByOrderInfoIdAndOrderByPackageId(orderId,packageId);
         if(orderDetails!=null){

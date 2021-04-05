@@ -11,6 +11,7 @@ public interface OrderDetailsService {
     OrderDetails save(OrderDetails orderDetails);
     void save(List<Integer> id, List<Integer> count);
     OrderDetails update(OrderDetails orderDetails);
+    void changeCount(int id, int count);
     OrderDetails addProductToOrder(UUID orderId, int packageId, int count);
     void deleteProductFromOrder(UUID orderId, int packageId);
     OrderDetails findById(int id);
