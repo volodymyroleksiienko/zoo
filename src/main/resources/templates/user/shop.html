@@ -136,11 +136,15 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="bradcaump__inner text-center">
-                                <h2 class="bradcaump-title">Shop Page</h2>
+                                <h2 class="bradcaump-title">Магазин</h2>
                                 <nav class="bradcaump-inner">
-                                  <a class="breadcrumb-item" href="index.html">Home</a>
-                                  <span class="brd-separetor">/</span>
-                                  <span class="breadcrumb-item active">Shop Page</span>
+                                    <a class="breadcrumb-item" href="/shop">Магазин</a>
+                                    <span class="brd-separetor">/</span>
+                                  <a class="breadcrumb-item" th:href="'/shop/'+${animal.getUrl()}" th:if="${animal!=null}" th:text="${animal.getName()}">Home</a>
+                                  <span class="brd-separetor" th:if="${animal!=null}">/</span>
+                                    <a class="breadcrumb-item" th:href="'/shop/'+${category.getUrl()}" th:if="${category!=null}" th:text="${category.getName()}">Home</a>
+                                    <span class="brd-separetor" th:if="${category!=null}">/</span>
+                                  <span class="breadcrumb-item active" th:text="${currentAll}">Shop Page</span>
                                 </nav>
                             </div>
                         </div>
@@ -270,8 +274,8 @@
                                         </ul>
                                         <p class="product-short-description" style="display: none" th:text="${pr.getShortDescription()}"></p>
                                         <ul class="product__price">
-                                            <li class="old__price" th:if="${pr?.getPackageType()?.get(0)?.isOnSale()}" th:text="${pr?.getPackageType()?.get(0)?.getPrice()}+' UAH'"></li>
-                                            <li class="new__price" th:if="${pr?.getPackageType()?.get(0)?.isOnSale()}" th:text="${pr.getPackageType()?.get(0)?.getNewPrice()}+' UAH'"></li>
+                                            <li class="old__price" th:if="${pr?.getPackageType()?.size()>0 && pr?.getPackageType()?.get(0)?.isOnSale()}" th:text="${pr?.getPackageType()?.get(0)?.getPrice()}+' UAH'"></li>
+                                            <li class="new__price" th:if="${pr?.getPackageType()?.get(0)?.isOnSale()}" th:text="${pr?.getPackageType()?.get(0)?.getNewPrice()}+' UAH'"></li>
 
                                             <li class="old__price" style="display: none" th:if="${!pr?.getPackageType()?.get(0)?.isOnSale()}"></li>
                                             <li class="new__price" th:if="${!pr?.getPackageType()?.get(0)?.isOnSale()}" th:text="${pr?.getPackageType()?.get(0)?.getPrice()}+' UAH'"></li>
@@ -505,7 +509,7 @@
             let jsonObj = JSON.parse($(this).val());
             console.log(jsonObj);
 
-            $(this).parent().parent().parent().find('.send-item-to-card').prop("href", "/addToCartOne/"+jsonObj["id"]);
+            $(this).parent().parent().parent().find('.send-item-to-card').prop("href", "/addToCart/"+jsonObj["id"]);
             $(this).parent().parent().parent().find('.buy-item-now').prop("href", "/buyNow/"+jsonObj["id"]);
 
             if (jsonObj["onSale"]===true) {

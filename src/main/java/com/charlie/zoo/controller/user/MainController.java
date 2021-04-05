@@ -25,8 +25,7 @@ public class MainController {
     public String getIndex(@CookieValue(value = "id", defaultValue = "") String username, Model model,
                            HttpServletResponse httpServletResponse) {
         cookieService.checkCookie(username,httpServletResponse,model);
-        model.addAttribute("orderInfo",orderService.findById(UUID.fromString(username)));
-        modelConfig(model);
+        modelConfig(model,username);
         return "user/index";
     }
 
@@ -34,7 +33,7 @@ public class MainController {
     @GetMapping("/singleProduct/{id}")
     public String getSingleProduct(@CookieValue(value = "id", defaultValue = "") String username,
                                    @PathVariable int id, Model model,HttpServletResponse httpServletResponse){
-        modelConfig(model);
+        modelConfig(model,username);
         cookieService.checkCookie(username,httpServletResponse,model);
         Product product = productService.findById(id);
         model.addAttribute("product",product);
@@ -45,7 +44,7 @@ public class MainController {
     public String getContact(@CookieValue(value = "id", defaultValue = "") String username,Model model,
                              HttpServletResponse httpServletResponse){
         cookieService.checkCookie(username,httpServletResponse,model);
-        modelConfig(model);
+        modelConfig(model,username);
         return "user/contact";
     }
 
@@ -54,7 +53,7 @@ public class MainController {
                           HttpServletResponse httpServletResponse){
         cookieService.checkCookie(username,httpServletResponse,model);
         model.addAttribute("orderInfo",orderService.findById(UUID.fromString(username)));
-        modelConfig(model);
+        modelConfig(model,username);
         return "user/cart";
     }
 
@@ -62,13 +61,14 @@ public class MainController {
     public String getCheckout(@CookieValue(value = "id", defaultValue = "") String username,Model model,
                               HttpServletResponse httpServletResponse){
         cookieService.checkCookie(username,httpServletResponse,model);
-        modelConfig(model);
+        modelConfig(model,username);
         return "user/checkout";
     }
 
-    private void modelConfig(Model model){
+    private void modelConfig(Model model,String username){
         model.addAttribute("animals",animalService.findAll());
         model.addAttribute("categories",categoryService.findAll());
+        model.addAttribute("orderInfo",orderService.findById(UUID.fromString(username)));
     }
 
 }

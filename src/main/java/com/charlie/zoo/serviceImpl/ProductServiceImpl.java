@@ -159,6 +159,70 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Integer getMaxPrice(List<Product> products) {
+        int maxPrice = 0;
+        for (Product product:products){
+            for(PackageType type:product.getPackageType()){
+                if(type.isOnSale()){
+                    if(maxPrice<type.getNewPrice().doubleValue()){
+                        maxPrice = type.getNewPrice().intValue();
+                    }
+                }else{
+                    if(maxPrice<type.getPrice().doubleValue()){
+                        maxPrice = type.getPrice().intValue();
+                    }
+                }
+            }
+        }
+        return maxPrice;
+    }
+
+    @Override
+    public Integer getMinPrice(List<Product> products) {
+        int maxPrice = Integer.MAX_VALUE;
+        for (Product product:products){
+            for(PackageType type:product.getPackageType()){
+                if(type.isOnSale()){
+                    if(maxPrice>type.getNewPrice().doubleValue()){
+                        maxPrice = type.getNewPrice().intValue();
+                    }
+                }else{
+                    if(maxPrice>type.getPrice().doubleValue()){
+                        maxPrice = type.getPrice().intValue();
+                    }
+                }
+            }
+        }
+        return maxPrice;
+    }
+
+    @Override
+    public Set<Producer> getProducers(List<Product> products) {
+        Set<Producer> producers = new HashSet<>();
+        for(Product product:products){
+            producers.add(product.getProducer());
+        }
+        return producers;
+    }
+
+    @Override
+    public Set<String> getPackSize(List<Product> products) {
+        return null;
+    }
+
+    @Override
+    public List<Product> getFiltered(List<Product> products, Integer minPrice, Integer maxPrice, String packSize, Integer producerId) {
+        List<Product> filteredList = new ArrayList<>();
+        for(Product product:products){
+            if(minPrice!=null && maxPrice!=null){
+
+            }
+        }
+
+        return null;
+    }
+
+    @Override
     public void deleteByID(int id) {
         productJpa.deleteById(id);
     }

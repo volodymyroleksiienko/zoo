@@ -35,6 +35,7 @@ public class FilterShopController {
         model.addAttribute("categories",categoryService.findAll());
         model.addAttribute("categoryBtn", animalList);
         model.addAttribute("currentUrl","/shop/");
+        model.addAttribute("currentAll","Всі товари");
         model.addAttribute("products",productService.findByStatus(StatusOfEntity.ACTIVE));
         return "user/shop";
     }
@@ -42,6 +43,8 @@ public class FilterShopController {
     @GetMapping("/{animalUrl}")
     public String getByAnimal(@PathVariable String animalUrl, Model model, String sortType, Double maxPrice, Double minPrice, Integer producerId ){
         Animal animal = animalService.findByUrl(animalUrl);
+        model.addAttribute("animals",animalService.findAll());
+        model.addAttribute("categories",categoryService.findAll());
         if(animal!=null) {
             model.addAttribute("categoryBtn", animal.getCategories());
             model.addAttribute("currentUrl","/shop/"+animalUrl+"/");
@@ -54,9 +57,12 @@ public class FilterShopController {
     @GetMapping("/{animalUrl}/{categoryUrl}")
     public String getByAnimalByCategory(@PathVariable String animalUrl, @PathVariable String categoryUrl,Model model){
         Category category = categoryService.findByUrl(animalUrl,categoryUrl);
+        model.addAttribute("animals",animalService.findAll());
+        model.addAttribute("categories",categoryService.findAll());
+        model.addAttribute("animal",animalService.findByUrl(animalUrl));
+        model.addAttribute("currentUrl","/shop/"+animalUrl+"/"+categoryUrl+"/");
         if(category!=null) {
             model.addAttribute("categoryBtn", category.getCategoryItems());
-            model.addAttribute("currentUrl","/shop/"+animalUrl+"/"+categoryUrl+"/");
             model.addAttribute("currentAll",category.getName());
             model.addAttribute("products", productService.findByAnimalByCategory(category));
         }
@@ -66,6 +72,10 @@ public class FilterShopController {
     @GetMapping("/{animalUrl}/{categoryUrl}/{subCategoryUrl}")
     public String getBySubCategory(@PathVariable String animalUrl, @PathVariable String categoryUrl,@PathVariable String subCategoryUrl,Model  model){
         CategoryItem item = subCategoryService.findByUrl(animalUrl,categoryUrl,subCategoryUrl);
+        model.addAttribute("animals",animalService.findAll());
+        model.addAttribute("categories",categoryService.findAll());
+        model.addAttribute("animal",animalService.findByUrl(animalUrl));
+        model.addAttribute("category",categoryService.findByUrl(animalUrl,categoryUrl));
         if(item!=null) {
             model.addAttribute("currentAll", item.getName());
             model.addAttribute("products", productService.findByAnimalByCategoryBySubCategory(item));
