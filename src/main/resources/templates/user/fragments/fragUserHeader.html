@@ -23,7 +23,7 @@
                                     <li th:each="a :${animals}" th:id="${a.getUrl()}" class="animal">
                                         <a class="mega__title" th:href="@{|/shop/${a.getUrl()}|}" th:text="${a.getName()}"></a>
                                         <ul class="mega__item">
-                                            <li th:each="ct : ${categories}" th:if="${ct.getAnimal.getId()==a.getId()}"><a href="shop.html" th:text="${ct.getName()}"></a></li>
+                                            <li th:each="ct : ${categories}" th:if="${ct.getAnimal.getId()==a.getId()}"><a th:href="@{|/shop/${a.getUrl()}/${ct.getUrl()}|}"  th:text="${ct.getName()}"></a></li>
                                         </ul>
                                     </li>
                                     <!-- End Single Mega MEnu -->

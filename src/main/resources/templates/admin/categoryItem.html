@@ -301,6 +301,7 @@
         function addSubcategory(){
             let animalId = document.getElementsByClassName('tab-pane active')[0].id;
             console.log("animal-id:"+animalId);
+
             let positionArr = document.getElementsByClassName("element-position");
             let position = 1;
             if (positionArr.length>=1){
@@ -308,6 +309,9 @@
             }else {
                 position = 1;
             }
+            console.log(position);
+            $('#addCategoryPosition').val(position);
+
             $('#addCategoryItemModal').modal('show');
         }
 

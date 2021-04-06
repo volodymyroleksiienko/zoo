@@ -2203,10 +2203,11 @@ product__style--7
 }
 
 .price--filter{
+    text-align: center;
     margin: 1rem 0;
 }
 
-.price--filter button {
+.price--filter a {
     text-transform: uppercase;
     border: 1px solid #d5d5d5;
     color: #4b4b4b;
@@ -2214,8 +2215,9 @@ product__style--7
     width: 100%;
     transition: 0.3s;
     height: 35px;
+    padding: 8px 20px;
 }
-.price--filter button:hover {
+.price--filter a:hover {
     color: #fff;
     background: #ff4136;
     border: 1px solid #ff4136;

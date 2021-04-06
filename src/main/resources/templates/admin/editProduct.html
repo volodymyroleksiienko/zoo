@@ -172,19 +172,16 @@
                                                             </table>
                                                         </div>
                                                     </div>
-<!--                                                    <div class="col-sm-6">-->
-<!--                                                        <div class="form-group">-->
-<!--                                                            <label class="form-label" for="productImage">Зображення</label>-->
-<!--                                                            <div class="form-control-wrap">-->
-<!--                                                                <div class="custom-file">-->
-<!--                                                                    <input id="hiddenIdOfProduct" type="number" hidden="" th:value="${product.getId()}">-->
-<!--                                                                    <input type="file" multiple class="custom-file-input" id="productImage" name="multipartFile" onchange="validateimg(this)">-->
-<!--                                                                    <label class="custom-file-label" for="productImage"></label>-->
-<!--                                                                </div>-->
-<!--                                                            </div>-->
-<!--                                                        </div>-->
-<!--                                                    </div>-->
-                                                    <div class="col-sm-6">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="productName">Назва продукту</label>
+                                                            <div class="form-control-wrap">
+                                                                <input id="hiddenIdOfProduct" type="number" hidden="" th:value="${product.getId()}">
+                                                                <input type="text" class="form-control" id="productName" placeholder="Назва..." name="name" th:value="${product?.getName()}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
                                                         <div class="form-group">
                                                             <label class="form-label">Виробник</label>
                                                             <div class="form-control-wrap">
@@ -194,7 +191,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6">
+                                                    <div class="col-sm-4">
                                                         <div class="form-group">
                                                             <label class="form-label">Категорія</label>
                                                             <div class="form-control-wrap">
@@ -204,7 +201,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6">
+                                                    <div class="col-sm-4">
                                                         <div class="form-group">
                                                             <label class="form-label">Підкатегорія</label>
                                                             <div class="form-control-wrap">
@@ -216,10 +213,11 @@
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
-                                                            <label class="form-label" for="productName">Назва продукту</label>
-                                                            <div class="form-control-wrap">
-                                                                <input id="hiddenIdOfProduct" type="number" hidden="" th:value="${product.getId()}">
-                                                                <input type="text" class="form-control" id="productName" placeholder="Назва..." name="name" th:value="${product?.getName()}">
+                                                            <div class="preview-block">
+                                                                <div class="custom-control custom-switch">
+                                                                    <input type="checkbox" class="custom-control-input" id="bestsellerProductItem" name="bestseller">
+                                                                    <label class="custom-control-label" for="bestsellerProductItem">Bestseller</label>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
