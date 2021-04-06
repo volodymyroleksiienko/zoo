@@ -201,7 +201,7 @@
                                                             <input type="text" hidden="hidden" th:value="${currentUrlFiltered}" id="priceSliderLink" name="link">
 
                                                             <ul class="filter__list" th:if="${filterPriceValue!=null}">
-                                                                <li><a th:href="${withoutPriceUrl}" ><span style="color: red" th:text="${filterPriceValue}"></span><i style="margin-left: 8px;" class="zmdi zmdi-close"></i></a></li>
+                                                                <li><a th:href="${withoutPriceUrl}" style="color: red;"><span th:text="${filterPriceValue}" style="color: red;"></span><i style="margin-left: 8px;" class="zmdi zmdi-close"></i></a></li>
                                                             </ul>
 
                                                             <div id="slider-range"></div>
@@ -224,7 +224,7 @@
                                             <h2>Пакування</h2>
                                             <ul class="filter__list" id="packageTypesList">
                                                 <li th:if="${withoutPackUrl==null}" th:each="pack :${packSizes}"><a th:href="${currentUrlFiltered}+'packSize='+${pack}" th:text="${pack}">XXL</a></li>
-                                                <li th:if="${withoutPackUrl!=null}"><a th:href="${withoutPackUrl}"  style="color:red" ><span th:text="${packName}">Selected filter name</span><i style="margin-left: 8px;" class="zmdi zmdi-close"></i></a></li>
+                                                <li th:if="${withoutPackUrl!=null}"><a th:href="${withoutPackUrl}" class="selected-filter"><span th:text="${packName}">Selected filter name</span><i style="margin-left: 8px;" class="zmdi zmdi-close"></i></a></li>
                                                 <li id="loadMoreTypes" th:if="${withoutPackUrl==null}">Більше <span class="ti-angle-double-down"></span></li>
                                             </ul>
                                         </div>
@@ -232,7 +232,7 @@
                                             <h2>Виробник</h2>
                                             <ul class="filter__list" id="producersList">
                                                 <li th:if="${withoutProducerUrl==null}" th:each="pr :${producerList}"><a th:href="${currentUrlFiltered}+'producerId='+${pr.getId()}" th:text="${pr.getName()}">All</a></li>
-                                                <li th:if="${withoutProducerUrl!=null}"><a th:href="${withoutProducerUrl}" style="color:red"><span th:text="${producerName.getName()}">Selected filter name</span><i style="margin-left: 8px;" class="zmdi zmdi-close"></i></a></li>
+                                                <li th:if="${withoutProducerUrl!=null}"><a th:href="${withoutProducerUrl}" class="selected-filter"><span th:text="${producerName.getName()}">Selected filter name</span><i style="margin-left: 8px;" class="zmdi zmdi-close"></i></a></li>
                                                 <li th:if="${withoutProducerUrl==null}" id="loadMoreProducers">Більше <span class="ti-angle-double-down"></span></li>
                                             </ul>
                                         </div>
