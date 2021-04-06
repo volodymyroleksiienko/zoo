@@ -6,6 +6,7 @@ import com.charlie.zoo.entity.CategoryItem;
 import com.charlie.zoo.entity.Product;
 import com.charlie.zoo.enums.StatusOfEntity;
 import com.charlie.zoo.service.*;
+import com.sun.corba.se.impl.encoding.CDROutputObject;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +27,7 @@ public class FilterShopController {
     private final CategoryItemService subCategoryService;
     private final AnimalService animalService;
     private final CookieService cookieService;
+    private final ProducerService producerService;
 
     @GetMapping
     public String getShop(@CookieValue(value = "id", defaultValue = "") String username, Model model,
@@ -43,24 +45,46 @@ public class FilterShopController {
 
     @GetMapping("/{animalUrl}")
     public String getByAnimal(@CookieValue(value = "id", defaultValue = "") String username,
-                              HttpServletResponse httpServletResponse,@PathVariable String animalUrl, Model model, String sortType, Integer max, Integer min,String packSize, Integer producerId ){
+                              HttpServletResponse httpServletResponse,@PathVariable String animalUrl, Model model,
+                              String sortType, Integer max, Integer min,String packSize, Integer producerId, Integer page){
         cookieService.checkCookie(username,httpServletResponse,model);
         Animal animal = animalService.findByUrl(animalUrl);
         if(animal!=null) {
-            List<Product> products = productService.getFiltered(productService.findByAnimal(animal),min,max,packSize,producerId,sortType);
+            Set<Product> beforeFilter = productService.findByAnimal(animal);
+            List<Product> products = productService.getFiltered(beforeFilter,min,max,packSize,producerId,sortType);
             model.addAttribute("categoryBtn", animal.getCategories());
             model.addAttribute("currentUrl","/shop/"+animalUrl+"/");
             model.addAttribute("currentUrlFiltered",generateUrl("/shop/"+animalUrl,sortType,max,min,packSize,producerId));
             model.addAttribute("currentAll",animal.getName());
-            model.addAttribute("products", products);
+            model.addAttribute("products", getPage(products,page,1));
 
             if (packSize!=null){
                 model.addAttribute("withoutPackUrl",generateUrl("/shop/"+animalUrl,sortType,max,min,null,producerId));
                 model.addAttribute("packName",packSize);
             }
 
+            if (producerId!=null){
+                model.addAttribute("withoutProducerUrl",generateUrl("/shop/"+animalUrl,sortType,max,min,packSize,null));
+                model.addAttribute("producerName",producerService.findById(producerId));
+            }
+            if(sortType!=null){
+                model.addAttribute("sortName",sortType);
+            }else{
+                model.addAttribute("sortName","");
+            }
+
+            if(min!=null && max!=null){
+                model.addAttribute("filterPriceValue","Від "+min +" до "+max);
+            }
+            model.addAttribute("withoutPriceUrl",generateUrl("/shop/"+animalUrl,sortType,null,null,packSize,producerId));
+            model.addAttribute("countOfPages",getCountOfPages(products,1));
+            model.addAttribute("currentPage",(page==null || page==0)?1:page);
+
+            model.addAttribute("sortingUrl",generateUrl("/shop/"+animalUrl,null,max,min,packSize,producerId));
+
+
             config(model,username);
-            configFilter(model,new HashSet<>(products),packSize,min,max,producerId);
+            configFilter(model,beforeFilter,packSize,min,max,producerId);
         }
         return "user/shop";
     }
@@ -111,9 +135,9 @@ public class FilterShopController {
         model.addAttribute("minPrice",productService.getMinPrice(products));
     }
 
-    public static <T> List<T> getPage(List<T> sourceList, int page, int pageSize) {
-        if (pageSize <= 0 || page <= 0) {
-            throw new IllegalArgumentException("invalid page size: " + pageSize);
+    public static <T> List<T> getPage(List<T> sourceList, Integer page, int pageSize) {
+        if (page==null || pageSize <= 0 || page <= 0 ) {
+            page=1;
         }
 
         int fromIndex = (page - 1) * pageSize;
@@ -123,6 +147,12 @@ public class FilterShopController {
 
         // toIndex exclusive
         return sourceList.subList(fromIndex, Math.min(fromIndex + pageSize, sourceList.size()));
+    }
+
+    public static <T> int getCountOfPages(List<T> source, int pageSize){
+        double sz = source.size();
+        double ps = pageSize;
+        return (int) Math.ceil(sz/ps);
     }
 
     private String generateUrl(String current,String sortType, Integer max, Integer min,String packSize, Integer producerId){

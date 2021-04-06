@@ -184,10 +184,10 @@
                                         <div class="single__filter">
                                             <h2 class="sorting-header">Сортування</h2>
                                             <ul class="filter__list">
-                                                <li><a th:href="${currentUrlFiltered}+'sortType=bestseller'">Спочатку бестселлери</a></li>
-                                                <li><a th:href="${currentUrlFiltered}+'sortType=new'">Спочатку найновіші</a></li>
-                                                <li><a th:href="${currentUrlFiltered}+'sortType=cheap'">Спочатку найдешевші</a></li>
-                                                <li><a th:href="${currentUrlFiltered}+'sortType=expensive'">Спочатку найдорожчі</a></li>
+                                                <li><a th:href="${sortingUrl}+'sortType=bestseller'" th:style="${(sortName!=null && sortName?.equals('bestseller'))?'color:red;':''}">Спочатку бестселлери</a></li>
+                                                <li><a th:href="${sortingUrl}+'sortType=new'" th:style="${(sortName!=null && sortName?.equals('new'))?'color:red;':''}">Спочатку найновіші</a></li>
+                                                <li><a th:href="${sortingUrl}+'sortType=cheap'" th:style="${(sortName!=null && sortName?.equals('cheap'))?'color:red;':''}">Спочатку найдешевші</a></li>
+                                                <li><a th:href="${sortingUrl}+'sortType=expensive'" th:style="${(sortName!=null && sortName?.equals('expensive'))?'color:red;':''}">Спочатку найдорожчі</a></li>
                                             </ul>
                                         </div>
                                         <div class="single__filter">
@@ -200,10 +200,8 @@
                                                             <input type="text" hidden="hidden" th:value="${maxPrice}" id="priceSliderEndRangePoint" name="max">
                                                             <input type="text" hidden="hidden" th:value="${currentUrlFiltered}" id="priceSliderLink" name="link">
 
-                                                            <ul class="filter__list">
-                                                                <li><a style="color: red">від: 111 UAH<span></span><i style="margin-left: 8px;" class="zmdi zmdi-close"></i></a></li>
-                                                                <li><a style="color: red">до: 999 UAH<span></span><i style="margin-left: 8px;" class="zmdi zmdi-close"></i></a></li>
-
+                                                            <ul class="filter__list" th:if="${filterPriceValue!=null}">
+                                                                <li><a th:href="${withoutPriceUrl}" ><span style="color: red" th:text="${filterPriceValue}"></span><i style="margin-left: 8px;" class="zmdi zmdi-close"></i></a></li>
                                                             </ul>
 
                                                             <div id="slider-range"></div>
@@ -214,7 +212,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="price--filter">
-                                                                    <a id="filterByPriceBtn" th:href="@{${currentUrlFiltered}+'min='+${minPrice}+'&max='+${maxPrice}}">Фільтрувати</a>
+                                                                    <a id="filterByPriceBtn" th:href="@{${withoutPriceUrl}+'min='+${minPrice}+'&max='+${maxPrice}}">Фільтрувати</a>
                                                                 </div>
                                                             </div>
 <!--                                                        </form>-->
@@ -233,9 +231,9 @@
                                         <div class="single__filter">
                                             <h2>Виробник</h2>
                                             <ul class="filter__list" id="producersList">
-                                                <li th:each="pr :${producerList}"><a th:href="${currentUrlFiltered}+'producerId='+${pr.getId()}" th:text="${pr.getName()}">All</a></li>
-                                                <li><a href="#" style="color:red">Selected filter name<i style="margin-left: 8px;" class="zmdi zmdi-close"></i></a></li>
-                                                <li id="loadMoreProducers">Більше <span class="ti-angle-double-down"></span></li>
+                                                <li th:if="${withoutProducerUrl==null}" th:each="pr :${producerList}"><a th:href="${currentUrlFiltered}+'producerId='+${pr.getId()}" th:text="${pr.getName()}">All</a></li>
+                                                <li th:if="${withoutProducerUrl!=null}"><a th:href="${withoutProducerUrl}" style="color:red"><span th:text="${producerName.getName()}">Selected filter name</span><i style="margin-left: 8px;" class="zmdi zmdi-close"></i></a></li>
+                                                <li th:if="${withoutProducerUrl==null}" id="loadMoreProducers">Більше <span class="ti-angle-double-down"></span></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -296,11 +294,11 @@
                     <div class="row mt--60">
                         <div class="col-md-12">
                             <ul class="pager">
-                                <li><a href="#">Попередня</a></li>
-                                <li>1</li>
+                                <li><a th:if="${currentPage!=null && currentPage -1!=0}" th:href="${currentUrlFiltered}+'page='+(${currentPage}-1)">Попередня</a></li>
+                                <li th:text="${currentPage}">1</li>
                                 <li>/</li>
-                                <li>5</li>
-                                <li><a href="#">Наступна</a></li>
+                                <li th:text="${countOfPages}">5</li>
+                                <li><a th:if="${currentPage!=null && currentPage+1<=countOfPages}" th:href="${currentUrlFiltered}+'page='+(${currentPage}+1)">Наступна</a></li>
                             </ul>
                         </div>
                     </div>
