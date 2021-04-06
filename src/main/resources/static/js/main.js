@@ -536,7 +536,7 @@ $('.image-popup').magnificPopup({
           $("#amount").val(ui.values[0] + " UAH - " + ui.values[1]+" UAH");
           $("#priceSliderStartRangePoint").val(parseInt(ui.values[0]));
           $("#priceSliderEndRangePoint").val(parseInt(ui.values[1]));
-          $('#filterByPriceBtn').attr('href', '/shop?min='+parseInt(ui.values[0])+'&max='+parseInt(ui.values[1]))
+          $('#filterByPriceBtn').attr('href', $('#priceSliderLink').val()+'min='+parseInt(ui.values[0])+'&max='+parseInt(ui.values[1]))
       }
   });
   $("#amount").val($("#slider-range").slider("values", 0) +
