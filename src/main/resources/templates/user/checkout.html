@@ -251,7 +251,27 @@
                     </div>
                 </div>
             </div>
-        </section>
+            <div id="liqpay_checkout"></div>
+            <script>
+                window.LiqPayCheckoutCallback = function() {
+                    LiqPayCheckout.init({
+                        data: "eyJwdWJsaWNfa2V5Ijoic2FuZGJveF9pNTM2NTMzMTMxOTQiLCJhbW91bnQiOiIyLjUiLCJzYW5kYm94IjoiMSIsImFjdGlvbiI6InBheSIsImRlc2NyaXB0aW9uIjoiZGVzY3JpcHRpb24gdGV4dCIsImN1cnJlbmN5IjoiVUFIIiwib3JkZXJfaWQiOiIxIiwidmVyc2lvbiI6IjMifQ==",
+                        signature: "vX7hIKhAok3aQoncpGIdYPTj+DY=",
+                        embedTo: "#liqpay_checkout",
+                        language: "ru",
+                        mode: "embed" // embed || popup
+                    }).on("liqpay.callback", function(data){
+                        console.log(data.status);
+                        console.log(data);
+                    }).on("liqpay.ready", function(data){
+                        // ready
+                    }).on("liqpay.close", function(data){
+                        // close
+                    });
+                };
+            </script>
+            <script src="//static.liqpay.ua/libjs/checkout.js" async></script>
+             </section>
 
         <!-- End Checkout Area -->
         <!-- Start Footer Area -->

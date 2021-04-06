@@ -19,7 +19,8 @@ public class MainController {
     private final CategoryService categoryService;
     private final ProductService productService;
     private final CookieService cookieService;
-    private final  OrderService orderService;
+    private final OrderService orderService;
+    private final LiqPayDataService liqPayDataService;
 
     @GetMapping("/")
     public String getIndex(@CookieValue(value = "id", defaultValue = "") String username, Model model,
@@ -61,6 +62,9 @@ public class MainController {
     public String getCheckout(@CookieValue(value = "id", defaultValue = "") String username,Model model,
                               HttpServletResponse httpServletResponse){
         cookieService.checkCookie(username,httpServletResponse,model);
+        String data = liqPayDataService.generateData("2.5","1");
+        System.out.println(data);
+        System.out.println(liqPayDataService.generateSignature(liqPayDataService.generateData("2.5","1")));
         modelConfig(model,username);
         return "user/checkout";
     }
