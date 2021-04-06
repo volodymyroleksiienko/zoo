@@ -199,6 +199,13 @@
                                                             <input type="text" hidden="hidden" th:value="${minPrice}" id="priceSliderStartRangePoint" name="min">
                                                             <input type="text" hidden="hidden" th:value="${maxPrice}" id="priceSliderEndRangePoint" name="max">
                                                             <input type="text" hidden="hidden" th:value="${currentUrlFiltered}" id="priceSliderLink" name="link">
+
+                                                            <ul class="filter__list">
+                                                                <li><a style="color: red">від: 111 UAH<span></span><i style="margin-left: 8px;" class="zmdi zmdi-close"></i></a></li>
+                                                                <li><a style="color: red">до: 999 UAH<span></span><i style="margin-left: 8px;" class="zmdi zmdi-close"></i></a></li>
+
+                                                            </ul>
+
                                                             <div id="slider-range"></div>
                                                             <div class="slider__range--output">
                                                                 <div class="price__output--wrap">
@@ -465,7 +472,7 @@
                                     Designed for simplicity and made from high quality materials. Its sleek geometry and material combinations creates a modern look.
                                 </div>
                                 <div class="addtocart-btn">
-                                    <a href="#">до кошика</a>
+                                    <a id="productAddToCartBtnModal" href="#">до кошика</a>
                                 </div>
                             </div><!-- .product-info -->
                         </div><!-- .modal-product -->
@@ -577,6 +584,7 @@
 
         let button = productItem.find('.product-types li button.active');
         let productPackageType = productItem.find('.product-types li button.active').text();
+        let link = productItem.find('.send-item-to-card').attr('href');
         let jsonObj = JSON.parse($(button).val());
 
         console.log(jsonObj);
@@ -594,6 +602,7 @@
         $('#productImageModal').attr('src', productImage);
         $('#productDescriptionModal').text(productDescription);
         $('#productPackageTypeModal').text("Пакування: "+productPackageType);
+        $('#productAddToCartBtnModal').attr('href', link);
 
 
         $('#productModal').modal('show');

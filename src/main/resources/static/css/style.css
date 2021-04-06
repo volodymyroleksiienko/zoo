@@ -2590,7 +2590,7 @@ select.select-color {
     color: #444444;
     font-size: 30px;
     font-weight: 500;
-    text-transform: capitalize;
+    /*text-transform: capitalize;*/
 }
 .pro__dtl__rating {
     display: flex;
