@@ -2046,6 +2046,13 @@ product__style--7
     display: none;
 }
 
+#packageTypesList li .selected-filter{
+    color: red;
+    padding: 5px 15px;
+    border: 1px solid red;
+    border-radius: 20px;
+}
+
 #packageTypesList li:last-child{
     color: #999;
     display: list-item;
@@ -2067,6 +2074,13 @@ product__style--7
 #producersList li:last-child{
     color: #999;
     display: list-item;
+}
+
+#producersList li .selected-filter{
+    color: red;
+    padding: 5px 15px;
+    border: 1px solid red;
+    border-radius: 20px;
 }
 
 #producersList li:last-child span{
