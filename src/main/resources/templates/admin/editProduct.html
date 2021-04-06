@@ -479,6 +479,7 @@
                             <h4 class="title">Змінити позицію</h4>
                             <br>
                             <input type="number" id="rowIndex" hidden="">
+                            <input type="number" id="editItemId" hidden="">
                             <div class="row gy-4 align-center">
                                 <div class="col-md-3">
                                     <div class="form-group">
@@ -1036,7 +1037,7 @@
                 obj.wholeSaleNewPrice = data[11];
                 obj.wholeSaleDiscount = data[12];
 
-                // obj.id = data[13];
+                obj.id = data[13];
 
                 objArr.push(obj);
                 console.log("iter "+obj);
@@ -1105,6 +1106,10 @@
         let wholeSaleProductPromotionalPrice =          row[11];
         let wholeSaleProductPromotionalPricePercentage= row[12];
 
+        let itemId =                    row[13];
+
+
+
         if (promotedProduct==="true"){
             $('#editPromotedProduct').attr("checked", true);
             $('#editProductPromotionalPrice').removeAttr("disabled");
@@ -1145,7 +1150,7 @@
             $('#editActiveProductItem').attr("checked", false);
         }
 
-
+        $('#editItemId')                    .val(itemId);
         $('#editPackageType')               .val(packageType);
         $('#editPackSize')                  .val(packSize);
         $('#editInStock')                   .val(inStock);
@@ -1177,7 +1182,7 @@
         let wholeSalePromotedProduct =           $('#editWholeSalePromotedProduct').is(":checked");
         let wholeSaleDiscountVal =               $('#editWholeSaleProductPromotionalPricePercentage').val().trim();
 
-        let id =                        0;
+        let id =                         $('#editItemId').val().trim();
 
         let arrayData = [packageType, packSize, inStock, activeProductItem, productPrice, promotedProduct, productPromotionalPrice, discountVal, wholeSale, wholeSaleProductPrice, wholeSalePromotedProduct, wholeSaleProductPromotionalPrice, wholeSaleDiscountVal, id, btn];
 
