@@ -22,7 +22,9 @@ import java.util.*;
 @RequestMapping("/shop")
 @AllArgsConstructor
 public class FilterShopController {
+    private final static int pageOfProductSize = 12;
     private final ProductService productService;
+    private final OrderService orderService;
     private final CategoryService categoryService;
     private final CategoryItemService subCategoryService;
     private final AnimalService animalService;
@@ -31,15 +33,16 @@ public class FilterShopController {
 
     @GetMapping
     public String getShop(@CookieValue(value = "id", defaultValue = "") String username, Model model,
-                          HttpServletResponse httpServletResponse, Integer[] category, Integer[] categoryItem, Integer[] producer, Double[] packSize){
+                          HttpServletResponse httpServletResponse,String sortType, Integer max, Integer min,
+                          String packSize, Integer producerId, Integer page){
         cookieService.checkCookie(username,httpServletResponse,model);
         List<Animal> animalList = animalService.findAll();
         model.addAttribute("categoryBtn", animalList);
         model.addAttribute("currentUrl","/shop/");
         model.addAttribute("currentAll","Всі товари");
-        Set<Product> products = new HashSet<>(productService.findByStatus(StatusOfEntity.ACTIVE));
-        model.addAttribute("products",products);
+        Set<Product> beforeFilter = new HashSet<>(productService.findByStatus(StatusOfEntity.ACTIVE));
         config(model,username);
+        configFilter(model,"/shop",beforeFilter,packSize,min,max,producerId,sortType,page);
         return "user/shop";
     }
 
@@ -51,46 +54,21 @@ public class FilterShopController {
         Animal animal = animalService.findByUrl(animalUrl);
         if(animal!=null) {
             Set<Product> beforeFilter = productService.findByAnimal(animal);
-            List<Product> products = productService.getFiltered(beforeFilter,min,max,packSize,producerId,sortType);
             model.addAttribute("categoryBtn", animal.getCategories());
-            model.addAttribute("currentUrl","/shop/"+animalUrl+"/");
-            model.addAttribute("currentUrlFiltered",generateUrl("/shop/"+animalUrl,sortType,max,min,packSize,producerId));
             model.addAttribute("currentAll",animal.getName());
-            model.addAttribute("products", getPage(products,page,1));
-
-            if (packSize!=null){
-                model.addAttribute("withoutPackUrl",generateUrl("/shop/"+animalUrl,sortType,max,min,null,producerId));
-                model.addAttribute("packName",packSize);
-            }
-
-            if (producerId!=null){
-                model.addAttribute("withoutProducerUrl",generateUrl("/shop/"+animalUrl,sortType,max,min,packSize,null));
-                model.addAttribute("producerName",producerService.findById(producerId));
-            }
-            if(sortType!=null){
-                model.addAttribute("sortName",sortType);
-            }else{
-                model.addAttribute("sortName","");
-            }
-
-            if(min!=null && max!=null){
-                model.addAttribute("filterPriceValue","Від "+min +" до "+max);
-            }
-            model.addAttribute("withoutPriceUrl",generateUrl("/shop/"+animalUrl,sortType,null,null,packSize,producerId));
-            model.addAttribute("countOfPages",getCountOfPages(products,1));
-            model.addAttribute("currentPage",(page==null || page==0)?1:page);
-
-            model.addAttribute("sortingUrl",generateUrl("/shop/"+animalUrl,null,max,min,packSize,producerId));
-
 
             config(model,username);
-            configFilter(model,beforeFilter,packSize,min,max,producerId);
+            configFilter(model,"/shop/"+animalUrl,beforeFilter,packSize,min,max,producerId,sortType,page);
         }
         return "user/shop";
     }
 
     @GetMapping("/{animalUrl}/{categoryUrl}")
-    public String getByAnimalByCategory(@PathVariable String animalUrl, @PathVariable String categoryUrl,Model model){
+    public String getByAnimalByCategory(@CookieValue(value = "id", defaultValue = "") String username,
+                                        HttpServletResponse httpServletResponse,@PathVariable String animalUrl,
+                                        @PathVariable String categoryUrl,Model model,String sortType, Integer max,
+                                        Integer min,String packSize, Integer producerId, Integer page){
+        cookieService.checkCookie(username,httpServletResponse,model);
         Category category = categoryService.findByUrl(animalUrl,categoryUrl);
         model.addAttribute("animal",animalService.findByUrl(animalUrl));
         model.addAttribute("currentUrl","/shop/"+animalUrl+"/"+categoryUrl+"/");
@@ -98,15 +76,18 @@ public class FilterShopController {
             Set<Product> products = productService.findByAnimalByCategory(category);
             model.addAttribute("categoryBtn", category.getCategoryItems());
             model.addAttribute("currentAll",category.getName());
-            model.addAttribute("products", products);
-//            config(model,products);
-//            configFilter()
+            config(model,username);
+            configFilter(model,"/shop/"+animalUrl+"/"+categoryUrl,products,packSize,min,max,producerId,sortType,page);
         }
         return "user/shop";
     }
 
     @GetMapping("/{animalUrl}/{categoryUrl}/{subCategoryUrl}")
-    public String getBySubCategory(@PathVariable String animalUrl, @PathVariable String categoryUrl,@PathVariable String subCategoryUrl,Model  model){
+    public String getBySubCategory(@CookieValue(value = "id", defaultValue = "") String username,
+                                   HttpServletResponse httpServletResponse,@PathVariable String animalUrl,
+                                   @PathVariable String categoryUrl,@PathVariable String subCategoryUrl,Model  model,
+                                   String sortType, Integer max,Integer min,String packSize, Integer producerId, Integer page){
+        cookieService.checkCookie(username,httpServletResponse,model);
         CategoryItem item = subCategoryService.findByUrl(animalUrl,categoryUrl,subCategoryUrl);
         model.addAttribute("animal",animalService.findByUrl(animalUrl));
         model.addAttribute("category",categoryService.findByUrl(animalUrl,categoryUrl));
@@ -114,7 +95,9 @@ public class FilterShopController {
             Set<Product> products = productService.findByAnimalByCategoryBySubCategory(item);
             model.addAttribute("currentAll", item.getName());
             model.addAttribute("products", products);
-//            config(model,products);
+            config(model,username);
+            configFilter(model,"/shop/"+animalUrl+"/"+categoryUrl+"/"+subCategoryUrl,products,
+                    packSize,min,max,producerId,sortType,page);
         }
         return "user/shop";
     }
@@ -124,15 +107,46 @@ public class FilterShopController {
         model.addAttribute("categories",categoryService.findAll());
 //        model.addAttribute("orderInfo",orderService.findById(UUID.fromString(username)));
     }
-    private void configFilter(Model model,Set<Product> products,String packSize, Integer min,Integer max,Integer providerId) {
+
+    private void configFilter(Model model,String currentUrl,Set<Product> products,String packSize, Integer min,Integer max,Integer providerId,String sortType,Integer page) {
+        List<Product> afterFilter = productService.getFiltered(products,min,max,packSize,providerId,sortType);
         if(packSize==null || packSize.isEmpty()){
-            model.addAttribute("packSizes",productService.getPackSize(products));
+            model.addAttribute("packSizes",productService.getPackSize(new HashSet<>(afterFilter)));
+        }else {
+            model.addAttribute("withoutPackUrl",generateUrl(currentUrl,sortType,max,min,null,providerId));
+            model.addAttribute("packName",packSize);
         }
         if(providerId==null){
-            model.addAttribute("producerList",productService.getProducers(products));
+            model.addAttribute("producerList",productService.getProducers(new HashSet<>(afterFilter)));
+        }else{
+            {
+                model.addAttribute("withoutProducerUrl",generateUrl(currentUrl,sortType,max,min,packSize,null));
+                model.addAttribute("producerName",producerService.findById(providerId));
+            }
         }
         model.addAttribute("maxPrice",productService.getMaxPrice(products));
         model.addAttribute("minPrice",productService.getMinPrice(products));
+
+
+
+        model.addAttribute("currentUrl",currentUrl+"/");
+        model.addAttribute("currentUrlFiltered",generateUrl(currentUrl,sortType,max,min,packSize,providerId));
+
+        model.addAttribute("products", getPage(afterFilter,page,pageOfProductSize));
+
+        if(sortType!=null){
+            model.addAttribute("sortName",sortType);
+        }else{
+            model.addAttribute("sortName","");
+        }
+
+        if(min!=null && max!=null){
+            model.addAttribute("filterPriceValue","Від "+min +" до "+max);
+        }
+        model.addAttribute("withoutPriceUrl",generateUrl(currentUrl,sortType,null,null,packSize,providerId));
+        model.addAttribute("countOfPages",getCountOfPages(afterFilter,pageOfProductSize));
+        model.addAttribute("currentPage",(page==null || page==0)?1:page);
+        model.addAttribute("sortingUrl",generateUrl(currentUrl,null,max,min,packSize,providerId));
     }
 
     public static <T> List<T> getPage(List<T> sourceList, Integer page, int pageSize) {
