@@ -163,8 +163,8 @@
                                         <input type="text" placeholder="Введіть прізвище, ім'я*">
                                         <input type="text" name="phone" placeholder="Введіть номер телефону*" value="+380" class="phone_number">
 
-                                        <input type="text" hidden="hidden" id="paymentData" name="data">
-                                        <input type="text" hidden="hidden" id="paymentSignature" name="signature">
+                                        <input type="text" hidden="hidden" id="paymentData" th:value="${paymentData}" name="data">
+                                        <input type="text" hidden="hidden" id="paymentSignature" th:value="${paymentSignature}" name="signature">
                                     </div>
                                     <div class="single-checkout-box select-option mt--40">
                                         <input type="text" placeholder="Місто*">

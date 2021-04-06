@@ -63,8 +63,8 @@ public class MainController {
                               HttpServletResponse httpServletResponse){
         cookieService.checkCookie(username,httpServletResponse,model);
         String data = liqPayDataService.generateData("2.5","1");
-        System.out.println(data);
-        System.out.println(liqPayDataService.generateSignature(liqPayDataService.generateData("2.5","1")));
+        model.addAttribute("paymentData",data);
+        model.addAttribute("paymentSignature",liqPayDataService.generateSignature(data));
         modelConfig(model,username);
         return "user/checkout";
     }
