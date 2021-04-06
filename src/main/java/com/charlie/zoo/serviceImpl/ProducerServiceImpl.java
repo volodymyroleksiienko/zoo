@@ -1,5 +1,6 @@
 package com.charlie.zoo.serviceImpl;
 
+import com.charlie.zoo.entity.Image;
 import com.charlie.zoo.entity.Producer;
 import com.charlie.zoo.jpa.ProducerJPA;
 import com.charlie.zoo.service.ImageService;
@@ -21,12 +22,16 @@ public class ProducerServiceImpl implements ProducerService {
         Producer producerDB = new Producer();
         if(producer.getId()!=0){
             producerDB = findById(producer.getId());
+        }else{
+            producerDB = producerJPA.save(producerDB);
+        }
+        if(multipartFile!=null && multipartFile.getSize()>0) {
+            Image image = imageService.update(multipartFile, producer);
+            producerDB = image.getProducer();
+            producerDB.setImage(image);
         }
         producerDB.setCountryName(producer.getCountryName());
         producerDB.setName(producer.getName());
-        if(multipartFile!=null && multipartFile.getSize()>0) {
-            producerDB.setImage(imageService.update(multipartFile, producer));
-        }
         return producerJPA.save(producerDB);
     }
 

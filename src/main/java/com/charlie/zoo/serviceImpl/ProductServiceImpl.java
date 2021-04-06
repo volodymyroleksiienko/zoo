@@ -69,9 +69,9 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product update(Product product, List<MultipartFile> multipartFile, List<PackageType> packageTypes, String category, String subCategory) {
         imageService.update(multipartFile,product);
-        if(product.getId()>0){
-            packageTypeService.deleteAllByProductId(product.getId());
-        }
+//        if(product.getId()>0){
+//            packageTypeService.deleteAllByProductId(product.getId());
+//        }
         product = productInit(product,packageTypes,category,subCategory);
         return productJpa.save(product);
     }
@@ -141,9 +141,6 @@ public class ProductServiceImpl implements ProductService {
         }else{
             producer = Arrays.asList(producerId);
         }
-        System.out.println(category);
-        System.out.println(packSize);
-        System.out.println(producer);
         if(packSizeArr==null || packSizeArr.length==0){
             packSize = packageTypeService.getListOfSizes();
         }else {
@@ -287,8 +284,6 @@ public class ProductServiceImpl implements ProductService {
             for(int j=0;j<products.get(i).getPackageType().size();j++){
                 PackageType type = products.get(i).getPackageType().get(j);
                 String packValue = type.getPackSize().doubleValue()+type.getPackType();
-                System.out.println(packSize);
-                System.out.println(packValue);
                 if(packSize.equals(packValue)){
                     filtered.add(product);
                     break;
@@ -336,7 +331,6 @@ public class ProductServiceImpl implements ProductService {
             });
         }
         if(sortType.equals("expensive")) {
-            System.out.println(sortType);
             products.sort((o1, o2) -> {
                 if(o1.getPackageType().size()>0 && o2.getPackageType().size()>0){
                     PackageType type1 = o1.getPackageType().get(0);

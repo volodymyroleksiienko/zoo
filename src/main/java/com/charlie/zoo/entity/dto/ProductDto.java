@@ -40,7 +40,6 @@ public class ProductDto {
 
 
     public static Product convertToProduct(ProductDto productDto){
-        System.out.println(productDto);
         Product product = new Product();
         product.setId(productDto.id);
         product.setName(productDto.name);

@@ -15,10 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 @RequestMapping("/shop")
@@ -56,6 +53,12 @@ public class FilterShopController {
             model.addAttribute("currentUrlFiltered",generateUrl("/shop/"+animalUrl,sortType,max,min,packSize,producerId));
             model.addAttribute("currentAll",animal.getName());
             model.addAttribute("products", products);
+
+            if (packSize!=null){
+                model.addAttribute("withoutPackUrl",generateUrl("/shop/"+animalUrl,sortType,max,min,null,producerId));
+                model.addAttribute("packName",packSize);
+            }
+
             config(model,username);
             configFilter(model,new HashSet<>(products),packSize,min,max,producerId);
         }
@@ -104,10 +107,22 @@ public class FilterShopController {
         if(providerId==null){
             model.addAttribute("producerList",productService.getProducers(products));
         }
-        if(min==null && max==null){
-            model.addAttribute("maxPrice",productService.getMaxPrice(products));
-            model.addAttribute("minPrice",productService.getMinPrice(products));
+        model.addAttribute("maxPrice",productService.getMaxPrice(products));
+        model.addAttribute("minPrice",productService.getMinPrice(products));
+    }
+
+    public static <T> List<T> getPage(List<T> sourceList, int page, int pageSize) {
+        if (pageSize <= 0 || page <= 0) {
+            throw new IllegalArgumentException("invalid page size: " + pageSize);
         }
+
+        int fromIndex = (page - 1) * pageSize;
+        if (sourceList == null || sourceList.size() <= fromIndex) {
+            return Collections.emptyList();
+        }
+
+        // toIndex exclusive
+        return sourceList.subList(fromIndex, Math.min(fromIndex + pageSize, sourceList.size()));
     }
 
     private String generateUrl(String current,String sortType, Integer max, Integer min,String packSize, Integer producerId){

@@ -68,6 +68,7 @@ public class AdminProductController {
         multipartFiles.add(img3);
         multipartFiles.add(img4);
         List<PackageType> packageTypeList = PackageTypeDto.getArrayOfPackageTypes(packageTypes);
+        System.out.println(packageTypeList);
         Product productEntity = ProductDto.convertToProduct(product);
         productService.update(productEntity,multipartFiles,packageTypeList,category,subCategory);
         return "redirect:/admin/products";

@@ -207,7 +207,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="price--filter">
-                                                                    <a id="filterByPriceBtn" th:href="@{${currentUrlFiltered}}">Фільтрувати</a>
+                                                                    <a id="filterByPriceBtn" th:href="@{${currentUrlFiltered}+'min='+${minPrice}+'&max='+${maxPrice}}">Фільтрувати</a>
                                                                 </div>
                                                             </div>
 <!--                                                        </form>-->
@@ -218,9 +218,9 @@
                                         <div class="single__filter">
                                             <h2>Пакування</h2>
                                             <ul class="filter__list" id="packageTypesList">
-                                                <li th:each="pack :${packSizes}"><a th:href="${currentUrlFiltered}+'packSize='+${pack}" th:text="${pack}">XXL</a></li>
-                                                <li><a href="#" style="color:red">Selected filter name<i style="margin-left: 8px;" class="zmdi zmdi-close"></i></a></li>
-                                                <li id="loadMoreTypes">Більше <span class="ti-angle-double-down"></span></li>
+                                                <li th:if="${withoutPackUrl==null}" th:each="pack :${packSizes}"><a th:href="${currentUrlFiltered}+'packSize='+${pack}" th:text="${pack}">XXL</a></li>
+                                                <li th:if="${withoutPackUrl!=null}"><a th:href="${withoutPackUrl}"  style="color:red" ><span th:text="${packName}">Selected filter name</span><i style="margin-left: 8px;" class="zmdi zmdi-close"></i></a></li>
+                                                <li id="loadMoreTypes" th:if="${withoutPackUrl==null}">Більше <span class="ti-angle-double-down"></span></li>
                                             </ul>
                                         </div>
                                         <div class="single__filter">
@@ -275,8 +275,8 @@
                                         <div class="product__info">
                                             <ul class="product__action">
                                                 <li><a data-toggle="modal" onclick="quickViewProduct(this.closest('.single__pro').id)" title="Швидкий перегляд" class="quick-view modal-view detail-link" href="#"><span class="ti-plus"></span></a></li>
-                                                <li><a title="До кошика" class="send-item-to-card" href="cart.html"><span class="ti-shopping-cart-full"></span></a></li>
-                                                <li><a title="Купити зараз" class="buy-item-now" href="wishlist.html"><span class="ti-wallet"></span></a></li>
+                                                <li><a title="До кошика" class="send-item-to-card" th:href="@{'/addToCart/'+${pr?.getPackageType()?.get(0)?.getId()}}"><span class="ti-shopping-cart-full"></span></a></li>
+                                                <li><a title="Купити зараз" class="buy-item-now" href="/checkout"><span class="ti-wallet"></span></a></li>
                                             </ul>
                                         </div>
                                     </div>
