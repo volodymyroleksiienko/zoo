@@ -1317,6 +1317,11 @@
     .bradcaump-inner {
         margin-top: 5px;
     }
+
+    .error-bradcaump{
+        margin-top: 20px;
+    }
+
     .ht__bradcaump__wrap {
         height: 220px;
     }
