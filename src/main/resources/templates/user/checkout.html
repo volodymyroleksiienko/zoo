@@ -212,25 +212,6 @@
                 </div>
             </div>
             <div id="liqpay_checkout"></div>
-            <script>
-                window.LiqPayCheckoutCallback = function() {
-                    LiqPayCheckout.init({
-                        data: paymentData,
-                        signature: paymentSignature,
-                        embedTo: "#liqpay_checkout",
-                        language: "ru",
-                        mode: "embed" // embed || popup
-                    }).on("liqpay.callback", function(data){
-                        console.log(data.status);
-                        console.log(data);
-                    }).on("liqpay.ready", function(data){
-                        // ready
-                    }).on("liqpay.close", function(data){
-                        // close
-                    });
-                };
-            </script>
-            <script src="//static.liqpay.ua/libjs/checkout.js" async></script>
              </section>
 
         <!-- End Checkout Area -->
@@ -413,6 +394,27 @@
 
 
     </script>
+    <script>
+        window.LiqPayCheckoutCallback = function() {
+            console.log(paymentData);
+            console.log(paymentSignature);
+            LiqPayCheckout.init({
+                data: paymentData,
+                signature: paymentSignature,
+                embedTo: "#liqpay_checkout",
+                language: "uk",
+                mode: "embed" // embed || popup
+            }).on("liqpay.callback", function(data){
+                console.log(data.status);
+                console.log(data);
+            }).on("liqpay.ready", function(data){
+                // ready
+            }).on("liqpay.close", function(data){
+                // close
+            });
+        };
+    </script>
+    <script src="//static.liqpay.ua/libjs/checkout.js" async></script>
 
 </body>
 

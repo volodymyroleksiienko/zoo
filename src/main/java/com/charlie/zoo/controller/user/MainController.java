@@ -8,8 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletResponse;
+import java.security.MessageDigest;
+import java.util.Base64;
 import java.util.UUID;
 
 @Controller
@@ -28,6 +31,13 @@ public class MainController {
         cookieService.checkCookie(username,httpServletResponse,model);
         modelConfig(model,username);
         return "user/index";
+    }
+
+    @PostMapping
+    public String post(String data, String signature){
+        System.out.println(data);
+        System.out.println(liqPayDataService.decodeData(data));
+        return "redirect:/";
     }
 
 

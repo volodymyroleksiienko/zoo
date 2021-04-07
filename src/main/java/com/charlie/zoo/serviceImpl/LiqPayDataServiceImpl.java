@@ -1,17 +1,14 @@
 package com.charlie.zoo.serviceImpl;
 
 import com.charlie.zoo.service.LiqPayDataService;
-import com.liqpay.LiqPay;
-import com.liqpay.LiqPayUtil;
-import net.minidev.json.JSONObject;
+import com.google.gson.Gson;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import javax.xml.bind.DatatypeConverter;
-import java.security.MessageDigest;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 import static com.liqpay.LiqPayUtil.base64_encode;
 import static com.liqpay.LiqPayUtil.sha1;
@@ -35,11 +32,19 @@ public class LiqPayDataServiceImpl implements LiqPayDataService {
         params.put("public_key", publicKey);
         params.put("version", "3");
         params.put("sandbox", "1");
+        params.put("result_url", "https://1299386eb5fa.ngrok.io/");
         return base64_encode(JSONObject.toJSONString(params));
     }
 
     @Override
     public String generateSignature(String data) {
         return base64_encode(sha1(privateKey+data+privateKey));
+    }
+
+    @Override
+    public Map<String,String> decodeData(String data){
+        byte[] decodedBytes = Base64.getDecoder().decode(data);
+        Gson gson = new Gson();
+        return gson.fromJson(new String(decodedBytes), Map.class);
     }
 }
