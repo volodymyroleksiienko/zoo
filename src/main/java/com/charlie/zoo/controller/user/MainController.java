@@ -72,7 +72,7 @@ public class MainController {
     public String getCheckout(@CookieValue(value = "id", defaultValue = "") String username,Model model,
                               HttpServletResponse httpServletResponse){
         cookieService.checkCookie(username,httpServletResponse,model);
-        String data = liqPayDataService.generateData("2.5",UUID.randomUUID().toString());
+        String data = liqPayDataService.generateData("0.01",UUID.randomUUID().toString());
         model.addAttribute("paymentData",data);
         model.addAttribute("paymentSignature",liqPayDataService.generateSignature(data));
         modelConfig(model,username);
