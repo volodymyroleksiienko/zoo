@@ -184,14 +184,13 @@
                                 <input type="number" id="selectedForChangingStatusItem" hidden="" name="id">
                                 <div class="row align-center" style="    margin: 0 0 2rem;">
                                     <div class="col-6">
-                                        <div class="form-group">
-                                            <div class="preview-block">
-                                                <span class="preview-title form-label" style="margin-bottom: 0;">Статус оплати</span>
-                                                <div class="custom-control custom-switch" style="margin-bottom: 0.5rem;">
-                                                    <input type="checkbox" class="custom-control-input" id="statusOfPayment" name="statusOfPayment">
-                                                    <label class="custom-control-label" for="statusOfPayment">Оплачено</label>
-                                                </div>
-                                            </div>
+                                        <label class="form-label" for="statusOfPayment">Статус оплати</label>
+                                        <div class="form-control-wrap">
+                                            <select class="form-select" id="statusOfPayment" name="statusOfPayment">
+                                                <option>Opt 1</option>
+                                                <option>Opt 2</option>
+                                                <option value="active">Opt 3</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-6" style="padding: 0">
@@ -271,18 +270,13 @@
         let statusOfOrder = $(trObj).find('td:eq(5) input').val();
         let deliveryAddress=$(trObj).find('td:eq(6)').text().trim();
 
-        if (statusOfPayment.trim()==="true"){
-            $('#statusOfPayment').attr("checked", true);
-        }else if (statusOfPayment.trim()==="false") {
-            $('#statusOfPayment').attr("checked", false);
-        }
-
         $('#buyerNameModal').text(buyer);
         $('#phoneNumberModal').text(phone);
         $('#phoneNumberRefModal').attr('href', "tel:"+phone);
         $('#orderDateModal').text(date);
         $('#orderAmountModal').text(amount+" UAH");
         $('#orderDeliveryAddressModal').text(deliveryAddress);
+        $('#statusOfPayment').val(statusOfPayment).change();
         $('#statusOfOrder').val(statusOfOrder).change();
 
         $('#quickViewModal').modal('show');
