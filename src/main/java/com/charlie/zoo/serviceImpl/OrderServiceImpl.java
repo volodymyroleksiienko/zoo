@@ -3,12 +3,14 @@ package com.charlie.zoo.serviceImpl;
 
 import com.charlie.zoo.entity.OrderInfo;
 import com.charlie.zoo.enums.StatusOfEntity;
+import com.charlie.zoo.enums.StatusOfPayment;
 import com.charlie.zoo.jpa.OrderJPA;
 import com.charlie.zoo.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -33,6 +35,23 @@ public class OrderServiceImpl implements OrderService {
         order.setDescription(description);
         order.setStatusOfEntity(StatusOfEntity.SUBMITTED);
         return save(order);
+    }
+
+    @Override
+    public OrderInfo checkOrder(Map<String,String> data){
+        String orderId = data.get("order_id");
+        OrderInfo orderInfo = findById(UUID.fromString(orderId));
+        if (orderInfo!=null){
+            String status = data.get("status");
+            System.out.println("Status "+status);
+            if(status.equals("success")){
+                orderInfo.setPayment(StatusOfPayment.SUBMITTED);
+            }else{
+                orderInfo.setPayment(StatusOfPayment.WAIT_FOR_PAYING);
+            }
+            return save(orderInfo);
+        }
+        return null;
     }
 
     @Override

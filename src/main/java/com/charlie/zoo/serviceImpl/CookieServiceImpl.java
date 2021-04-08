@@ -17,18 +17,24 @@ public class CookieServiceImpl implements CookieService {
     private final OrderService orderService;
 
     @Override
-    public void checkCookie(String id, HttpServletResponse httpServletResponse, Model model) {
+    public String checkCookie(String id, HttpServletResponse httpServletResponse, Model model) {
         if(!id.isEmpty()) {
             OrderInfo orderInfo = orderService.findById(UUID.fromString(id));
             if(orderInfo!=null) {
                 model.addAttribute("order", orderInfo);
-                return;
+                return orderInfo.getId().toString();
             }
         }
+        return createNewCookieId(httpServletResponse,model);
+    }
+
+    @Override
+    public String createNewCookieId(HttpServletResponse httpServletResponse, Model model){
         OrderInfo order = new OrderInfo();
         order.setId(UUID.randomUUID());
         order = orderService.save(order);
         httpServletResponse.addCookie(new Cookie("id", order.getId().toString()));
         model.addAttribute("order",order);
+        return order.getId().toString();
     }
 }

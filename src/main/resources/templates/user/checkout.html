@@ -478,10 +478,56 @@
             }).on("liqpay.callback", function(data){
                 console.log(data.status);
                 console.log(data);
+                    $.ajax({
+                        method: "get",
+                        url: "/cart",
+                        contextType: "application/json",
+                        data: {
+                            idOfPackageType: itemId,
+                            count: count,
+                        },
+                        traditional: true,
+                        success: function () {
+                            console.log('Updated!');
+                        },
+                        error: function () {
+                            alert("Помилка!!");
+                        }
+                    });
             }).on("liqpay.ready", function(data){
-                // ready
+                $.ajax({
+                    method: "get",
+                    url: "/cart",
+                    contextType: "application/json",
+                    data: {
+                        idOfPackageType: itemId,
+                        count: count,
+                    },
+                    traditional: true,
+                    success: function () {
+                        console.log('Updated!');
+                    },
+                    error: function () {
+                        alert("Помилка!!");
+                    }
+                });
             }).on("liqpay.close", function(data){
-                // close
+                $.ajax({
+                    method: "get",
+                    url: "/cart",
+                    contextType: "application/json",
+                    data: {
+                        idOfPackageType: itemId,
+                        count: count,
+                    },
+                    traditional: true,
+                    success: function () {
+                        console.log('Updated!');
+                    },
+                    error: function () {
+                        alert("Помилка!!");
+                    }
+                });
             });
         };
     </script>

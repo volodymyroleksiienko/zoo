@@ -35,7 +35,7 @@ public class FilterShopController {
     public String getShop(@CookieValue(value = "id", defaultValue = "") String username, Model model,
                           HttpServletResponse httpServletResponse,String sortType, Integer max, Integer min,
                           String packSize, Integer producerId, Integer page){
-        cookieService.checkCookie(username,httpServletResponse,model);
+        username = cookieService.checkCookie(username,httpServletResponse,model);
         List<Animal> animalList = animalService.findAll();
         model.addAttribute("categoryBtn", animalList);
         model.addAttribute("currentUrl","/shop/");
@@ -50,7 +50,7 @@ public class FilterShopController {
     public String getByAnimal(@CookieValue(value = "id", defaultValue = "") String username,
                               HttpServletResponse httpServletResponse,@PathVariable String animalUrl, Model model,
                               String sortType, Integer max, Integer min,String packSize, Integer producerId, Integer page){
-        cookieService.checkCookie(username,httpServletResponse,model);
+        username = cookieService.checkCookie(username,httpServletResponse,model);
         Animal animal = animalService.findByUrl(animalUrl);
         if(animal!=null) {
             Set<Product> beforeFilter = productService.findByAnimal(animal);
@@ -68,7 +68,7 @@ public class FilterShopController {
                                         HttpServletResponse httpServletResponse,@PathVariable String animalUrl,
                                         @PathVariable String categoryUrl,Model model,String sortType, Integer max,
                                         Integer min,String packSize, Integer producerId, Integer page){
-        cookieService.checkCookie(username,httpServletResponse,model);
+        username = cookieService.checkCookie(username,httpServletResponse,model);
         Category category = categoryService.findByUrl(animalUrl,categoryUrl);
         model.addAttribute("animal",animalService.findByUrl(animalUrl));
         model.addAttribute("currentUrl","/shop/"+animalUrl+"/"+categoryUrl+"/");
@@ -87,7 +87,7 @@ public class FilterShopController {
                                    HttpServletResponse httpServletResponse,@PathVariable String animalUrl,
                                    @PathVariable String categoryUrl,@PathVariable String subCategoryUrl,Model  model,
                                    String sortType, Integer max,Integer min,String packSize, Integer producerId, Integer page){
-        cookieService.checkCookie(username,httpServletResponse,model);
+        username = cookieService.checkCookie(username,httpServletResponse,model);
         CategoryItem item = subCategoryService.findByUrl(animalUrl,categoryUrl,subCategoryUrl);
         model.addAttribute("animal",animalService.findByUrl(animalUrl));
         model.addAttribute("category",categoryService.findByUrl(animalUrl,categoryUrl));
@@ -105,7 +105,7 @@ public class FilterShopController {
     private void config(Model  model,String username){
         model.addAttribute("animals",animalService.findAll());
         model.addAttribute("categories",categoryService.findAll());
-//        model.addAttribute("orderInfo",orderService.findById(UUID.fromString(username)));
+        model.addAttribute("orderInfo",orderService.findById(UUID.fromString(username)));
     }
 
     private void configFilter(Model model,String currentUrl,Set<Product> products,String packSize, Integer min,Integer max,Integer providerId,String sortType,Integer page) {

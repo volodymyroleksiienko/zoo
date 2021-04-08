@@ -32,7 +32,6 @@ public class LiqPayDataServiceImpl implements LiqPayDataService {
         params.put("public_key", publicKey);
         params.put("version", "3");
         params.put("sandbox", "0");
-        params.put("result_url", "https://1299386eb5fa.ngrok.io/");
         return base64_encode(JSONObject.toJSONString(params));
     }
 
@@ -42,9 +41,15 @@ public class LiqPayDataServiceImpl implements LiqPayDataService {
     }
 
     @Override
-    public Map<String,String> decodeData(String data){
+    public Map<String,String> decodeData(String data,String signature){
         byte[] decodedBytes = Base64.getDecoder().decode(data);
         Gson gson = new Gson();
-        return gson.fromJson(new String(decodedBytes), Map.class);
+        System.out.println(generateSignature(data));
+        System.out.println(signature);
+        if(generateSignature(data).equals(signature)) {
+            return gson.fromJson(new String(decodedBytes), Map.class);
+        }else {
+            return null;
+        }
     }
 }
