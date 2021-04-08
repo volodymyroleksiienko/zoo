@@ -108,7 +108,7 @@
                                                             <span th:text="${order.getPhone()}">+48-883-913-896</span>
                                                         </td>
                                                         <td class="nk-tb-col">
-                                                            <span th:text="${order.getPhone()}">14.88</span>
+                                                            <span th:text="${order.getSumPrice()}">14.88</span>
                                                         </td>
                                                         <td class="nk-tb-col tb-col-sm">
                                                             <span th:text="${order.getPayment().toString()}"></span>
@@ -199,7 +199,7 @@
                                                     <option value="NEW">NEW</option>
                                                     <option value="DELIVERED">DELIVERED</option>
                                                     <option value="FINISHED">FINISHED</option>
-                                                    <option value="CANCELED">CANCELED</option>
+                                                    <option value="CANCELLED">CANCELLED</option>
                                                 </select>
                                             </div>
                                         </div>

@@ -21,6 +21,7 @@ public class OrderInfo {
     private String nameOfClient;
     private String phone;
     private String description;
+    private double sumPrice;
 
     private boolean lvivDelivering;
     private boolean novaPoshtaDelivering;

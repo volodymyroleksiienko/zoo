@@ -31,6 +31,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderInfo save(OrderInfo orderInfo)
     {
+        orderInfo.setSumPrice(getSummaryPrice(orderInfo));
         return orderJPA.save(orderInfo);
     }
 
@@ -65,7 +66,7 @@ public class OrderServiceImpl implements OrderService {
              }
              switch (statusOfOrder){
                  case "NEW":orderInfo.setStatusOfOrder(StatusOfOrder.NEW); break;
-                 case "CANCELED":orderInfo.setStatusOfOrder(StatusOfOrder.CANCELED); break;
+                 case "CANCELLED":orderInfo.setStatusOfOrder(StatusOfOrder.CANCELLED); break;
                  case "DELIVERED":orderInfo.setStatusOfOrder(StatusOfOrder.DELIVERED); break;
                  case "FINISHED":orderInfo.setStatusOfOrder(StatusOfOrder.FINISHED); break;
              }
