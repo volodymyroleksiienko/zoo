@@ -411,8 +411,6 @@
             //calculate cart total sum end
 
             $('.phone_number').inputmask('+(999)-999-999-999');
-
-            console.log(activeDelivery);
         });
 
 
@@ -425,8 +423,6 @@
             }else if(deliveryInputId == 'countryDelivery'){
                 $('#cityDelivery').prop('checked', false);
                 $('#countryDelivery').prop('checked', true);
-                activeDelivery = $('#countryDelivery').val();
-                console.log(activeDelivery);
             }
         }
         function setActivePaymentMethod(paymentInputId){
@@ -449,18 +445,19 @@
             let buyerData = $('#nameSurname').val();
             let phoneNumber = $('#phoneNumber').val();
             console.log(phoneNumber);
-            // let deliveryType = activeDelivery;
             let address = $('#deliveryAddress').val();
 
             if (buyerData!=='' && phoneNumber!=='' && address!==''){
                 $('#notesAboutBuying').hide();
                 $('#liqpay_checkout').show();
+                $('#payNowBtn').hide();
                 $([document.documentElement, document.body]).animate({
                     scrollTop: $("#liqpay_checkout").offset().top-100
                 }, 500);
             }else {
                 $('#notesAboutBuying').show();
                 $('#liqpay_checkout').hide();
+                $('#payNowBtn').show();
                 $([document.documentElement, document.body]).animate({
                     scrollTop: $("#nameSurname").offset().top-150
                 }, 500);
@@ -485,7 +482,39 @@
                     window.location.href = "/";
                 }
             }).on("liqpay.ready", function(data){
+                $.ajax({
+                    method: "get",
+                    url: "/cart",
+                    contextType: "application/json",
+                    data: {
+                        idOfPackageType: itemId,
+                        count: count,
+                    },
+                    traditional: true,
+                    success: function () {
+                        console.log('Updated!');
+                    },
+                    error: function () {
+                        alert("Помилка!!");
+                    }
+                });
             }).on("liqpay.close", function(data){
+                $.ajax({
+                    method: "get",
+                    url: "/cart",
+                    contextType: "application/json",
+                    data: {
+                        idOfPackageType: itemId,
+                        count: count,
+                    },
+                    traditional: true,
+                    success: function () {
+                        console.log('Updated!');
+                    },
+                    error: function () {
+                        alert("Помилка!!");
+                    }
+                });
             });
         };
 
