@@ -111,13 +111,10 @@
                                                             <span th:text="${order.getPhone()}">14.88</span>
                                                         </td>
                                                         <td class="nk-tb-col tb-col-sm">
-                                                            <input type="hidden" value="true">
-                                                            <span class="dot dot-success" th:text="${order.getPayment().toString()}"></span>
-<!--                                                            <span class="dot dot-danger"></span>-->
+                                                            <span th:text="${order.getPayment().toString()}"></span>
                                                         </td>
                                                         <td class="nk-tb-col tb-col-sm">
-                                                            <input type="hidden" value="active">
-                                                            <span class="tb-status text-danger" th:text="${order.getStatusOfOrder().toString()}">Статус</span>
+                                                            <span th:text="${order.getStatusOfOrder().toString()}">Статус</span>
                                                         </td>
                                                         <td class="nk-tb-col tb-col-hide">
                                                             <span th:text="${order.getDescription()}">Lviv, Lorem ipsum dolor sit amet asdasd asdasda asdasda asda sd, 12</span>
@@ -266,8 +263,8 @@
         let buyer =         $(trObj).find('td:eq(1)').text().trim();
         let phone =         $(trObj).find('td:eq(2)').text().trim();
         let amount =        $(trObj).find('td:eq(3)').text().trim();
-        let statusOfPayment=$(trObj).find('td:eq(4) input').val();
-        let statusOfOrder = $(trObj).find('td:eq(5) input').val();
+        let statusOfPayment=$(trObj).find('td:eq(4) span').text().trim();
+        let statusOfOrder = $(trObj).find('td:eq(5) span').text().trim();
         let deliveryAddress=$(trObj).find('td:eq(6)').text().trim();
 
         $('#buyerNameModal').text(buyer);
