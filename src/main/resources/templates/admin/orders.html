@@ -84,7 +84,7 @@
                                             <table class="datatable-init nk-tb-list nk-tb-ulist" data-auto-responsive="false">
                                                 <thead>
                                                     <tr class="nk-tb-item nk-tb-head">
-                                                        <th class="nk-tb-col tb-col-sm">Дата</th>
+                                                        <th class="nk-tb-col tb-col-md">Дата</th>
                                                         <th class="nk-tb-col"><span class="sub-text">Замовник</span></th>
                                                         <th class="nk-tb-col tb-col-sm"><span class="sub-text">Телефон</span></th>
                                                         <th class="nk-tb-col"><span class="sub-text">Сума</span></th>
@@ -95,10 +95,10 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr class="nk-tb-item">
-                                                        <td class="nk-tb-col tb-col-sm">
+                                                        <td class="nk-tb-col tb-col-md">
                                                             Дата
                                                         </td>
-                                                        <td class="nk-tb-col">
+                                                        <td class="nk-tb-col" style="white-space: normal;">
                                                             <div class="user-info">
                                                                 <span class="tb-lead">Roman Tymochko</span>
                                                             </div>
@@ -124,8 +124,7 @@
                                                                         <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                                                         <div class="dropdown-menu dropdown-menu-right">
                                                                             <ul class="link-list-opt no-bdr">
-                                                                                <li><a target="_blank" th:href="@{|/singleProduct/${p?.getId()}|}"><em class="icon ni ni-eye"></em><span>Переглянути</span></a></li>
-                                                                                <li><a data-toggle="modal" onclick="showEditProductStatusModal(this)"><em class="icon ni ni-bullet"></em><span>Змінити статус</span></a></li>
+                                                                                <li><a data-toggle="modal" onclick="orderQuickView(this)"><em class="icon ni ni-eye"></em><span>Переглянути</span></a></li>
                                                                                 <li><a th:href="@{|/admin/products/edit/${p?.getId()}|}"><em class="icon ni ni-edit-alt"></em><span>Редагувати</span></a></li>
                                                                                 <li><a data-toggle="modal" onclick="showConfirmationDeleteProductModal(this)" ><em class="icon ni ni-trash"></em><span>Видалити</span></a></li>
                                                                             </ul>
@@ -152,21 +151,21 @@
             </a>
 
             <!-- Change status start -->
-            <div class="modal fade" tabindex="-1" role="dialog" id="changeProductStatusModal" aria-modal="true">
+            <div class="modal fade" tabindex="-1" role="dialog" id="quickViewModal" aria-modal="true">
                 <div class="modal-dialog modal-md" role="document">
                     <div class="modal-content">
                         <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
                         <div class="modal-body modal-body-md">
-                            <h4 class="title">Змінити статус</h4>
+                            <h4 class="title" id="buyerNameModal">Змінити статус</h4>
                             <br>
                             <form action="/admin/products/changeStatus" method="post">
                                 <input type="number" id="selectedForChangingStatusItem" hidden="" name="id">
                                 <div class="form-group">
                                     <div class="preview-block">
-                                        <span class="preview-title overline-title">Статус товару</span>
+                                        <span class="preview-title overline-title">Статус оплати</span>
                                         <div class="custom-control custom-switch">
                                             <input type="checkbox" class="custom-control-input" id="showItemSwitch" name="status">
-                                            <label class="custom-control-label" for="showItemSwitch">Відображати в магазині</label>
+                                            <label class="custom-control-label" for="showItemSwitch">Оплачено</label>
                                         </div>
                                     </div>
                                 </div>
@@ -218,23 +217,24 @@
 <script th:src="@{/js/scripts.js}"></script>
 <script th:src="@{/js/example-sweetalert.js}"></script>
 <script>
-    function showEditProductStatusModal(btnObj) {
+    function orderQuickView(btnObj) {
         let trObj = btnObj.closest("tbody tr");
         let trId =  $(trObj).attr('id');
 
-        let status = $(trObj).find('td:eq(6)').text();
+        let buyer =         $(trObj).find('td:eq(1)').text();
+        let status =        $(trObj).find('td:eq(6)').text();
 
-        if (status.trim()=="Active"){
-            $('#showItemSwitch').attr("checked", true);
-        }else if (status.trim()=="Archive") {
-            $('#showItemSwitch').attr("checked", false);
-        }
+        // if (status.trim()=="Active"){
+        //     $('#showItemSwitch').attr("checked", true);
+        // }else if (status.trim()=="Archive") {
+        //     $('#showItemSwitch').attr("checked", false);
+        // }
 
         console.log("row id:" + $(trObj).attr('id'));
 
-        $('#selectedForChangingStatusItem') .val(trId);
+        $('#buyerNameModal') .text("Замовлення від "+buyer);
 
-        $('#changeProductStatusModal').modal('show');
+        $('#quickViewModal').modal('show');
     }
 
     function showConfirmationDeleteProductModal(btnObj){
