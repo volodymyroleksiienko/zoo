@@ -37,10 +37,10 @@ public class CheckoutController {
     }
 
     @PostMapping("/orderSubmit")
-    public String order(OrderInfo orderInfo,HttpServletResponse response,Model model){
+    public void order(OrderInfo orderInfo,HttpServletResponse response,Model model){
         orderService.submitOrder(orderInfo);
         cookieService.createNewCookieId(response,model);
-        return "redirect:/checkout/successful";
+//        return "redirect:/checkout/successful";
     }
 
     @PostMapping
