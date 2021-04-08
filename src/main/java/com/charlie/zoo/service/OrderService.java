@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public interface OrderService {
     OrderInfo save(OrderInfo orderInfo);
-    OrderInfo submitOrder(OrderInfo order,String name, String phone, String description);
+    OrderInfo submitOrder(OrderInfo order);
     OrderInfo checkOrder(Map<String,String> data);
     OrderInfo findById(UUID id);
     List<OrderInfo> findAll();

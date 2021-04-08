@@ -17,9 +17,16 @@ public class OrderInfo {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
+    private String date;
     private String nameOfClient;
     private String phone;
     private String description;
+
+    private boolean lvivDelivering;
+    private boolean novaPoshtaDelivering;
+    private boolean payByCard;
+    private boolean payByCash;
+
 
     @OneToMany(mappedBy = "orderInfo")
     private List<OrderDetails> orderDetails;
@@ -31,5 +38,5 @@ public class OrderInfo {
     private StatusOfOrder statusOfOrder = StatusOfOrder.NEW;
 
     @Enumerated(EnumType.STRING)
-    private StatusOfEntity statusOfEntity;
+    private StatusOfEntity statusOfEntity = StatusOfEntity.ACTIVE;
 }

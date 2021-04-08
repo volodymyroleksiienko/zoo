@@ -9,6 +9,9 @@ import com.charlie.zoo.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -28,14 +31,25 @@ public class OrderServiceImpl implements OrderService {
         return orderJPA.save(orderInfo);
     }
 
-    @Override
-    public OrderInfo submitOrder(OrderInfo order, String name, String phone, String description) {
-        order.setNameOfClient(name);
-        order.setPhone(phone);
-        order.setDescription(description);
-        order.setStatusOfEntity(StatusOfEntity.SUBMITTED);
-        return save(order);
+
+    public OrderInfo submitOrder(OrderInfo order) {
+        OrderInfo  orderDB = findById(order.getId());
+
+        orderDB.setDate(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE));
+
+        orderDB.setNameOfClient(order.getNameOfClient());
+        orderDB.setPhone(order.getPhone());
+        orderDB.setDescription(order.getDescription());
+
+        orderDB.setLvivDelivering(order.isLvivDelivering());
+        orderDB.setNovaPoshtaDelivering(order.isNovaPoshtaDelivering());
+        orderDB.setPayByCard(order.isPayByCard());
+        orderDB.setPayByCash(order.isPayByCash());
+
+        orderDB.setPayment(StatusOfPayment.WAIT_FOR_PAYING);
+        return save(orderDB);
     }
+
 
     @Override
     public OrderInfo checkOrder(Map<String,String> data){

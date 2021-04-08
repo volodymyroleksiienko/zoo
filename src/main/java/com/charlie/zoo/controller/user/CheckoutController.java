@@ -1,5 +1,6 @@
 package com.charlie.zoo.controller.user;
 
+import com.charlie.zoo.entity.OrderInfo;
 import com.charlie.zoo.service.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -28,12 +29,18 @@ public class CheckoutController {
     public String getCheckout(@CookieValue(value = "id", defaultValue = "") String username, Model model,
                               HttpServletResponse httpServletResponse){
         username = cookieService.checkCookie(username,httpServletResponse,model);
-        //@todo
-        String data = liqPayDataService.generateData("0.01", UUID.randomUUID().toString());
+        String data = liqPayDataService.generateData("0.01", username);
         model.addAttribute("paymentData",data);
         model.addAttribute("paymentSignature",liqPayDataService.generateSignature(data));
         modelConfig(model,username);
         return "user/checkout";
+    }
+
+    @PostMapping("/orderSubmit")
+    public String order(OrderInfo orderInfo,HttpServletResponse response,Model model){
+        orderService.submitOrder(orderInfo);
+        cookieService.createNewCookieId(response,model);
+        return "redirect:/checkout/successful";
     }
 
     @PostMapping
@@ -45,13 +52,13 @@ public class CheckoutController {
 
     @PostMapping("/successful")
     public String successful(Model model){
-        System.out.println("Successfull request");
+        System.out.println("Successful request");
         return "user/successful-payment";
     }
 
     @GetMapping("/successful")
     public String get(Model model){
-        System.out.println("Successfull request");
+        System.out.println("Successful request");
         return "user/successful-payment";
     }
 

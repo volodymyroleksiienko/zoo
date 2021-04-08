@@ -151,6 +151,7 @@
         <!-- End Bradcaump area -->
         <!-- Start Checkout Area -->
         <section class="our-checkout-area ptb--120 bg__white">
+            <form action="/checkout/orderSubmit" method="post">
             <div class="container">
                 <div class="row">
                     <div class="col-md-8 col-lg-8">
@@ -160,9 +161,10 @@
                                 <h2 class="section-title-3">Замовник</h2>
                                 <div class="checkout-form-inner">
                                     <div class="single-checkout-box">
-                                        <input type="text" id="nameSurname" placeholder="Введіть прізвище, ім'я*">
-                                        <input type="text" id="phoneNumber" name="phone" placeholder="Введіть номер телефону*" value="+380" class="phone_number">
+                                        <input type="text" id="nameSurname" placeholder="Введіть прізвище, ім'я*" name="nameOfClient">
+                                        <input type="text" id="phoneNumber" placeholder="Введіть номер телефону*" value="+380" class="phone_number" name="phone">
 
+                                        <input type="text" hidden="hidden" id="idOfOrder" th:value="${orderInfo.getId()}" name="id">
                                         <input type="text" hidden="hidden" id="paymentData" th:value="${paymentData}" name="data">
                                         <input type="text" hidden="hidden" id="paymentSignature" th:value="${paymentSignature}" name="signature">
                                     </div>
@@ -173,17 +175,17 @@
                                 <h2 class="section-title-3">Доставка</h2>
                                 <div class="checkout-form-inner">
                                     <div class="single-checkout-box checkbox">
-                                        <input id="cityDelivery" checked type="checkbox" value="lviv" onclick="setActiveDeliveryTypeMethod(this.id)">
+                                        <input id="cityDelivery" checked type="checkbox" name="lvivDelivering" onclick="setActiveDeliveryTypeMethod(this.id)">
                                         <label for="cityDelivery"><span></span>Доставка по Львову</label>
                                     </div>
 
                                     <div class="single-checkout-box checkbox">
-                                        <input id="countryDelivery" type="checkbox" value="novaposhta" onclick="setActiveDeliveryTypeMethod(this.id)">
+                                        <input id="countryDelivery" type="checkbox" name="novaPoshtaDelivering" onclick="setActiveDeliveryTypeMethod(this.id)">
                                         <label for="countryDelivery"><span></span>Доставка до відділення Нової Пошти</label>
                                     </div>
 
                                     <div class="single-checkout-box">
-                                        <textarea name="message" id="deliveryAddress" placeholder="Адреса для доставки*"></textarea>
+                                        <textarea name="description" id="deliveryAddress" rows="3" placeholder="Адреса для доставки*"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -192,18 +194,18 @@
                                 <h2 class="section-title-3">Оплата</h2>
                                 <div class="checkout-form-inner">
                                     <div class="single-checkout-box checkbox">
-                                        <input id="cardPayment" checked type="checkbox" onclick="setActivePaymentMethod(this.id)">
+                                        <input id="cardPayment" checked type="checkbox" name="payByCard" onclick="setActivePaymentMethod(this.id)">
                                         <label for="cardPayment"><span></span>Оплата онлайн</label>
                                     </div>
                                     <div class="single-checkout-box checkbox">
-                                        <input id="cashPayment" type="checkbox" onclick="setActivePaymentMethod(this.id)">
+                                        <input id="cashPayment" type="checkbox" name="payByCash" onclick="setActivePaymentMethod(this.id)">
                                         <label for="cashPayment"><span></span>Оплата готівкою</label>
                                     </div>
                                 </div>
                             </div>
                             <ul class="checkout-buttons mt--40">
-                                <li id="payNowBtn"><button onclick="showPaymentForm()">Оплатити зараз</button></li>
-                                <li id="placeAnOrderBtn" class="shp__checkout" style="display: none;"><button>Замовити</button></li>
+                                <li id="payNowBtn"><button type="button" onclick="showPaymentForm()">Оплатити зараз</button></li>
+                                <li id="placeAnOrderBtn" class="shp__checkout" style="display: none;"><button type="submit">Замовити</button></li>
                             </ul>
                             <!-- End Checkbox Area -->
                         </div>
@@ -230,10 +232,8 @@
                     </div>
                 </div>
             </div>
-            <div th:utext="${paymentData}">
-
-            </div>
-             </section>
+            </form>
+         </section>
 
         <!-- End Checkout Area -->
         <!-- Start Footer Area -->
@@ -387,7 +387,7 @@
         $( document ).ready(function() {
             paymentData = $('#paymentData').val();
             paymentSignature = $('#paymentSignature').val();
-            activeDelivery = 'lviv';
+
 
             $("li.animal-img").hide();
             $("li.animal-img").first().show();
@@ -449,7 +449,7 @@
             let buyerData = $('#nameSurname').val();
             let phoneNumber = $('#phoneNumber').val();
             console.log(phoneNumber);
-            let deliveryType = activeDelivery;
+            // let deliveryType = activeDelivery;
             let address = $('#deliveryAddress').val();
 
             if (buyerData!=='' && phoneNumber!=='' && address!==''){
