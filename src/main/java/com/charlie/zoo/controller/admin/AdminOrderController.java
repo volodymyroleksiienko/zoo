@@ -20,6 +20,9 @@ public class AdminOrderController {
         return "admin/orders";
     }
 
-//    @PostMapping("/modalUpdate")
-//    public S
+    @PostMapping("/modalUpdate")
+    public String modalUpdate(String id,String statusOfPayment,String statusOfOrder){
+        orderService.checkStatus(id,statusOfPayment,statusOfOrder);
+        return "redirect:/admin/orders";
+    }
 }

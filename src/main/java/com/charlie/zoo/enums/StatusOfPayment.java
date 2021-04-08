@@ -1,5 +1,5 @@
 package com.charlie.zoo.enums;
 
 public enum StatusOfPayment {
-    NOT_SUBMITTED,WAIT_FOR_PAYING, PAYING_BY_CASH,SUBMITTED;
+    NOT_SUBMITTED,WAIT_FOR_PAYMENT, PAYMENT_BY_CASH,SUBMITTED;
 }

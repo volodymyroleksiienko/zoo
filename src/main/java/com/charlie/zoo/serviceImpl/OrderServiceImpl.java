@@ -5,6 +5,7 @@ import com.charlie.zoo.entity.OrderDetails;
 import com.charlie.zoo.entity.OrderInfo;
 import com.charlie.zoo.entity.PackageType;
 import com.charlie.zoo.enums.StatusOfEntity;
+import com.charlie.zoo.enums.StatusOfOrder;
 import com.charlie.zoo.enums.StatusOfPayment;
 import com.charlie.zoo.jpa.OrderJPA;
 import com.charlie.zoo.service.OrderService;
@@ -48,8 +49,29 @@ public class OrderServiceImpl implements OrderService {
         orderDB.setPayByCard(order.isPayByCard());
         orderDB.setPayByCash(order.isPayByCash());
 
-        orderDB.setPayment(StatusOfPayment.WAIT_FOR_PAYING);
+        orderDB.setPayment(StatusOfPayment.WAIT_FOR_PAYMENT);
         return save(orderDB);
+    }
+
+    @Override
+    public OrderInfo checkStatus(String id,String statusOfPayment, String statusOfOrder) {
+         OrderInfo orderInfo = findById(UUID.fromString(id));
+         if(orderInfo!=null){
+             switch (statusOfPayment){
+                 case "NOT_SUBMITTED": orderInfo.setPayment(StatusOfPayment.NOT_SUBMITTED); break;
+                 case "WAIT_FOR_PAYMENT": orderInfo.setPayment(StatusOfPayment.WAIT_FOR_PAYMENT); break;
+                 case "PAYMENT_BY_CASH": orderInfo.setPayment(StatusOfPayment.PAYMENT_BY_CASH); break;
+                 case "SUBMITTED": orderInfo.setPayment(StatusOfPayment.SUBMITTED); break;
+             }
+             switch (statusOfOrder){
+                 case "NEW":orderInfo.setStatusOfOrder(StatusOfOrder.NEW); break;
+                 case "CANCELED":orderInfo.setStatusOfOrder(StatusOfOrder.CANCELED); break;
+                 case "DELIVERED":orderInfo.setStatusOfOrder(StatusOfOrder.DELIVERED); break;
+                 case "FINISHED":orderInfo.setStatusOfOrder(StatusOfOrder.FINISHED); break;
+             }
+             return save(orderInfo);
+         }
+         return null;
     }
 
 
@@ -64,7 +86,7 @@ public class OrderServiceImpl implements OrderService {
             if(status !=null && status.equals("success")){
                 orderInfo.setPayment(StatusOfPayment.SUBMITTED);
             }else{
-                orderInfo.setPayment(StatusOfPayment.WAIT_FOR_PAYING);
+                orderInfo.setPayment(StatusOfPayment.WAIT_FOR_PAYMENT);
             }
             return save(orderInfo);
         }

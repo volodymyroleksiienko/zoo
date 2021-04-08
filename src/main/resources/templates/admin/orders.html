@@ -177,16 +177,17 @@
                                 <small class="text-soft" id="orderDeliveryAddressModal"></small>
                             </h5>
                             <br>
-                            <form action="/admin/orders/cha" method="post">
+                            <form action="/admin/orders/modalUpdate" method="post">
                                 <input type="number" id="selectedForChangingStatusItem" hidden="" name="id">
                                 <div class="row align-center" style="    margin: 0 0 2rem;">
                                     <div class="col-6">
                                         <label class="form-label" for="statusOfPayment">Статус оплати</label>
                                         <div class="form-control-wrap">
                                             <select class="form-select" id="statusOfPayment" name="statusOfPayment">
-                                                <option>Opt 1</option>
-                                                <option>Opt 2</option>
-                                                <option value="active">Opt 3</option>
+                                                <option value="NOT_SUBMITTED">NOT_SUBMITTED</option>
+                                                <option value="WAIT_FOR_PAYMENT">WAIT_FOR_PAYMENT</option>
+                                                <option value="PAYMENT_BY_CASH">PAYMENT_BY_CASH</option>
+                                                <option value="SUBMITTED">SUBMITTED</option>
                                             </select>
                                         </div>
                                     </div>
@@ -195,9 +196,10 @@
                                             <label class="form-label" for="statusOfOrder">Статус замовлення</label>
                                             <div class="form-control-wrap">
                                                 <select class="form-select" id="statusOfOrder" name="statusOfOrder">
-                                                    <option></option>
-                                                    <option>Opt 2</option>
-                                                    <option value="active">Opt 3</option>
+                                                    <option value="NEW">NEW</option>
+                                                    <option value="DELIVERED">DELIVERED</option>
+                                                    <option value="FINISHED">FINISHED</option>
+                                                    <option value="CANCELED">CANCELED</option>
                                                 </select>
                                             </div>
                                         </div>
