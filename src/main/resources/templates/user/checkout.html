@@ -157,42 +157,60 @@
                         <div class="ckeckout-left-sidebar">
                             <!-- Start Checkbox Area -->
                             <div class="checkout-form">
-                                <h2 class="section-title-3">Billing details</h2>
+                                <h2 class="section-title-3">Замовник</h2>
                                 <div class="checkout-form-inner">
                                     <div class="single-checkout-box">
-                                        <input type="text" placeholder="Введіть прізвище, ім'я*">
-                                        <input type="text" name="phone" placeholder="Введіть номер телефону*" value="+380" class="phone_number">
+                                        <input type="text" id="nameSurname" placeholder="Введіть прізвище, ім'я*">
+                                        <input type="text" id="phoneNumber" name="phone" placeholder="Введіть номер телефону*" value="+380" class="phone_number">
 
                                         <input type="text" hidden="hidden" id="paymentData" th:value="${paymentData}" name="data">
                                         <input type="text" hidden="hidden" id="paymentSignature" th:value="${paymentSignature}" name="signature">
                                     </div>
-                                    <div class="single-checkout-box select-option mt--40">
-                                        <input type="text" placeholder="Місто*">
-                                        <input type="text" placeholder="Адрес*">
+                                </div>
+                            </div>
+
+                            <div class="checkout-form">
+                                <h2 class="section-title-3">Доставка</h2>
+                                <div class="checkout-form-inner">
+                                    <div class="single-checkout-box checkbox">
+                                        <input id="cityDelivery" checked type="checkbox" value="lviv" onclick="setActiveDeliveryTypeMethod(this.id)">
+                                        <label for="cityDelivery"><span></span>Доставка по Львову</label>
+                                    </div>
+
+                                    <div class="single-checkout-box checkbox">
+                                        <input id="countryDelivery" type="checkbox" value="novaposhta" onclick="setActiveDeliveryTypeMethod(this.id)">
+                                        <label for="countryDelivery"><span></span>Доставка до відділення Нової Пошти</label>
+                                    </div>
+
+                                    <div class="single-checkout-box">
+                                        <textarea name="message" id="deliveryAddress" placeholder="Адреса для доставки*"></textarea>
                                     </div>
                                 </div>
                             </div>
-                            <!-- End Checkbox Area -->
-                            <!-- Start Payment Way -->
-                            <div class="our-payment-sestem">
-                                <h2 class="section-title-3">We  Accept :</h2>
-                                <ul class="payment-menu">
-                                    <li><a href="#"><img src="images/payment/1.jpg" alt="payment-img"></a></li>
-                                    <li><a href="#"><img src="images/payment/2.jpg" alt="payment-img"></a></li>
-                                    <li><a href="#"><img src="images/payment/3.jpg" alt="payment-img"></a></li>
-                                    <li><a href="#"><img src="images/payment/4.jpg" alt="payment-img"></a></li>
-                                    <li><a href="#"><img src="images/payment/5.jpg" alt="payment-img"></a></li>
-                                </ul>
-                                <div class="checkout-btn">
-                                    <a class="ts-btn btn-light btn-large hover-theme" href="#">CONFIRM & BUY NOW</a>
-                                </div>    
+
+                            <div class="checkout-form mt--40">
+                                <h2 class="section-title-3">Оплата</h2>
+                                <div class="checkout-form-inner">
+                                    <div class="single-checkout-box checkbox">
+                                        <input id="cardPayment" checked type="checkbox" onclick="setActivePaymentMethod(this.id)">
+                                        <label for="cardPayment"><span></span>Оплата онлайн</label>
+                                    </div>
+                                    <div class="single-checkout-box checkbox">
+                                        <input id="cashPayment" type="checkbox" onclick="setActivePaymentMethod(this.id)">
+                                        <label for="cashPayment"><span></span>Оплата готівкою</label>
+                                    </div>
+                                </div>
                             </div>
-                            <!-- End Payment Way -->
+                            <ul class="checkout-buttons mt--40">
+                                <li id="payNowBtn"><button onclick="showPaymentForm()">Оплатити зараз</button></li>
+                                <li id="placeAnOrderBtn" class="shp__checkout" style="display: none;"><button>Замовити</button></li>
+                            </ul>
+                            <!-- End Checkbox Area -->
                         </div>
                     </div>
                     <div class="col-md-4 col-lg-4">
                         <div class="checkout-right-sidebar">
-                            <div class="our-important-note">
+                            <div class="our-important-note" id="notesAboutBuying">
                                 <h2 class="section-title-3">Note :</h2>
                                 <p class="note-desc">Lorem ipsum dolor sit amet, consectetur adipisici elit, sed do eiusmod tempor incididunt ut laborekf et dolore magna aliqua.</p>
                                 <ul class="important-note">
@@ -203,6 +221,7 @@
                                     <li><a href="#"><i class="zmdi zmdi-caret-right-circle"></i>Lorem ipsum dolor sit amet</a></li>
                                 </ul>
                             </div>
+                            <div id="liqpay_checkout" style="display: none"></div>
                             <div class="puick-contact-area mt--60">
                                 <h2 class="section-title-3">Quick Contract</h2>
                                 <a href="phone:+8801722889963">+012 345 678 102 </a>
@@ -211,7 +230,6 @@
                     </div>
                 </div>
             </div>
-            <div id="liqpay_checkout"></div>
              </section>
 
         <!-- End Checkout Area -->
@@ -366,6 +384,7 @@
         $( document ).ready(function() {
             paymentData = $('#paymentData').val();
             paymentSignature = $('#paymentSignature').val();
+            activeDelivery = 'lviv';
 
             $("li.animal-img").hide();
             $("li.animal-img").first().show();
@@ -390,10 +409,62 @@
 
             $('.phone_number').inputmask('+(999)-999-999-999');
 
+            console.log(activeDelivery);
         });
 
 
+        function setActiveDeliveryTypeMethod(deliveryInputId){
+            if(deliveryInputId == 'cityDelivery'){
+                $('#cityDelivery').prop('checked', true);
+                $('#countryDelivery').prop('checked', false);
+                activeDelivery = $('#cityDelivery').val();
+                console.log(activeDelivery);
+            }else if(deliveryInputId == 'countryDelivery'){
+                $('#cityDelivery').prop('checked', false);
+                $('#countryDelivery').prop('checked', true);
+                activeDelivery = $('#countryDelivery').val();
+                console.log(activeDelivery);
+            }
+        }
+        function setActivePaymentMethod(paymentInputId){
+            if(paymentInputId == 'cashPayment'){
+                $('#cashPayment').prop('checked', true);
+                $('#cardPayment').prop('checked', false);
+                $('#payNowBtn').hide();
+                $('#placeAnOrderBtn').show();
+                $('#notesAboutBuying').show();
+                $('#liqpay_checkout').hide();
+
+            }else if(paymentInputId == 'cardPayment'){
+                $('#cashPayment').prop('checked', false);
+                $('#cardPayment').prop('checked', true);
+                $('#payNowBtn').show();
+                $('#placeAnOrderBtn').hide();
+            }
+        }
+        function showPaymentForm() {
+            let buyerData = $('#nameSurname').val();
+            let phoneNumber = $('#phoneNumber').val();
+            console.log(phoneNumber);
+            let deliveryType = activeDelivery;
+            let address = $('#deliveryAddress').val();
+
+            if (buyerData!=='' && phoneNumber!=='' && address!==''){
+                $('#notesAboutBuying').hide();
+                $('#liqpay_checkout').show();
+                $([document.documentElement, document.body]).animate({
+                    scrollTop: $("#liqpay_checkout").offset().top-100
+                }, 500);
+            }else {
+                $('#notesAboutBuying').show();
+                $('#liqpay_checkout').hide();
+                $([document.documentElement, document.body]).animate({
+                    scrollTop: $("#nameSurname").offset().top-150
+                }, 500);
+            }
+        }
     </script>
+
     <script>
         window.LiqPayCheckoutCallback = function() {
             console.log(paymentData);

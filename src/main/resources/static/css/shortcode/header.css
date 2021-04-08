@@ -905,6 +905,7 @@ h4.offset__title {
   color: #c33;
   float: right;
 }
+
 .shopping__btn li a {
   background-color: transparent;
   border: 1px solid #000;
@@ -920,15 +921,45 @@ h4.offset__title {
   width: 100%;
   display: block;
 }
+
 .shopping__btn li a:hover{
   background: #ff4136;
   border: 1px solid #ff4136;
   color: #fff;
 }
+
+.checkout-buttons li button {
+  background-color: transparent;
+  border: 1px solid #000;
+  color: #000;
+  font-size: 14px;
+  height: 57px;
+  line-height: 57px;
+  margin-bottom: 15px;
+  padding: 0 25px;
+  text-align: center;
+  text-transform: none;
+  transition: all 0.5s ease 0s;
+  width: 100%;
+  display: block;
+}
+
+.checkout-buttons li button:hover{
+  background: #ff4136;
+  border: 1px solid #ff4136;
+  color: #fff;
+}
+
 .shopping__btn .shp__checkout a{
   background-color: #000;
   color: #fff;
 }
+
+.checkout-buttons .shp__checkout button{
+  background-color: #000;
+  color: #fff;
+}
+
 .shp__single__product {
   display: flex;
   justify-content: space-between;
