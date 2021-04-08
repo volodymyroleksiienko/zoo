@@ -33,8 +33,11 @@ public class CookieServiceImpl implements CookieService {
         OrderInfo order = new OrderInfo();
         order.setId(UUID.randomUUID());
         order = orderService.save(order);
-        httpServletResponse.addCookie(new Cookie("id", order.getId().toString()));
+        Cookie cookie = new Cookie("id", order.getId().toString());
+        cookie.setPath("/");
+        httpServletResponse.addCookie(cookie);
         model.addAttribute("order",order);
         return order.getId().toString();
     }
+
 }

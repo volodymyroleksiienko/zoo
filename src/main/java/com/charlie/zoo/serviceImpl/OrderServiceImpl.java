@@ -1,7 +1,9 @@
 package com.charlie.zoo.serviceImpl;
 
 
+import com.charlie.zoo.entity.OrderDetails;
 import com.charlie.zoo.entity.OrderInfo;
+import com.charlie.zoo.entity.PackageType;
 import com.charlie.zoo.enums.StatusOfEntity;
 import com.charlie.zoo.enums.StatusOfPayment;
 import com.charlie.zoo.jpa.OrderJPA;
@@ -53,12 +55,13 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderInfo checkOrder(Map<String,String> data){
+        System.out.println(data);
         String orderId = data.get("order_id");
         OrderInfo orderInfo = findById(UUID.fromString(orderId));
         if (orderInfo!=null){
             String status = data.get("status");
             System.out.println("Status "+status);
-            if(status.equals("success")){
+            if(status !=null && status.equals("success")){
                 orderInfo.setPayment(StatusOfPayment.SUBMITTED);
             }else{
                 orderInfo.setPayment(StatusOfPayment.WAIT_FOR_PAYING);
@@ -66,6 +69,26 @@ public class OrderServiceImpl implements OrderService {
             return save(orderInfo);
         }
         return null;
+    }
+
+    @Override
+    public double getSummaryPrice(OrderInfo orderInfo) {
+        double sum = 0;
+        if (orderInfo.getOrderDetails()==null || orderInfo.getOrderDetails().size()==0){
+            return 0;
+        }
+        for(OrderDetails details:orderInfo.getOrderDetails()){
+            PackageType type = details.getPackageType();
+            double count = details.getCount();
+            double tempSum = 0;
+            if(type.isOnSale()){
+                tempSum=count*type.getNewPrice().doubleValue();
+            }else{
+                tempSum=count*type.getCountOfProduct()*type.getPrice().doubleValue();
+            }
+            sum = sum + tempSum;
+        }
+        return sum;
     }
 
     @Override

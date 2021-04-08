@@ -28,7 +28,7 @@ public class LiqPayDataServiceImpl implements LiqPayDataService {
         params.put("action", "pay");
         params.put("amount", price);
         params.put("currency", "UAH");
-        params.put("description", "description text");
+        params.put("description", "Онлайн покупка товару у Charlie Zoo");
         params.put("order_id", orderId);
         params.put("public_key", publicKey);
         params.put("version", "3");
@@ -44,8 +44,6 @@ public class LiqPayDataServiceImpl implements LiqPayDataService {
     public Map<String,String> decodeData(String data,String signature){
         byte[] decodedBytes = Base64.getDecoder().decode(data);
         Gson gson = new Gson();
-        System.out.println(generateSignature(data));
-        System.out.println(signature);
         if(generateSignature(data).equals(signature)) {
             return gson.fromJson(new String(decodedBytes), Map.class);
         }else {
