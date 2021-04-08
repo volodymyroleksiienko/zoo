@@ -31,7 +31,7 @@ public class LiqPayDataServiceImpl implements LiqPayDataService {
         params.put("order_id", orderId);
         params.put("public_key", publicKey);
         params.put("version", "3");
-        params.put("sandbox", "1");
+        params.put("sandbox", "0");
         params.put("result_url", "https://1299386eb5fa.ngrok.io/");
         return base64_encode(JSONObject.toJSONString(params));
     }
