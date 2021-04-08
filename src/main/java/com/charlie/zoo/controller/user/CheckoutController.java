@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.Servlet;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 import java.util.UUID;
@@ -29,7 +32,11 @@ public class CheckoutController {
     public String getCheckout(@CookieValue(value = "id", defaultValue = "") String username, Model model,
                               HttpServletResponse httpServletResponse){
         username = cookieService.checkCookie(username,httpServletResponse,model);
-        String data = liqPayDataService.generateData("0.01", username);
+        double price = orderService.getSummaryPrice(orderService.findById(UUID.fromString(username)));
+
+        System.out.println(orderService.findById(UUID.fromString(username)));
+        System.out.println(String.format("%.2f",price).replace(",","."));
+        String data = liqPayDataService.generateData(String.format("%.2f",price).replace(",","."), username);
         model.addAttribute("paymentData",data);
         model.addAttribute("paymentSignature",liqPayDataService.generateSignature(data));
         modelConfig(model,username);
@@ -37,10 +44,11 @@ public class CheckoutController {
     }
 
     @PostMapping("/orderSubmit")
-    public void order(OrderInfo orderInfo,HttpServletResponse response,Model model){
+    public void order(OrderInfo orderInfo,HttpServletRequest request, HttpServletResponse response, Model model){
         orderService.submitOrder(orderInfo);
-        cookieService.createNewCookieId(response,model);
-//        return "redirect:/checkout/successful";
+        Cookie cookie = new Cookie("id", "");
+        cookie.setPath("/");
+        response.addCookie(cookie);
     }
 
     @PostMapping
@@ -58,7 +66,6 @@ public class CheckoutController {
 
     @GetMapping("/successful")
     public String get(Model model){
-        System.out.println("Successful request");
         return "user/successful-payment";
     }
 

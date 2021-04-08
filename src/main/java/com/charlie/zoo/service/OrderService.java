@@ -13,6 +13,7 @@ public interface OrderService {
     OrderInfo save(OrderInfo orderInfo);
     OrderInfo submitOrder(OrderInfo order);
     OrderInfo checkOrder(Map<String,String> data);
+    double getSummaryPrice(OrderInfo orderInfo);
     OrderInfo findById(UUID id);
     List<OrderInfo> findAll();
     List<OrderInfo> findByStatus(StatusOfEntity status);

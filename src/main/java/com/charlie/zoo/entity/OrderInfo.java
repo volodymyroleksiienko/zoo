@@ -28,7 +28,7 @@ public class OrderInfo {
     private boolean payByCash;
 
 
-    @OneToMany(mappedBy = "orderInfo")
+    @OneToMany(mappedBy = "orderInfo",fetch = FetchType.EAGER)
     private List<OrderDetails> orderDetails;
 
     @Enumerated(EnumType.STRING)
