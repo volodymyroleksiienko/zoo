@@ -95,32 +95,32 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr class="nk-tb-item" id="1">
-                                                        <td class="nk-tb-col tb-col-md">
+                                                    <tr class="nk-tb-item" th:id="${order.getId()}" th:each="order : ${orders}">
+                                                        <td class="nk-tb-col tb-col-md" th:text="${order.getDate()}">
                                                             01/01/2021
                                                         </td>
                                                         <td class="nk-tb-col" style="white-space: normal;">
                                                             <div class="user-info">
-                                                                <span class="tb-lead">Roman Tymochko</span>
+                                                                <span class="tb-lead" th:text="${order.getNameOfClient()}">Roman Tymochko</span>
                                                             </div>
                                                         </td>
                                                         <td class="nk-tb-col tb-col-sm">
-                                                            <span>+48-883-913-896</span>
+                                                            <span th:text="${order.getPhone()}">+48-883-913-896</span>
                                                         </td>
                                                         <td class="nk-tb-col">
-                                                            <span>14.88</span>
+                                                            <span th:text="${order.getPhone()}">14.88</span>
                                                         </td>
                                                         <td class="nk-tb-col tb-col-sm">
                                                             <input type="hidden" value="true">
-                                                            <span class="dot dot-success"></span>
+                                                            <span class="dot dot-success" th:text="${order.getPayment().toString()}"></span>
 <!--                                                            <span class="dot dot-danger"></span>-->
                                                         </td>
                                                         <td class="nk-tb-col tb-col-sm">
                                                             <input type="hidden" value="active">
-                                                            <span class="tb-status text-danger" >Статус</span>
+                                                            <span class="tb-status text-danger" th:text="${order.getStatusOfOrder().toString()}">Статус</span>
                                                         </td>
                                                         <td class="nk-tb-col tb-col-hide">
-                                                            <span>Lviv, Lorem ipsum dolor sit amet asdasd asdasda asdasda asda sd, 12</span>
+                                                            <span th:text="${order.getDescription()}">Lviv, Lorem ipsum dolor sit amet asdasd asdasda asdasda asda sd, 12</span>
                                                         </td>
                                                         <td class="nk-tb-col nk-tb-col-tools">
                                                             <ul class="nk-tb-actions gx-1">
@@ -130,7 +130,7 @@
                                                                         <div class="dropdown-menu dropdown-menu-right">
                                                                             <ul class="link-list-opt no-bdr">
                                                                                 <li><a data-toggle="modal" onclick="orderQuickView(this)"><em class="icon ni ni-eye"></em><span>Переглянути</span></a></li>
-                                                                                <li><a th:href="@{|/admin/products/edit/${p?.getId()}|}"><em class="icon ni ni-edit-alt"></em><span>Редагувати</span></a></li>
+                                                                                <li><a th:href="@{|/admin/orders/edit/${order?.getId()}|}"><em class="icon ni ni-edit-alt"></em><span>Редагувати</span></a></li>
                                                                                 <li><a data-toggle="modal" onclick="showConfirmationDeleteProductModal(this)" ><em class="icon ni ni-trash"></em><span>Видалити</span></a></li>
                                                                             </ul>
                                                                         </div>
@@ -180,7 +180,7 @@
                                 <small class="text-soft" id="orderDeliveryAddressModal"></small>
                             </h5>
                             <br>
-                            <form action="/admin/products/changeStatus" method="post">
+                            <form action="/admin/orders/cha" method="post">
                                 <input type="number" id="selectedForChangingStatusItem" hidden="" name="id">
                                 <div class="row align-center" style="    margin: 0 0 2rem;">
                                     <div class="col-6">
@@ -198,7 +198,7 @@
                                             <label class="form-label" for="statusOfOrder">Статус замовлення</label>
                                             <div class="form-control-wrap">
                                                 <select class="form-select" id="statusOfOrder" name="statusOfOrder">
-                                                    <option>Opt 1</option>
+                                                    <option></option>
                                                     <option>Opt 2</option>
                                                     <option value="active">Opt 3</option>
                                                 </select>
