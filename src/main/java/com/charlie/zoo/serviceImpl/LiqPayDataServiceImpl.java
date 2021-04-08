@@ -2,6 +2,7 @@ package com.charlie.zoo.serviceImpl;
 
 import com.charlie.zoo.service.LiqPayDataService;
 import com.google.gson.Gson;
+import com.liqpay.LiqPay;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,6 @@ public class LiqPayDataServiceImpl implements LiqPayDataService {
         params.put("order_id", orderId);
         params.put("public_key", publicKey);
         params.put("version", "3");
-        params.put("sandbox", "0");
         return base64_encode(JSONObject.toJSONString(params));
     }
 

@@ -230,6 +230,9 @@
                     </div>
                 </div>
             </div>
+            <div th:utext="${paymentData}">
+
+            </div>
              </section>
 
         <!-- End Checkout Area -->
@@ -478,58 +481,17 @@
             }).on("liqpay.callback", function(data){
                 console.log(data.status);
                 console.log(data);
-                    $.ajax({
-                        method: "get",
-                        url: "/cart",
-                        contextType: "application/json",
-                        data: {
-                            idOfPackageType: itemId,
-                            count: count,
-                        },
-                        traditional: true,
-                        success: function () {
-                            console.log('Updated!');
-                        },
-                        error: function () {
-                            alert("Помилка!!");
-                        }
-                    });
+                if(data==="success"){
+                    window.location.href = "/";
+                }
             }).on("liqpay.ready", function(data){
-                $.ajax({
-                    method: "get",
-                    url: "/cart",
-                    contextType: "application/json",
-                    data: {
-                        idOfPackageType: itemId,
-                        count: count,
-                    },
-                    traditional: true,
-                    success: function () {
-                        console.log('Updated!');
-                    },
-                    error: function () {
-                        alert("Помилка!!");
-                    }
-                });
             }).on("liqpay.close", function(data){
-                $.ajax({
-                    method: "get",
-                    url: "/cart",
-                    contextType: "application/json",
-                    data: {
-                        idOfPackageType: itemId,
-                        count: count,
-                    },
-                    traditional: true,
-                    success: function () {
-                        console.log('Updated!');
-                    },
-                    error: function () {
-                        alert("Помилка!!");
-                    }
-                });
             });
         };
+
+        function request() {
+           location.replace("/");
+        }
     </script>
     <script src="//static.liqpay.ua/libjs/checkout.js" async></script>
 
