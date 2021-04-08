@@ -94,9 +94,9 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr class="nk-tb-item">
+                                                    <tr class="nk-tb-item" id="1">
                                                         <td class="nk-tb-col tb-col-md">
-                                                            Дата
+                                                            01/01/2021
                                                         </td>
                                                         <td class="nk-tb-col" style="white-space: normal;">
                                                             <div class="user-info">
@@ -104,17 +104,18 @@
                                                             </div>
                                                         </td>
                                                         <td class="nk-tb-col tb-col-sm">
-                                                            <span>Телефон</span>
+                                                            <span>+48-883-913-896</span>
                                                         </td>
                                                         <td class="nk-tb-col">
-                                                            <span>Сума</span>
+                                                            <span>14.88</span>
                                                         </td>
                                                         <td class="nk-tb-col tb-col-sm">
+                                                            <input type="hidden" value="true">
                                                             <span class="dot dot-success"></span>
 <!--                                                            <span class="dot dot-danger"></span>-->
                                                         </td>
                                                         <td class="nk-tb-col tb-col-sm">
-<!--                                                            <span class="tb-status text-success" th:if="${p?.getStatusOfEntity()?.name()?.equals('ACTIVE')}">Active</span>-->
+                                                            <input type="hidden" value="active">
                                                             <span class="tb-status text-danger" >Статус</span>
                                                         </td>
                                                         <td class="nk-tb-col nk-tb-col-tools">
@@ -156,21 +157,50 @@
                     <div class="modal-content">
                         <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
                         <div class="modal-body modal-body-md">
-                            <h4 class="title" id="buyerNameModal">Змінити статус</h4>
+                            <h4 class="title">Замовлення від:</h4>
+                            <h5 class="title" id="buyerNameModal" style="width: 90%;"></h5>
+                            <a href="#" id="phoneNumberRefModal" class="btn btn-dim btn-primary" style="margin: 0.5rem 0 1.5rem;">
+                                <em class="icon ni ni-call"></em>
+                                <span id="phoneNumberModal">Button Regular</span>
+                            </a>
+                            <h5 class="fw-medium">
+                                Дата замовлення:
+                                <small class="text-soft" id="orderDateModal"></small>
+                            </h5>
+                            <h5 class="fw-medium">
+                                Сума замовлення:
+                                <small class="text-soft" id="orderAmountModal"></small>
+                            </h5>
                             <br>
                             <form action="/admin/products/changeStatus" method="post">
                                 <input type="number" id="selectedForChangingStatusItem" hidden="" name="id">
-                                <div class="form-group">
-                                    <div class="preview-block">
-                                        <span class="preview-title overline-title">Статус оплати</span>
-                                        <div class="custom-control custom-switch">
-                                            <input type="checkbox" class="custom-control-input" id="showItemSwitch" name="status">
-                                            <label class="custom-control-label" for="showItemSwitch">Оплачено</label>
+                                <div class="row align-center" style="    margin: 0 0 2rem;">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <div class="preview-block">
+                                                <span class="preview-title form-label" style="margin-bottom: 0;">Статус оплати</span>
+                                                <div class="custom-control custom-switch" style="margin-bottom: 0.5rem;">
+                                                    <input type="checkbox" class="custom-control-input" id="statusOfPayment" name="statusOfPayment">
+                                                    <label class="custom-control-label" for="statusOfPayment">Оплачено</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6" style="padding: 0">
+                                        <div class="form-group">
+                                            <label class="form-label" for="statusOfOrder">Статус замовлення</label>
+                                            <div class="form-control-wrap">
+                                                <select class="form-select" id="statusOfOrder" name="statusOfOrder">
+                                                    <option>Opt 1</option>
+                                                    <option>Opt 2</option>
+                                                    <option value="active">Opt 3</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-outline-primary">Змінити</button>
+                                    <button type="submit" class="btn btn-outline-primary">Зберегти</button>
                                     <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
                                 </div>
                             </form>
@@ -221,18 +251,29 @@
         let trObj = btnObj.closest("tbody tr");
         let trId =  $(trObj).attr('id');
 
-        let buyer =         $(trObj).find('td:eq(1)').text();
-        let status =        $(trObj).find('td:eq(6)').text();
-
-        // if (status.trim()=="Active"){
-        //     $('#showItemSwitch').attr("checked", true);
-        // }else if (status.trim()=="Archive") {
-        //     $('#showItemSwitch').attr("checked", false);
-        // }
-
         console.log("row id:" + $(trObj).attr('id'));
 
-        $('#buyerNameModal') .text("Замовлення від "+buyer);
+        $('#selectedForChangingStatusItem').val(trId);
+
+        let date =          $(trObj).find('td:eq(0)').text().trim();
+        let buyer =         $(trObj).find('td:eq(1)').text().trim();
+        let phone =         $(trObj).find('td:eq(2)').text().trim();
+        let amount =        $(trObj).find('td:eq(3)').text().trim();
+        let statusOfPayment=$(trObj).find('td:eq(4) input').val();
+        let statusOfOrder = $(trObj).find('td:eq(5) input').val();
+
+        if (statusOfPayment.trim()==="true"){
+            $('#statusOfPayment').attr("checked", true);
+        }else if (statusOfPayment.trim()==="false") {
+            $('#statusOfPayment').attr("checked", false);
+        }
+
+        $('#buyerNameModal').text(buyer);
+        $('#phoneNumberModal').text(phone);
+        $('#phoneNumberRefModal').attr('href', "tel:"+phone);
+        $('#orderDateModal').text(date);
+        $('#orderAmountModal').text(amount+" UAH");
+        $('#statusOfOrder').val(statusOfOrder).change();
 
         $('#quickViewModal').modal('show');
     }
