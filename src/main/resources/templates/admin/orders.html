@@ -90,6 +90,7 @@
                                                         <th class="nk-tb-col"><span class="sub-text">Сума</span></th>
                                                         <th class="nk-tb-col tb-col-sm"><span class="sub-text"><em class="icon ni ni-coins" style="font-size: initial"></em></span></th>
                                                         <th class="nk-tb-col tb-col-sm"><span class="sub-text">Статус</span></th>
+                                                        <th class="nk-tb-col tb-col-hide"><span class="sub-text">Адрес</span></th>
                                                         <th class="nk-tb-col"><span class="sub-text" style="text-align: right; padding-right: 2rem;">Дії</span></th>
                                                     </tr>
                                                 </thead>
@@ -117,6 +118,9 @@
                                                         <td class="nk-tb-col tb-col-sm">
                                                             <input type="hidden" value="active">
                                                             <span class="tb-status text-danger" >Статус</span>
+                                                        </td>
+                                                        <td class="nk-tb-col tb-col-hide">
+                                                            <span>Lviv, Lorem ipsum dolor sit amet asdasd asdasda asdasda asda sd, 12</span>
                                                         </td>
                                                         <td class="nk-tb-col nk-tb-col-tools">
                                                             <ul class="nk-tb-actions gx-1">
@@ -170,6 +174,10 @@
                             <h5 class="fw-medium">
                                 Сума замовлення:
                                 <small class="text-soft" id="orderAmountModal"></small>
+                            </h5>
+                            <h5 class="fw-medium">
+                                Адреса доставки:
+                                <small class="text-soft" id="orderDeliveryAddressModal"></small>
                             </h5>
                             <br>
                             <form action="/admin/products/changeStatus" method="post">
@@ -261,6 +269,7 @@
         let amount =        $(trObj).find('td:eq(3)').text().trim();
         let statusOfPayment=$(trObj).find('td:eq(4) input').val();
         let statusOfOrder = $(trObj).find('td:eq(5) input').val();
+        let deliveryAddress=$(trObj).find('td:eq(6)').text().trim();
 
         if (statusOfPayment.trim()==="true"){
             $('#statusOfPayment').attr("checked", true);
@@ -273,6 +282,7 @@
         $('#phoneNumberRefModal').attr('href', "tel:"+phone);
         $('#orderDateModal').text(date);
         $('#orderAmountModal').text(amount+" UAH");
+        $('#orderDeliveryAddressModal').text(deliveryAddress);
         $('#statusOfOrder').val(statusOfOrder).change();
 
         $('#quickViewModal').modal('show');
