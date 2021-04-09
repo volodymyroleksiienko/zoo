@@ -95,26 +95,26 @@
                                                     </div>
 
 
-                                                    <div class="col-sm-4">
-                                                        <div class="form-group">
-                                                            <label class="form-label">Категорія</label>
-                                                            <div class="form-control-wrap">
-                                                                <select class="form-select form-control form-control-lg" multiple="multiple" id="mainCategories" name="category">
-                                                                    <option th:each="ct :${categories}" th:value="${ct.getId()}" th:text="${ct.getAnimal().getName()+'>'+ct.getName()}" th:selected="${product?.getCategories()?.contains(ct)}"></option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-4">
-                                                        <div class="form-group">
-                                                            <label class="form-label">Підкатегорія</label>
-                                                            <div class="form-control-wrap">
-                                                                <select class="form-select form-control form-control-lg" multiple="multiple" id="subCategories" name="categoryItem">
-                                                                    <option th:each="it :${items}" th:value="${it.getId()}" th:text="${it.getCategory().getAnimal().getName()+'>'+it.getCategory().getName()+'>'+it.getName()}" th:selected="${product?.getCategoryItems()?.contains(it)}"></option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+<!--                                                    <div class="col-sm-4">-->
+<!--                                                        <div class="form-group">-->
+<!--                                                            <label class="form-label">Категорія</label>-->
+<!--                                                            <div class="form-control-wrap">-->
+<!--                                                                <select class="form-select form-control form-control-lg" multiple="multiple" id="mainCategories" name="category">-->
+<!--                                                                    <option th:each="ct :${categories}" th:value="${ct.getId()}" th:text="${ct.getAnimal().getName()+'>'+ct.getName()}" th:selected="${product?.getCategories()?.contains(ct)}"></option>-->
+<!--                                                                </select>-->
+<!--                                                            </div>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="col-sm-4">-->
+<!--                                                        <div class="form-group">-->
+<!--                                                            <label class="form-label">Підкатегорія</label>-->
+<!--                                                            <div class="form-control-wrap">-->
+<!--                                                                <select class="form-select form-control form-control-lg" multiple="multiple" id="subCategories" name="categoryItem">-->
+<!--                                                                    <option th:each="it :${items}" th:value="${it.getId()}" th:text="${it.getCategory().getAnimal().getName()+'>'+it.getCategory().getName()+'>'+it.getName()}" th:selected="${product?.getCategoryItems()?.contains(it)}"></option>-->
+<!--                                                                </select>-->
+<!--                                                            </div>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
 <!--                                                    <div class="col-12">-->
 <!--                                                        <div class="form-group">-->
 <!--                                                            <div class="preview-block">-->
@@ -301,64 +301,64 @@
                                                 </div>
                                                 <!-- Table -->
                                                 <hr class="preview-hr">
-                                                <table class="nk-tb-list nk-tb-ulist table-stripped" id="positionsTable" style="margin-top: 2rem;" data-auto-responsive="false">
-                                                    <thead>
-                                                    <tr class="nk-tb-item nk-tb-head">
-                                                        <td class="nk-tb-col tb-col-lg">Пак.</td>
-                                                        <td class="nk-tb-col">Одиниць</td>
-                                                        <td class="nk-tb-col tb-col-lg">На складі</td>
-                                                        <td class="nk-tb-col tb-col-hide">Активний</td>
-                                                        <td class="nk-tb-col">Ціна</td>
-                                                        <td class="nk-tb-col tb-col-hide">Акційний</td>
-                                                        <td class="nk-tb-col tb-col-lg">Акц. ціна</td>
-                                                        <td class="nk-tb-col tb-col-hide">Знижка</td>
+<!--                                                <table class="nk-tb-list nk-tb-ulist table-stripped" id="positionsTable" style="margin-top: 2rem;" data-auto-responsive="false">-->
+<!--                                                    <thead>-->
+<!--                                                    <tr class="nk-tb-item nk-tb-head">-->
+<!--                                                        <td class="nk-tb-col tb-col-lg">Пак.</td>-->
+<!--                                                        <td class="nk-tb-col">Одиниць</td>-->
+<!--                                                        <td class="nk-tb-col tb-col-lg">На складі</td>-->
+<!--                                                        <td class="nk-tb-col tb-col-hide">Активний</td>-->
+<!--                                                        <td class="nk-tb-col">Ціна</td>-->
+<!--                                                        <td class="nk-tb-col tb-col-hide">Акційний</td>-->
+<!--                                                        <td class="nk-tb-col tb-col-lg">Акц. ціна</td>-->
+<!--                                                        <td class="nk-tb-col tb-col-hide">Знижка</td>-->
 
-                                                        <td class="nk-tb-col tb-col-hide">Опт</td>
-                                                        <td class="nk-tb-col tb-col-lg">Ціна (опт)</td>
-                                                        <td class="nk-tb-col tb-col-hide">Акційний</td>
-                                                        <td class="nk-tb-col tb-col-lg">Акц. ціна</td>
-                                                        <td class="nk-tb-col tb-col-hide">Знижка</td>
+<!--                                                        <td class="nk-tb-col tb-col-hide">Опт</td>-->
+<!--                                                        <td class="nk-tb-col tb-col-lg">Ціна (опт)</td>-->
+<!--                                                        <td class="nk-tb-col tb-col-hide">Акційний</td>-->
+<!--                                                        <td class="nk-tb-col tb-col-lg">Акц. ціна</td>-->
+<!--                                                        <td class="nk-tb-col tb-col-hide">Знижка</td>-->
 
-                                                        <td class="nk-tb-col tb-col-hide">ID</td>
-                                                        <th class="nk-tb-col"><span class="sub-text" style="text-align: right; padding-right: 2rem;">Дії</span></th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr class="nk-tb-item nk-tb-head" th:each="type : ${product.getPackageType()}">
-                                                        <th class="nk-tb-col tb-col-lg" th:text="${type?.getPackType()}">Тип пакування</th>
-                                                        <td class="nk-tb-col" th:text="${type?.getPackSize()}">Кількість</td>
-                                                        <td class="nk-tb-col tb-col-lg" th:text="${type?.getCountOfProduct()}">К-сть на складі</td>
-                                                        <td class="nk-tb-col tb-col-hide" th:text="${(type?.getStatusOfEntity().name().equals('ACTIVE'))?'true':'false'}">Активний</td>
-                                                        <td class="nk-tb-col" th:text="${type?.getPrice()}">Ціна</td>
-                                                        <td class="nk-tb-col tb-col-hide" th:text="${type?.isOnSale()}">Акційний товар</td>
-                                                        <td class="nk-tb-col tb-col-lg" th:text="${type?.getNewPrice()}">Акційна ціна</td>
-                                                        <td class="nk-tb-col tb-col-hide" th:text="${type?.getDiscount()}">Знижка</td>
-                                                        <td class="nk-tb-col tb-col-hide"th:text="${type?.isWholeSaleStatus()}">Опт</td>
-                                                        <td class="nk-tb-col tb-col-lg" th:text="${type?.getWholeSalePrice()}">Ціна (опт)</td>
-                                                        <td class="nk-tb-col tb-col-hide" th:text="${type?.isWholeSaleOnSale()}">Акційний</td>
-                                                        <td class="nk-tb-col tb-col-lg" th:text="${type?.getWholeSaleNewPrice()}">Акц. ціна</td>
-                                                        <td class="nk-tb-col tb-col-hide" th:text="${type?.getWholeSaleDiscount()}">Знижка</td>
+<!--                                                        <td class="nk-tb-col tb-col-hide">ID</td>-->
+<!--                                                        <th class="nk-tb-col"><span class="sub-text" style="text-align: right; padding-right: 2rem;">Дії</span></th>-->
+<!--                                                    </tr>-->
+<!--                                                    </thead>-->
+<!--                                                    <tbody>-->
+<!--                                                    <tr class="nk-tb-item nk-tb-head" th:each="type : ${order.getPackageType()}">-->
+<!--                                                        <th class="nk-tb-col tb-col-lg" th:text="${type?.getPackType()}">Тип пакування</th>-->
+<!--                                                        <td class="nk-tb-col" th:text="${type?.getPackSize()}">Кількість</td>-->
+<!--                                                        <td class="nk-tb-col tb-col-lg" th:text="${type?.getCountOfProduct()}">К-сть на складі</td>-->
+<!--                                                        <td class="nk-tb-col tb-col-hide" th:text="${(type?.getStatusOfEntity().name().equals('ACTIVE'))?'true':'false'}">Активний</td>-->
+<!--                                                        <td class="nk-tb-col" th:text="${type?.getPrice()}">Ціна</td>-->
+<!--                                                        <td class="nk-tb-col tb-col-hide" th:text="${type?.isOnSale()}">Акційний товар</td>-->
+<!--                                                        <td class="nk-tb-col tb-col-lg" th:text="${type?.getNewPrice()}">Акційна ціна</td>-->
+<!--                                                        <td class="nk-tb-col tb-col-hide" th:text="${type?.getDiscount()}">Знижка</td>-->
+<!--                                                        <td class="nk-tb-col tb-col-hide"th:text="${type?.isWholeSaleStatus()}">Опт</td>-->
+<!--                                                        <td class="nk-tb-col tb-col-lg" th:text="${type?.getWholeSalePrice()}">Ціна (опт)</td>-->
+<!--                                                        <td class="nk-tb-col tb-col-hide" th:text="${type?.isWholeSaleOnSale()}">Акційний</td>-->
+<!--                                                        <td class="nk-tb-col tb-col-lg" th:text="${type?.getWholeSaleNewPrice()}">Акц. ціна</td>-->
+<!--                                                        <td class="nk-tb-col tb-col-hide" th:text="${type?.getWholeSaleDiscount()}">Знижка</td>-->
 
-                                                        <td class="nk-tb-col tb-col-hide" th:text="${type?.getId()}">ID</td>
-                                                        <td class='nk-tb-col nk-tb-col-tools'>
-                                                            <ul class="nk-tb-actions gx-1">
-                                                                <li>
-                                                                    <div class="drodown">
-                                                                        <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-                                                                        <div class="dropdown-menu dropdown-menu-right\">
-                                                                            <ul class="link-list-opt no-bdr">
-                                                                                <li><a data-toggle="modal" onclick="showEditItemModal(this)"><em class="icon ni ni-edit-alt"></em><span>Редагувати</span></a></li>
-                                                                                <li><a data-toggle="modal" onclick="showConfirmationDeleteItemModal(this)" ><em class="icon ni ni-trash"></em><span>Видалити</span></a></li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                                <!-- Table -->
+<!--                                                        <td class="nk-tb-col tb-col-hide" th:text="${type?.getId()}">ID</td>-->
+<!--                                                        <td class='nk-tb-col nk-tb-col-tools'>-->
+<!--                                                            <ul class="nk-tb-actions gx-1">-->
+<!--                                                                <li>-->
+<!--                                                                    <div class="drodown">-->
+<!--                                                                        <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>-->
+<!--                                                                        <div class="dropdown-menu dropdown-menu-right\">-->
+<!--                                                                            <ul class="link-list-opt no-bdr">-->
+<!--                                                                                <li><a data-toggle="modal" onclick="showEditItemModal(this)"><em class="icon ni ni-edit-alt"></em><span>Редагувати</span></a></li>-->
+<!--                                                                                <li><a data-toggle="modal" onclick="showConfirmationDeleteItemModal(this)" ><em class="icon ni ni-trash"></em><span>Видалити</span></a></li>-->
+<!--                                                                            </ul>-->
+<!--                                                                        </div>-->
+<!--                                                                    </div>-->
+<!--                                                                </li>-->
+<!--                                                            </ul>-->
+<!--                                                        </td>-->
+<!--                                                    </tr>-->
+<!--                                                    </tbody>-->
+<!--                                                </table>-->
+<!--                                                &lt;!&ndash; Table &ndash;&gt;-->
                                                 <div class="form-group" style="margin-top: 1rem;">
                                                     <button type="button" id="addProductBtn" class="btn btn-outline-primary">Зберегти</button>
                                                     <a href="/admin/products" type="button" class="btn btn-outline-danger">Скасувати</a>

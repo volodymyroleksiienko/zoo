@@ -32,11 +32,6 @@ public class AdminOrderController {
     @GetMapping("/orderReview/{orderId}")
     public String editProducts(@PathVariable UUID orderId, Model model){
         model.addAttribute("order", orderService.findById(orderId));
-//        model.addAttribute("productMainImg",imageService.findMainByProductId(productId));
-//        model.addAttribute("categories",categoryService.findAll());
-//        model.addAttribute("items",categoryItemService.findAll());
-//        model.addAttribute("producers",producerService.findAll());
-//        model.addAttribute("products",productService.findAll());
         return "admin/singleOrder";
     }
 }
