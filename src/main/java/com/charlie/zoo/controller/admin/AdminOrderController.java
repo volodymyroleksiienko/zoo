@@ -1,11 +1,10 @@
 package com.charlie.zoo.controller.admin;
 
+import com.charlie.zoo.entity.OrderInfo;
 import com.charlie.zoo.service.OrderDetailsService;
 import com.charlie.zoo.service.OrderService;
 import com.charlie.zoo.service.PackageTypeService;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -38,10 +37,12 @@ public class AdminOrderController {
         return "admin/singleOrder";
     }
 
-    @ResponseBody
     @PostMapping("/deleteDetail")
-    public void findPackType(int id){
+    public String findPackType(int id,String currentUrl){
+        OrderInfo orderInfo = orderDetailsService.findById(id).getOrderInfo();
         orderDetailsService.deleteByID(id);
+        orderService.save(orderInfo);
+        return "redirect:"+currentUrl;
     }
 
     @ResponseBody
