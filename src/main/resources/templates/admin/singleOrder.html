@@ -541,9 +541,11 @@
         console.log(searchString);
         $.ajax({
             method: "post",
-            url: "/admin/products/search",
+            url: "/admin/orders/findPackType",
             contextType: "application/json",
-            data: searchString,
+            data: {
+                productName:searchString
+            },
             success: function (result) {
               console.log(result);
             },

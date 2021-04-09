@@ -2,6 +2,8 @@ package com.charlie.zoo.controller.admin;
 
 import com.charlie.zoo.entity.OrderDetails;
 import com.charlie.zoo.entity.OrderInfo;
+import com.charlie.zoo.entity.PackageType;
+import com.charlie.zoo.entity.dto.PackageTypeDto;
 import com.charlie.zoo.service.OrderDetailsService;
 import com.charlie.zoo.service.OrderService;
 import com.charlie.zoo.service.PackageTypeService;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -65,8 +68,8 @@ public class AdminOrderController {
     }
 
     @ResponseBody
-    @GetMapping("/findPackType")
-    public String findPackType(String productName){
-        return packageTypeService.findFirst2ByProductNameContaining(productName).toString();
+    @PostMapping("/findPackType")
+    public List<PackageTypeDto> findPackType(String productName){
+        return PackageTypeDto.convertToListDto(packageTypeService.findFirst2ByProductNameContaining(productName));
     }
 }

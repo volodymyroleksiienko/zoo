@@ -93,6 +93,14 @@ public class PackageTypeDto {
         return packageTypeDto;
     }
 
+    public static List<PackageTypeDto> convertToListDto(List<PackageType> packageTypes){
+        List<PackageTypeDto> dtos = new ArrayList<>();
+        for(PackageType type: packageTypes){
+            dtos.add(PackageTypeDto.convertToDto(type));
+        }
+        return dtos;
+    }
+
     public static PackageType convertToPackageType(PackageTypeDto packageTypeDto){
         PackageType packageType = new PackageType();
 
