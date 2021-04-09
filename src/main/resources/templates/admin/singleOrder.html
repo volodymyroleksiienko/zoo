@@ -969,7 +969,8 @@
 
     function showConfirmationDeleteItemModal(btnObj){
         let trObj = btnObj.closest("tbody tr");
-        $('#selectedForDeleteItem').val(t.row(trObj).index());
+        $('#selectedForDeleteItem').val(trObj.id);
+        console.log(trObj.id);
         $('#deleteProductModal').modal('show');
     }
 
