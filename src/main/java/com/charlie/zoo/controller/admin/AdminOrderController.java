@@ -47,6 +47,15 @@ public class AdminOrderController {
         orderService.save(orderInfo);
         return "redirect:"+currentUrl;
     }
+    @PostMapping("/deleteDetail")
+    public String findPackType(int id,String currentUrl){
+        OrderDetails details = orderDetailsService.findById(id);
+        OrderInfo orderInfo = details.getOrderInfo();
+        orderInfo.getOrderDetails().remove(details);
+        orderDetailsService.deleteByID(id);
+        orderService.save(orderInfo);
+        return "redirect:"+currentUrl;
+    }
 
     @ResponseBody
     @GetMapping("/findPackType")
