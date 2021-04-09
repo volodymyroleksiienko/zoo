@@ -1,5 +1,6 @@
 package com.charlie.zoo.controller.admin;
 
+import com.charlie.zoo.service.OrderDetailsService;
 import com.charlie.zoo.service.OrderService;
 import com.charlie.zoo.service.PackageTypeService;
 import lombok.AllArgsConstructor;
@@ -16,6 +17,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class AdminOrderController {
     private final OrderService orderService;
+    private final OrderDetailsService orderDetailsService;
     private final PackageTypeService packageTypeService;
 
     @GetMapping
@@ -34,6 +36,12 @@ public class AdminOrderController {
     public String editProducts(@PathVariable UUID orderId, Model model){
         model.addAttribute("order", orderService.findById(orderId));
         return "admin/singleOrder";
+    }
+
+    @ResponseBody
+    @PostMapping("/deleteDetail")
+    public void findPackType(int id){
+        orderDetailsService.deleteByID(id);
     }
 
     @ResponseBody
