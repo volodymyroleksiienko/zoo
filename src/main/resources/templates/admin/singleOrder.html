@@ -154,9 +154,8 @@
                                                         <div class="form-group">
                                                             <div class="preview-block">
                                                                 <div class="custom-control custom-switch">
-                                                                    <input type="checkbox" th:if="${order.isLvivDelivering()==true}" checked class="custom-control-input" id="cityDelivery" onclick="changeDelivery('#cityDelivery', '#countryDelivery')" name="cityDelivery">
-                                                                    <input type="checkbox" th:if="${order.isLvivDelivering()!=true}" class="custom-control-input" id="cityDelivery" onclick="changeDelivery('#cityDelivery', '#countryDelivery')" name="cityDelivery">
-                                                                    <label class="custom-control-label" for="cityDelivery">Доставка по Львову</label>
+                                                                    <input type="checkbox" th:checked="${order.isLvivDelivering()==true}"  class="custom-control-input" id="cityDelivery" onchange="changeDelivery('#cityDelivery', '#countryDelivery')" name="cityDelivery">
+                                                                     <label class="custom-control-label" for="cityDelivery">Доставка по Львову</label>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -165,8 +164,7 @@
                                                         <div class="form-group">
                                                             <div class="preview-block">
                                                                 <div class="custom-control custom-switch">
-                                                                    <input type="checkbox" th:if="${order.isNovaPoshtaDelivering()==true}" checked class="custom-control-input" id="countryDelivery" onclick="changeDelivery('#countryDelivery', '#cityDelivery')" name="countryDelivery">
-                                                                    <input type="checkbox" th:if="${order.isNovaPoshtaDelivering()!=true}" class="custom-control-input" id="countryDelivery" onclick="changeDelivery('#countryDelivery', '#cityDelivery')" name="countryDelivery">
+                                                                    <input type="checkbox" th:checked="${order.isNovaPoshtaDelivering()==true}"  class="custom-control-input" id="countryDelivery" onchange="changeDelivery('#countryDelivery', '#cityDelivery')" name="countryDelivery">
                                                                     <label class="custom-control-label" for="countryDelivery">Нова Пошта</label>
                                                                 </div>
                                                             </div>
@@ -847,12 +845,12 @@
         console.log("c:"+current+"; n:"+next);
         if ($(current).is(':checked')){
             console.log("act");
-            $(current).prop("checked", false);
-            $(next).prop('checked', true);
+            $(next).prop("checked", false);
+            $(current).prop('checked', true);
         }else{
             console.log("not");
-            $(current).prop('checked', true);
-            $(next).prop('checked', false);
+            $(next).prop('checked', true);
+            $(current).prop('checked', false);
         }
     }
 
