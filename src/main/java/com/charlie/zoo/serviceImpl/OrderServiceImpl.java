@@ -39,6 +39,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderInfo update(OrderInfo order) {
         OrderInfo orderDB = findById(order.getId());
+        orderDB.setDate(order.getDate());
         orderDB.setNameOfClient(order.getNameOfClient());
         orderDB.setPhone(order.getPhone());
         orderDB.setDescription(order.getDescription());
