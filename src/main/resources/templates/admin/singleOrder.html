@@ -80,10 +80,11 @@
                                 </div><!-- .nk-block-head -->
                                 <div class="nk-block nk-block-lg">
                                     <div class="card card-bordered card-preview">
+
                                         <div class="card-inner">
                                             <div class="preview-block">
                                                 <span class="preview-title-lg overline-title">Замовник</span>
-                                                <input id="hiddenIdOfOrder" type="number" hidden="">
+                                                <input id="hiddenIdOfOrder" type="number" hidden="" name="id" th:value="${order.getId()}">
                                                 <div class="row gy-4">
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
@@ -233,6 +234,7 @@
                                                 </div>
                                             </div>
                                         </div>
+<!--                                        </form>-->
                                     </div><!-- .card-preview -->
                                 </div><!-- .nk-block -->
                             </div><!-- .components-preview -->
@@ -412,12 +414,12 @@
                                             <span class="overline-title">ШТ</span>
                                         </div>
                                         <label class="form-label" for="editProductsAmount">Кількість</label>
-                                        <input type="number" min="0" step="1" class="form-control" id="editProductsAmount" placeholder="Не заповнено...">
+                                        <input type="number" min="0" step="1" name="count" class="form-control" id="editProductsAmount" placeholder="Не заповнено...">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <button type="submit" onclick="removeRow($('#rowIndex').val())" class="btn btn-outline-primary">Підтвердити</button>
+                                    <button type="submit" class="btn btn-outline-primary">Підтвердити</button>
                                     <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
                                 </div>
                             </form>
