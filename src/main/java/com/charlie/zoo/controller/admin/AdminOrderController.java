@@ -1,5 +1,6 @@
 package com.charlie.zoo.controller.admin;
 
+import com.charlie.zoo.entity.OrderDetails;
 import com.charlie.zoo.entity.OrderInfo;
 import com.charlie.zoo.service.OrderDetailsService;
 import com.charlie.zoo.service.OrderService;
@@ -39,7 +40,9 @@ public class AdminOrderController {
 
     @PostMapping("/deleteDetail")
     public String findPackType(int id,String currentUrl){
-        OrderInfo orderInfo = orderDetailsService.findById(id).getOrderInfo();
+        OrderDetails details = orderDetailsService.findById(id);
+        OrderInfo orderInfo = details.getOrderInfo();
+        orderInfo.getOrderDetails().remove(details);
         orderDetailsService.deleteByID(id);
         orderService.save(orderInfo);
         return "redirect:"+currentUrl;
