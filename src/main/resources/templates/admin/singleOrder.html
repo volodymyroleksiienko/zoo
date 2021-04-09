@@ -150,6 +150,36 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <div class="preview-block">
+                                                                <div class="custom-control custom-switch">
+                                                                    <input type="checkbox" th:if="${order.isLvivDelivering()==true}" checked class="custom-control-input" id="cityDelivery" onclick="changeDelivery('#cityDelivery', '#countryDelivery')" name="cityDelivery">
+                                                                    <input type="checkbox" th:if="${order.isLvivDelivering()!=true}" class="custom-control-input" id="cityDelivery" onclick="changeDelivery('#cityDelivery', '#countryDelivery')" name="cityDelivery">
+                                                                    <label class="custom-control-label" for="cityDelivery">Доставка по Львову</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <div class="preview-block">
+                                                                <div class="custom-control custom-switch">
+                                                                    <input type="checkbox" th:if="${order.isNovaPoshtaDelivering()==true}" checked class="custom-control-input" id="countryDelivery" onclick="changeDelivery('#countryDelivery', '#cityDelivery')" name="countryDelivery">
+                                                                    <input type="checkbox" th:if="${order.isNovaPoshtaDelivering()!=true}" class="custom-control-input" id="countryDelivery" onclick="changeDelivery('#countryDelivery', '#cityDelivery')" name="countryDelivery">
+                                                                    <label class="custom-control-label" for="countryDelivery">Нова Пошта</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="deliveryAddress">Адреса доставки</label>
+                                                            <div class="form-control-wrap">
+                                                                <textarea class="form-control" th:text="${order.getDescription().trim()}" id="deliveryAddress" name="deliveryAddress"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <hr class="preview-hr">
                                                 <span class="preview-title-lg overline-title">Замовлення (товари)</span>
@@ -167,7 +197,7 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr class="nk-tb-item nk-tb-head" th:each="detail:${order.getOrderDetails()}" th:id="${detail?.getId()}">
-                                                            <th class="nk-tb-col tb-col-lg">
+                                                            <th class="nk-tb-col tb-col-lg" style="width: 20%;">
                                                                 <img th:src="'/shop/getImgByProductId/'+${detail?.getPackageType()?.getProduct()?.getId()}" >
                                                             </th>
                                                             <td class="nk-tb-col" th:text="${detail?.getPackageType()?.getProduct()?.getName()}">Назва</td>
@@ -813,6 +843,18 @@
         });//button click end
     });//ready() end
 
+    function changeDelivery(current, next) {
+        console.log("c:"+current+"; n:"+next);
+        if ($(current).is(':checked')){
+            console.log("act");
+            $(current).prop("checked", false);
+            $(next).prop('checked', true);
+        }else{
+            console.log("not");
+            $(current).prop('checked', true);
+            $(next).prop('checked', false);
+        }
+    }
 
     function calculatePercentage(productPrice, productPromotionalPrice, percentage) {
         let price = parseFloat(productPrice.val().trim());
