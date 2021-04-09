@@ -89,7 +89,7 @@
                                                         <div class="form-group">
                                                             <label class="form-label" for="customerNameSurname">Прізвище, ім'я</label>
                                                             <div class="form-control-wrap">
-                                                                <input type="text" class="form-control" th:value="${order.getNameOfClient()}" id="customerNameSurname" placeholder="Не заповнено..." name="nameSurname">
+                                                                <input type="text" class="form-control" th:value="${order?.getNameOfClient()}" id="customerNameSurname" placeholder="Не заповнено..." name="nameSurname">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -97,7 +97,7 @@
                                                         <div class="form-group">
                                                             <label class="form-label" for="customerPhoneNumber">Телефон</label>
                                                             <div class="form-control-wrap">
-                                                                <input type="text" id="customerPhoneNumber" th:value="${order.getPhone()}" placeholder="Введіть номер телефону*" value="+380" class="form-control" name="phone">
+                                                                <input type="text" id="customerPhoneNumber" th:value="${order?.getPhone()}" placeholder="Введіть номер телефону*" value="+380" class="form-control" name="phone">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -109,7 +109,7 @@
                                                         <div class="form-group">
                                                             <label class="form-label" for="orderDate">Дата</label>
                                                             <div class="form-control-wrap">
-                                                                <input type="date" class="form-control" th:value="${order.getDate()}" id="orderDate" name="orderDate">
+                                                                <input type="date" class="form-control" th:value="${order?.getDate()}" id="orderDate" name="orderDate">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -120,7 +120,7 @@
                                                                     <span class="overline-title">UAH</span>
                                                                 </div>
                                                                 <label class="form-label" for="orderPrice">Сума</label>
-                                                                <input type="number" class="form-control" th:value="${order.getSumPrice()}" readonly id="orderPrice" name="orderPrice">
+                                                                <input type="number" class="form-control" th:value="${order?.getSumPrice()}" readonly id="orderPrice" name="orderPrice">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -128,11 +128,11 @@
                                                         <div class="form-group">
                                                             <label class="form-label" for="statusOfPayment">Статус оплати</label>
                                                             <div class="form-control-wrap">
-                                                                <select class="form-select" id="statusOfPayment" name="statusOfPayment" th:value="${order.getPayment()}">
-                                                                    <option value="NOT_SUBMITTED">NOT_SUBMITTED</option>
-                                                                    <option value="WAIT_FOR_PAYMENT">WAIT_FOR_PAYMENT</option>
-                                                                    <option value="PAYMENT_BY_CASH">PAYMENT_BY_CASH</option>
-                                                                    <option value="SUBMITTED">SUBMITTED</option>
+                                                                <select class="form-select" id="statusOfPayment" name="statusOfPayment" >
+                                                                    <option value="NOT_SUBMITTED" th:selected="${order.getPayment().toString().equals('NOT_SUBMITTED')}">NOT_SUBMITTED</option>
+                                                                    <option value="WAIT_FOR_PAYMENT" th:selected="${order.getPayment().toString().equals('WAIT_FOR_PAYMENT')}">WAIT_FOR_PAYMENT</option>
+                                                                    <option value="PAYMENT_BY_CASH" th:selected="${order.getPayment().toString().equals('PAYMENT_BY_CASH')}">PAYMENT_BY_CASH</option>
+                                                                    <option value="SUBMITTED" th:selected="${order.getPayment().toString().equals('SUBMITTED')}">SUBMITTED</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -142,10 +142,10 @@
                                                             <label class="form-label" for="statusOfOrder">Статус замовлення</label>
                                                             <div class="form-control-wrap">
                                                                 <select class="form-select" id="statusOfOrder" name="statusOfOrder" th:value="${order.getStatusOfOrder()}">
-                                                                    <option value="NEW">NEW</option>
-                                                                    <option value="DELIVERED">DELIVERED</option>
-                                                                    <option value="FINISHED">FINISHED</option>
-                                                                    <option value="CANCELLED">CANCELLED</option>
+                                                                    <option value="NEW" th:selected="${order.getStatusOfOrder().toString().equals('SUBMITTED')}">NEW</option>
+                                                                    <option value="DELIVERED" th:selected="${order.getStatusOfOrder().toString().equals('DELIVERED')}">DELIVERED</option>
+                                                                    <option value="FINISHED" th:selected="${order.getStatusOfOrder().toString().equals('FINISHED')}">FINISHED</option>
+                                                                    <option value="CANCELLED" th:selected="${order.getStatusOfOrder().toString().equals('CANCELLED')}">CANCELLED</option>
                                                                 </select>
                                                             </div>
                                                         </div>

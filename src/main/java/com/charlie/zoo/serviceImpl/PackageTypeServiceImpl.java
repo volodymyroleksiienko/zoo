@@ -4,9 +4,11 @@ import com.charlie.zoo.entity.PackageType;
 import com.charlie.zoo.jpa.PackageTypeJPA;
 import com.charlie.zoo.service.PackageTypeService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.awt.print.Pageable;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -29,6 +31,12 @@ public class PackageTypeServiceImpl implements PackageTypeService {
     public List<PackageType> findAll() {
         return packageTypeJPA.findAll();
     }
+
+    @Override
+    public List<PackageType> findFirst2ByProductNameContaining(String name) {
+        return packageTypeJPA.findFirst2ByProductNameContaining(name);
+    }
+
 
     @Override
     public void deleteByID(int id) {

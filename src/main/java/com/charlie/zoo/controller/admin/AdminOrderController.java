@@ -1,13 +1,13 @@
 package com.charlie.zoo.controller.admin;
 
 import com.charlie.zoo.service.OrderService;
+import com.charlie.zoo.service.PackageTypeService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -16,6 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class AdminOrderController {
     private final OrderService orderService;
+    private final PackageTypeService packageTypeService;
 
     @GetMapping
     public String get(Model model){
@@ -33,5 +34,11 @@ public class AdminOrderController {
     public String editProducts(@PathVariable UUID orderId, Model model){
         model.addAttribute("order", orderService.findById(orderId));
         return "admin/singleOrder";
+    }
+
+    @ResponseBody
+    @GetMapping("/findPackType")
+    public String findPackType(String productName){
+        return packageTypeService.findFirst2ByProductNameContaining(productName).toString();
     }
 }
