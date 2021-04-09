@@ -245,47 +245,21 @@
 
 
             <!-- Change item start -->
-            <div class="modal fade" tabindex="-1" role="dialog" id="editItemModal" aria-modal="true">
+            <div class="modal fade" tabindex="-1" role="dialog" id="addProductModal" aria-modal="true">
                 <div class="modal-dialog modal-xl" role="document">
                     <div class="modal-content">
                         <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
                         <div class="modal-body modal-body-md">
-                            <h4 class="title">Змінити позицію</h4>
+                            <h4 class="title">Добавити товар</h4>
                             <br>
                             <input type="number" id="rowIndex" hidden="">
                             <input type="number" id="editItemId" hidden="">
                             <div class="row gy-4 align-center">
-                                <div class="col-md-3">
+                                <div class="col-9">
                                     <div class="form-group">
-                                        <label class="form-label">Тип пакування</label>
+                                        <label class="form-label">Пошук</label>
                                         <div class="form-control-wrap">
-                                            <input type="text" class="form-control" id="editPackageType" placeholder="Тип пакування...">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label class="form-label" for="editPackSize">Одиниць</label>
-                                        <div class="form-control-wrap">
-                                            <input type="number" min="1" value="1" step="1" class="form-control" id="editPackSize" placeholder="Одиниць...">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label class="form-label" for="editInStock">К-сть на складі</label>
-                                        <div class="form-control-wrap">
-                                            <input type="number" min="1" value="1" step="1" class="form-control" id="editInStock" placeholder="Кількість...">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <div class="preview-block">
-                                            <div class="custom-control custom-switch">
-                                                <input type="checkbox" class="custom-control-input" id="editActiveProductItem">
-                                                <label class="custom-control-label" for="editActiveProductItem">Активний</label>
-                                            </div>
+                                            <input type="search" class="form-control" id="searchProduct" oninput="setSearchDelay()" placeholder="Почніть введення...">
                                         </div>
                                     </div>
                                 </div>
@@ -293,95 +267,10 @@
                                     <div class="form-group">
                                         <div class="form-control-wrap">
                                             <div class="form-text-hint" style="top: 50%;">
-                                                <span class="overline-title">UAH</span>
+                                                <span class="overline-title">ШТ</span>
                                             </div>
-                                            <label class="form-label" for="editProductPrice">Ціна</label>
-                                            <input type="number" min="0" class="form-control" id="editProductPrice" placeholder="Не заповнено..." value="0.00">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <div class="form-control-wrap">
-                                            <div class="form-text-hint" style="top: 50%;">
-                                                <span class="overline-title">UAH</span>
-                                            </div>
-                                            <label class="form-label" for="editProductPromotionalPrice">Акційна ціна</label>
-                                            <input type="number" min="0" class="form-control" id="editProductPromotionalPrice" placeholder="Не заповнено..." value="0.00">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <div class="form-control-wrap">
-                                            <div class="form-text-hint" style="top: 50%;">
-                                                <span class="overline-title">%</span>
-                                            </div>
-                                            <label class="form-label" for="editProductPromotionalPricePercentage">Знижка</label>
-                                            <input type="number" class="form-control" id="editProductPromotionalPricePercentage" placeholder="Не заповнено..." value="0.00">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <div class="preview-block">
-                                            <div class="custom-control custom-switch">
-                                                <input type="checkbox" class="custom-control-input" id="editPromotedProduct">
-                                                <label class="custom-control-label" for="editPromotedProduct">Акційний товар</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <div class="preview-block">
-                                            <div class="custom-control custom-switch">
-                                                <input type="checkbox" class="custom-control-input" id="editWholeSaleProduct">
-                                                <label class="custom-control-label" for="editWholeSaleProduct">Оптова торгівля</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <div class="form-control-wrap">
-                                            <div class="form-text-hint" style="top: 50%;">
-                                                <span class="overline-title">UAH</span>
-                                            </div>
-                                            <label class="form-label" for="editWholeSaleProductPrice">Ціна</label>
-                                            <input type="number" min="0" class="form-control" id="editWholeSaleProductPrice" placeholder="Не заповнено..." value="0.00">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <div class="form-control-wrap">
-                                            <div class="form-text-hint" style="top: 50%;">
-                                                <span class="overline-title">UAH</span>
-                                            </div>
-                                            <label class="form-label" for="editWholeSaleProductPromotionalPrice">Акційна ціна</label>
-                                            <input type="number" min="0" class="form-control" id="editWholeSaleProductPromotionalPrice" placeholder="Не заповнено..." value="0.00">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <div class="form-control-wrap">
-                                            <div class="form-text-hint" style="top: 50%;">
-                                                <span class="overline-title">%</span>
-                                            </div>
-                                            <label class="form-label" for="editWholeSaleProductPromotionalPricePercentage">Знижка</label>
-                                            <input type="number" class="form-control" id="editWholeSaleProductPromotionalPricePercentage" placeholder="Не заповнено..." value="0.00">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <div class="preview-block">
-                                            <div class="custom-control custom-switch">
-                                                <input type="checkbox" class="custom-control-input" id="editWholeSalePromotedProduct">
-                                                <label class="custom-control-label" for="editWholeSalePromotedProduct">Акційний товар</label>
-                                            </div>
+                                            <label class="form-label" for="addProductsAmount">Кількість</label>
+                                            <input type="number" min="0" step="1" name="count" class="form-control" id="addProductsAmount" value="1" placeholder="Не заповнено...">
                                         </div>
                                     </div>
                                 </div>
@@ -442,7 +331,7 @@
                                 <input type="text" hidden="" th:value="${'/admin/orders/orderReview/'+order.getId()}" name="currentUrl">
                                 <p style="margin-bottom: 2rem;">Ви впевнені, що хочете видалити позицію? Підтвердивши дію, Ви не зможете повернутися до попереднього стану.</p>
                                 <div class="form-group">
-                                    <button type="submit" onclick="removeRow($('#rowIndex').val())" class="btn btn-outline-primary">Підтвердити</button>
+                                    <button type="submit" class="btn btn-outline-primary">Підтвердити</button>
                                     <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
                                 </div>
                             </form>
@@ -469,7 +358,6 @@
 
 <!--<script th:src="@{/js/example-sweetalert.js}"></script>-->
 <script>
-
     let t = $('#positionsTable').DataTable({
         "autoWidth": false,
         "searching": false,
@@ -482,82 +370,83 @@
         $('#customerPhoneNumber').inputmask('+(999)-999-999-999');
 
         $('#addPosition').on( 'click', function () {
-            let packageType =               $('#packageType').val().trim();
-            let packSize =                  $('#packSize').val().trim();
-            let inStock =                   $('#inStock').val().trim();
-            let activeProductItem =         $('#activeProductItem').is(":checked");
-            let productPrice =              $('#productPrice').val().trim();
-            let productPromotionalPrice =   $('#productPromotionalPrice').val().trim();
-            let promotedProduct =           $('#promotedProduct').is(":checked");
-            let discountVal =               $('#productPromotionalPricePercentage').val().trim();
-
-            let wholeSaleProduct =                          $('#wholeSaleProduct').is(":checked");
-            let wholeSaleProductPrice =                     $('#wholeSaleProductPrice').val().trim();
-            let wholeSaleProductPromotionalPrice =          $('#wholeSaleProductPromotionalPrice').val().trim();
-            let wholeSalePromotedProduct =                  $('#wholeSalePromotedProduct').is(":checked");
-            let wholeSaleProductPromotionalPricePercentage= $('#wholeSaleProductPromotionalPricePercentage').val().trim();
-
-            let id =                        0;
-
-            let rowNode = t.row.add([
-                packageType,
-                packSize,
-                inStock,
-                activeProductItem,
-                productPrice,
-                promotedProduct,
-                productPromotionalPrice,
-                discountVal,
-
-                wholeSaleProduct,
-                wholeSaleProductPrice,
-                wholeSalePromotedProduct,
-                wholeSaleProductPromotionalPrice,
-                wholeSaleProductPromotionalPricePercentage,
-
-                id,
-                btn
-            ]).draw(false).node();
-            $(rowNode).addClass('nk-tb-item');
-
-            $( rowNode ).find('td').eq(0).addClass('nk-tb-col tb-col-lg');
-            $( rowNode ).find('td').eq(1).addClass('nk-tb-col');
-            $( rowNode ).find('td').eq(2).addClass('nk-tb-col tb-col-lg');
-            $( rowNode ).find('td').eq(3).addClass('nk-tb-col tb-col-hide');
-            $( rowNode ).find('td').eq(4).addClass('nk-tb-col');
-            $( rowNode ).find('td').eq(5).addClass('nk-tb-col tb-col-hide');
-            $( rowNode ).find('td').eq(6).addClass('nk-tb-col tb-col-lg');
-            $( rowNode ).find('td').eq(7).addClass('nk-tb-col tb-col-hide');
-
-            $( rowNode ).find('td').eq(8).addClass('nk-tb-col tb-col-hide');
-            $( rowNode ).find('td').eq(9).addClass('nk-tb-col tb-col-lg');
-            $( rowNode ).find('td').eq(10).addClass('nk-tb-col tb-col-hide');
-            $( rowNode ).find('td').eq(11).addClass('nk-tb-col tb-col-lg');
-            $( rowNode ).find('td').eq(12).addClass('nk-tb-col tb-col-hide');
-
-            $( rowNode ).find('td').eq(13).addClass('nk-tb-col tb-col-hide');
-            $( rowNode ).find('td').eq(14).addClass('nk-tb-col nk-tb-col-tools');
-
-            $('#packageType').val('');
-            $('#packSize').val(1);
-            $('#inStock').val(1);
-            $('#activeProductItem').prop("checked", true);
-            $('#productPrice').val('0.00');
-            $('#productPromotionalPrice').val('0.00');
-            $('#productPromotionalPricePercentage').val('0.00');
-            $('#promotedProduct').prop("checked", false);
-
-            $('#wholeSaleProductPrice').val('0.00');
-            $('#wholeSaleProductPromotionalPrice').val('0.00');
-            $('#wholeSaleProductPromotionalPricePercentage').val('0.00');
-            $('#wholeSalePromotedProduct').prop("checked", false);
-            $('#wholeSaleProduct').prop("checked", false);
-
-            $('#productPromotionalPrice').attr('disabled', 'disabled');
-            $('#productPromotionalPricePercentage').attr('disabled', 'disabled');
-            $('#wholeSaleProductPrice').attr('disabled', 'disabled');
-            $('#wholeSaleProductPromotionalPrice').attr('disabled', 'disabled');
-            $('#wholeSaleProductPromotionalPricePercentage').attr('disabled', 'disabled');
+            // let packageType =               $('#packageType').val().trim();
+            // let packSize =                  $('#packSize').val().trim();
+            // let inStock =                   $('#inStock').val().trim();
+            // let activeProductItem =         $('#activeProductItem').is(":checked");
+            // let productPrice =              $('#productPrice').val().trim();
+            // let productPromotionalPrice =   $('#productPromotionalPrice').val().trim();
+            // let promotedProduct =           $('#promotedProduct').is(":checked");
+            // let discountVal =               $('#productPromotionalPricePercentage').val().trim();
+            //
+            // let wholeSaleProduct =                          $('#wholeSaleProduct').is(":checked");
+            // let wholeSaleProductPrice =                     $('#wholeSaleProductPrice').val().trim();
+            // let wholeSaleProductPromotionalPrice =          $('#wholeSaleProductPromotionalPrice').val().trim();
+            // let wholeSalePromotedProduct =                  $('#wholeSalePromotedProduct').is(":checked");
+            // let wholeSaleProductPromotionalPricePercentage= $('#wholeSaleProductPromotionalPricePercentage').val().trim();
+            //
+            // let id =                        0;
+            //
+            // let rowNode = t.row.add([
+            //     packageType,
+            //     packSize,
+            //     inStock,
+            //     activeProductItem,
+            //     productPrice,
+            //     promotedProduct,
+            //     productPromotionalPrice,
+            //     discountVal,
+            //
+            //     wholeSaleProduct,
+            //     wholeSaleProductPrice,
+            //     wholeSalePromotedProduct,
+            //     wholeSaleProductPromotionalPrice,
+            //     wholeSaleProductPromotionalPricePercentage,
+            //
+            //     id,
+            //     btn
+            // ]).draw(false).node();
+            // $(rowNode).addClass('nk-tb-item');
+            //
+            // $( rowNode ).find('td').eq(0).addClass('nk-tb-col tb-col-lg');
+            // $( rowNode ).find('td').eq(1).addClass('nk-tb-col');
+            // $( rowNode ).find('td').eq(2).addClass('nk-tb-col tb-col-lg');
+            // $( rowNode ).find('td').eq(3).addClass('nk-tb-col tb-col-hide');
+            // $( rowNode ).find('td').eq(4).addClass('nk-tb-col');
+            // $( rowNode ).find('td').eq(5).addClass('nk-tb-col tb-col-hide');
+            // $( rowNode ).find('td').eq(6).addClass('nk-tb-col tb-col-lg');
+            // $( rowNode ).find('td').eq(7).addClass('nk-tb-col tb-col-hide');
+            //
+            // $( rowNode ).find('td').eq(8).addClass('nk-tb-col tb-col-hide');
+            // $( rowNode ).find('td').eq(9).addClass('nk-tb-col tb-col-lg');
+            // $( rowNode ).find('td').eq(10).addClass('nk-tb-col tb-col-hide');
+            // $( rowNode ).find('td').eq(11).addClass('nk-tb-col tb-col-lg');
+            // $( rowNode ).find('td').eq(12).addClass('nk-tb-col tb-col-hide');
+            //
+            // $( rowNode ).find('td').eq(13).addClass('nk-tb-col tb-col-hide');
+            // $( rowNode ).find('td').eq(14).addClass('nk-tb-col nk-tb-col-tools');
+            //
+            // $('#packageType').val('');
+            // $('#packSize').val(1);
+            // $('#inStock').val(1);
+            // $('#activeProductItem').prop("checked", true);
+            // $('#productPrice').val('0.00');
+            // $('#productPromotionalPrice').val('0.00');
+            // $('#productPromotionalPricePercentage').val('0.00');
+            // $('#promotedProduct').prop("checked", false);
+            //
+            // $('#wholeSaleProductPrice').val('0.00');
+            // $('#wholeSaleProductPromotionalPrice').val('0.00');
+            // $('#wholeSaleProductPromotionalPricePercentage').val('0.00');
+            // $('#wholeSalePromotedProduct').prop("checked", false);
+            // $('#wholeSaleProduct').prop("checked", false);
+            //
+            // $('#productPromotionalPrice').attr('disabled', 'disabled');
+            // $('#productPromotionalPricePercentage').attr('disabled', 'disabled');
+            // $('#wholeSaleProductPrice').attr('disabled', 'disabled');
+            // $('#wholeSaleProductPromotionalPrice').attr('disabled', 'disabled');
+            // $('#wholeSaleProductPromotionalPricePercentage').attr('disabled', 'disabled');
+            $('#addProductModal').modal('show');
         });// add position end
 
 
@@ -646,6 +535,36 @@
         });//button click end
     });//ready() end
 
+    function searchProduct(){
+        let searchString = $('#searchProduct').val().trim();
+        console.log(searchString);
+        $.ajax({
+            method: "post",
+            url: "/admin/products/search",
+            contextType: "application/json",
+            data: searchString,
+            success: function (result) {
+              console.log(result);
+            },
+            error: function () {
+                console.log("Error!");
+            }
+        }); //ajax end
+    }
+
+    function setSearchDelay() {
+        this.clearTime()
+        this.delaySearch = setTimeout(() => {
+            this.searchProduct()
+        }, 2000)
+    }
+
+    function  clearTime () {
+        if (this.delaySearch) {
+            clearInterval(this.delaySearch)
+        }
+    }
+
     function changeDelivery(current, next) {
         console.log("c:"+current+"; n:"+next);
         if ($(current).is(':checked')){
@@ -679,8 +598,6 @@
         console.log(trObj.id);
         $('#deleteProductModal').modal('show');
     }
-
-
 </script>
 </body>
 
