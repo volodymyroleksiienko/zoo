@@ -103,7 +103,7 @@
                                                                         <td class="nk-tb-col">
                                                                             <div class="form-control-wrap">
                                                                                 <div class="custom-file">
-                                                                                    <input type="file" required="required" class="custom-file-input" id="productImage-1" onchange="loadFile(event, this.id); validateimg(this);" accept="image/png, image/jpeg" name="multipartFile">
+                                                                                    <input type="file" required="required" class="custom-file-input" id="productImage-1" onchange="loadFile(event, this.id);" accept="image/png, image/jpeg" name="multipartFile">
                                                                                     <label class="custom-file-label" id="productImage1Name" for="productImage-1"></label>
                                                                                 </div>
                                                                             </div>
@@ -121,7 +121,7 @@
                                                                         <td class="nk-tb-col">
                                                                             <div class="form-control-wrap">
                                                                                 <div class="custom-file">
-                                                                                    <input type="file" class="custom-file-input" id="productImage-2" onchange="loadFile(event, this.id); validateimg(this);" accept="image/png, image/jpeg" name="multipartFile">
+                                                                                    <input type="file" class="custom-file-input" id="productImage-2" onchange="loadFile(event, this.id);" accept="image/png, image/jpeg" name="multipartFile">
                                                                                     <label class="custom-file-label" id="productImage2Name" for="productImage-2"></label>
                                                                                 </div>
                                                                             </div>
@@ -139,7 +139,7 @@
                                                                         <td class="nk-tb-col">
                                                                             <div class="form-control-wrap">
                                                                                 <div class="custom-file">
-                                                                                    <input type="file" class="custom-file-input" id="productImage-3" onchange="loadFile(event, this.id); validateimg(this);" accept="image/png, image/jpeg" name="multipartFile">
+                                                                                    <input type="file" class="custom-file-input" id="productImage-3" onchange="loadFile(event, this.id);" accept="image/png, image/jpeg" name="multipartFile">
                                                                                     <label class="custom-file-label" id="productImage3Name" for="productImage-3"></label>
                                                                                 </div>
                                                                             </div>
@@ -157,7 +157,7 @@
                                                                         <td class="nk-tb-col">
                                                                             <div class="form-control-wrap">
                                                                                 <div class="custom-file">
-                                                                                    <input type="file" class="custom-file-input" id="productImage-4" onchange="loadFile(event, this.id);validateimg(this);" accept="image/png, image/jpeg" name="multipartFile">
+                                                                                    <input type="file" class="custom-file-input" id="productImage-4" onchange="loadFile(event, this.id);" accept="image/png, image/jpeg" name="multipartFile">
                                                                                     <label class="custom-file-label" id="productImage4Name" for="productImage-4"></label>
                                                                                 </div>
                                                                             </div>
@@ -1002,21 +1002,23 @@
             form.append("product",JSON.stringify(product));
             form.append("category",JSON.stringify(category));
             form.append("subCategory",JSON.stringify(subCategory));
-            $.ajax({
-                method: "post",
-                url: "/admin/products/add",
-                enctype: 'multipart/form-data',
-                processData : false,
-                contentType : false,
-                data: form,
-                success: function () {
-                    alert("Success!");
-                    window.location.href = '/admin/products';
-                },
-                error: function () {
-                    alert("Error!");
-                }
-            }); //ajax end
+            if () {
+                $.ajax({
+                    method: "post",
+                    url: "/admin/products/add",
+                    enctype: 'multipart/form-data',
+                    processData: false,
+                    contentType: false,
+                    data: form,
+                    success: function () {
+                        alert("Success!");
+                        window.location.href = '/admin/products';
+                    },
+                    error: function () {
+                        alert("Error!");
+                    }
+                }); //ajax end
+            }
         });//button click end
     });//ready() end
 
