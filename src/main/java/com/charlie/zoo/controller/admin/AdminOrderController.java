@@ -41,7 +41,7 @@ public class AdminOrderController {
     @PostMapping("/orderReview")
     public String editOrder(OrderInfo orderInfo){
         orderService.update(orderInfo);
-        return "redirect:/admin/orders/orderReview"+orderInfo.getId();
+        return "redirect:/admin/orders/orderReview/"+orderInfo.getId();
     }
 
     @PostMapping("/deleteDetail")
