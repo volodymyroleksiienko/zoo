@@ -38,7 +38,7 @@ public class AdminOrderController {
         return "admin/singleOrder";
     }
 
-    @GetMapping("/orderReview")
+    @PostMapping("/orderReview")
     public String editOrder(OrderInfo orderInfo){
         orderService.update(orderInfo);
         return "redirect:/admin/orders/orderReview"+orderInfo.getId();
