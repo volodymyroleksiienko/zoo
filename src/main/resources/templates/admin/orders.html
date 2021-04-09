@@ -88,7 +88,7 @@
                                                         <th class="nk-tb-col"><span class="sub-text">Замовник</span></th>
                                                         <th class="nk-tb-col tb-col-sm"><span class="sub-text">Телефон</span></th>
                                                         <th class="nk-tb-col"><span class="sub-text">Сума</span></th>
-                                                        <th class="nk-tb-col tb-col-sm"><span class="sub-text"><em class="icon ni ni-coins" style="font-size: initial"></em></span></th>
+                                                        <th class="nk-tb-col tb-col-sm" style="text-align: center;"><span class="sub-text"><em class="icon ni ni-coins" style="font-size: initial"></em></span></th>
                                                         <th class="nk-tb-col tb-col-sm"><span class="sub-text">Статус</span></th>
                                                         <th class="nk-tb-col tb-col-hide"><span class="sub-text">Адрес</span></th>
                                                         <th class="nk-tb-col"><span class="sub-text" style="text-align: right; padding-right: 2rem;">Дії</span></th>
@@ -126,9 +126,9 @@
                                                                         <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                                                         <div class="dropdown-menu dropdown-menu-right">
                                                                             <ul class="link-list-opt no-bdr">
-                                                                                <li><a data-toggle="modal" onclick="orderQuickView(this)"><em class="icon ni ni-eye"></em><span>Переглянути</span></a></li>
-                                                                                <li><a th:href="@{|/admin/orders/edit/${order?.getId()}|}"><em class="icon ni ni-edit-alt"></em><span>Редагувати</span></a></li>
-                                                                                <li><a data-toggle="modal" onclick="showConfirmationDeleteProductModal(this)" ><em class="icon ni ni-trash"></em><span>Видалити</span></a></li>
+                                                                                <li><a data-toggle="modal" onclick="orderQuickView(this)"><em class="icon ni ni-eye"></em><span>Швидкий перегляд</span></a></li>
+                                                                                <li><a th:href="@{|/admin/orders/orderReview/${order?.getId()}|}"><em class="icon ni ni-edit-alt"></em><span>Деталі замовлення</span></a></li>
+                                                                                <li><a data-toggle="modal" onclick="showConfirmationDeleteProductModal(this)" ><em class="icon ni ni-archive"></em><span>Архівувати</span></a></li>
                                                                             </ul>
                                                                         </div>
                                                                     </div>
