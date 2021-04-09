@@ -166,12 +166,15 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr class="nk-tb-item nk-tb-head">
-                                                            <th class="nk-tb-col tb-col-lg">Зображення</th>
-                                                            <td class="nk-tb-col">Назва</td>
-                                                            <td class="nk-tb-col tb-col-lg">Ціна</td>
-                                                            <td class="nk-tb-col">Кількість</td>
-                                                            <td class="nk-tb-col tb-col-hide">ID</td>
+                                                        <tr class="nk-tb-item nk-tb-head" th:each="detail:${order.getOrderDetails()}" th:id="${detail?.getId()}">
+                                                            <th class="nk-tb-col tb-col-lg">
+                                                                <img th:src="'/shop/getImgByProductId/'+${detail?.getPackageType()?.getProduct()?.getId()}" >
+                                                            </th>
+                                                            <td class="nk-tb-col" th:text="${detail?.getPackageType()?.getProduct()?.getName()}">Назва</td>
+                                                            <td class="nk-tb-col tb-col-lg" th:text="${detail?.getCount()*detail?.getPackageType()?.getNewPrice()}" th:if="${detail?.getPackageType().isOnSale()}">Ціна</td>
+                                                            <td class="nk-tb-col tb-col-lg" th:text="${detail?.getCount()*detail?.getPackageType()?.getPrice()}" th:if="${!detail?.getPackageType().isOnSale()}">Ціна</td>
+                                                            <td class="nk-tb-col" th:text="${detail?.getCount()}">Кількість</td>
+                                                            <td class="nk-tb-col tb-col-hide" th:text="${detail?.getId()}">ID</td>
                                                             <td class='nk-tb-col nk-tb-col-tools'>
                                                                 <ul class="nk-tb-actions gx-1">
                                                                     <li>
