@@ -394,6 +394,38 @@
             </div>
             <!-- Change item end -->
 
+            <!-- Edit item start -->
+            <div class="modal fade" tabindex="-1" role="dialog" id="editProductModal" aria-modal="true">
+                <div class="modal-dialog modal-md" role="document">
+                    <div class="modal-content">
+                        <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+                        <div class="modal-body modal-body-md">
+                            <form action="/admin/orders/editDetail" method="post">
+                                <h4 class="title">Змінити кількість</h4>
+                                <br>
+                                <input type="number" id="selectedForEditItem" hidden="" name="id">
+                                <input type="text" hidden="" th:value="${'/admin/orders/orderReview/'+order.getId()}" name="currentUrl">
+
+                                <div class="form-group">
+                                    <div class="form-control-wrap">
+                                        <div class="form-text-hint" style="top: 50%;">
+                                            <span class="overline-title">ШТ</span>
+                                        </div>
+                                        <label class="form-label" for="editProductsAmount">Кількість</label>
+                                        <input type="number" min="0" step="1" class="form-control" id="editProductsAmount" placeholder="Не заповнено...">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="submit" onclick="removeRow($('#rowIndex').val())" class="btn btn-outline-primary">Підтвердити</button>
+                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Edit item end -->
 
             <!-- Delete item start -->
             <div class="modal fade" tabindex="-1" role="dialog" id="deleteProductModal" aria-modal="true">
@@ -405,7 +437,7 @@
                                 <h4 class="title">Видалення позиції</h4>
                                 <br>
                                 <input type="number" id="selectedForDeleteItem" hidden="" name="id">
-                                <input type="text" id="currentUrl" hidden="" th:value="${'/admin/orders/orderReview/'+order.getId()}" name="currentUrl">
+                                <input type="text" hidden="" th:value="${'/admin/orders/orderReview/'+order.getId()}" name="currentUrl">
                                 <p style="margin-bottom: 2rem;">Ви впевнені, що хочете видалити позицію? Підтвердивши дію, Ви не зможете повернутися до попереднього стану.</p>
                                 <div class="form-group">
                                     <button type="submit" onclick="removeRow($('#rowIndex').val())" class="btn btn-outline-primary">Підтвердити</button>
@@ -435,60 +467,6 @@
 
 <!--<script th:src="@{/js/example-sweetalert.js}"></script>-->
 <script>
-    class PackageType {
-        id;
-        price;
-        wholeSalePrice;
-        newPrice;
-        wholeSaleNewPrice;
-        packSize;
-        packType;
-        onSale;
-        wholeSaleOnSale;
-        discount;
-        wholeSaleDiscount;
-        wholeSaleStatus;
-        statusOfEntity;
-        countOfProduct;
-
-        constructor(id,price,wholeSalePrice,newPrice,wholeSaleNewPrice,packSize,packType,onSale,wholeSaleOnSale,discount,wholeSaleDiscount,wholeSaleStatus,countOfProduct,statusOfEntity) {
-            this.id = id;
-            this.price = price;
-            this.wholeSalePrice = wholeSalePrice;
-            this.newPrice = newPrice;
-            this.wholeSaleNewPrice = wholeSaleNewPrice;
-            this.packSize = packSize;
-            this.packType = packType;
-            this.onSale = onSale;
-            this.wholeSaleOnSale = wholeSaleOnSale;
-            this.discount = discount;
-            this.wholeSaleDiscount = wholeSaleDiscount;
-            this.wholeSaleStatus = wholeSaleStatus;
-            this.statusOfEntity = statusOfEntity;
-            this.countOfProduct = countOfProduct;
-        }
-    }
-
-    class Product{
-        id;
-        name;
-        shortDescription;
-        details;
-        dailyNorm;
-        producerDetails;
-        producer;
-    }
-
-    let objArr = [];
-
-    let imagesTab = $('#imagesTable').DataTable({
-        "autoWidth": false,
-        "searching": false,
-        "paging": false,
-        "info": false,
-        'select': false,
-        "bSort" : false,
-    });
 
     let t = $('#positionsTable').DataTable({
         "autoWidth": false,
@@ -498,57 +476,7 @@
         'select': false,
     });
 
-    let btn = "<td class='nk-tb-col nk-tb-col-tools'>\n" +
-        "                                                            <ul class=\"nk-tb-actions gx-1\">\n" +
-        "                                                                <li>\n" +
-        "                                                                    <div class=\"drodown\">\n" +
-        "                                                                        <a href=\"#\" class=\"dropdown-toggle btn btn-icon btn-trigger\" data-toggle=\"dropdown\"><em class=\"icon ni ni-more-h\"></em></a>\n" +
-        "                                                                        <div class=\"dropdown-menu dropdown-menu-right\">\n" +
-        "                                                                            <ul class=\"link-list-opt no-bdr\">\n" +
-        "                                                                                <li><a data-toggle=\"modal\" onclick=\"showEditItemModal(this)\"><em class=\"icon ni ni-edit-alt\"></em><span>Редагувати</span></a></li>\n" +
-        "                                                                                <li><a data-toggle=\"modal\" onclick=\"showConfirmationDeleteItemModal(this)\" ><em class=\"icon ni ni-trash\"></em><span>Видалити</span></a></li>\n" +
-        "                                                                            </ul>\n" +
-        "                                                                        </div>\n" +
-        "                                                                    </div>\n" +
-        "                                                                </li>\n" +
-        "                                                            </ul>\n" +
-        "                                                        </td>";
-
-    function loadFile(event, inputId) {
-        let imageFile = URL.createObjectURL(event.target.files[0]);
-        let tdObj = $("#"+inputId).parent().parent().parent().parent().find('td:eq(0)');
-        console.log(inputId);
-        console.log(tdObj);
-        tdObj.empty();
-        tdObj.prepend("<img src='"+imageFile+"'width='100%' />");
-    }
-
-    function deleteImg(inputId, labelId, imgId) {
-        if (imgId !== 0){
-            $.ajax({
-                method: "post",
-                url: "/shop/deleteImg/" + imgId,
-                success: function () {
-                    let tdObj = $(inputId).parent().parent().parent().parent().find('td:eq(0)');
-                    console.log(inputId);
-                    console.log(tdObj);
-                    console.log(labelId);
-                    tdObj.empty();
-                    $(labelId).empty();
-                    tdObj.html(inputId.match(/\d+/)[0]);
-                    $(inputId).val(null);
-                },
-                error: function () {
-                    alert("Error!");
-                }
-            });
-        }else {
-            console.log("img id 0!");
-        }
-    }
-
     $(document).ready(function() {
-
         $('#customerPhoneNumber').inputmask('+(999)-999-999-999');
 
         $('#addPosition').on( 'click', function () {
@@ -630,135 +558,7 @@
             $('#wholeSaleProductPromotionalPricePercentage').attr('disabled', 'disabled');
         });// add position end
 
-        $('#promotedProduct').on( 'click', function (){
-            if($(this).is(':checked')) {
-                $('#productPromotionalPrice').removeAttr("disabled");
-                $('#productPromotionalPricePercentage').removeAttr("disabled");
-            }else {
-                $('#productPromotionalPrice').attr('disabled', 'disabled');
-                $('#productPromotionalPricePercentage').attr('disabled', 'disabled');
-            }
-        });// disable/enable promotion end
 
-        $('#wholeSalePromotedProduct').on( 'click', function (){
-            if ($('#wholeSaleProduct').is(':checked')) {
-                if ($(this).is(':checked')) {
-                    $('#wholeSaleProductPromotionalPrice').removeAttr("disabled");
-                    $('#wholeSaleProductPromotionalPricePercentage').removeAttr("disabled");
-                } else {
-                    $('#wholeSaleProductPromotionalPrice').attr('disabled', 'disabled');
-                    $('#wholeSaleProductPromotionalPricePercentage').attr('disabled', 'disabled');
-                }
-            }
-        });// disable/enable promotion end
-
-        $('#editWholeSalePromotedProduct').on( 'click', function (){
-            if ($('#editWholeSaleProduct').is(':checked')) {
-                if ($(this).is(':checked')) {
-                    $('#editWholeSaleProductPromotionalPrice').removeAttr("disabled");
-                    $('#editWholeSaleProductPromotionalPricePercentage').removeAttr("disabled");
-                } else {
-                    $('#editWholeSaleProductPromotionalPrice').attr('disabled', 'disabled');
-                    $('#editWholeSaleProductPromotionalPricePercentage').attr('disabled', 'disabled');
-                }
-            }
-        });// disable/enable promotion end
-
-        $('#wholeSaleProduct').on( 'click', function (){
-            if($(this).is(':checked')) {
-                $('#wholeSaleProductPrice').removeAttr("disabled");
-                if ($('#wholeSalePromotedProduct').is(':checked')){
-                    $('#wholeSaleProductPromotionalPrice').removeAttr("disabled");
-                    $('#wholeSaleProductPromotionalPricePercentage').removeAttr("disabled");
-                }else {
-                    $('#wholeSaleProductPromotionalPrice').attr('disabled', 'disabled');
-                    $('#wholeSaleProductPromotionalPricePercentage').attr('disabled', 'disabled');
-                }
-            }else {
-                $('#wholeSalePromotedProduct').prop("checked", false);
-                $('#wholeSaleProductPrice').attr('disabled', 'disabled');
-                $('#wholeSaleProductPromotionalPrice').attr('disabled', 'disabled');
-                $('#wholeSaleProductPromotionalPricePercentage').attr('disabled', 'disabled');
-
-            }
-        });// disable/enable promotion end
-
-        $('#editWholeSaleProduct').on( 'click', function (){
-            if($(this).is(':checked')) {
-                $('#editWholeSaleProductPrice').removeAttr("disabled");
-                if ($('#editWholeSalePromotedProduct').is(':checked')){
-                    $('#editWholeSaleProductPromotionalPrice').removeAttr("disabled");
-                    $('#editWholeSaleProductPromotionalPricePercentage').removeAttr("disabled");
-                }else {
-                    $('#wholeSaleProductPromotionalPrice').attr('disabled', 'disabled');
-                    $('#wholeSaleProductPromotionalPricePercentage').attr('disabled', 'disabled');
-                }
-            }else {
-                $('#editWholeSalePromotedProduct').prop("checked", false);
-                $('#editWholeSaleProductPrice').attr('disabled', 'disabled');
-                $('#editWholeSaleProductPromotionalPrice').attr('disabled', 'disabled');
-                $('#editWholeSaleProductPromotionalPricePercentage').attr('disabled', 'disabled');
-
-            }
-        });// disable/enable promotion end
-
-
-        $('#editPromotedProduct').on( 'click', function (){
-            if($(this).is(':checked')) {
-                $('#editProductPromotionalPrice').removeAttr("disabled");
-                $('#editProductPromotionalPricePercentage').removeAttr("disabled");
-            }else {
-                $('#editProductPromotionalPrice').attr('disabled', 'disabled');
-                $('#editProductPromotionalPricePercentage').attr('disabled', 'disabled');
-            }
-        });// disable/enable promotion end
-
-
-
-
-        $('#productPrice').on('input', function() {
-            calculatePercentage($('#productPrice'), $('#productPromotionalPrice'), $('#productPromotionalPricePercentage'));
-        });
-        $('#productPromotionalPrice').on('input', function() {
-            calculatePercentage($('#productPrice'), $('#productPromotionalPrice'), $('#productPromotionalPricePercentage'));
-        });
-        $('#productPromotionalPricePercentage').on('input', function() {
-            calculatePromotionPrice($('#productPrice'), $('#productPromotionalPrice'), $('#productPromotionalPricePercentage'));
-        });
-
-
-        $('#wholeSaleProductPrice').on('input', function() {
-            calculatePercentage($('#wholeSaleProductPrice'), $('#wholeSaleProductPromotionalPrice'), $('#wholeSaleProductPromotionalPricePercentage'));
-        });
-        $('#wholeSaleProductPromotionalPrice').on('input', function() {
-            calculatePercentage($('#wholeSaleProductPrice'), $('#wholeSaleProductPromotionalPrice'), $('#wholeSaleProductPromotionalPricePercentage'));
-        });
-        $('#wholeSaleProductPromotionalPricePercentage').on('input', function() {
-            calculatePromotionPrice($('#wholeSaleProductPrice'), $('#wholeSaleProductPromotionalPrice'), $('#wholeSaleProductPromotionalPricePercentage'));
-        });
-
-
-        // modal
-        $('#editProductPrice').on('input', function() {
-            calculatePercentage($('#editProductPrice'), $('#editProductPromotionalPrice'), $('#editProductPromotionalPricePercentage'));
-        });
-        $('#editProductPromotionalPrice').on('input', function() {
-            calculatePercentage($('#editProductPrice'), $('#editProductPromotionalPrice'), $('#editProductPromotionalPricePercentage'));
-        });
-        $('#editProductPromotionalPricePercentage').on('input', function() {
-            calculatePromotionPrice($('#editProductPrice'), $('#editProductPromotionalPrice'), $('#editProductPromotionalPricePercentage'));
-        });
-
-
-        $('#editWholeSaleProductPrice').on('input', function() {
-            calculatePercentage($('#editWholeSaleProductPrice'), $('#editWholeSaleProductPromotionalPrice'), $('#editWholeSaleProductPromotionalPricePercentage'));
-        });
-        $('#editWholeSaleProductPromotionalPrice').on('input', function() {
-            calculatePercentage($('#editWholeSaleProductPrice'), $('#editWholeSaleProductPromotionalPrice'), $('#editWholeSaleProductPromotionalPricePercentage'));
-        });
-        $('#editWholeSaleProductPromotionalPricePercentage').on('input', function() {
-            calculatePromotionPrice($('#editWholeSaleProductPrice'), $('#editWholeSaleProductPromotionalPrice'), $('#editWholeSaleProductPromotionalPricePercentage'));
-        });
 
 
         $('#addProductBtn').on( 'click', function () {
@@ -860,111 +660,15 @@
 
     function showEditItemModal(btnObj) {
         let trObj = btnObj.closest("tbody tr");
-
+        $('#selectedForEditItem').val(trObj.id);
         let row = t.row(trObj).data();
-        $('#rowIndex').val(t.row(trObj).index());
+        let amount =  row[3];
+        console.log(trObj.id);
 
-        let packageType =               row[0];
-        let packSize =                  row[1];
-        let inStock =                   row[2];
-        let activeProductItem =         row[3];
-        let productPrice =              row[4];
-        let productPromotionalPrice =   row[6];
-        let promotedProduct =           row[5];
-        let discountVal =               row[7];
+        $('#editProductsAmount').val(amount);
 
-        let wholeSaleProduct =                          row[8];
-        let wholeSaleProductPrice =                     row[9];
-        let wholeSalePromotedProduct =                  row[10];
-        let wholeSaleProductPromotionalPrice =          row[11];
-        let wholeSaleProductPromotionalPricePercentage= row[12];
-
-        let itemId =                    row[13];
-
-
-
-        if (promotedProduct==="true"){
-            $('#editPromotedProduct').attr("checked", true);
-            $('#editProductPromotionalPrice').removeAttr("disabled");
-            $('#editProductPromotionalPricePercentage').removeAttr("disabled");
-        }else if (promotedProduct==="false") {
-            $('#editPromotedProduct').attr("checked", false);
-            $('#editProductPromotionalPrice').attr('disabled', 'disabled');
-            $('#editProductPromotionalPricePercentage').attr('disabled', 'disabled');
-        }
-
-        if (wholeSaleProduct==="true"){
-            $('#editWholeSaleProduct').attr("checked", true);
-            if (wholeSalePromotedProduct==="true"){
-                $('#editWholeSalePromotedProduct').attr("checked", true);
-                $('#editWholeSaleProductPromotionalPrice').removeAttr("disabled");
-                $('#editWholeSaleProductPromotionalPricePercentage').removeAttr("disabled");
-            }else {
-                $('#editWholeSalePromotedProduct').attr("checked", false);
-                $('#editWholeSaleProductPromotionalPrice').attr('disabled', 'disabled');
-                $('#editWholeSaleProductPromotionalPricePercentage').attr('disabled', 'disabled');
-            }
-        }else if (wholeSaleProduct==="false") {
-            $('#editWholeSaleProduct').attr("checked", false);
-            if (wholeSalePromotedProduct==="true"){
-                $('#editWholeSalePromotedProduct').attr("checked", true);
-                $('#editWholeSaleProductPromotionalPrice').removeAttr("disabled");
-                $('#editWholeSaleProductPromotionalPricePercentage').removeAttr("disabled");
-            }else {
-                $('#editWholeSalePromotedProduct').attr("checked", false);
-                $('#editWholeSaleProductPromotionalPrice').attr('disabled', 'disabled');
-                $('#editWholeSaleProductPromotionalPricePercentage').attr('disabled', 'disabled');
-            }
-        }
-
-        if (activeProductItem==="true"){
-            $('#editActiveProductItem').attr("checked", true);
-        }else if (activeProductItem==="false") {
-            $('#editActiveProductItem').attr("checked", false);
-        }
-
-        $('#editItemId')                    .val(itemId);
-        $('#editPackageType')               .val(packageType);
-        $('#editPackSize')                  .val(packSize);
-        $('#editInStock')                   .val(inStock);
-        $('#editProductPrice')              .val(productPrice);
-        $('#editProductPromotionalPrice')   .val(productPromotionalPrice);
-        $('#editProductPromotionalPricePercentage')   .val(discountVal);
-
-        $('#editWholeSaleProductPrice').val(wholeSaleProductPrice);
-        $('#editWholeSaleProductPromotionalPrice').val(wholeSaleProductPromotionalPrice);
-        $('#editWholeSaleProductPromotionalPricePercentage').val(wholeSaleProductPromotionalPricePercentage);
-
-        $('#editItemModal').modal('show');
+        $('#editProductModal').modal('show');
     }//show edit modal
-
-    function submitChanges(rowToSaveIndex) {
-        console.log("row to save: "+rowToSaveIndex);
-        let packageType =               $('#editPackageType').val().trim();
-        let packSize =                  $('#editPackSize').val().trim();
-        let inStock =                   $('#editInStock').val().trim();
-        let activeProductItem =         $('#editActiveProductItem').is(":checked");
-        let productPrice =              $('#editProductPrice').val().trim();
-        let productPromotionalPrice =   $('#editProductPromotionalPrice').val().trim();
-        let promotedProduct =           $('#editPromotedProduct').is(":checked");
-        let discountVal =               $('#editProductPromotionalPricePercentage').val().trim();
-
-        let wholeSale =                          $('#editWholeSaleProduct').is(":checked");
-        let wholeSaleProductPrice =              $('#editWholeSaleProductPrice').val().trim();
-        let wholeSaleProductPromotionalPrice =   $('#editWholeSaleProductPromotionalPrice').val().trim();
-        let wholeSalePromotedProduct =           $('#editWholeSalePromotedProduct').is(":checked");
-        let wholeSaleDiscountVal =               $('#editWholeSaleProductPromotionalPricePercentage').val().trim();
-
-        let id =                         $('#editItemId').val().trim();
-
-        let arrayData = [packageType, packSize, inStock, activeProductItem, productPrice, promotedProduct, productPromotionalPrice, discountVal, wholeSale, wholeSaleProductPrice, wholeSalePromotedProduct, wholeSaleProductPromotionalPrice, wholeSaleDiscountVal, id, btn];
-
-        t.row(rowToSaveIndex).data(arrayData).draw();
-
-        console.log(t.row(rowToSaveIndex).data());
-
-        $('#editItemModal').modal('hide');
-    }//submit changes end
 
 
     function showConfirmationDeleteItemModal(btnObj){
@@ -974,47 +678,6 @@
         $('#deleteProductModal').modal('show');
     }
 
-    function removeRow(rowToDeleteIndex) {
-        t.row(rowToDeleteIndex).remove().draw();
-        $('#deleteProductModal').modal('hide');
-    }
-
-    function validateimg(ctrl) {
-        var fileUpload = ctrl;
-        var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.png)$");
-        if (regex.test(fileUpload.value.toLowerCase())) {
-            if (typeof (fileUpload.files) != "undefined") {
-                var reader = new FileReader();
-                reader.readAsDataURL(fileUpload.files[0]);
-                reader.onload = function (e) {
-                    var image = new Image();
-                    image.src = e.target.result;
-                    image.onload = function () {
-                        let height = this.height;
-                        let width = this.width;
-                        let aspectRatio = width/height;
-                        if ((aspectRatio.toFixed(2)>0.95) && (aspectRatio.toFixed(2)<1.05)) {
-                            console.log("Asp rat: "+aspectRatio.toFixed(2));
-                            return true;
-                        }else{
-                            console.log("Asp rat: "+aspectRatio.toFixed(2));
-                            alert("Некоректне співвідношення сторін фотографії!");
-                            $("#productImage").val('');
-                            return false;
-                        }
-                    };
-                }
-            } else {
-                alert("Ваш браузер не підтримує HTML5.");
-                $("#productImage").val('');
-                return false;
-            }
-        } else {
-            alert("Недопустимий формат файлу.");
-            $("#productImage").val('');
-            return false;
-        }
-    }
 
 </script>
 </body>
