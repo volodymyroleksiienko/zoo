@@ -11,6 +11,7 @@ import java.util.UUID;
 
 public interface OrderService {
     OrderInfo save(OrderInfo orderInfo);
+    OrderInfo update(OrderInfo orderInfo);
     OrderInfo submitOrder(OrderInfo order);
     OrderInfo checkStatus(String id,String statusOfPayment, String statusOfOrder);
     OrderInfo checkOrder(Map<String,String> data);

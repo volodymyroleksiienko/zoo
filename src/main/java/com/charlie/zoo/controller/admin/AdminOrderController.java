@@ -38,6 +38,12 @@ public class AdminOrderController {
         return "admin/singleOrder";
     }
 
+    @GetMapping("/orderReview")
+    public String editOrder(OrderInfo orderInfo){
+        orderService.update(orderInfo);
+        return "redirect:/admin/orders/orderReview"+orderInfo.getId();
+    }
+
     @PostMapping("/deleteDetail")
     public String findPackType(int id,String currentUrl){
         OrderDetails details = orderDetailsService.findById(id);
@@ -47,6 +53,7 @@ public class AdminOrderController {
         orderService.save(orderInfo);
         return "redirect:"+currentUrl;
     }
+
     @PostMapping("/editDetail")
     public String getDetail(int id,int count,String currentUrl){
         OrderDetails details = orderDetailsService.findById(id);

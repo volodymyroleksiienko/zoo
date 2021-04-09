@@ -9,6 +9,7 @@ import com.charlie.zoo.enums.StatusOfOrder;
 import com.charlie.zoo.enums.StatusOfPayment;
 import com.charlie.zoo.jpa.OrderJPA;
 import com.charlie.zoo.service.OrderService;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +34,24 @@ public class OrderServiceImpl implements OrderService {
     {
         orderInfo.setSumPrice(getSummaryPrice(orderInfo));
         return orderJPA.save(orderInfo);
+    }
+
+    @Override
+    public OrderInfo update(OrderInfo order) {
+        OrderInfo orderDB = findById(order.getId());
+        orderDB.setNameOfClient(order.getNameOfClient());
+        orderDB.setPhone(order.getPhone());
+        orderDB.setDescription(order.getDescription());
+
+        orderDB.setLvivDelivering(order.isLvivDelivering());
+        orderDB.setNovaPoshtaDelivering(order.isNovaPoshtaDelivering());
+        orderDB.setPayByCard(order.isPayByCard());
+        orderDB.setPayByCash(order.isPayByCash());
+
+        orderDB.setPayment(order.getPayment());
+        orderDB.setStatusOfOrder(order.getStatusOfOrder());
+
+        return save(orderDB);
     }
 
 
