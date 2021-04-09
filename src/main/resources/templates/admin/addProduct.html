@@ -1002,7 +1002,7 @@
             form.append("product",JSON.stringify(product));
             form.append("category",JSON.stringify(category));
             form.append("subCategory",JSON.stringify(subCategory));
-            if () {
+            // if () {
                 $.ajax({
                     method: "post",
                     url: "/admin/products/add",
@@ -1018,7 +1018,7 @@
                         alert("Error!");
                     }
                 }); //ajax end
-            }
+            // }
         });//button click end
     });//ready() end
 
