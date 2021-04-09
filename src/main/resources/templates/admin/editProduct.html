@@ -1206,8 +1206,8 @@
     }
 
     function validateimg(ctrl) {
-        var fileUpload = ctrl;
-        var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.png)$");
+        let fileUpload = ctrl;
+        let regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.png)$");
         if (regex.test(fileUpload.value.toLowerCase())) {
             if (typeof (fileUpload.files) != "undefined") {
                 var reader = new FileReader();
@@ -1225,19 +1225,19 @@
                         }else{
                             console.log("Asp rat: "+aspectRatio.toFixed(2));
                             alert("Некоректне співвідношення сторін фотографії!");
-                            $("#productImage").val('');
+                            $(this).val('');
                             return false;
                         }
                     };
                 }
             } else {
                 alert("Ваш браузер не підтримує HTML5.");
-                $("#productImage").val('');
+                $(this).val('');
                 return false;
             }
         } else {
             alert("Недопустимий формат файлу.");
-            $("#productImage").val('');
+            $(this).val('');
             return false;
         }
     }

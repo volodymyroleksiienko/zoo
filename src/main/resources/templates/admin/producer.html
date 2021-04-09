@@ -150,7 +150,7 @@
                                     <label class="form-label" for="producerImage">Зображення</label>
                                     <div class="form-control-wrap">
                                         <div class="custom-file">
-                                            <input type="file" onchange="loadFile(event)" accept="image/png, image/jpeg" class="custom-file-input" id="producerImage" name="multipartFile">
+                                            <input type="file" onchange="loadFile(event); validateimg(this);" accept="image/png, image/jpeg" class="custom-file-input" id="producerImage" name="multipartFile">
                                             <label class="custom-file-label" id="producerImageLabel" for="producerImage"></label>
                                         </div>
                                     </div>
@@ -158,13 +158,13 @@
                                 <div class="form-group">
                                     <label class="form-label" for="producerName">Назва</label>
                                     <div class="form-control-wrap">
-                                        <input type="text" class="form-control" id="producerName" placeholder="Назва..." name="name">
+                                        <input type="text" class="form-control" required="required" id="producerName" placeholder="Назва..." name="name">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label" for="producerCountry">Країна</label>
                                     <div class="form-control-wrap">
-                                        <input type="text" class="form-control" id="producerCountry" placeholder="Країна..." name="countryName">
+                                        <input type="text" class="form-control" required="required" id="producerCountry" placeholder="Країна..." name="countryName">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -192,7 +192,7 @@
                                     <label class="form-label" for="editProducerImage">Нове зображення</label>
                                     <div class="form-control-wrap">
                                         <div class="custom-file">
-                                            <input type="file" onchange="changeFile(event)" accept="image/png, image/jpeg" class="custom-file-input" id="editProducerImage" name="multipartFile">
+                                            <input type="file" onchange="changeFile(event); validateimg(this);" accept="image/png, image/jpeg" class="custom-file-input" id="editProducerImage" name="multipartFile">
                                             <label class="custom-file-label" id="editProducerImageLabel" for="editProducerImage"></label>
                                         </div>
                                     </div>
@@ -200,13 +200,13 @@
                                 <div class="form-group">
                                     <label class="form-label" for="editProducerName">Назва</label>
                                     <div class="form-control-wrap">
-                                        <input type="text" class="form-control" id="editProducerName" name="name" placeholder="Назва...">
+                                        <input type="text" class="form-control" required="required" id="editProducerName" name="name" placeholder="Назва...">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label" for="editProducerCountry">Країна</label>
                                     <div class="form-control-wrap">
-                                        <input type="text" class="form-control" id="editProducerCountry" placeholder="Країна..." name="countryName">
+                                        <input type="text" class="form-control" required="required" id="editProducerCountry" placeholder="Країна..." name="countryName">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -331,6 +331,43 @@
         $('#selectedForDeleteItem').val(trId);
 
         $('#deleteProductModal').modal('show');
+    }
+
+    function validateimg(ctrl) {
+        let fileUpload = ctrl;
+        let regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.png)$");
+        if (regex.test(fileUpload.value.toLowerCase())) {
+            if (typeof (fileUpload.files) != "undefined") {
+                var reader = new FileReader();
+                reader.readAsDataURL(fileUpload.files[0]);
+                reader.onload = function (e) {
+                    var image = new Image();
+                    image.src = e.target.result;
+                    image.onload = function () {
+                        let height = this.height;
+                        let width = this.width;
+                        let aspectRatio = width/height;
+                        if ((aspectRatio.toFixed(2)>0.9) && (aspectRatio.toFixed(2)<1.1)) {
+                            console.log("Asp rat: "+aspectRatio.toFixed(2));
+                            return true;
+                        }else{
+                            console.log("Asp rat: "+aspectRatio.toFixed(2));
+                            alert("Некоректне співвідношення сторін фотографії!");
+                            $(this).val('');
+                            return false;
+                        }
+                    };
+                }
+            } else {
+                alert("Ваш браузер не підтримує HTML5.");
+                $(this).val('');
+                return false;
+            }
+        } else {
+            alert("Недопустимий формат файлу.");
+            $(this).val('');
+            return false;
+        }
     }
 </script>
 

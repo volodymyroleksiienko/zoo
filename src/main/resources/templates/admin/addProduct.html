@@ -453,7 +453,7 @@
                                         <div class="form-group">
                                             <label class="form-label">Тип пакування</label>
                                             <div class="form-control-wrap">
-                                                <input type="text" class="form-control" id="editPackageType" placeholder="Тип пакування...">
+                                                <input type="text" class="form-control" required="required" id="editPackageType" placeholder="Тип пакування...">
                                             </div>
                                         </div>
                                     </div>
@@ -461,7 +461,7 @@
                                         <div class="form-group">
                                             <label class="form-label" for="editPackSize">Одиниць</label>
                                             <div class="form-control-wrap">
-                                                <input type="number" min="1" value="1" step="1" class="form-control" id="editPackSize" placeholder="Одиниць...">
+                                                <input type="number" required="required" min="1"  value="1" step="1" class="form-control" id="editPackSize" placeholder="Одиниць...">
                                             </div>
                                         </div>
                                     </div>
@@ -469,7 +469,7 @@
                                         <div class="form-group">
                                             <label class="form-label" for="editInStock">К-сть на складі</label>
                                             <div class="form-control-wrap">
-                                                <input type="number" min="1" value="1" step="1" class="form-control" id="editInStock" placeholder="Кількість...">
+                                                <input type="number" required="required" min="1" value="1" step="1" class="form-control" id="editInStock" placeholder="Кількість...">
                                             </div>
                                         </div>
                                     </div>
@@ -490,7 +490,7 @@
                                                     <span class="overline-title">UAH</span>
                                                 </div>
                                                 <label class="form-label" for="editProductPrice">Ціна</label>
-                                                <input type="number" min="0" class="form-control" id="editProductPrice" placeholder="Не заповнено..." value="0.00">
+                                                <input type="number" required="required" min="0" class="form-control" id="editProductPrice" placeholder="Не заповнено..." value="0.00">
                                             </div>
                                         </div>
                                     </div>
@@ -1159,8 +1159,8 @@
     }
 
     function validateimg(ctrl) {
-        var fileUpload = ctrl;
-        var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.png)$");
+        let fileUpload = ctrl;
+        let regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.png)$");
         if (regex.test(fileUpload.value.toLowerCase())) {
             if (typeof (fileUpload.files) != "undefined") {
                 var reader = new FileReader();
@@ -1178,19 +1178,19 @@
                         }else{
                             console.log("Asp rat: "+aspectRatio.toFixed(2));
                             alert("Некоректне співвідношення сторін фотографії!");
-                            $("#productImage").val('');
+                            $(this).val('');
                             return false;
                         }
                     };
                 }
             } else {
                 alert("Ваш браузер не підтримує HTML5.");
-                $("#productImage").val('');
+                $(this).val('');
                 return false;
             }
         } else {
             alert("Недопустимий формат файлу.");
-            $("#productImage").val('');
+            $(this).val('');
             return false;
         }
     }
