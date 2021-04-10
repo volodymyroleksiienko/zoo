@@ -7,11 +7,20 @@ import com.charlie.zoo.jpa.ImageJPA;
 import com.charlie.zoo.service.ImageService;
 import com.charlie.zoo.service.ProducerService;
 import com.charlie.zoo.service.ProductService;
+import com.sun.javafx.iio.ImageStorage;
 import lombok.AllArgsConstructor;
+import net.coobird.thumbnailator.Thumbnailator;
+import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -34,7 +43,8 @@ public class ImageServiceImpl implements  ImageService {
         if(multipartFile!=null && multipartFile.getSize()>0){
             try {
                 image=new Image();
-                image.setImg(multipartFile.getBytes());
+                image.setImg(compressImage(multipartFile));
+//                image.setImg(multipartFile.getBytes());
                 image.setImgName(multipartFile.getOriginalFilename());
                 image.setImgType(multipartFile.getContentType());
             }
@@ -49,6 +59,23 @@ public class ImageServiceImpl implements  ImageService {
         }
     }
 
+    public byte[] compressImage(MultipartFile multipartFile) throws IOException {
+        BufferedImage image =Thumbnails.of(multipartFile.getInputStream())
+                .outputQuality(0.5)
+                .height(600)
+                .width(600)
+                .asBufferedImage();
+        return toByteArray(image,"png");
+    }
+
+    public static byte[] toByteArray(BufferedImage bi, String format)
+            throws IOException {
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(bi, format, baos);
+        return baos.toByteArray();
+
+    }
 
 
     @Override
@@ -101,7 +128,8 @@ public class ImageServiceImpl implements  ImageService {
         }
         if(multipartFile!=null && multipartFile.getSize()>0){
             try {
-                imageDB.setImg(multipartFile.getBytes());
+                imageDB.setImg(compressImage(multipartFile));
+//                imageDB.setImg(multipartFile.getBytes());
                 imageDB.setImgName(multipartFile.getOriginalFilename());
                 imageDB.setImgType(multipartFile.getContentType());
             }
