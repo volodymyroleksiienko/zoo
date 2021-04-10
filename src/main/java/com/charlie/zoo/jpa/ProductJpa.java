@@ -10,14 +10,15 @@ import org.springframework.stereotype.Repository;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 @Repository
 public interface ProductJpa extends JpaRepository<Product,Integer> {
-    Set<Product> findByCategoriesIdInAndStatusOfEntity(List<Integer> categoryId, StatusOfEntity statusOfentity);
-    Set<Product> findByCategoryItemsIdInAndStatusOfEntity(List<Integer> categoryId, StatusOfEntity statusOfentity);
+    TreeSet<Product> findByCategoriesIdInAndStatusOfEntity(List<Integer> categoryId, StatusOfEntity statusOfentity);
+    TreeSet<Product> findByCategoryItemsIdInAndStatusOfEntity(List<Integer> categoryId, StatusOfEntity statusOfentity);
 
 
-    Set<Product> findByCategoriesIdInAndCategoryItemsIdInAndPackageTypePackSizeInAndProducerIdInAndStatusOfEntity(List<Integer> categoryId,List<Integer> categoryItem,List<BigDecimal> packId,List<Integer> producerId, StatusOfEntity statusOfentity);
+    TreeSet<Product> findByCategoriesIdInAndCategoryItemsIdInAndPackageTypePackSizeInAndProducerIdInAndStatusOfEntity(List<Integer> categoryId,List<Integer> categoryItem,List<BigDecimal> packId,List<Integer> producerId, StatusOfEntity statusOfentity);
     List<Product> findByStatusOfEntity(StatusOfEntity status);
-    Set<Product> findByCategoriesIn(List<Category> category);
+    TreeSet<Product> findByCategoriesIn(List<Category> category);
 }

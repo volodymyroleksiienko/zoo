@@ -40,7 +40,7 @@ public class FilterShopController {
         model.addAttribute("categoryBtn", animalList);
         model.addAttribute("currentUrl","/shop/");
         model.addAttribute("currentAll","Всі товари");
-        Set<Product> beforeFilter = new HashSet<>(productService.findByStatus(StatusOfEntity.ACTIVE));
+        Set<Product> beforeFilter = new TreeSet<>(productService.findByStatus(StatusOfEntity.ACTIVE));
         config(model,username);
         configFilter(model,"/shop",beforeFilter,packSize,min,max,producerId,sortType,page);
         return "user/shop";
@@ -88,6 +88,7 @@ public class FilterShopController {
                                    @PathVariable String categoryUrl,@PathVariable String subCategoryUrl,Model  model,
                                    String sortType, Integer max,Integer min,String packSize, Integer producerId, Integer page){
         username = cookieService.checkCookie(username,httpServletResponse,model);
+        username = cookieService.checkCookie(username,httpServletResponse,model);
         CategoryItem item = subCategoryService.findByUrl(animalUrl,categoryUrl,subCategoryUrl);
         model.addAttribute("animal",animalService.findByUrl(animalUrl));
         model.addAttribute("category",categoryService.findByUrl(animalUrl,categoryUrl));
@@ -111,13 +112,13 @@ public class FilterShopController {
     private void configFilter(Model model,String currentUrl,Set<Product> products,String packSize, Integer min,Integer max,Integer providerId,String sortType,Integer page) {
         List<Product> afterFilter = productService.getFiltered(products,min,max,packSize,providerId,sortType);
         if(packSize==null || packSize.isEmpty()){
-            model.addAttribute("packSizes",productService.getPackSize(new HashSet<>(afterFilter)));
+            model.addAttribute("packSizes",productService.getPackSize(new TreeSet<>(afterFilter)));
         }else {
             model.addAttribute("withoutPackUrl",generateUrl(currentUrl,sortType,max,min,null,providerId));
             model.addAttribute("packName",packSize);
         }
         if(providerId==null){
-            model.addAttribute("producerList",productService.getProducers(new HashSet<>(afterFilter)));
+            model.addAttribute("producerList",productService.getProducers(new TreeSet<>(afterFilter)));
         }else{
             {
                 model.addAttribute("withoutProducerUrl",generateUrl(currentUrl,sortType,max,min,packSize,null));

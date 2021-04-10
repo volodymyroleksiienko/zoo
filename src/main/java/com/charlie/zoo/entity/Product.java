@@ -12,7 +12,7 @@ import java.util.List;
 
 @Entity
 @Data
-public class Product {
+public class Product implements Comparable<Product> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -73,5 +73,10 @@ public class Product {
                 ", producer=" + producer +
                 ", statusOfEntity=" + statusOfEntity +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Product o) {
+        return this.getId()-o.getId();
     }
 }
