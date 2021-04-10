@@ -71,7 +71,10 @@ public class AdminOrderController {
     public String getDetail(String orderId,Integer count,Integer packId){
         UUID uuid = UUID.fromString(orderId);
         orderDetailsService.addProductToOrder(uuid,packId,count);
-        orderService.save(orderService.findById(uuid));
+        OrderInfo orderInfo = orderService.findById(uuid);
+        System.out.println(orderService.getSummaryPrice(orderInfo));
+        orderInfo.setSumPrice(orderService.getSummaryPrice(orderInfo));
+        orderService.save(orderInfo);
         return "redirect:/admin/orders/orderReview/"+orderId;
     }
 
