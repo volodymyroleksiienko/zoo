@@ -142,7 +142,7 @@
                                     <span class="brd-separetor">/</span>
                                   <a class="breadcrumb-item" th:href="'/shop/'+${animal.getUrl()}" th:if="${animal!=null}" th:text="${animal.getName()}">Home</a>
                                   <span class="brd-separetor" th:if="${animal!=null}">/</span>
-                                    <a class="breadcrumb-item" th:href="'/shop/'+${category.getUrl()}" th:if="${category!=null}" th:text="${category.getName()}">Home</a>
+                                    <a class="breadcrumb-item" th:href="${'/shop/'+animal.getUrl()+'/'+category.getUrl()}" th:if="${category!=null}" th:text="${category.getName()}">Home</a>
                                     <span class="brd-separetor" th:if="${category!=null}">/</span>
                                   <span class="breadcrumb-item active" th:text="${currentAll}">Shop Page</span>
                                 </nav>

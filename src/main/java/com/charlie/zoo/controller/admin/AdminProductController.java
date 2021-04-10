@@ -21,6 +21,7 @@ import java.util.List;
 public class AdminProductController {
     private final ProductService productService;
     private final ProducerService producerService;
+    private final PackageTypeService packageTypeService;
     private final CategoryService categoryService;
     private final CategoryItemService categoryItemService;
     private final ImageService imageService;
@@ -89,6 +90,11 @@ public class AdminProductController {
     @PostMapping("/changeStatus")
     public String changeStatus(int id, boolean status){
         productService.changeStatus(id,status);
+        return "redirect:/admin/products";
+    }
+    @PostMapping("/deletePack")
+    public String deletePack(int id){
+        packageTypeService.deleteByID(id);
         return "redirect:/admin/products";
     }
 
