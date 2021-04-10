@@ -255,7 +255,7 @@
                                 <h4 class="title">Добавити товар</h4>
                                 <br>
                                 <input type="text"  hidden="" th:value="${order.getId()}">
-                                <input type="number" id="searchProductId" hidden="">
+                                <input type="number" id="searchProductId" hidden="" required="required">
                                 <div class="row gy-4 align-center">
                                     <div class="col-md-9">
                                         <div>
@@ -530,6 +530,8 @@
                     console.log("Error!");
                 }
             }); //ajax end
+        }else {
+            $('#searchResults').hide();
         }
     }
 
