@@ -10,6 +10,7 @@ import com.charlie.zoo.service.PackageTypeService;
 import com.charlie.zoo.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -46,6 +47,7 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
     }
 
     @Override
+    @Transactional
     public OrderDetails addProductToOrder(UUID orderId, int packageId, int count) {
         OrderDetails orderDetails = findByOrderInfoIdAndOrderByPackageId(orderId,packageId);
         if (orderDetails==null){
