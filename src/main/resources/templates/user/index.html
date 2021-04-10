@@ -47,23 +47,7 @@
         <!-- Start Offset Wrapper -->
         <div class="offset__wrapper">
             <!-- Start Search Popap -->
-            <div class="search__area">
-                <div class="container" >
-                    <div class="row" >
-                        <div class="col-md-12" >
-                            <div class="search__inner">
-                                <form action="#" method="get">
-                                    <input placeholder="Почніть введення..." type="text">
-<!--                                    <button type="button"></button>-->
-                                </form>
-                                <div class="search__close__btn">
-                                    <span class="search__close__btn_icon"><i class="zmdi zmdi-close"></i></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div th:replace="~{user/fragments/fragUserSearch.html}"></div>
             <!-- End Search Popap -->
             <!-- Start Offset MEnu -->
             <div class="offsetmenu">
@@ -680,9 +664,9 @@
     <script src="js/waypoints.min.js"></script>
     <!-- Main js file that contents all jQuery plugins activation. -->
     <script src="js/main.js"></script>
+    <script src="js/liveSearch.js"></script>
     <script>
         $( document ).ready(function() {
-
             $("li.animal-img").hide();
             $("li.animal-img").first().show();
 

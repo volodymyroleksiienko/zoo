@@ -1093,9 +1093,121 @@
     .offset__wrapper {
         display: block;
     }
+
+    /*-----------------------------------
+        Header Search area
+    ---------------------------------------*/
     .search__area {
+        background: #cfcfcd none repeat scroll 0 0;
+        box-shadow: 0 8px 10px rgba(0, 0, 0, 0.08);
+        left: 0;
+        position: fixed;
+        right: 0;
+        top: 0;
+        transform: translateY(-200%);
+        transition: all 300ms ease 0s;
+        z-index: 2147483647;
+    }
+    .search__area .search__inner form input[type="text"] {
+        background: #fff none repeat scroll 0 0;
+        border: medium none;
+        color: #333;
+        font-size: 25px;
+        font-weight: 300;
+        height: 60px;
+        line-height: 60px;
+        padding: 0 20px 0 20px;
+        text-align: left;
+    }
+
+    .search__area .search__inner form {
+        margin: 1em 0;
+        padding: 0 35px 0 0;
+        position: relative;
+        text-align: center;
+    }
+
+    .search__area .search__inner form button {
         display: none;
     }
+
+    .search__area .search__inner .search__close__btn {
+        display: block;
+        line-height: 58px;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    .search__area .search__inner .search__close__btn {
+        color: #fff;
+        cursor: pointer;
+        font-size: 21px;
+        line-height: 58px;
+    }
+
+    #mainSearchResults{
+        height: fit-content;
+        width: 100vw;
+        padding: 1rem;
+        max-height: 85vh;
+        overflow: scroll;
+        overflow-x: hidden;
+        position: absolute;
+        background: white;
+        z-index: 100;
+        border: 1px solid #dbdfea;
+        border-radius: 4px;
+        margin: 0 auto;
+        display: none;
+    }
+
+    #mainSearchTable{
+        width: 100%;
+        display: table;
+        border-collapse: separate !important;
+        border-spacing: 0;
+
+        box-sizing: border-box;
+        text-indent: initial;
+        border-spacing: 0;
+        border-color: grey;
+    }
+
+    #mainSearchTable tbody{
+        display: table-row-group;
+        vertical-align: middle;
+        border-color: inherit;
+    }
+
+
+    #mainSearchTable tr{
+        transition: background-color .3s, box-shadow .3s;
+        display: table-row;
+    }
+
+    #mainSearchTable tr:hover{
+        background: #f8f9fc;
+        box-shadow: 0 0 10px -4px rgba(54, 74, 99, 0.2);
+    }
+
+    #mainSearchTable tr td{
+        position: relative;
+        margin: 0 1rem;
+        display: table-cell;
+        vertical-align: middle;
+        padding: 1rem .5rem;
+    }
+
+    #mainSearchTable tr td:first-child{
+        width: 35%;
+    }
+
+    #mainSearchTable tr td:last-child{
+        padding-left: 1rem;
+        white-space: initial;
+    }
+
+    /*SEARCH end*/
     .shopping__cart.shopping__cart__on {
         padding-bottom: 10px;
         right: 0;
@@ -1409,9 +1521,7 @@
     .product-video {
         padding: 0 0 20px 20px;
     }
-    
-    
-    
+
     
     
 }

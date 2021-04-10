@@ -149,11 +149,14 @@ $('.fixed__footer').css({'margin-bottom': $newsletter_height.height() + 'px'});
     
   $( '.search__open' ).on( 'click', function () {
     $( 'body' ).toggleClass( 'search__box__show__hide' );
+      $('#mainSearchInput').focus();
     return false;
   });
 
   $( '.search__close__btn .search__close__btn_icon' ).on( 'click', function () {
     $( 'body' ).toggleClass( 'search__box__show__hide' );
+    $('#mainSearchInput').val('');
+    $('#mainSearchResults').hide();
     return false;
   });
     
