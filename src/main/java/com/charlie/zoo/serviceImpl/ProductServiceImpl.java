@@ -8,6 +8,7 @@ import com.charlie.zoo.service.*;
 import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class ProductServiceImpl implements ProductService {
     private final ProductJpa productJpa;
     private final PackageTypeService packageTypeService;
@@ -100,10 +102,17 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Set<Product> findByAnimalByCategoryBySubCategory(CategoryItem item) {
         List<Integer> category = new ArrayList<>();
         category.add(item.getId());
         return productJpa.findByCategoryItemsIdInAndStatusOfEntity(category,StatusOfEntity.ACTIVE);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Product> find15ByName(String name) {
+        return productJpa.findFirst15ByNameContainingIgnoreCase(name);
     }
 
 

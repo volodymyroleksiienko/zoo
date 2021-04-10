@@ -17,6 +17,7 @@ public interface ProductService {
     Set<Product> findByAnimal(Animal animal);
     Set<Product> findByAnimalByCategory(Category ct);
     Set<Product> findByAnimalByCategoryBySubCategory(CategoryItem item);
+    List<Product> find15ByName(String name);
     Product changeStatus(int id, boolean status);
     Set<Product> getFilteredProduct(Integer[] categoryIdArr,Integer[] categoryItemIdArr,Integer[] producerId, Double[] packSizeArr);
     List<Product> findAll();

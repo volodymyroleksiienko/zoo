@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -60,6 +61,13 @@ public class ProductDto {
         dto.setDetails(product.getDetails());
         dto.setDailyNorm(product.getDailyNorm());
         dto.setProducerDetails(product.getProducerDetails());
+        return dto;
+    }
+    public static List<ProductDto> convertToDto(List<Product> product){
+        List<ProductDto> dto =  new ArrayList<>();
+        for(Product pr:product){
+            dto.add(convertToDto(pr));
+        }
         return dto;
     }
 

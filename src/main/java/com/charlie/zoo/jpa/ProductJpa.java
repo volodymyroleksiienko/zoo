@@ -18,6 +18,8 @@ public interface ProductJpa extends JpaRepository<Product,Integer> {
     TreeSet<Product> findByCategoryItemsIdInAndStatusOfEntity(List<Integer> categoryId, StatusOfEntity statusOfentity);
 
 
+    List<Product> findFirst15ByNameContainingIgnoreCase(String name);
+
     TreeSet<Product> findByCategoriesIdInAndCategoryItemsIdInAndPackageTypePackSizeInAndProducerIdInAndStatusOfEntity(List<Integer> categoryId,List<Integer> categoryItem,List<BigDecimal> packId,List<Integer> producerId, StatusOfEntity statusOfentity);
     List<Product> findByStatusOfEntity(StatusOfEntity status);
     TreeSet<Product> findByCategoriesIn(List<Category> category);
