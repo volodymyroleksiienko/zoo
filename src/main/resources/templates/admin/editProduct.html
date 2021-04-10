@@ -631,10 +631,11 @@
                         <div class="modal-body modal-body-md">
                             <h4 class="title">Видалення позиції</h4>
                             <br>
-                            <input type="number" id="selectedForDeleteItem" hidden="" >
+                            <input type="number" id="deleteRowIndex" hidden="">
+                            <input type="number" id="selectedForDeleteItem" hidden="">
                             <p style="margin-bottom: 2rem;">Ви впевнені, що хочете видалити позицію? Підтвердивши дію, Ви не зможете повернутися до попереднього стану.</p>
                             <div class="form-group">
-                                <button type="button" onclick="removeRow($('#rowIndex').val())" class="btn btn-outline-primary">Підтвердити</button>
+                                <button type="button" onclick="removeRow($('#deleteRowIndex').val())" class="btn btn-outline-primary">Підтвердити</button>
                                 <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
                             </div>
                         </div>
@@ -1196,12 +1197,35 @@
 
     function showConfirmationDeleteItemModal(btnObj){
         let trObj = btnObj.closest("tbody tr");
-        $('#selectedForDeleteItem').val(t.row(trObj).index());
+        $('#deleteRowIndex').val(t.row(trObj).index());
+        $('#selectedForDeleteItem').val(t.row(trObj).data()[13]);
+        console.log("DTid: "+t.row(trObj).index()+";rowID: "+t.row(trObj).data()[13]);
         $('#deleteProductModal').modal('show');
     }
 
     function removeRow(rowToDeleteIndex) {
-        t.row(rowToDeleteIndex).remove().draw();
+        let deleteId = parseInt($('#selectedForDeleteItem').val());
+        console.log("delId: "+deleteId);
+
+        if (deleteId!==0) {
+            $.ajax({
+                method: "post",
+                url: "/admin/products/deletePack",
+                contextType: "application/json",
+                data: {
+                    id: deleteId
+                },
+                success: function () {
+                    t.row(rowToDeleteIndex).remove().draw();
+                },
+                error: function () {
+                    alert("Помилка!");
+                }
+            }); //ajax end
+        }else {
+            t.row(rowToDeleteIndex).remove().draw();
+        }
+
         $('#deleteProductModal').modal('hide');
     }
 

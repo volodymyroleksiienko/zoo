@@ -638,12 +638,15 @@
   width: 60px;
   transition: 0.3s;
 }
-.search__area .search__inner form button:hover {
-  background: #ff4136 none repeat scroll 0 0;
-}
-.search__area .search__inner form button:hover::before {
-  color: #fff;
-}
+
+/*.search__area .search__inner form button:hover {*/
+/*  background: #ff4136 none repeat scroll 0 0;*/
+/*}*/
+
+/*.search__area .search__inner form button:hover::before {*/
+/*  color: #fff;*/
+/*}*/
+
 .search__area .search__inner .search__close__btn {
   display: block;
   line-height: 58px;
