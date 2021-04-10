@@ -201,8 +201,8 @@
                                                                 <img th:src="'/shop/getImgByProductId/'+${detail?.getPackageType()?.getProduct()?.getId()}" >
                                                             </th>
                                                             <td class="nk-tb-col" th:text="${detail?.getPackageType()?.getProduct()?.getName()}" style="width:50%; white-space:initial;">Назва</td>
-                                                            <td class="nk-tb-col tb-col-lg" th:text="${detail?.getCount()*detail?.getPackageType()?.getNewPrice()}" th:if="${detail?.getPackageType().isOnSale()}">Ціна</td>
-                                                            <td class="nk-tb-col tb-col-lg" th:text="${detail?.getCount()*detail?.getPackageType()?.getPrice()}" th:if="${!detail?.getPackageType().isOnSale()}">Ціна</td>
+                                                            <td class="nk-tb-col tb-col-lg" th:text="${detail?.getCount()*detail?.getPackageType()?.getNewPrice().doubleValue()}" th:if="${detail?.getPackageType().isOnSale()}">Ціна</td>
+                                                            <td class="nk-tb-col tb-col-lg" th:text="${detail?.getCount()*detail?.getPackageType()?.getPrice().doubleValue()}" th:if="${!detail?.getPackageType().isOnSale()}">Ціна</td>
                                                             <td class="nk-tb-col" th:text="${detail?.getCount()}">Кількість</td>
                                                             <td class="nk-tb-col tb-col-hide" th:text="${detail?.getId()}">ID</td>
                                                             <td class='nk-tb-col nk-tb-col-tools'>
@@ -251,11 +251,11 @@
                     <div class="modal-content">
                         <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
                         <div class="modal-body modal-body-md">
-                            <form action="#" method="post">
+                            <form action="/admin/orders/addDetail" method="post">
                                 <h4 class="title">Добавити товар</h4>
                                 <br>
-                                <input type="text"  hidden="" th:value="${order.getId()}">
-                                <input type="number" id="searchProductId" hidden="">
+                                <input type="text"  hidden="" name="orderId" th:value="${order.getId()}">
+                                <input type="number" id="searchProductId" name="packId" hidden="">
                                 <div class="row gy-4 align-center">
                                     <div class="col-md-9">
                                         <div>

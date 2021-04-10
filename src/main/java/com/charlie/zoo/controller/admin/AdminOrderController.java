@@ -67,6 +67,14 @@ public class AdminOrderController {
         return "redirect:"+currentUrl;
     }
 
+    @PostMapping("/addDetail")
+    public String getDetail(String orderId,Integer count,Integer packId){
+        UUID uuid = UUID.fromString(orderId);
+        orderDetailsService.addProductToOrder(uuid,packId,count);
+        orderService.save(orderService.findById(uuid));
+        return "redirect:/admin/orders/orderReview/"+orderId;
+    }
+
     @ResponseBody
     @PostMapping("/findPackType")
     public List<PackageTypeDto> findPackType(String productName){
