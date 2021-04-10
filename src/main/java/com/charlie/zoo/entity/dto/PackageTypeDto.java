@@ -30,6 +30,8 @@ public class PackageTypeDto {
     private int countOfProduct;
     private boolean statusOfEntity;
 
+    private ProductDto productDto;
+
     public PackageTypeDto() {
     }
 
@@ -96,7 +98,9 @@ public class PackageTypeDto {
     public static List<PackageTypeDto> convertToListDto(List<PackageType> packageTypes){
         List<PackageTypeDto> dtos = new ArrayList<>();
         for(PackageType type: packageTypes){
-            dtos.add(PackageTypeDto.convertToDto(type));
+            PackageTypeDto dto = PackageTypeDto.convertToDto(type);
+            dto.setProductDto(ProductDto.convertToDto(type.getProduct()));
+            dtos.add(dto);
         }
         return dtos;
     }

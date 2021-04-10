@@ -52,4 +52,15 @@ public class ProductDto {
         return product;
     }
 
+    public static ProductDto convertToDto(Product product){
+        ProductDto dto =  new ProductDto();
+        dto.setId(product.getId());
+        dto.setName(product.getName());
+        dto.setShortDescription(product.getShortDescription());
+        dto.setDetails(product.getDetails());
+        dto.setDailyNorm(product.getDailyNorm());
+        dto.setProducerDetails(product.getProducerDetails());
+        return dto;
+    }
+
 }
