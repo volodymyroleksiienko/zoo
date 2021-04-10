@@ -1155,7 +1155,7 @@
         position: absolute;
         background: white;
         z-index: 100;
-        border: 1px solid #dbdfea;
+        box-shadow: 0 8px 10px rgb(0 0 0 / 8%);
         border-radius: 4px;
         margin: 0 auto;
         display: none;
