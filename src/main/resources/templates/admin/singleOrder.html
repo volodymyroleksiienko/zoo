@@ -538,28 +538,30 @@
 
     function searchProduct(){
         let searchString = $('#searchProduct').val().trim();
-        console.log(searchString);
-        $.ajax({
-            method: "post",
-            url: "/admin/orders/findPackType",
-            contextType: "application/json",
-            data: {
-                productName:searchString
-            },
-            success: function (result) {
-              console.log(result);
-            },
-            error: function () {
-                console.log("Error!");
-            }
-        }); //ajax end
+        if (searchString.length>=3) {
+            console.log(searchString);
+            $.ajax({
+                method: "post",
+                url: "/admin/orders/findPackType",
+                contextType: "application/json",
+                data: {
+                    productName: searchString
+                },
+                success: function (result) {
+                    console.log(result);
+                },
+                error: function () {
+                    console.log("Error!");
+                }
+            }); //ajax end
+        }
     }
 
     function setSearchDelay() {
         this.clearTime()
         this.delaySearch = setTimeout(() => {
             this.searchProduct()
-        }, 2000)
+        }, 1500)
     }
 
     function  clearTime () {

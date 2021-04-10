@@ -3819,9 +3819,9 @@ a.shipping-calculator-button:hover {
     border: 1px solid #c1c1c1;
     border-radius: 0;
     font-size: 12px;
-    min-height: 160px;
+    min-height: 125px;
     padding: 10px;
-    resize: none;
+    resize: vertical;
     width: 100%;
     padding-left: 20px;
 }

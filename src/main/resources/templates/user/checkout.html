@@ -162,7 +162,7 @@
                                 <div class="checkout-form-inner">
                                     <div class="single-checkout-box">
                                         <input type="text" id="nameSurname" placeholder="Введіть прізвище, ім'я*" name="nameOfClient">
-                                        <input type="text" id="phoneNumber" placeholder="Введіть номер телефону*" value="+380" class="phone_number" name="phone">
+                                        <input type="text" autocomplete="on" id="phoneNumber"  placeholder="Введіть номер телефону*" value="+380" class="phone_number" name="phone">
 
                                         <input type="text" hidden="hidden" id="idOfOrder" th:value="${orderInfo.getId()}" name="id">
                                         <input type="text" hidden="hidden" id="paymentData" th:value="${paymentData}" name="data">
@@ -184,7 +184,7 @@
                                         <label for="countryDelivery"><span></span>Доставка до відділення Нової Пошти</label>
                                     </div>
 
-                                    <div class="single-checkout-box">
+                                    <div class="single-checkout-box mt--40">
                                         <textarea name="description" id="deliveryAddress" rows="3" placeholder="Адреса для доставки*"></textarea>
                                     </div>
                                 </div>
@@ -210,9 +210,9 @@
                             <!-- End Checkbox Area -->
                         </div>
                     </div>
-                    <div class="col-md-4 col-lg-4">
+                    <div class="col-md-4 col-lg-4" style="padding: 2px">
                         <div class="checkout-right-sidebar">
-                            <div class="our-important-note" id="notesAboutBuying">
+                            <div class="our-important-note" id="notesAboutBuying" style="padding: 0 10px;">
                                 <h2 class="section-title-3">Note :</h2>
                                 <p class="note-desc">Lorem ipsum dolor sit amet, consectetur adipisici elit, sed do eiusmod tempor incididunt ut laborekf et dolore magna aliqua.</p>
                                 <ul class="important-note">

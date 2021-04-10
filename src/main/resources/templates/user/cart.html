@@ -159,7 +159,7 @@
                                 <table id="cartTable">
                                     <thead>
                                         <tr>
-                                            <th class="product-thumbnail">Фото</th>
+                                            <th class="product-thumbnail" style="padding: 0 50px;">Фото</th>
                                             <th class="product-name">Назва</th>
                                             <th class="product-price">Ціна</th>
                                             <th class="product-quantity">Кількість</th>
@@ -171,7 +171,7 @@
                                         <tr th:each="dt : ${orderInfo.getOrderDetails()}" >
                                             <td class="product-thumbnail">
                                                 <a th:href="'/singleProduct/'+${dt.getPackageType().getProduct().getId()}">
-                                                <img th:src="'/shop/getImgByProductId/'+${dt.getPackageType().getProduct().getId()}" alt="product img" />
+                                                    <img th:src="'/shop/getImgByProductId/'+${dt.getPackageType().getProduct().getId()}" alt="product img" />
                                                 </a>
                                             </td>
                                             <td class="product-name">
@@ -400,7 +400,6 @@
     <script src="js/main.js"></script>
     <script>
         $( document ).ready(function() {
-
             $("li.animal-img").hide();
             $("li.animal-img").first().show();
 
@@ -425,6 +424,10 @@
             });
             $('#totalCartSum').text(parseFloat(sum).toFixed(2)+" UAH");
             //calculate sidebar cart total sum end
+
+            // let inp = $('#inputItemsCount');
+            // console.log(inp);
+            // inp.addEventListener("focusout", checkIfEmptyCount(inp));
         });
 
         function calculateRowSum(inputElement) {
@@ -442,22 +445,28 @@
 
         function saveChanges(itemId) {
             let count = parseInt($('#'+itemId).val());
-            $.ajax({
-                method: "post",
-                url: "/changeCount",
-                contextType: "application/json",
-                data: {
-                    idOfPackageType: itemId,
-                    count: count,
-                },
-                traditional: true,
-                success: function () {
-                    console.log('Updated!');
-                },
-                error: function () {
-                    alert("Помилка!!");
-                }
-            });
+            if ($('#'+itemId).val()!=='') {
+                $.ajax({
+                    method: "post",
+                    url: "/changeCount",
+                    contextType: "application/json",
+                    data: {
+                        idOfPackageType: itemId,
+                        count: count,
+                    },
+                    traditional: true,
+                    success: function () {
+                        console.log('Updated!');
+                    },
+                    error: function () {
+                        alert("Помилка!");
+                    }
+                });
+            }else {
+                $('#'+itemId).val(1).change();
+                calculateRowSum($('#'+itemId));
+            }
+
         }
 
         function calculateTotalCartSum() {
