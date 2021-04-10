@@ -10,7 +10,7 @@ public interface PackageTypeService {
     PackageType save(PackageType packageType);
     PackageType findById(int id);
     List<PackageType> findAll();
-    List<PackageType> findFirst2ByProductNameContaining(String name);
+    List<PackageType> findFirst10ByProductNameContaining(String name);
     void deleteByID(int id);
     List<BigDecimal> getListOfSizes();
     void deleteAllByProductId(int productId);

@@ -33,8 +33,8 @@ public class PackageTypeServiceImpl implements PackageTypeService {
     }
 
     @Override
-    public List<PackageType> findFirst2ByProductNameContaining(String name) {
-        return packageTypeJPA.findFirst2ByProductNameContaining(name);
+    public List<PackageType> findFirst10ByProductNameContaining(String name) {
+        return packageTypeJPA.findFirst10ByProductNameContainingIgnoreCase(name);
     }
 
 
