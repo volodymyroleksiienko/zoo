@@ -70,6 +70,6 @@ public class AdminOrderController {
     @ResponseBody
     @PostMapping("/findPackType")
     public List<PackageTypeDto> findPackType(String productName){
-        return PackageTypeDto.convertToListDto(packageTypeService.findFirst2ByProductNameContaining(productName));
+        return PackageTypeDto.convertToListDto(packageTypeService.findFirst10ByProductNameContaining(productName));
     }
 }

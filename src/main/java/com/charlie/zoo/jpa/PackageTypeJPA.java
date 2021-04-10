@@ -16,7 +16,7 @@ public interface PackageTypeJPA extends JpaRepository<PackageType,Integer> {
 
 
 
-    List<PackageType> findFirst2ByProductNameContaining(String name);
+    List<PackageType> findFirst10ByProductNameContainingIgnoreCase(String name);
 
     @Query("select pt.packSize from PackageType pt")
     List<BigDecimal> getListOfSizes();
