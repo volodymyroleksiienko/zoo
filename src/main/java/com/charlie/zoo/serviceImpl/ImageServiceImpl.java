@@ -182,6 +182,10 @@ public class ImageServiceImpl implements  ImageService {
 
     @Override
     public void deleteById(int id) {
-        imageJPA.deleteById(id);
+        if(id>0){
+            if(findById(id)!=null) {
+                imageJPA.deleteById(id);
+            }
+        }
     }
 }

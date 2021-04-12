@@ -99,6 +99,7 @@
                                                                 <tr class="nk-tb-item">
                                                                     <td class="nk-tb-col">
                                                                         <img id="checkIfImagePresent" th:if="${productMainImg?.getId()!=0}" th:src="@{'/shop/getImg/'+${productMainImg?.getId()}}" width="100%">
+                                                                        <img id="checkIfImagePresent" th:if="${productMainImg?.getId()==0}" src="" width="100%">
                                                                     </td>
                                                                     <td class="nk-tb-col">
                                                                         <div class="form-control-wrap">
