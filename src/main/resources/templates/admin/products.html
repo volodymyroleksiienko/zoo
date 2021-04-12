@@ -228,13 +228,14 @@
 
         let status = $(trObj).find('td:eq(6)').text();
 
-        if (status.trim()=="Active"){
-            $('#showItemSwitch').attr("checked", true);
-        }else if (status.trim()=="Archive") {
-            $('#showItemSwitch').attr("checked", false);
+        if (status.trim()==="Active"){
+            $('#showItemSwitch').prop("checked", true);
+        }else if (status.trim()==="Archive") {
+            $('#showItemSwitch').prop("checked", false);
         }
 
         console.log("row id:" + $(trObj).attr('id'));
+        console.log("status:" + status.trim());
 
         $('#selectedForChangingStatusItem') .val(trId);
 
