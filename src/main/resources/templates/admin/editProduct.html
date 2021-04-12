@@ -109,7 +109,7 @@
                                                                         </div>
                                                                     </td>
                                                                     <td class="nk-tb-col">
-                                                                        <button title="Видалити" class="btn btn-icon btn-lg btn-primary float-right" onclick="deleteImg('#productImage-1', '#productImage1Name', this.id)" style="height: fit-content;margin-left: auto;margin-right: 0.75rem;" th:id="${(productImg?.size()>0)? productMainImg?.getId():0}">
+                                                                        <button title="Видалити" class="btn btn-icon btn-lg btn-primary float-right" onclick="deleteImg('#productImage-1', '#productImage1Name', this.id)" style="height: fit-content;margin-left: auto;margin-right: 0.75rem;" th:id="${(productMainImg?.getId()!=0)? productMainImg?.getId():0}">
                                                                             <em class="icon ni ni-cross-c"></em>
                                                                         </button>
                                                                     </td>
