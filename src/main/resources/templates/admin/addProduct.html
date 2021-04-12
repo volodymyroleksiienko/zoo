@@ -716,10 +716,20 @@
     function loadFile(event, inputId) {
         let imageFile = URL.createObjectURL(event.target.files[0]);
         let tdObj = $("#"+inputId).parent().parent().parent().parent().find('td:eq(0)');
-        console.log(inputId);
-        console.log(tdObj);
-        tdObj.empty();
-        tdObj.prepend("<img src='"+imageFile+"'width='100%' />");
+
+        if(event.target.files[0].size > 500){
+            $('#errorMessage').text('Максимально допустимий розмір файлу 500kb.');
+            $('#erorAlert').show();
+            setTimeout(function() { $('#erorAlert').hide(); }, 5000);
+
+            tdObj.empty();
+            $("#"+inputId).val(null);
+        }else {
+            console.log(inputId);
+            console.log(tdObj);
+            tdObj.empty();
+            tdObj.prepend("<img src='"+imageFile+"'width='100%' />");
+        }
     }
 
     function deleteImg(inputId, labelId) {
