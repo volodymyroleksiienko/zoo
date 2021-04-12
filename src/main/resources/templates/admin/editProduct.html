@@ -97,9 +97,8 @@
                                                                 </thead>
                                                                 <tbody>
                                                                 <tr class="nk-tb-item">
-                                                                    <td class="nk-tb-col">
-                                                                        <img id="checkIfImagePresent" th:if="${productMainImg?.getId()!=0}" th:src="@{'/shop/getImg/'+${productMainImg?.getId()}}" width="100%">
-                                                                        <img id="checkIfImagePresent" th:if="${productMainImg?.getId()==0}" src=" " width="100%">
+                                                                    <td class="nk-tb-col" id="checkIfImagePresent">
+                                                                        <img th:if="${productMainImg?.getId()!=0}" th:src="@{'/shop/getImg/'+${productMainImg?.getId()}}" width="100%">
                                                                     </td>
                                                                     <td class="nk-tb-col">
                                                                         <div class="form-control-wrap">
@@ -652,6 +651,13 @@
                 </div>
             </div>
 
+            <div class="alert alert-pro alert-danger" id="successAlert" style="display: none; z-index: 9999; position: fixed; top: 12vh; margin: 0 1rem;">
+                <div class="alert-text">
+                    <h6>Готово!</h6>
+                    <p id="successMessage"></p>
+                </div>
+            </div>
+
             <!-- content @e -->
             <!-- footer @s -->
             <div th:replace="~{admin/fragments/fragAdminFooter.html :: adminFooter}"></div>
@@ -756,7 +762,7 @@
     }
 
     function deleteImg(inputId, labelId, imgId) {
-        if (imgId !== 0){
+        if (parseInt(imgId) !== 0){
             $.ajax({
                 method: "post",
                 url: "/shop/deleteImg/" + imgId,
@@ -776,8 +782,17 @@
             });
         }else {
             console.log("img id 0!");
+            let tdObj = $(inputId).parent().parent().parent().parent().find('td:eq(0)');
+            console.log(inputId);
+            console.log(tdObj);
+            console.log(labelId);
+            tdObj.empty();
+            $(labelId).empty();
+            tdObj.html(inputId.match(/\d+/)[0]);
+            $(inputId).val(null);
         }
     }
+
 
     $(document).ready(function() {
         $('#addPosition').on( 'click', function () {
@@ -1061,7 +1076,7 @@
 
 
     function validateInputs(form) {
-        if ($('#checkIfImagePresent').attr('src') === ''){
+        if ($('#checkIfImagePresent').children().length <= 0 ) {
             $('#errorMessage').text('Виберіть головне зображення.');
             $('#erorAlert').show();
             setTimeout(function() { $('#erorAlert').hide(); }, 5000);
@@ -1100,8 +1115,11 @@
                 contentType : false,
                 data: form,
                 success: function () {
-                    alert("Success!");
-                    window.location.href = '/admin/products';
+                    $('#successMessage').text('Зміни успішно збережено.');
+                    $('#successAlert').show();
+                    setTimeout(function() { $('#successAlert').hide(); }, 5000);
+                    // alert("Success!");
+                    // window.location.href = '/admin/products';
                 },
                 error: function () {
                     alert("Error!");
