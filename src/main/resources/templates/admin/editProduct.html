@@ -644,6 +644,13 @@
             </div>
             <!-- Delete item end -->
 
+            <div class="alert alert-pro alert-danger" id="erorAlert" style="display: none; z-index: 9999; position: fixed; top: 12vh; margin: 0 1rem;">
+                <div class="alert-text">
+                    <h6>Помилка!</h6>
+                    <p id="errorMessage"></p>
+                </div>
+            </div>
+
             <!-- content @e -->
             <!-- footer @s -->
             <div th:replace="~{admin/fragments/fragAdminFooter.html :: adminFooter}"></div>
@@ -1047,6 +1054,49 @@
             form.append("product",JSON.stringify(product));
             form.append("category",JSON.stringify(category));
             form.append("subCategory",JSON.stringify(subCategory));
+            validateInputs(form);
+        });//button click end
+    });//ready() end
+
+
+    function validateInputs(form) {
+        if ($('#productImage-1').val()===''){
+            $('#errorMessage').text('Виберіть головне зображення.');
+            $('#erorAlert').show();
+            setTimeout(function() { $('#erorAlert').hide(); }, 5000);
+            return;
+        }else if ($('#productName').val()===''){
+            $('#errorMessage').text('Заповніть назву товару.');
+            $('#erorAlert').show();
+            setTimeout(function() { $('#erorAlert').hide(); }, 5000);
+            return;
+        }else if ($('#distributorsList').val()===' '){
+            $('#errorMessage').text('Виберіть виробника зі списку.');
+            $('#erorAlert').show();
+            setTimeout(function() { $('#erorAlert').hide(); }, 5000);
+            return;
+        }else if ($('#mainCategories option:selected').length===0){
+            $('#errorMessage').text('Виберіть принаймні одну категорію товару.');
+            $('#erorAlert').show();
+            setTimeout(function() { $('#erorAlert').hide(); }, 5000);
+            return;
+        }else if ($('#subCategories option:selected').length===0){
+            $('#errorMessage').text('Виберіть принаймні одну підкатегорію товару.');
+            $('#erorAlert').show();
+            setTimeout(function() { $('#erorAlert').hide(); }, 5000);
+            return;
+        }else if ($('#productDescription').val()===''){
+            $('#errorMessage').text('Заповніть опис товару.');
+            $('#erorAlert').show();
+            setTimeout(function() { $('#erorAlert').hide(); }, 5000);
+            return;
+        }else if (!t.data().any()){
+            $('#errorMessage').text('Додайте принаймні один тип пакування.');
+            $('#erorAlert').show();
+            setTimeout(function() { $('#erorAlert').hide(); }, 5000);
+            return;
+        }else {
+            alert('Success!');
             $.ajax({
                 method: "post",
                 url: "/admin/products/edit",
@@ -1062,8 +1112,8 @@
                     alert("Error!");
                 }
             }); //ajax end
-        });//button click end
-    });//ready() end
+        }
+    }
 
 
     function calculatePercentage(productPrice, productPromotionalPrice, percentage) {
