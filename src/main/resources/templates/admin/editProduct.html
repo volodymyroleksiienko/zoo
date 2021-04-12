@@ -98,7 +98,7 @@
                                                                 <tbody>
                                                                 <tr class="nk-tb-item">
                                                                     <td class="nk-tb-col">
-                                                                        <img th:if="${productMainImg?.getId()!=0}" th:src="@{'/shop/getImg/'+${productMainImg?.getId()}}" width="100%">
+                                                                        <img id="checkIfImagePresent" th:if="${productMainImg?.getId()!=0}" th:src="@{'/shop/getImg/'+${productMainImg?.getId()}}" width="100%">
                                                                     </td>
                                                                     <td class="nk-tb-col">
                                                                         <div class="form-control-wrap">
@@ -1060,7 +1060,7 @@
 
 
     function validateInputs(form) {
-        if ($('#productImage-1').val()===''){
+        if ($('#checkIfImagePresent').attr('src') === ''){
             $('#errorMessage').text('Виберіть головне зображення.');
             $('#erorAlert').show();
             setTimeout(function() { $('#erorAlert').hide(); }, 5000);
@@ -1080,11 +1080,6 @@
             $('#erorAlert').show();
             setTimeout(function() { $('#erorAlert').hide(); }, 5000);
             return;
-        }else if ($('#subCategories option:selected').length===0){
-            $('#errorMessage').text('Виберіть принаймні одну підкатегорію товару.');
-            $('#erorAlert').show();
-            setTimeout(function() { $('#erorAlert').hide(); }, 5000);
-            return;
         }else if ($('#productDescription').val()===''){
             $('#errorMessage').text('Заповніть опис товару.');
             $('#erorAlert').show();
@@ -1096,7 +1091,6 @@
             setTimeout(function() { $('#erorAlert').hide(); }, 5000);
             return;
         }else {
-            alert('Success!');
             $.ajax({
                 method: "post",
                 url: "/admin/products/edit",

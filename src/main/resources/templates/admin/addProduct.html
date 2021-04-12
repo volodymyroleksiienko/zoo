@@ -1033,11 +1033,6 @@
             $('#erorAlert').show();
             setTimeout(function() { $('#erorAlert').hide(); }, 5000);
             return;
-        }else if ($('#subCategories option:selected').length===0){
-            $('#errorMessage').text('Виберіть принаймні одну підкатегорію товару.');
-            $('#erorAlert').show();
-            setTimeout(function() { $('#erorAlert').hide(); }, 5000);
-            return;
         }else if ($('#productDescription').val()===''){
             $('#errorMessage').text('Заповніть опис товару.');
             $('#erorAlert').show();
@@ -1049,7 +1044,6 @@
             setTimeout(function() { $('#erorAlert').hide(); }, 5000);
             return;
         }else {
-            alert('Success!');
             $.ajax({
                 method: "post",
                 url: "/admin/products/add",
