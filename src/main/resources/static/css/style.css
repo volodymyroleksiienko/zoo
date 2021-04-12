@@ -780,12 +780,12 @@
 .breadcrumb-item {
     color: #343434;
     font-size: 18px;
-    text-transform: capitalize;
+    /*text-transform: capitalize;*/
 }
 .breadcrumb-item.active {
     color: #343434;
     font-size: 18px;
-    text-transform: capitalize;
+    /*text-transform: capitalize;*/
 }
 .brd-separetor {
     padding: 0 5px;

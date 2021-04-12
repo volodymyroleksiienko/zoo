@@ -50,6 +50,14 @@ public class MainController {
         return "user/contact";
     }
 
+    @GetMapping("/about")
+    public String getAbout(@CookieValue(value = "id", defaultValue = "") String username,Model model,
+                             HttpServletResponse httpServletResponse){
+        username = cookieService.checkCookie(username,httpServletResponse,model);
+        modelConfig(model,username);
+        return "user/about";
+    }
+
     @GetMapping("/cart")
     public String getCart(@CookieValue(value = "id", defaultValue = "") String username,Model model,
                           HttpServletResponse httpServletResponse){

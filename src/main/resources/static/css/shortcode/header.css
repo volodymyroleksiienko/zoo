@@ -32,7 +32,7 @@
   font-weight: 400;
   line-height: 70px;
   position: relative;
-  text-transform: capitalize;
+  /*text-transform: capitalize;*/
 }
 .main__menu > li {
   padding: 0 20px;
