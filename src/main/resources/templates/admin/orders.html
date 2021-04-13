@@ -148,6 +148,10 @@
                 </div>
             </div>
 
+            <a href="/admin/products/add" title="Створити замовлення" class="btn btn-icon btn-lg btn-primary float-right" style="position: fixed; bottom: 25px; right: 25px; z-index: 1000;">
+                <em class="icon ni ni-grid-add-c"></em>
+            </a>
+
             <!-- Change status start -->
             <div class="modal fade" tabindex="-1" role="dialog" id="quickViewModal" aria-modal="true">
                 <div class="modal-dialog modal-md" role="document">
@@ -176,7 +180,7 @@
                             <form action="/admin/orders/modalUpdate" method="post">
                                 <input type="text" id="selectedForChangingStatusItem" hidden="" name="id">
                                 <div class="row align-center" style="    margin: 0 0 2rem;">
-                                    <div class="col-6">
+                                    <div class="col-6" style="padding: 0 1em 0 0;">
                                         <label class="form-label" for="statusOfPayment">Статус оплати</label>
                                         <div class="form-control-wrap">
                                             <select class="form-select" id="statusOfPayment" name="statusOfPayment">

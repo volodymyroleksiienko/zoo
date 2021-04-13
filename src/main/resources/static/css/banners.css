@@ -1,0 +1,29 @@
+.feature {
+    position: relative;
+}
+
+.feature__thumb a {
+    display: block;
+}
+.feature__thumb a img {
+    width: 100%;
+}
+
+.feature__thumb--2 a img {
+    min-height: 330px;
+}
+
+@media (min-width: 992px) and (max-width: 1169px) {
+    .feature__thumb--2 a img {
+        min-height: 265px;
+    }
+    /*.third-img a img {*/
+    /*    min-height: 265px;*/
+    /*}*/
+}
+
+@media (max-width: 575px){
+    .xmt-30 {
+        margin-top: 30px;
+    }
+}

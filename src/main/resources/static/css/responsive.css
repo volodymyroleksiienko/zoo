@@ -258,7 +258,8 @@
     }
     .single-checkout-box input[type="text"],
     .single-checkout-box input[type="email"],
-    .single-checkout-box input[type="password"] {
+    .single-checkout-box input[type="password"],
+    .single-checkout-box input[type="tel"]{
         width: 100%;
     }
     .single-checkout-box input + input {
@@ -408,7 +409,8 @@
     }
     .single-checkout-box input[type="text"],
     .single-checkout-box input[type="email"],
-    .single-checkout-box input[type="password"] {
+    .single-checkout-box input[type="password"],
+    .single-checkout-box input[type="tel"]{
         width: 46.5%;
     }
     .review__details p {
@@ -910,7 +912,8 @@
     }
     .single-checkout-box input[type="text"],
     .single-checkout-box input[type="email"],
-    .single-checkout-box input[type="password"] {
+    .single-checkout-box input[type="password"],
+    .single-checkout-box input[type="tel"]{
         width: 100%;
     }
     .single-checkout-box input + input {

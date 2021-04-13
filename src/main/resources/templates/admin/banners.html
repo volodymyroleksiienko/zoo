@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html class="js" lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- <base href="../"> -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Fav Icon  -->
+    <link rel="shortcut icon" th:href="@{/images/OP_ico.png}">
+    <!-- Page Title  -->
+    <title>Банери</title>
+    <!-- StyleSheets  -->
+
+    <!-- Bootstrap fremwork main css -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/shortcode/default.css}">
+    <link rel="stylesheet" th:href="@{/css/banners.css}">
+    <link rel="stylesheet" th:href="@{/css/dashlite.css}">
+    <link id="skin-default" rel="stylesheet" th:href="@{/css/theme.css}">
+
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="nk-body bg-lighter npc-general has-sidebar ">
+<div class="nk-app-root">
+    <!-- main @s -->
+    <div class="nk-main ">
+        <!-- sidebar @s -->
+        <div th:replace="~{admin/fragments/fragAdminHeader.html}"></div>
+        <!-- sidebar @e -->
+
+        <!-- wrap @s -->
+        <div class="nk-wrap ">
+            <!-- main header @s -->
+            <div class="nk-header nk-header-fixed is-light">
+                <div class="container-fluid">
+                    <div class="nk-header-wrap">
+                        <div class="nk-menu-trigger d-xl-none ml-n1">
+                            <a href="#" class="nk-nav-toggle nk-quick-nav-icon" data-target="sidebarMenu"><em class="icon ni ni-menu"></em></a>
+                        </div>
+                        <div class="nk-header-brand d-xl-none">
+                            <a href="/admin/products" class="logo-link">
+                                <img class="logo-light logo-img" th:src="@{/images/logo-light.png}" th:srcset="@{/images/logo-light.png}" alt="logo">
+                                <img class="logo-dark logo-img" th:src="@{/images/logo-dark.png}" th:srcset="@{/images/logo-dark.png}" alt="logo-dark">
+                            </a>
+                        </div><!-- .nk-header-brand -->
+
+                        <div class="nk-header-tools">
+                            <ul class="nk-quick-nav">
+                                <li class="dropdown user-dropdown">
+                                    <div class="user-toggle">
+                                        <div class="user-avatar sm">
+                                            <em class="icon ni ni-user-alt"></em>
+                                        </div>
+                                        <div class="user-info d-none d-md-block">
+                                            <h6>Адміністратор</h6>
+                                        </div>
+                                    </div>
+                                </li><!-- .dropdown -->
+                                <li>
+                                    <a href="/logout" class="nk-quick-nav-icon" data-toggle="tooltip" data-placement="bottom" title="Вийти">
+                                        <em class="icon ni ni-signout"></em>
+                                    </a>
+                                </li>
+                            </ul><!-- .nk-quick-nav -->
+                        </div><!-- .nk-header-tools -->
+                    </div><!-- .nk-header-wrap -->
+                </div><!-- .container-fliud -->
+            </div>
+            <!-- main header @e -->
+            <!-- content @s -->
+            <div class="nk-content ">
+                <div class="container-fluid">
+                    <div class="nk-content-inner">
+                        <div class="nk-content-body">
+                            <div class="components-preview wide-md mx-auto">
+                                <div class="nk-block-head nk-block-head-lg wide-sm">
+                                    <div class="nk-block-head-content">
+                                        <h3 class="nk-block-title fw-normal">Банери</h3>
+                                    </div>
+                                </div><!-- .nk-block-head -->
+
+                                <div class="nk-block nk-block-lg">
+                                    <div class="card card-bordered card-preview">
+                                        <div class="card-inner">
+                                            <!-- Start Feature Product -->
+                                            <section class="htc__feature__product bg__white">
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <!-- Start Left Feature -->
+                                                        <div class="col-md-5 col-lg-5 col-sm-6 col-xs-12">
+                                                            <div class="feature foo">
+                                                                <div class="feature__thumb">
+                                                                    <a href="#">
+                                                                        <img th:src="@{/images/banners/470x687-1.png}" alt="feature product">
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- End Left Feature -->
+                                                        <div class="col-md-7 col-lg-7 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-md-12 col-sm-12 col-xs-12 xmt-30">
+                                                                    <div class="feature foo">
+                                                                        <div class="feature__thumb">
+                                                                            <a href="#">
+                                                                                <img th:src="@{/images/banners/670x324-1.png}" alt="feature product">
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-5 mt--30  hidden-xs">
+                                                                    <div class="feature text__pos--top foo">
+                                                                        <div class="feature__thumb--2">
+                                                                            <a href="#">
+                                                                                <img th:src="@{/images/banners/270x324-1.png}" alt="feature product">
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-7 mt--30 col-sm-12 col-xs-12 xmt-30">
+                                                                    <div class="feature foo">
+                                                                        <div class="feature__thumb third-img">
+                                                                            <a href="#">
+                                                                                <img th:src="@{/images/banners/370x324.png}" alt="feature product">
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </section>
+                                            <!-- End Feature Product -->
+                                        </div>
+                                    </div><!-- .card-preview -->
+                                </div> <!-- nk-block -->
+                            </div><!-- .components-preview -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Adding start -->
+            <div class="modal fade" tabindex="-1" role="dialog" id="addProducerModal" aria-modal="true">
+                <div class="modal-dialog modal-md" role="document">
+                    <div class="modal-content">
+                        <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+                        <div class="modal-body modal-body-sm">
+                            <h4 class="title">Добавлення виробника</h4>
+                            <br>
+                            <form action="/admin/producer/add" method="post" enctype="multipart/form-data" id="addProducerForm">
+                                <div class="form-group" style="margin-top: 1rem">
+                                    <label class="form-label" for="producerImage">Зображення</label>
+                                    <div class="form-control-wrap">
+                                        <div class="custom-file">
+                                            <input type="file" onchange="loadFile(event)" accept="image/png, image/jpeg" class="custom-file-input" id="producerImage" name="multipartFile">
+                                            <label class="custom-file-label" id="producerImageLabel" for="producerImage"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="producerName">Назва</label>
+                                    <div class="form-control-wrap">
+                                        <input type="text" class="form-control" required="required" id="producerName" placeholder="Назва..." name="name">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="producerCountry">Країна</label>
+                                    <div class="form-control-wrap">
+                                        <input type="text" class="form-control" required="required" id="producerCountry" placeholder="Країна..." name="countryName">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-outline-primary">Добавити</button>
+                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Adding end -->
+
+            <!-- Edit start -->
+            <div class="modal fade" tabindex="-1" role="dialog" id="editProducerModal" aria-modal="true">
+                <div class="modal-dialog modal-md" role="document">
+                    <div class="modal-content">
+                        <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+                        <div class="modal-body modal-body-sm">
+                            <h4 class="title">Редагування</h4>
+                            <br>
+                            <form action="/admin/producer/edit" method="post" enctype="multipart/form-data" id="editProducerForm">
+                                <input type="text" id="selectedForEditItem" hidden="" name="id">
+                                <div class="form-group" style="margin-top: 1rem">
+                                    <label class="form-label" for="editProducerImage">Нове зображення</label>
+                                    <div class="form-control-wrap">
+                                        <div class="custom-file">
+                                            <input type="file" onchange="changeFile(event)" accept="image/png, image/jpeg" class="custom-file-input" id="editProducerImage" name="multipartFile">
+                                            <label class="custom-file-label" id="editProducerImageLabel" for="editProducerImage"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="editProducerName">Назва</label>
+                                    <div class="form-control-wrap">
+                                        <input type="text" class="form-control" required="required" id="editProducerName" name="name" placeholder="Назва...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="editProducerCountry">Країна</label>
+                                    <div class="form-control-wrap">
+                                        <input type="text" class="form-control" required="required" id="editProducerCountry" placeholder="Країна..." name="countryName">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-outline-primary">Зберегти</button>
+                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Edit end -->
+
+            <!-- Delete product start -->
+            <div class="modal fade" tabindex="-1" role="dialog" id="deleteProductModal" aria-modal="true">
+                <div class="modal-dialog modal-md" role="document">
+                    <div class="modal-content">
+                        <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+                        <div class="modal-body modal-body-md">
+                            <h4 class="title">Видалення</h4>
+                            <br>
+                            <form action="/admin/producer/delete" method="post">
+                                <input type="number" id="selectedForDeleteItem" hidden="" name="id">
+                                <p style="margin-bottom: 2rem;">Ви впевнені, що хочете видалити? Підтвердивши дію, Ви не зможете повернутися до попереднього стану.</p>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-outline-primary">Підтвердити</button>
+                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Delete product end -->
+
+            <!-- content @e -->
+
+            <!-- footer @s -->
+            <div th:replace="~{admin/fragments/fragAdminFooter.html :: adminFooter}"></div>
+            <!-- footer @e -->
+
+        </div>
+        <!-- wrap @e -->
+    </div>
+    <!-- main @e -->
+</div>
+<!-- app-root @e -->
+<!-- JavaScript -->
+<script th:src="@{/js/bundle.js}"></script>
+<script th:src="@{/js/scripts.js}"></script>
+<script th:src="@{/js/example-sweetalert.js}"></script>
+<script>
+    $( document ).ready(function() {
+        document.getElementById("year").innerHTML = new Date().getFullYear();
+    });
+
+    function loadFile(event) {
+        let target = event.target || event.srcElement;
+
+        if (target.value.length === 0) {
+            console.log("No file selected.");
+            $("#addProducerForm> img").remove();
+            $('#producerImage').val(null);
+            document.getElementById("producerImageLabel").innerHTML = "";
+        } else {
+            console.log("File selected: ", target.value);
+            let imageFile = URL.createObjectURL(event.target.files[0]);
+            $("#addProducerForm> img").remove();
+            $("#addProducerForm").prepend("<img src='"+imageFile+"'width='100%' />");
+        }
+    }
+
+    function changeFile(event) {
+        let target = event.target || event.srcElement;
+
+        if (target.value.length === 0) {
+            console.log("No file selected.");
+            $("#editProducerForm> img").remove();
+            $('#editProducerImage').val(null);
+            $('#editProducerImageLabel').empty();
+            document.getElementById("editProducerImageLabel").innerHTML = "";
+        } else {
+            console.log("File selected: ", target.value);
+            let imageFile = URL.createObjectURL(event.target.files[0]);
+            $("#editProducerForm> img").remove();
+            $("#editProducerForm").prepend("<img src='"+imageFile+"'width='100%' />");
+        }
+    }
+
+    function showEditProducerModal(btnObj) {
+        let trObj = btnObj.closest("tbody tr");
+        let trId =  $(trObj).attr('id');
+
+        $('#editProducerImage').val(null);
+        document.getElementById("editProducerImageLabel").innerHTML = "";
+
+        let producerImg =     $(trObj).find('td:eq(0)').find('img').attr('src');
+        console.log(producerImg);
+        let producerName =    $(trObj).find('td:eq(1)').text().trim();
+        let producerCountry = $(trObj).find('td:eq(2)').text().trim();
+        console.log($(trObj).find('td:eq(0)').text());
+
+        $('#editProducerForm > img').remove();
+        $('#editProducerForm').prepend("<img src='"+producerImg+"'width='100%' />");
+
+        $('#editProducerName').val(producerName);
+        $('#editProducerCountry').val(producerCountry);
+
+        console.log("row id:" + $(trObj).attr('id'));
+
+        $('#selectedForEditItem').val(trId);
+
+        $('#editProducerModal').modal('show');
+    }
+
+    function showConfirmationDeleteProducerModal(btnObj){
+        let trObj = btnObj.closest("tbody tr");
+        let trId =  $(trObj).attr('id');
+
+        console.log("row id:" + $(trObj).attr('id'));
+
+        $('#selectedForDeleteItem').val(trId);
+
+        $('#deleteProductModal').modal('show');
+    }
+
+    function validateimg(ctrl) {
+        let fileUpload = ctrl;
+        let regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.png)$");
+        if (regex.test(fileUpload.value.toLowerCase())) {
+            if (typeof (fileUpload.files) != "undefined") {
+                var reader = new FileReader();
+                reader.readAsDataURL(fileUpload.files[0]);
+                reader.onload = function (e) {
+                    var image = new Image();
+                    image.src = e.target.result;
+                    image.onload = function () {
+                        let height = this.height;
+                        let width = this.width;
+                        let aspectRatio = width/height;
+                        if ((aspectRatio.toFixed(2)>0.9) && (aspectRatio.toFixed(2)<1.1)) {
+                            console.log("Asp rat: "+aspectRatio.toFixed(2));
+                            return true;
+                        }else{
+                            console.log("Asp rat: "+aspectRatio.toFixed(2));
+                            alert("Некоректне співвідношення сторін фотографії!");
+                            $(this).val('');
+                            return false;
+                        }
+                    };
+                }
+            } else {
+                alert("Ваш браузер не підтримує HTML5.");
+                $(this).val('');
+                return false;
+            }
+        } else {
+            alert("Недопустимий формат файлу.");
+            $(this).val('');
+            return false;
+        }
+    }
+</script>
+
+</body>
+</html>

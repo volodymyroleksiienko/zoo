@@ -146,7 +146,7 @@
                                 <div class="checkout-form-inner">
                                     <div class="single-checkout-box">
                                         <input type="text" id="nameSurname" placeholder="Введіть прізвище, ім'я*" name="nameOfClient">
-                                        <input type="text" autocomplete="on" id="phoneNumber"  placeholder="Введіть номер телефону*" value="+380" class="phone_number" name="phone">
+                                        <input type="tel" autocomplete="on" id="phoneNumber"  placeholder="Введіть номер телефону*" value="+380" class="phone_number" name="phone">
 
                                         <input type="text" hidden="hidden" id="idOfOrder" th:value="${orderInfo.getId()}" name="id">
                                         <input type="text" hidden="hidden" id="paymentData" th:value="${paymentData}" name="data">
@@ -437,10 +437,11 @@
 
             let buyerData = $('#nameSurname').val();
             let phoneNumber = $('#phoneNumber').val();
-            console.log(phoneNumber);
+            let phDigits = $('#phoneNumber').val().replace(/[^0-9]/gi, '');;
+            console.log("pnl:"+phDigits+"/"+phDigits.length);
             let address = $('#deliveryAddress').val();
 
-            if (buyerData!=='' && phoneNumber!=='' && address!==''){
+            if (buyerData!=='' && phoneNumber!=='' && phDigits.length === 12 && address!==''){
                 $('#notesAboutBuying').hide();
                 $('#liqpay_checkout').show();
                 $('#payNowBtn').hide();

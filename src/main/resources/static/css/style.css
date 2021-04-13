@@ -3802,7 +3802,8 @@ a.shipping-calculator-button:hover {
 
 .single-checkout-box input[type="text"],
 .single-checkout-box input[type="email"],
-.single-checkout-box input[type="password"] {
+.single-checkout-box input[type="password"],
+.single-checkout-box input[type="tel"]{
     background: transparent none repeat scroll 0 0;
     border: 1px solid #c1c1c1;
     border-radius: 0;
