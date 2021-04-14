@@ -1103,7 +1103,7 @@
     ---------------------------------------*/
     .search__area {
         /*background: #cfcfcd none repeat scroll 0 0;*/
-        background: rgb(255, 150, 25) none repeat scroll 0 0;
+        background: rgb(241 200 60) none repeat scroll 0 0;
         box-shadow: 0 8px 10px rgba(0, 0, 0, 0.08);
         left: 0;
         position: fixed;

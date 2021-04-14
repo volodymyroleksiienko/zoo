@@ -414,8 +414,8 @@
 }
 .header--3 .sticky__header.scroll-header {
   animation: 300ms ease-in-out 0s normal none 1 running fadeInDown;
-  /*background: rgba(246, 246, 248, 0.9) none repeat scroll 0 0;*/
-  background-image: linear-gradient(120deg, rgba(255, 150, 25, 1) 15%, rgba(255, 247, 0, 0.5));
+  background: rgb(241 200 60) none repeat scroll 0 0;
+  /*background-image: linear-gradient(120deg, rgba(255, 150, 25, 1) 15%, rgba(255, 247, 0, 0.5));*/
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   left: 0;
   margin: 0 auto;
@@ -577,8 +577,8 @@
   transition: color 300ms ease 0s;
 }
 .search__area {
-  /*background: #cfcfcd none repeat scroll 0 0;*/
-  background: rgb(255, 150, 25) none repeat scroll 0 0;
+  background: rgb(241 200 60) none repeat scroll 0 0;
+  /*background: rgb(241 200 60) none repeat scroll 0 0;*/
   box-shadow: 0 8px 10px rgba(0, 0, 0, 0.08);
   left: 0;
   position: fixed;
