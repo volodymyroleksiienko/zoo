@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Data
 public class Banner {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String url;
     @OneToOne

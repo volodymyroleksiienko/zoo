@@ -121,8 +121,8 @@
                     <div class="col-md-5 col-lg-5 col-sm-6 col-xs-12">
                         <div class="feature foo">
                             <div class="feature__thumb">
-                                <a href="/shop">
-                                    <img src="images/banners/470x687-1.png" alt="feature product">
+                                <a th:href="${ban1.getUrl()}">
+                                    <img th:src="@{'/shop/getImg/'+${ban1?.getImage()?.getId()}}" alt="feature product">
                                 </a>
                             </div>
                         </div>
@@ -133,8 +133,8 @@
                             <div class="col-md-12 col-sm-12 col-xs-12 xmt-30">
                                 <div class="feature foo">
                                     <div class="feature__thumb">
-                                        <a href="/contact">
-                                            <img src="images/banners/670x324-1.png" alt="feature product">
+                                        <a th:href="${ban2.getUrl()}">
+                                            <img th:src="@{'/shop/getImg/'+${ban2?.getImage()?.getId()}}" alt="feature product">
                                         </a>
                                     </div>
                                 </div>                                
@@ -142,8 +142,8 @@
                             <div class="col-md-5 mt--30 hidden-sm hidden-xs">
                                 <div class="feature text__pos--top foo">
                                     <div class="feature__thumb--2">
-                                        <a href="/shop/sobaky">
-                                            <img src="images/banners/270x324-1.png" alt="feature product">
+                                        <a th:href="${ban3.getUrl()}">
+                                            <img th:src="@{'/shop/getImg/'+${ban3?.getImage()?.getId()}}" alt="feature product">
                                         </a>
                                     </div>
                                 </div>                                
@@ -151,8 +151,8 @@
                             <div class="col-md-7 mt--30 col-sm-12 col-xs-12 xmt-30">
                                 <div class="feature foo">
                                     <div class="feature__thumb">
-                                        <a href="/about">
-                                            <img src="images/banners/370x324.png" alt="feature product">
+                                        <a th:href="${ban4.getUrl()}">
+                                            <img th:src="@{'/shop/getImg/'+${ban4?.getImage()?.getId()}}" alt="feature product">
                                         </a>
                                     </div>
                                 </div>                                

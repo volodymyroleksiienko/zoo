@@ -28,6 +28,7 @@ public class BannerServiceImpl implements BannerService {
         if(banner==null){
             banner = new Banner();
         }
+        banner.setId(id);
         banner.setImage(imageService.save(file));
         banner.setUrl(url);
         return bannerJPA.save(banner);
