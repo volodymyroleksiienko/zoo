@@ -15,7 +15,6 @@
     <!-- StyleSheets  -->
 
     <!-- Bootstrap fremwork main css -->
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/css/shortcode/default.css}">
     <link rel="stylesheet" th:href="@{/css/banners.css}">
     <link rel="stylesheet" th:href="@{/css/dashlite.css}">
@@ -95,7 +94,7 @@
                                                         <div class="col-md-5 col-lg-5 col-sm-6 col-xs-12">
                                                             <div class="feature foo">
                                                                 <div class="feature__thumb">
-                                                                    <a href="#" id="firstBanner" data-toggle="modal" onclick="showEditBannerModal(this.id)">
+                                                                    <a href="rtet" id="firstBanner" data-toggle="modal" onclick="showEditBannerModal(this.id)">
                                                                         <img id="1" th:src="@{/images/banners/470x687-1.png}" alt="feature product">
                                                                     </a>
                                                                 </div>
@@ -107,7 +106,7 @@
                                                                 <div class="col-md-12 col-sm-12 col-xs-12 xmt-30">
                                                                     <div class="feature foo">
                                                                         <div class="feature__thumb">
-                                                                            <a href="#" id="secondBanner" data-toggle="modal" onclick="showEditBannerModal(this.id)">
+                                                                            <a href="rgdfg" id="secondBanner" data-toggle="modal" onclick="showEditBannerModal(this.id)">
                                                                                 <img id="2" th:src="@{/images/banners/670x324-1.png}" alt="feature product">
                                                                             </a>
                                                                         </div>
@@ -116,7 +115,7 @@
                                                                 <div class="col-md-5 mt--30  hidden-xs">
                                                                     <div class="feature text__pos--top foo">
                                                                         <div class="feature__thumb--2">
-                                                                            <a href="#" id="thirdBanner" data-toggle="modal" onclick="showEditBannerModal(this.id)">
+                                                                            <a href="gdfg" id="thirdBanner" data-toggle="modal" onclick="showEditBannerModal(this.id)">
                                                                                 <img id="3" th:src="@{/images/banners/270x324-1.png}" alt="feature product">
                                                                             </a>
                                                                         </div>
@@ -125,7 +124,7 @@
                                                                 <div class="col-md-7 mt--30 col-sm-12 col-xs-12 xmt-30">
                                                                     <div class="feature foo">
                                                                         <div class="feature__thumb">
-                                                                            <a href="#" id="fourthBanner" data-toggle="modal" onclick="showEditBannerModal(this.id)">
+                                                                            <a href="fsdf" id="fourthBanner" data-toggle="modal" onclick="showEditBannerModal(this.id)">
                                                                                 <img id="4" th:src="@{/images/banners/370x324.png}" alt="feature product" style="max-height: 233px;">
                                                                             </a>
                                                                         </div>
@@ -222,9 +221,10 @@
     // }
 
     function showEditBannerModal(aObjId) {
-        // let imgId = $("#"+aObjId).find('img').attr('id');
-        //
-        // console.log("img: "+imgId);
+        let imgId = $('#'+aObjId).find('img').attr('id');
+
+        console.log("img: "+imgId);
+
         // let trObj = btnObj.closest("tbody tr");
         // let trId =  $(trObj).attr('id');
         //
@@ -247,7 +247,7 @@
         //
         // $('#selectedForEditItem').val(trId);
 
-        // $('#editBannersDashboardModal').modal('show');
+        $('#editBannersDashboardModal').modal('show');
     }
 </script>
 
