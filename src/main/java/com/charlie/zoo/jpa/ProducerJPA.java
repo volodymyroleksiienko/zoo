@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface ProducerJPA extends JpaRepository<Producer, Integer> {
-    @Query("select p.id from Producer p")
+    @Query("select p.id from Producer p ")
     List<Integer> getListOfId();
 }

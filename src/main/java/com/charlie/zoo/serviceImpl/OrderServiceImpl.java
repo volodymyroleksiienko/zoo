@@ -127,7 +127,7 @@ public class OrderServiceImpl implements OrderService {
             if(type.isOnSale()){
                 tempSum=count*type.getNewPrice().doubleValue();
             }else{
-                tempSum=count*type.getCountOfProduct()*type.getPrice().doubleValue();
+                tempSum=count*type.getPrice().doubleValue();
             }
             sum = sum + tempSum;
         }
