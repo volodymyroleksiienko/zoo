@@ -112,7 +112,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional(readOnly = true)
     public List<Product> find15ByName(String name) {
-        return productJpa.findFirst15ByNameContainingIgnoreCase(name);
+        return productJpa.findFirst15ByNameContainingIgnoreCaseAndStatusOfEntity(name,StatusOfEntity.ACTIVE);
     }
 
 
@@ -354,7 +354,7 @@ public class ProductServiceImpl implements ProductService {
                 return 0;
             });
         }
-        if(sortType.equals("cheap")) {
+        if(sortType.equals("new")) {
             products.sort(Comparator.comparingInt(Product::getId));
         }
         return products;
