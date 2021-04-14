@@ -15,6 +15,7 @@ public class Category{
 
     private int position;
     private String name;
+    @Column(unique = false)
     private String url;
 
     @OneToMany(mappedBy = "category")
