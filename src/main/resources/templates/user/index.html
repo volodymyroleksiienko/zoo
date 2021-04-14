@@ -182,7 +182,7 @@
                                 <div class="product__inner">
                                     <div class="pro__thumb">
                                         <a href="#">
-                                            <img src="images/popular-pro/1.jpg" alt="product images">
+                                            <img th:src="@{'/shop/getImgByProductId/'+${pr.getId()}}" alt="product images">
                                         </a>
                                     </div>
                                     <div class="product__hover__info">
