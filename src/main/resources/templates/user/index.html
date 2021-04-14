@@ -177,7 +177,7 @@
                 <div class="row">
                     <div class="popular__product__wrap clearfix owl-carousel owl-theme another-product-style">
                         <!-- Start Single Popular Product -->
-                        <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+                        <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12" th:each="pr:${products}">
                             <div class="product">
                                 <div class="product__inner">
                                     <div class="pro__thumb">
@@ -201,7 +201,7 @@
                                         </li>
                                     </ul>
                                     <p class="product-short-description" style="display: none" th:text="${pr.getShortDescription()}"></p>
-                                    <ul class="product__price">
+                                    <ul class="product__price" th:if="${pr?.getPackageType()?.size()>0}">
                                         <li class="old__price" th:if="${pr?.getPackageType()?.size()>0 && pr?.getPackageType()?.get(0)?.isOnSale()}" th:text="${pr?.getPackageType()?.get(0)?.getPrice()}+' UAH'"></li>
                                         <li class="new__price" th:if="${pr?.getPackageType()?.get(0)?.isOnSale()}" th:text="${pr?.getPackageType()?.get(0)?.getNewPrice()}+' UAH'"></li>
 
@@ -211,7 +211,7 @@
                                     <div class="product__info">
                                         <ul class="product__action">
                                             <li><a data-toggle="modal" onclick="quickViewProduct(this.closest('.single__pro').id)" title="Швидкий перегляд" class="quick-view modal-view detail-link" href="#"><span class="ti-plus"></span></a></li>
-                                            <li><a title="До кошика" class="send-item-to-card" th:href="@{'/addToCart/'+${pr?.getPackageType()?.get(0)?.getId()}}"><span class="ti-shopping-cart-full"></span></a></li>
+<!--                                            <li><a title="До кошика" class="send-item-to-card" th:href="@{'/addToCart/'+${pr?.getPackageType()?.get(0)?.getId()}}"><span class="ti-shopping-cart-full"></span></a></li>-->
                                             <li><a title="Купити зараз" class="buy-item-now" href="/checkout"><span class="ti-wallet"></span></a></li>
                                         </ul>
                                     </div>

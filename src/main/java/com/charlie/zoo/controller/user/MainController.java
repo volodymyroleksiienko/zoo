@@ -36,6 +36,7 @@ public class MainController {
         model.addAttribute("ban4",bannerService.findById(4));
         List<Animal> animals = animalService.findAll();
         model.addAttribute("animals", animals);
+        model.addAttribute("products", productService.findAll());
         return "user/index";
     }
 
