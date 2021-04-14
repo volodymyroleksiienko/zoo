@@ -155,7 +155,8 @@
                             <h4 class="title">Редагування</h4>
                             <br>
                             <form action="/admin/banners/edit" method="post" enctype="multipart/form-data" id="editBannerForm">
-                                <input type="text" id="selectedForEditItem" hidden="" name="id">
+                                <input type="text" id="selectedForEditBannerId" hidden="" name="id">
+                                <input type="text" id="selectedForEditBannerURL" hidden="" name="url">
                                 <div class="form-group" style="margin-top: 1rem">
                                     <label class="form-label" for="editBannerImage">Нове зображення</label>
                                     <div class="form-control-wrap">
@@ -203,49 +204,35 @@
         document.getElementById("year").innerHTML = new Date().getFullYear();
     });
 
-    // function changeFile(event) {
-    //     let target = event.target || event.srcElement;
-    //
-    //     if (target.value.length === 0) {
-    //         console.log("No file selected.");
-    //         $("#editBannerForm> img").remove();
-    //         $('#editBannerImage').val(null);
-    //         $('#editBannerImageLabel').empty();
-    //         document.getElementById("editBannerImageLabel").innerHTML = "";
-    //     } else {
-    //         console.log("File selected: ", target.value);
-    //         let imageFile = URL.createObjectURL(event.target.files[0]);
-    //         $("#editBannerForm> img").remove();
-    //         $("#editBannerForm").prepend("<img src='"+imageFile+"'width='100%' />");
-    //     }
-    // }
+    function changeFile(event) {
+        let target = event.target || event.srcElement;
+
+        if (target.value.length === 0) {
+            console.log("No file selected.");
+            $("#editBannerForm> img").remove();
+            $('#editBannerImage').val(null);
+            $('#editBannerImageLabel').empty();
+            document.getElementById("editBannerImageLabel").innerHTML = "";
+        } else {
+            console.log("File selected: ", target.value);
+            let imageFile = URL.createObjectURL(event.target.files[0]);
+            $("#editBannerForm> img").remove();
+            $("#editBannerForm").prepend("<img src='"+imageFile+"'width='100%' />");
+        }
+    }
 
     function showEditBannerModal(aObjId) {
         let imgId = $('#'+aObjId).find('img').attr('id');
-
+        let link = $('#'+aObjId).attr('href');
         console.log("img: "+imgId);
 
-        // let trObj = btnObj.closest("tbody tr");
-        // let trId =  $(trObj).attr('id');
-        //
-        // $('#editProducerImage').val(null);
-        // document.getElementById("editProducerImageLabel").innerHTML = "";
-        //
-        // let producerImg =     $(trObj).find('td:eq(0)').find('img').attr('src');
-        // console.log(producerImg);
-        // let producerName =    $(trObj).find('td:eq(1)').text().trim();
-        // let producerCountry = $(trObj).find('td:eq(2)').text().trim();
-        // console.log($(trObj).find('td:eq(0)').text());
-        //
-        // $('#editBannerForm > img').remove();
-        // $('#editBannerForm').prepend("<img src='"+producerImg+"'width='100%' />");
-        //
-        // $('#editProducerName').val(producerName);
-        // $('#editProducerCountry').val(producerCountry);
-        //
-        // console.log("row id:" + $(trObj).attr('id'));
-        //
-        // $('#selectedForEditItem').val(trId);
+        $('#editBannerImage').val(null);
+        // $('#editBannerImageLabel').empty();
+        $("#editBannerForm> img").remove();
+        document.getElementById("editBannerImageLabel").innerHTML = "";
+
+        $('#selectedForEditBannerId').val(imgId);
+        $('#editBannerUrl').val(link);
 
         $('#editBannersDashboardModal').modal('show');
     }
