@@ -21,7 +21,6 @@
     <link rel="stylesheet" th:href="@{/css/dashlite.css}">
     <link id="skin-default" rel="stylesheet" th:href="@{/css/theme.css}">
 
-
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -96,8 +95,8 @@
                                                         <div class="col-md-5 col-lg-5 col-sm-6 col-xs-12">
                                                             <div class="feature foo">
                                                                 <div class="feature__thumb">
-                                                                    <a href="#">
-                                                                        <img th:src="@{/images/banners/470x687-1.png}" alt="feature product">
+                                                                    <a href="#" id="firstBanner" data-toggle="modal" onclick="showEditBannerModal(this.id)">
+                                                                        <img id="1" th:src="@{/images/banners/470x687-1.png}" alt="feature product">
                                                                     </a>
                                                                 </div>
                                                             </div>
@@ -108,8 +107,8 @@
                                                                 <div class="col-md-12 col-sm-12 col-xs-12 xmt-30">
                                                                     <div class="feature foo">
                                                                         <div class="feature__thumb">
-                                                                            <a href="#">
-                                                                                <img th:src="@{/images/banners/670x324-1.png}" alt="feature product">
+                                                                            <a href="#" id="secondBanner" data-toggle="modal" onclick="showEditBannerModal(this.id)">
+                                                                                <img id="2" th:src="@{/images/banners/670x324-1.png}" alt="feature product">
                                                                             </a>
                                                                         </div>
                                                                     </div>
@@ -117,8 +116,8 @@
                                                                 <div class="col-md-5 mt--30  hidden-xs">
                                                                     <div class="feature text__pos--top foo">
                                                                         <div class="feature__thumb--2">
-                                                                            <a href="#">
-                                                                                <img th:src="@{/images/banners/270x324-1.png}" alt="feature product">
+                                                                            <a href="#" id="thirdBanner" data-toggle="modal" onclick="showEditBannerModal(this.id)">
+                                                                                <img id="3" th:src="@{/images/banners/270x324-1.png}" alt="feature product">
                                                                             </a>
                                                                         </div>
                                                                     </div>
@@ -126,8 +125,8 @@
                                                                 <div class="col-md-7 mt--30 col-sm-12 col-xs-12 xmt-30">
                                                                     <div class="feature foo">
                                                                         <div class="feature__thumb">
-                                                                            <a href="#">
-                                                                                <img th:src="@{/images/banners/370x324.png}" alt="feature product" style="max-height: 233px;">
+                                                                            <a href="#" id="fourthBanner" data-toggle="modal" onclick="showEditBannerModal(this.id)">
+                                                                                <img id="4" th:src="@{/images/banners/370x324.png}" alt="feature product" style="max-height: 233px;">
                                                                             </a>
                                                                         </div>
                                                                     </div>
@@ -149,7 +148,7 @@
 
 
             <!-- Edit start -->
-            <div class="modal fade" tabindex="-1" role="dialog" id="editDashboardModal" aria-modal="true">
+            <div class="modal fade" tabindex="-1" role="dialog" id="editBannersDashboardModal" aria-modal="true">
                 <div class="modal-dialog modal-md" role="document">
                     <div class="modal-content">
                         <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
@@ -205,95 +204,51 @@
         document.getElementById("year").innerHTML = new Date().getFullYear();
     });
 
-    function changeFile(event) {
-        let target = event.target || event.srcElement;
+    // function changeFile(event) {
+    //     let target = event.target || event.srcElement;
+    //
+    //     if (target.value.length === 0) {
+    //         console.log("No file selected.");
+    //         $("#editBannerForm> img").remove();
+    //         $('#editBannerImage').val(null);
+    //         $('#editBannerImageLabel').empty();
+    //         document.getElementById("editBannerImageLabel").innerHTML = "";
+    //     } else {
+    //         console.log("File selected: ", target.value);
+    //         let imageFile = URL.createObjectURL(event.target.files[0]);
+    //         $("#editBannerForm> img").remove();
+    //         $("#editBannerForm").prepend("<img src='"+imageFile+"'width='100%' />");
+    //     }
+    // }
 
-        if (target.value.length === 0) {
-            console.log("No file selected.");
-            $("#editBannerForm> img").remove();
-            $('#editProducerImage').val(null);
-            $('#editProducerImageLabel').empty();
-            document.getElementById("editProducerImageLabel").innerHTML = "";
-        } else {
-            console.log("File selected: ", target.value);
-            let imageFile = URL.createObjectURL(event.target.files[0]);
-            $("#editBannerForm> img").remove();
-            $("#editBannerForm").prepend("<img src='"+imageFile+"'width='100%' />");
-        }
-    }
+    function showEditBannerModal(aObjId) {
+        let imgId = $("#"+aObjId).find('img').attr('id');
 
-    function showEditProducerModal(btnObj) {
-        let trObj = btnObj.closest("tbody tr");
-        let trId =  $(trObj).attr('id');
+        console.log("img: "+imgId);
 
-        $('#editProducerImage').val(null);
-        document.getElementById("editProducerImageLabel").innerHTML = "";
+        // let trObj = btnObj.closest("tbody tr");
+        // let trId =  $(trObj).attr('id');
+        //
+        // $('#editProducerImage').val(null);
+        // document.getElementById("editProducerImageLabel").innerHTML = "";
+        //
+        // let producerImg =     $(trObj).find('td:eq(0)').find('img').attr('src');
+        // console.log(producerImg);
+        // let producerName =    $(trObj).find('td:eq(1)').text().trim();
+        // let producerCountry = $(trObj).find('td:eq(2)').text().trim();
+        // console.log($(trObj).find('td:eq(0)').text());
+        //
+        // $('#editBannerForm > img').remove();
+        // $('#editBannerForm').prepend("<img src='"+producerImg+"'width='100%' />");
+        //
+        // $('#editProducerName').val(producerName);
+        // $('#editProducerCountry').val(producerCountry);
+        //
+        // console.log("row id:" + $(trObj).attr('id'));
+        //
+        // $('#selectedForEditItem').val(trId);
 
-        let producerImg =     $(trObj).find('td:eq(0)').find('img').attr('src');
-        console.log(producerImg);
-        let producerName =    $(trObj).find('td:eq(1)').text().trim();
-        let producerCountry = $(trObj).find('td:eq(2)').text().trim();
-        console.log($(trObj).find('td:eq(0)').text());
-
-        $('#editBannerForm > img').remove();
-        $('#editBannerForm').prepend("<img src='"+producerImg+"'width='100%' />");
-
-        $('#editProducerName').val(producerName);
-        $('#editProducerCountry').val(producerCountry);
-
-        console.log("row id:" + $(trObj).attr('id'));
-
-        $('#selectedForEditItem').val(trId);
-
-        $('#editProducerModal').modal('show');
-    }
-
-    function showConfirmationDeleteProducerModal(btnObj){
-        let trObj = btnObj.closest("tbody tr");
-        let trId =  $(trObj).attr('id');
-
-        console.log("row id:" + $(trObj).attr('id'));
-
-        $('#selectedForDeleteItem').val(trId);
-
-        $('#deleteProductModal').modal('show');
-    }
-
-    function validateimg(ctrl) {
-        let fileUpload = ctrl;
-        let regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.png)$");
-        if (regex.test(fileUpload.value.toLowerCase())) {
-            if (typeof (fileUpload.files) != "undefined") {
-                var reader = new FileReader();
-                reader.readAsDataURL(fileUpload.files[0]);
-                reader.onload = function (e) {
-                    var image = new Image();
-                    image.src = e.target.result;
-                    image.onload = function () {
-                        let height = this.height;
-                        let width = this.width;
-                        let aspectRatio = width/height;
-                        if ((aspectRatio.toFixed(2)>0.9) && (aspectRatio.toFixed(2)<1.1)) {
-                            console.log("Asp rat: "+aspectRatio.toFixed(2));
-                            return true;
-                        }else{
-                            console.log("Asp rat: "+aspectRatio.toFixed(2));
-                            alert("Некоректне співвідношення сторін фотографії!");
-                            $(this).val('');
-                            return false;
-                        }
-                    };
-                }
-            } else {
-                alert("Ваш браузер не підтримує HTML5.");
-                $(this).val('');
-                return false;
-            }
-        } else {
-            alert("Недопустимий формат файлу.");
-            $(this).val('');
-            return false;
-        }
+        $('#editBannersDashboardModal').modal('show');
     }
 </script>
 
