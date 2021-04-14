@@ -177,20 +177,13 @@
                 <div class="row">
                     <div class="popular__product__wrap clearfix owl-carousel owl-theme another-product-style">
                         <!-- Start Single Popular Product -->
-                        <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12" th:each="pr:${products}">
+                        <div class="col-md-4 single__pro col-lg-4 col-sm-6 col-xs-12" th:each="pr:${products}" th:id="'product-'+${pr.getId()}">
                             <div class="product">
                                 <div class="product__inner">
                                     <div class="pro__thumb">
-                                        <a href="#">
-                                            <img src="images/popular-pro/1.jpg" alt="product images">
-                                        </a>
-                                    </div>
-                                    <div class="product__hover__info">
-                                        <ul class="product__action">
-                                            <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="#"><span class="ti-plus"></span></a></li>
-                                            <li><a title="Add To Cart" href="cart.html"><span class="ti-shopping-cart"></span></a></li>
-                                            <li><a title="Wishlist" href="wishlist.html"><span class="ti-heart"></span></a></li>
-                                        </ul>
+<!--                                        <a href="#">-->
+                                            <img th:src="@{'/shop/getImgByProductId/'+${pr.getId()}}" alt="product images">
+<!--                                        </a>-->
                                     </div>
                                 </div>
                                 <div class="product__details">
@@ -211,106 +204,10 @@
                                     <div class="product__info">
                                         <ul class="product__action">
                                             <li><a data-toggle="modal" onclick="quickViewProduct(this.closest('.single__pro').id)" title="Швидкий перегляд" class="quick-view modal-view detail-link" href="#"><span class="ti-plus"></span></a></li>
-<!--                                            <li><a title="До кошика" class="send-item-to-card" th:href="@{'/addToCart/'+${pr?.getPackageType()?.get(0)?.getId()}}"><span class="ti-shopping-cart-full"></span></a></li>-->
+                                            <li><a title="До кошика" class="send-item-to-card" th:href="@{'/addToCart/'+${pr?.getPackageType()?.get(0)?.getId()}}"><span class="ti-shopping-cart-full"></span></a></li>
                                             <li><a title="Купити зараз" class="buy-item-now" href="/checkout"><span class="ti-wallet"></span></a></li>
                                         </ul>
                                     </div>
-                                </div>
-                            </div>                            
-                        </div>
-                        <!-- End Single Popular Product -->
-                        <!-- Start Single Popular Product -->
-                        <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
-                            <div class="product">
-                                <div class="product__inner">
-                                    <div class="pro__thumb">
-                                        <a href="#">
-                                            <img src="images/popular-pro/2.jpg" alt="product images">
-                                        </a>
-                                    </div>
-                                    <div class="product__hover__info">
-                                        <ul class="product__action">
-                                            <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="#"><span class="ti-plus"></span></a></li>
-                                            <li><a title="Add To Cart" href="cart.html"><span class="ti-shopping-cart"></span></a></li>
-                                            <li><a title="Wishlist" href="wishlist.html"><span class="ti-heart"></span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="product__details">
-                                    <h2><a href="product-details.html">Simple Black Clock</a></h2>
-                                    <span class="popular__pro__prize">$16.00</span>
-                                </div>
-                            </div>                            
-                        </div>
-                        <!-- End Single Popular Product -->
-                        <!-- Start Single Popular Product -->
-                        <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
-                            <div class="product">
-                                <div class="product__inner">
-                                    <div class="pro__thumb">
-                                        <a href="#">
-                                            <img src="images/popular-pro/3.jpg" alt="product images">
-                                        </a>
-                                    </div>
-                                    <div class="product__hover__info">
-                                        <ul class="product__action">
-                                            <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="#"><span class="ti-plus"></span></a></li>
-                                            <li><a title="Add To Cart" href="cart.html"><span class="ti-shopping-cart"></span></a></li>
-                                            <li><a title="Wishlist" href="wishlist.html"><span class="ti-heart"></span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="product__details">
-                                    <h2><a href="product-details.html">Simple Black Clock</a></h2>
-                                    <span class="popular__pro__prize">$16.00</span>
-                                </div>
-                            </div>                            
-                        </div>
-                        <!-- End Single Popular Product -->
-                        <!-- Start Single Popular Product -->
-                        <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
-                            <div class="product">
-                                <div class="product__inner">
-                                    <div class="pro__thumb">
-                                        <a href="#">
-                                            <img src="images/popular-pro/1.jpg" alt="product images">
-                                        </a>
-                                    </div>
-                                    <div class="product__hover__info">
-                                        <ul class="product__action">
-                                            <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="#"><span class="ti-plus"></span></a></li>
-                                            <li><a title="Add To Cart" href="cart.html"><span class="ti-shopping-cart"></span></a></li>
-                                            <li><a title="Wishlist" href="wishlist.html"><span class="ti-heart"></span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="product__details">
-                                    <h2><a href="product-details.html">Simple Black Clock</a></h2>
-                                    <span class="popular__pro__prize">$16.00</span>
-                                </div>
-                            </div>                            
-                        </div>
-                        <!-- End Single Popular Product -->
-                        <!-- Start Single Popular Product -->
-                        <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
-                            <div class="product">
-                                <div class="product__inner">
-                                    <div class="pro__thumb">
-                                        <a href="#">
-                                            <img src="images/popular-pro/2.jpg" alt="product images">
-                                        </a>
-                                    </div>
-                                    <div class="product__hover__info">
-                                        <ul class="product__action">
-                                            <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="#"><span class="ti-plus"></span></a></li>
-                                            <li><a title="Add To Cart" href="cart.html"><span class="ti-shopping-cart"></span></a></li>
-                                            <li><a title="Wishlist" href="wishlist.html"><span class="ti-heart"></span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="product__details">
-                                    <h2><a href="product-details.html">Simple Black Clock</a></h2>
-                                    <span class="popular__pro__prize">$16.00</span>
                                 </div>
                             </div>                            
                         </div>
@@ -459,132 +356,7 @@
         </section>
         <!-- End Popular Courses -->
         <!-- Start Footer Area -->
-        <footer class="htc__foooter__area gray-bg">
-            <div class="container">
-                <div class="row">
-                    <div class="footer__container clearfix">
-                         <!-- Start Single Footer Widget -->
-                        <div class="col-md-3 col-lg-3 col-sm-6">
-                            <div class="ft__widget">
-                                <div class="ft__logo">
-                                    <a href="index.html">
-                                        <img src="images/logo/logo.png" alt="footer logo">
-                                    </a>
-                                </div>
-                                <div class="footer-address">
-                                    <ul>
-                                        <li>
-                                            <div class="address-icon">
-                                                <i class="zmdi zmdi-pin"></i>
-                                            </div>
-                                            <div class="address-text">
-                                                <p>194 Main Rd T, FS Rayed <br> VIC 3057, USA</p>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="address-icon">
-                                                <i class="zmdi zmdi-email"></i>
-                                            </div>
-                                            <div class="address-text">
-                                                <a href="#"> info@example.com</a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="address-icon">
-                                                <i class="zmdi zmdi-phone-in-talk"></i>
-                                            </div>
-                                            <div class="address-text">
-                                                <p>+012 345 678 102 </p>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <ul class="social__icon">
-                                    <li><a href="#"><i class="zmdi zmdi-twitter"></i></a></li>
-                                    <li><a href="#"><i class="zmdi zmdi-instagram"></i></a></li>
-                                    <li><a href="#"><i class="zmdi zmdi-facebook"></i></a></li>
-                                    <li><a href="#"><i class="zmdi zmdi-google-plus"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- End Single Footer Widget -->
-                        <!-- Start Single Footer Widget -->
-                        <div class="col-md-3 col-lg-2 col-sm-6 smt-30 xmt-30">
-                            <div class="ft__widget">
-                                <h2 class="ft__title">Categories</h2>
-                                <ul class="footer-categories">
-                                    <li><a href="shop-sidebar.html">Men</a></li>
-                                    <li><a href="shop-sidebar.html">Women</a></li>
-                                    <li><a href="shop-sidebar.html">Accessories</a></li>
-                                    <li><a href="shop-sidebar.html">Shoes</a></li>
-                                    <li><a href="shop-sidebar.html">Dress</a></li>
-                                    <li><a href="shop-sidebar.html">Denim</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- Start Single Footer Widget -->
-                        <div class="col-md-3 col-lg-2 col-sm-6 smt-30 xmt-30">
-                            <div class="ft__widget">
-                                <h2 class="ft__title">Infomation</h2>
-                                <ul class="footer-categories">
-                                    <li><a href="about.html">About Us</a></li>
-                                    <li><a href="contact.html">Contact Us</a></li>
-                                    <li><a href="#">Terms & Conditions</a></li>
-                                    <li><a href="#">Returns & Exchanges</a></li>
-                                    <li><a href="#">Shipping & Delivery</a></li>
-                                    <li><a href="#">Privacy Policy</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- Start Single Footer Widget -->
-                        <div class="col-md-3 col-lg-3 col-lg-offset-1 col-sm-6 smt-30 xmt-30">
-                            <div class="ft__widget">
-                                <h2 class="ft__title">Newsletter</h2>
-                                <div class="newsletter__form">
-                                    <p>Subscribe to our newsletter and get 10% off your first purchase .</p>
-                                    <div class="input__box">
-                                        <div id="mc_embed_signup">
-                                            <form action="#" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-                                                <div id="mc_embed_signup_scroll" class="htc__news__inner">
-                                                    <div class="news__input">
-                                                        <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Email Address" required>
-                                                    </div>
-                                                    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-                                                    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6bbb9b6f5827bd842d9640c82_05d85f18ef" tabindex="-1" value=""></div>
-                                                    <div class="clearfix subscribe__btn"><input type="submit" value="Send" name="subscribe" id="mc-embedded-subscribe" class="bst__btn btn--white__color">
-                                                        
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>        
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Single Footer Widget -->
-                    </div>
-                </div>
-                <!-- Start Copyright Area -->
-                <div class="htc__copyright__area">
-                    <div class="row">
-                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-                            <div class="copyright__inner">
-                                <div class="copyright">
-                                    <p>© 2017 <a href="#">your website name</a>
-                                    All Right Reserved.</p>
-                                </div>
-                                <ul class="footer__menu">
-                                    <li><a href="index.html">Home</a></li>
-                                    <li><a href="shop.html">Product</a></li>
-                                    <li><a href="contact.html">Contact Us</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Copyright Area -->
-            </div>
-        </footer>
+        <div th:replace="~{user/fragments/fragUserFooter.html}"></div>
         <!-- End Footer Area -->
     </div>
     <!-- Body main wrapper end -->
@@ -602,66 +374,26 @@
                             <!-- Start product images -->
                             <div class="product-images">
                                 <div class="main-image images">
-                                    <img alt="big images" src="images/product/big-img/1.jpg">
+                                    <img id="productImageModal" width="100%">
                                 </div>
                             </div>
                             <!-- end product images -->
                             <div class="product-info">
-                                <h1>Simple Fabric Bags</h1>
-                                <div class="rating__and__review">
-                                    <ul class="rating">
-                                        <li><span class="ti-star"></span></li>
-                                        <li><span class="ti-star"></span></li>
-                                        <li><span class="ti-star"></span></li>
-                                        <li><span class="ti-star"></span></li>
-                                        <li><span class="ti-star"></span></li>
-                                    </ul>
-                                    <div class="review">
-                                        <a href="#">4 customer reviews</a>
-                                    </div>
+                                <h1 id="productNameModal"></h1>
+                                <div class="pro__details" style="margin-bottom: 1rem">
+                                    <p id="productPackageTypeModal"></p>
                                 </div>
                                 <div class="price-box-3">
                                     <div class="s-price-box">
-                                        <span class="new-price">$17.20</span>
-                                        <span class="old-price">$45.00</span>
+                                        <span id="productNewPriceModal" class="new-price"></span>
+                                        <span id="productOldPriceModal" class="old-price"></span>
                                     </div>
                                 </div>
-                                <div class="quick-desc">
+                                <div class="quick-desc" id="productDescriptionModal">
                                     Designed for simplicity and made from high quality materials. Its sleek geometry and material combinations creates a modern look.
                                 </div>
-                                <div class="select__color">
-                                    <h2>Select color</h2>
-                                    <ul class="color__list">
-                                        <li class="red"><a title="Red" href="#">Red</a></li>
-                                        <li class="gold"><a title="Gold" href="#">Gold</a></li>
-                                        <li class="orange"><a title="Orange" href="#">Orange</a></li>
-                                        <li class="orange"><a title="Orange" href="#">Orange</a></li>
-                                    </ul>
-                                </div>
-                                <div class="select__size">
-                                    <h2>Select size</h2>
-                                    <ul class="color__list">
-                                        <li class="l__size"><a title="L" href="#">L</a></li>
-                                        <li class="m__size"><a title="M" href="#">M</a></li>
-                                        <li class="s__size"><a title="S" href="#">S</a></li>
-                                        <li class="xl__size"><a title="XL" href="#">XL</a></li>
-                                        <li class="xxl__size"><a title="XXL" href="#">XXL</a></li>
-                                    </ul>
-                                </div>
-                                <div class="social-sharing">
-                                    <div class="widget widget_socialsharing_widget">
-                                        <h3 class="widget-title-modal">Share this product</h3>
-                                        <ul class="social-icons">
-                                            <li><a target="_blank" title="rss" href="#" class="rss social-icon"><i class="zmdi zmdi-rss"></i></a></li>
-                                            <li><a target="_blank" title="Linkedin" href="#" class="linkedin social-icon"><i class="zmdi zmdi-linkedin"></i></a></li>
-                                            <li><a target="_blank" title="Pinterest" href="#" class="pinterest social-icon"><i class="zmdi zmdi-pinterest"></i></a></li>
-                                            <li><a target="_blank" title="Tumblr" href="#" class="tumblr social-icon"><i class="zmdi zmdi-tumblr"></i></a></li>
-                                            <li><a target="_blank" title="Pinterest" href="#" class="pinterest social-icon"><i class="zmdi zmdi-pinterest"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
                                 <div class="addtocart-btn">
-                                    <a href="#">Add to cart</a>
+                                    <a id="productAddToCartBtnModal" href="#">до кошика</a>
                                 </div>
                             </div><!-- .product-info -->
                         </div><!-- .modal-product -->
@@ -690,6 +422,8 @@
 
     <script>
         $( document ).ready(function() {
+            document.getElementById("year").innerHTML = new Date().getFullYear();
+
             $("li.animal-img").hide();
             $("li.animal-img").first().show();
 
@@ -710,7 +444,94 @@
             });
             $('#totalCartSum').text(parseFloat(sum).toFixed(2)+" UAH");
             //calculate cart total sum end
+
+            let  size_package_li = $("#packageTypesList li").size();
+            let t=3;
+            if(t >= size_package_li){
+                // console.log("t: "+t+"; s: "+size_package_li);
+                $('#loadMoreTypes').hide();
+            }
+            $('#packageTypesList li:lt('+t+')').show();
+            $('#loadMoreTypes').click(function () {
+                t = (t+5 <= size_package_li) ? t+5 : size_package_li;
+                $('#packageTypesList li:lt('+t+')').show();
+                if(t === size_package_li){
+                    $('#loadMoreTypes').hide();
+                }
+            });
+
+            let  size_producer_li = $("#producersList li").size();
+            let p=3;
+            if(p >= size_producer_li){
+                // console.log("p: "+p+"; s: "+size_producer_li);
+                $('#loadMoreProducers').hide();
+            }
+            $('#producersList li:lt('+p+')').show();
+            $('#loadMoreProducers').click(function () {
+                p = (p+5 <= size_producer_li) ? p+5 : size_producer_li;
+                $('#producersList li:lt('+t+')').show();
+                if(p === size_producer_li){
+                    $('#loadMoreProducers').hide();
+                }
+            });
         });
+
+        $('.btn').on( 'click', function () {
+            $(this).parent().siblings().find('.active').removeClass('active');
+            $(this).addClass('active');
+            let jsonObj = JSON.parse($(this).val());
+            console.log(jsonObj);
+
+            $(this).parent().parent().parent().find('.send-item-to-card').prop("href", "/addToCart/"+jsonObj["id"]);
+            $(this).parent().parent().parent().find('.buy-item-now').prop("href", "/buyNow/"+jsonObj["id"]);
+
+            if (jsonObj["onSale"]===true) {
+                $(this).closest('.product').find('.on-sale').css('display', 'block');
+                $(this).parent().parent().parent().find('.old__price').text(parseFloat(jsonObj["price"]).toFixed(2)+' UAH');
+                $(this).parent().parent().parent().find('.old__price').css("display", "inline-block");
+                $(this).parent().parent().parent().find('.new__price').text(parseFloat(jsonObj["newPrice"]).toFixed(2)+' UAH');
+            }else {
+                $(this).closest('.product').find('.on-sale').css('display', 'none');
+                $(this).parent().parent().parent().find('.new__price').text(parseFloat(jsonObj["price"]).toFixed(2)+' UAH');
+                $(this).parent().parent().parent().find('.old__price').css("display", "none");
+            }
+        });
+
+        function quickViewProduct(prodId) {
+            let productItem = $('#'+prodId);
+
+            console.log("prItem:"+prodId);
+
+            let productName = productItem.find('.product__details .product-item-name').text();
+            let productImage = productItem.find('.product__inner .pro__thumb img').attr('src');
+            let productDescription = productItem.find('.product__details .product-short-description').text();
+
+            let button = productItem.find('.product-types li button.active');
+            let productPackageType = productItem.find('.product-types li .btn.active').text();
+            console.log("PPT: "+productPackageType);
+            let link = productItem.find('.send-item-to-card').attr('href');
+            let jsonObj = JSON.parse($(button).val());
+
+            console.log(jsonObj);
+
+            if (jsonObj["onSale"]===true) {
+                $('#productOldPriceModal').text(parseFloat(jsonObj["price"]).toFixed(2)+' UAH');
+                $('#productOldPriceModal').css("display", "inline-block");
+                $('#productNewPriceModal').text(parseFloat(jsonObj["newPrice"]).toFixed(2)+' UAH');
+            }else {
+                $('#productNewPriceModal').text(parseFloat(jsonObj["price"]).toFixed(2)+' UAH');
+                $('#productOldPriceModal').css("display", "none");
+            }
+
+            $('#productNameModal').text(productName);
+            $('#productImageModal').attr('src', productImage);
+            $('#productDescriptionModal').text(productDescription);
+            $('#productPackageTypeModal').text("Пакування: "+productPackageType);
+            $('#productAddToCartBtnModal').attr('href', link);
+
+
+            $('#productModal').modal('show');
+        }
     </script>
 
 </body>
