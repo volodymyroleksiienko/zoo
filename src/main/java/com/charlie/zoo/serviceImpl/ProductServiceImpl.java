@@ -1,7 +1,6 @@
 package com.charlie.zoo.serviceImpl;
 
 import com.charlie.zoo.entity.*;
-import com.charlie.zoo.entity.dto.ProductDto;
 import com.charlie.zoo.enums.StatusOfEntity;
 import com.charlie.zoo.jpa.ProductJpa;
 import com.charlie.zoo.service.*;
@@ -13,8 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 import java.util.*;
-import java.util.function.Predicate;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service
@@ -112,7 +109,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional(readOnly = true)
     public List<Product> find15ByName(String name) {
-        return productJpa.findFirst15ByNameContainingIgnoreCaseAndStatusOfEntity(name,StatusOfEntity.ACTIVE);
+        return productJpa.findFirst15ByNameContainingIgnoreCaseOrDetailsContainingIgnoreCaseAndStatusOfEntity(name,name,StatusOfEntity.ACTIVE);
     }
 
 
