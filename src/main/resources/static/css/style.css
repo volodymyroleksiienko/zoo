@@ -2426,9 +2426,9 @@ select.select-color {
     transition: all 0.3s ease 0s;
 }
 .contact-btn .fv-btn:hover {
-    border: 1px solid #ff4136;
+    border: 1px solid #FF9F05;
     color: #fff;
-    background: #ff4136;
+    background: #FF9F05;
 }
 .contact-form-wrap > form {
     margin-top: -9px;

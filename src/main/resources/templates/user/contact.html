@@ -120,11 +120,11 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="bradcaump__inner text-center">
-                                <h2 class="bradcaump-title">Contact US</h2>
+                                <h2 class="bradcaump-title">Контакти</h2>
                                 <nav class="bradcaump-inner">
-                                  <a class="breadcrumb-item" href="index.html">Home</a>
+                                  <a class="breadcrumb-item" href="/">Головна</a>
                                   <span class="brd-separetor">/</span>
-                                  <span class="breadcrumb-item active">Contact US</span>
+                                  <span class="breadcrumb-item active">Контакти</span>
                                 </nav>
                             </div>
                         </div>
@@ -140,7 +140,7 @@
                     <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                         <div class="htc__contact__container">
                             <div class="htc__contact__address">
-                                <h2 class="contact__title">contact info</h2>
+                                <h2 class="contact__title">Контактні дані</h2>
                                 <div class="contact__address__inner">
                                     <!-- Start Single Adress -->
                                     <div class="single__contact__address">
@@ -148,11 +148,13 @@
                                             <span class="ti-location-pin"></span>
                                         </div>
                                         <div class="contact__details">
-                                            <p>Location : <br> 77, seventh avenue, Brat road USA.</p>
+                                            <p>м. Львів, вул. Колоскова 11</p>
+                                            <p>м. Львів, вул. Київська 25</p>
                                         </div>
                                     </div>
                                     <!-- End Single Adress -->
                                 </div>
+
                                 <div class="contact__address__inner">
                                     <!-- Start Single Adress -->
                                     <div class="single__contact__address">
@@ -160,10 +162,13 @@
                                             <span class="ti-mobile"></span>
                                         </div>
                                         <div class="contact__details">
-                                            <p> Phone : <br><a href="#">+012 345 678 102 </a></p>
+                                            <p> Телефон : <br><a href="tel:+380936710404">+(380)-936-710-404</a></p>
                                         </div>
                                     </div>
                                     <!-- End Single Adress -->
+                                </div>
+
+                                <div class="contact__address__inner">
                                     <!-- Start Single Adress -->
                                     <div class="single__contact__address">
                                         <div class="contact__icon">
@@ -178,27 +183,22 @@
                             </div>
                             <div class="contact-form-wrap">
                             <div class="contact-title">
-                                <h2 class="contact__title">Get In Touch</h2>
+                                <h2 class="contact__title">Зворотній Зв'язок</h2>
                             </div>
-                            <form id="contact-form" action="mail.php" method="post">
+                            <form id="contact-form" action="/sendCallback" method="post">
                                 <div class="single-contact-form">
                                     <div class="contact-box name">
-                                        <input type="text" name="name" placeholder="Your Nme*">
-                                        <input type="email" name="email" placeholder="Mail*">
-                                    </div>
-                                </div>
-                                <div class="single-contact-form">
-                                    <div class="contact-box subject">
-                                        <input type="text" name="subject" placeholder="Subject*">
+                                        <input type="text" name="name" required="required" placeholder="Ім'я*">
+                                        <input type="tel" value="+380" required="required" class="phone_number" name="phone" placeholder="Телефон*">
                                     </div>
                                 </div>
                                 <div class="single-contact-form">
                                     <div class="contact-box message">
-                                        <textarea name="message"  placeholder="Massage*"></textarea>
+                                        <textarea name="message" required="required" placeholder="Повідомлення*"></textarea>
                                     </div>
                                 </div>
                                 <div class="contact-btn">
-                                    <button type="submit" class="fv-btn">SEND</button>
+                                    <button type="submit" class="fv-btn">НАДІСЛАТИ</button>
                                 </div>
                             </form>
                         </div> 
@@ -240,11 +240,13 @@
     <!-- Main js file that contents all jQuery plugins activation. -->
     <script th:src="@{/js/main.js}"></script>
     <script th:src="@{/js/liveSearch.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js"></script>
 
     <script>
         $( document ).ready(function() {
 
             document.getElementById("year").innerHTML = new Date().getFullYear();
+            $('.phone_number').inputmask('+(999)-999-999-999');
 
             $("li.animal-img").hide();
             $("li.animal-img").first().show();
