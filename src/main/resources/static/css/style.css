@@ -85,6 +85,11 @@
         bottom: 75%;
     }
 }
+
+.i4ewOd-pzNkMb-tJHJj{
+    background: #FFD413;
+}
+
 @-moz-keyframes scroll-ani-to-top {
     0% {
         opacity: 0;
@@ -127,7 +132,7 @@
     font-size: 36px;
 }
 #scrollUp {
-    background: #cfcecc none repeat scroll 0 0;
+    background: #FFD413 none repeat scroll 0 0;
 }
 /*---------------------------------------
   End Scroll To Top
@@ -2336,9 +2341,9 @@ select.select-color {
     min-width: 60px;
 }
 .contact__icon span {
-    border: 1px solid #cbcbcb;
+    border: 2px solid #FFD413;
     border-radius: 100%;
-    color: #393939;
+    color: #FFD413;
     display: block;
     font-size: 24px;
     height: 60px;

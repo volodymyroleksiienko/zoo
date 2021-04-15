@@ -308,7 +308,11 @@
     /*------------------
  Padding Top
 -----------------*/
-    
+    .social__icon{
+        margin: 2rem 0;
+        justify-content: space-evenly;
+    }
+
     .spt-20 {
         padding-top: 20px;
     }
@@ -648,6 +652,16 @@
     /*------------------
  Padding Top
 -----------------*/
+    .social__icon{
+        margin-top: 1.5rem;
+        justify-content: space-evenly;
+    }
+
+    .footer__container {
+        padding-bottom: 35px;
+        padding-top: 45px;
+    }
+
     .sorting-header{
         margin-top: 7rem;
     }
@@ -1536,6 +1550,11 @@
     .container {
         width: 90%;
     }
+
+    .social__icon{
+        justify-content: space-evenly;
+    }
+
     .blog__post__time {
         margin-bottom: 77px;
     }
