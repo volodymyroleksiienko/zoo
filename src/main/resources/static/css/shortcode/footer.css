@@ -303,6 +303,11 @@
 .gray-bg{
   background-color: #f6f6f6;
 }
+
+.orange-bg{
+    background-color: #FFD413;
+}
+
 .copyright a {
   text-transform: capitalize;
 }

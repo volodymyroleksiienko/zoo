@@ -4286,17 +4286,17 @@ a.shipping-calculator-button:hover {
 
 .product-types li button:hover {
     outline: none;
-    background-color: rgb(241 200 60);
+    background-color: #FFD413;
 }
 
 .product-types li button:focus {
     outline: none!important;
-    background-color: rgb(241 200 60);
+    background-color: #FFD413;
 }
 
 .product-types li .active {
     outline: none;
-    background-color: rgb(241 200 60);
+    background-color: #FFD413;
 }
 
 #mainSearchResults{
