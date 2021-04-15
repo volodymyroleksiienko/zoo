@@ -929,8 +929,8 @@ h4.offset__title {
 }
 
 .shopping__btn li a:hover{
-  background: #ff4136;
-  border: 1px solid #ff4136;
+  background: #FF9F05;
+  border: 1px solid #000;
   color: #fff;
 }
 
@@ -951,13 +951,14 @@ h4.offset__title {
 }
 
 .checkout-buttons li button:hover{
-  background: #ff4136;
-  border: 1px solid #ff4136;
+  background: #FF9F05;
+  border: 1px solid #000;
   color: #fff;
 }
 
 .shopping__btn .shp__checkout a{
-  background-color: #000;
+  background: #FF9F05;
+  border: 1px solid #FF9F05;
   color: #fff;
 }
 

@@ -1757,8 +1757,8 @@ product__style--7
     transition: 0.4s;
 }
 .store__btn a:hover {
-    background: #ff4136;
-    border: 1px solid #ff4136;
+    background: #FF9F05;
+    border: 1px solid #FF9F05;
     color: #fff;
 }
 .video__wrap {
@@ -2052,9 +2052,9 @@ product__style--7
 }
 
 #packageTypesList li .selected-filter{
-    color: red;
+    color: #FF9F05;
     padding: 5px 15px;
-    border: 1px solid red;
+    border: 1px solid #FF9F05;
     border-radius: 20px;
 }
 
@@ -2064,12 +2064,12 @@ product__style--7
 }
 
 #packageTypesList li:last-child span{
-    color: #ff4136;
+    color: #FF9F05;
     font-size: 13px;
 }
 
 #packageTypesList li:last-child:hover{
-    color: #ff4136;
+    color: #FF9F05;
 }
 
 #producersList li{
@@ -2082,19 +2082,19 @@ product__style--7
 }
 
 #producersList li .selected-filter{
-    color: red;
+    color: #FF9F05;
     padding: 5px 15px;
-    border: 1px solid red;
+    border: 1px solid #FF9F05;
     border-radius: 20px;
 }
 
 #producersList li:last-child span{
-    color: #ff4136;
+    color: #FF9F05;
     font-size: 13px;
 }
 
 #producersList li:last-child:hover{
-    color: #ff4136;
+    color: #FF9F05;
 }
 
 .filter__menu__close__btn button{
@@ -2104,7 +2104,7 @@ product__style--7
 
 .filter__list li:hover a,
 .filter__menu__close__btn button:hover i {
-    color: #ff4136;
+    color: #FF9F05;
 }
 .filter__menu__close__btn button i {
     color: #999;
@@ -2238,8 +2238,8 @@ product__style--7
 }
 .price--filter a:hover {
     color: #fff;
-    background: #ff4136;
-    border: 1px solid #ff4136;
+    background: #FF9F05;
+    border: 1px solid #FF9F05;
 }
 
 
@@ -3645,11 +3645,12 @@ blockquote::before {
 .coupon input[type="submit"],
 .buttons-cart a,
 .coupon-info p.form-row input[type="submit"] {
-    background: #252525 none repeat scroll 0 0;
-    border: medium none;
+    background: #FFF none repeat scroll 0 0;
+    border: 1px solid #000;
+    /*border: medium none;*/
     border-radius: 0;
     box-shadow: none;
-    color: #fff;
+    color: #000;
     display: inline-block;
     float: left;
     font-size: 12px;
@@ -3666,11 +3667,11 @@ blockquote::before {
 .buttons-cart input:hover,
 .coupon input[type=submit]:hover,
 .buttons-cart a:hover {
-    background: #ff4136;
+    background: #FF9F05;
     color: #fff !important;
 }
 .buttons-cart a {
-    color: #fff;
+    color: #000;
     float: left;
     height: 40px;
     line-height: 40px;
@@ -3766,7 +3767,8 @@ a.shipping-calculator-button:hover {
     white-space: nowrap;
 }
 .wc-proceed-to-checkout a {
-    background: #252525 none repeat scroll 0 0;
+    background: #FF9F05 none repeat scroll 0 0;
+    border: 1px solid #FF9F05;
     color: #fff;
     display: inline-block;
     font-size: 14px;
@@ -3778,7 +3780,8 @@ a.shipping-calculator-button:hover {
     text-transform: none;
 }
 .wc-proceed-to-checkout a:hover {
-    background: #ff4136;
+    background: #FF9F05;
+    border: 1px solid #000;
     color: #fff !important;
 }
 .owl-theme .owl-controls .owl-page span {
