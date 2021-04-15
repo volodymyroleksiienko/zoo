@@ -215,7 +215,7 @@
                                         <div class="single__filter">
                                             <h2>Виробник</h2>
                                             <ul class="filter__list" id="producersList">
-                                                <li th:if="${withoutProducerUrl==null}" th:each="pr :${producerList}"><a th:href="${currentUrlFiltered}+'producerId='+${pr.getId()}" th:text="${pr.getName()}">All</a></li>
+                                                <li th:if="${withoutProducerUrl==null}" th:each="pr :${producerList}"><a th:href="${currentUrlFiltered}+'producerId='+${pr?.getId()}" th:text="${pr?.getName()}">All</a></li>
                                                 <li th:if="${withoutProducerUrl!=null}"><a th:href="${withoutProducerUrl}" class="selected-filter"><span th:text="${producerName.getName()}">Selected filter name</span><i style="margin-left: 8px;" class="zmdi zmdi-close"></i></a></li>
                                                 <li th:if="${withoutProducerUrl==null}" id="loadMoreProducers">Більше <span class="ti-angle-double-down"></span></li>
                                             </ul>

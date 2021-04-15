@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface ImageService {
     Image save(MultipartFile multipartFile);
+    Image save(Image image);
     List<Image> save(List<MultipartFile> fileList, Product product);
     List<Image> update(List<MultipartFile> fileList, Product product);
     Image update(MultipartFile multipartFile, Producer producer);

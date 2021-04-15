@@ -32,7 +32,7 @@ public class PackageType {
 
     private BigDecimal packSize;
     private String packType;
-    private boolean onSale;
+    private boolean onSale=false;
 
 
     private int countOfProduct;

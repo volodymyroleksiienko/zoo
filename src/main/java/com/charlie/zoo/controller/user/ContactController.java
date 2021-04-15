@@ -21,4 +21,5 @@ public class ContactController {
         msg.setText("Ім'я: "+name+"\nТелефон: "+phone+"\nПовідомлення: "+message);
         javaMailSender.send(msg);
     }
+
 }

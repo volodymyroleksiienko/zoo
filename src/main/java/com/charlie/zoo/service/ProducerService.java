@@ -8,6 +8,7 @@ import java.util.List;
 public interface ProducerService {
     Producer save(MultipartFile multipartFile,Producer producer);
     Producer findById(int id);
+    Producer findByName(String name);
     List<Producer> findAll();
     List<Integer> getListOfId();
     void deleteByID(int id);

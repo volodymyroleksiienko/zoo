@@ -10,6 +10,7 @@ import java.util.Set;
 
 public interface ProductService {
     Product save(Product product);
+    List<Product> saveAll(List<Product> product);
     Product save(Product product, List<MultipartFile> multipartFile, List<PackageType>  packageTypes,String category,String subCategory);
     Product update(Product product, List<MultipartFile> multipartFile, List<PackageType>  packageTypes,String category,String subCategory);
     Product findById(int id);

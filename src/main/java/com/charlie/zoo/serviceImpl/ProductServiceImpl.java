@@ -31,6 +31,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> saveAll(List<Product> product) {
+        return productJpa.saveAll(product);
+    }
+
+    @Override
     public Product save(Product product, List<MultipartFile> multipartFile,List<PackageType>  packageTypes,
                         String category,String subCategory) {
         save(product);

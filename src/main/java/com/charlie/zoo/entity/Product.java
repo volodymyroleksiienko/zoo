@@ -23,7 +23,7 @@ public class Product implements Comparable<Product> {
     private String shortDescription;
 
 
-    @OneToMany(mappedBy = "product",cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
     private List<Image> images;
 
     @Lob

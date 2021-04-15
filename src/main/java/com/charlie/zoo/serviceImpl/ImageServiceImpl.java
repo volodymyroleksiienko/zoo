@@ -53,6 +53,11 @@ public class ImageServiceImpl implements  ImageService {
         }
     }
 
+    @Override
+    public Image save(Image image) {
+        return imageJPA.save(image);
+    }
+
     public byte[] compressImage(MultipartFile multipartFile) throws IOException {
         BufferedImage image =Thumbnails.of(multipartFile.getInputStream())
                 .outputQuality(0.5)

@@ -41,6 +41,11 @@ public class ProducerServiceImpl implements ProducerService {
     }
 
     @Override
+    public Producer findByName(String name) {
+        return producerJPA.findFirstByName(name);
+    }
+
+    @Override
     public List<Producer> findAll() {
         return producerJPA.findAll();
     }

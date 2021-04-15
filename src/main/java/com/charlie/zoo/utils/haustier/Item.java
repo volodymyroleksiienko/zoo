@@ -32,4 +32,7 @@ public class Item {
     @XmlElement(name = "additional_image_link", namespace = "http://base.google.com/ns/1.0")
     private List<String> addImageLink;
 
+    @XmlElement(name = "brand", namespace = "http://base.google.com/ns/1.0")
+    private String brand;
+
 }

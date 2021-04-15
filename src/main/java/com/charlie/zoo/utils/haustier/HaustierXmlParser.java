@@ -1,32 +1,127 @@
 package com.charlie.zoo.utils.haustier;
 
+import com.charlie.zoo.entity.Image;
+import com.charlie.zoo.entity.PackageType;
+import com.charlie.zoo.entity.Product;
+import com.charlie.zoo.service.ProducerService;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import sun.util.resources.cldr.ga.TimeZoneNames_ga;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
+@Service
+@AllArgsConstructor
 public class HaustierXmlParser {
-    public static void parse(MultipartFile multipartFile){
+    private final ProducerService producerService;
+
+    public Rss parse(MultipartFile multipartFile){
         try {
         JAXBContext jc = JAXBContext.newInstance(Rss.class);
 
         File file = new File("/feed.xml");
 
-//        multipartFile.transferTo(file);
 
         Unmarshaller unmarshaller = jc.createUnmarshaller();
-        Rss fosterHome = (Rss) unmarshaller.unmarshal(file);
+        Rss rss = (Rss) unmarshaller.unmarshal(file);
 
         Marshaller marshaller = jc.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        marshaller.marshal(fosterHome, System.out);
+//        marshaller.marshal(rss, System.out);
 
-            System.out.println(fosterHome.getChannel().getItemList().size());
-
+        return rss;
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
+    }
+
+    public  List<Product> convertToProduct(Rss rss)  {
+        List<Product> productList = new ArrayList<>();
+        List<Item> itemList = rss.getChannel().getItemList();
+
+        for(Item item:itemList){
+            Product product = new Product();
+
+            product.setName("EDIT "+item.getTitle());
+            product.setDetails(item.getDescription());
+            product.setShortDescription(item.getDescription());
+
+            PackageType type = new PackageType();
+            type.setPackType("шт");
+            type.setProduct(product);
+            type.setPackSize(new BigDecimal(1));
+            type.setPrice(new BigDecimal(item.getPrice()
+                    .replace("UAH","")
+                    .replace(" ","")));
+            if(item.getSalePrice()!=null) {
+                type.setNewPrice(new BigDecimal(item.getSalePrice()
+                        .replace("UAH", "")
+                        .replace(" ", "")));
+            }
+            product.setPackageType(Collections.singletonList(type));
+
+            List<Image> imageList = new ArrayList<>();
+
+            Image image = new Image();
+            image.setMain(true);
+            image.setProduct(product);
+            image.setImg(recoverImageFromUrl(item.getImageLink()));
+            image.setImgType("image/jpeg");
+            image.setImgName(new Date().toString()+".jpg");
+            imageList.add(image);
+
+            System.out.println(item.getAddImageLink().size());
+            for(int i=0;i<item.getAddImageLink().size() && i<3;i++){
+                String link=item.getAddImageLink().get(i);
+                Image img = new Image();
+                img.setProduct(product);
+                img.setImg(recoverImageFromUrl(link));
+                img.setImgType("image/jpeg");
+                img.setImgName(new Date().toString()+".jpg");
+                imageList.add(image);
+            }
+            product.setImages(imageList);
+            product.setProducer(
+                    producerService.findByName(item.getBrand())
+            );
+
+            productList.add(product);
+        }
+        return productList;
+    }
+
+
+    public byte[] recoverImageFromUrl(String urlText)  {
+        URL url = null;
+        try {
+            url = new URL(urlText);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        try (InputStream inputStream = url.openStream()) {
+            int n = 0;
+            byte [] buffer = new byte[ 1024 ];
+            while (-1 != (n = inputStream.read(buffer))) {
+                output.write(buffer, 0, n);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return output.toByteArray();
     }
 }
