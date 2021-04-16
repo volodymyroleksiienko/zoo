@@ -260,13 +260,25 @@
                                             <li class="old__price" style="display: none" th:if="${!pr?.getPackageType()?.get(0)?.isOnSale()}"></li>
                                             <li class="new__price" th:if="${!pr?.getPackageType()?.get(0)?.isOnSale()}" th:text="${pr?.getPackageType()?.get(0)?.getPrice()}+' UAH'"></li>
                                         </ul>
+<!--                                        ORIGINAL-->
+<!--                                        <div class="product__info">-->
+<!--                                            <ul class="product__action">-->
+<!--                                                <li><a data-toggle="modal" onclick="quickViewProduct(this.closest('.single__pro').id)" title="Швидкий перегляд" class="quick-view modal-view detail-link" href="#"><span class="ti-plus"></span></a></li>-->
+<!--                                                <li><a title="До кошика" class="send-item-to-card" th:href="@{'/addToCart/'+${pr?.getPackageType()?.get(0)?.getId()}}"><span class="ti-shopping-cart-full">в кошик</span></a></li>-->
+<!--                                                <li><a title="Купити зараз" class="buy-item-now" href="/checkout"><span class="ti-wallet">купити</span></a></li>-->
+<!--                                            </ul>-->
+<!--                                        </div>-->
+<!--                                        ORIGINAL-->
+<!--                                        MOD-->
                                         <div class="product__info">
                                             <ul class="product__action">
-                                                <li><a data-toggle="modal" onclick="quickViewProduct(this.closest('.single__pro').id)" title="Швидкий перегляд" class="quick-view modal-view detail-link" href="#"><span class="ti-plus"></span></a></li>
-                                                <li><a title="До кошика" class="send-item-to-card" th:href="@{'/addToCart/'+${pr?.getPackageType()?.get(0)?.getId()}}"><span class="ti-shopping-cart-full"></span></a></li>
-                                                <li><a title="Купити зараз" class="buy-item-now" href="/checkout"><span class="ti-wallet"></span></a></li>
+                                                <li style="width: 100%">
+                                                    <a title="До кошика" class="send-item-to-card" th:href="@{'/addToCart/'+${pr?.getPackageType()?.get(0)?.getId()}}" style="background: #ffd413;border-radius: 18px;padding: 7px 20px;text-transform: uppercase;webkit-box-shadow: inset 0 3px 5px rgb(0 0 0 / 13%);box-shadow: inset 0 3px 5px rgb(0 0 0 / 13%);">
+                                                        <span class="ti-shopping-cart-full" style="color: #000000;font-size: 17px;transition: all 0.3s ease 0s;margin-top: 0; display: inline-block;"></span>в кошик</a>
+                                                </li>
                                             </ul>
                                         </div>
+<!--                                        MOD-->
                                     </div>
                                 </div>
                             </div>
