@@ -19,21 +19,21 @@ public class PackageType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private BigDecimal price;
-    private BigDecimal newPrice;
-    private BigDecimal discount;
+    private BigDecimal price=new BigDecimal("0.00");
+    private BigDecimal newPrice=new BigDecimal("0.00");
+    private BigDecimal discount=new BigDecimal("0.00");
 
 
-    private BigDecimal wholeSalePrice;
-    private BigDecimal wholeSaleNewPrice;
-    private BigDecimal wholeSaleDiscount;
+    private BigDecimal wholeSalePrice=new BigDecimal("0.00");
+    private BigDecimal wholeSaleNewPrice=new BigDecimal("0.00");
+    private BigDecimal wholeSaleDiscount=new BigDecimal("0.00");
     private boolean wholeSaleOnSale;
     private boolean wholeSaleStatus;
 
-    private BigDecimal packSize;
+    private BigDecimal packSize=new BigDecimal("0.00");
     private String packType;
     private boolean onSale=false;
-
+    private String producerFactoryId;
 
     private int countOfProduct;
 

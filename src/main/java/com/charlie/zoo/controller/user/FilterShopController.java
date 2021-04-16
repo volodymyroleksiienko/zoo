@@ -34,31 +34,31 @@ public class FilterShopController {
     @GetMapping
     public String getShop(@CookieValue(value = "id", defaultValue = "") String username, Model model,
                           HttpServletResponse httpServletResponse,String sortType, Integer max, Integer min,
-                          String packSize, Integer producerId, Integer page){
+                          String packSize, Integer producerId, Integer page,Boolean opt){
         username = cookieService.checkCookie(username,httpServletResponse,model);
         List<Animal> animalList = animalService.findAll();
         model.addAttribute("categoryBtn", animalList);
         model.addAttribute("currentUrl","/shop/");
         model.addAttribute("currentAll","Всі товари");
-        Set<Product> beforeFilter = new TreeSet<>(productService.findByStatus(StatusOfEntity.ACTIVE));
+            Set<Product> beforeFilter = new TreeSet<>(productService.findByStatusByOpt(StatusOfEntity.ACTIVE,opt));
         config(model,username);
-        configFilter(model,"/shop",beforeFilter,packSize,min,max,producerId,sortType,page);
+        configFilter(model,"/shop",beforeFilter,packSize,min,max,producerId,sortType,page,opt);
         return "user/shop";
     }
 
     @GetMapping("/{animalUrl}")
     public String getByAnimal(@CookieValue(value = "id", defaultValue = "") String username,
                               HttpServletResponse httpServletResponse,@PathVariable String animalUrl, Model model,
-                              String sortType, Integer max, Integer min,String packSize, Integer producerId, Integer page){
+                              String sortType, Integer max, Integer min,String packSize, Integer producerId, Integer page,Boolean opt){
         username = cookieService.checkCookie(username,httpServletResponse,model);
         Animal animal = animalService.findByUrl(animalUrl);
         if(animal!=null) {
-            Set<Product> beforeFilter = productService.findByAnimal(animal);
+            Set<Product> beforeFilter = productService.findByAnimalByOpt(animal,opt);
             model.addAttribute("categoryBtn", animal.getCategories());
             model.addAttribute("currentAll",animal.getName());
 
             config(model,username);
-            configFilter(model,"/shop/"+animalUrl,beforeFilter,packSize,min,max,producerId,sortType,page);
+            configFilter(model,"/shop/"+animalUrl,beforeFilter,packSize,min,max,producerId,sortType,page,opt);
         }
         return "user/shop";
     }
@@ -67,17 +67,17 @@ public class FilterShopController {
     public String getByAnimalByCategory(@CookieValue(value = "id", defaultValue = "") String username,
                                         HttpServletResponse httpServletResponse,@PathVariable String animalUrl,
                                         @PathVariable String categoryUrl,Model model,String sortType, Integer max,
-                                        Integer min,String packSize, Integer producerId, Integer page){
+                                        Integer min,String packSize, Integer producerId, Integer page,Boolean opt){
         username = cookieService.checkCookie(username,httpServletResponse,model);
         Category category = categoryService.findByUrl(animalUrl,categoryUrl);
         model.addAttribute("animal",animalService.findByUrl(animalUrl));
         model.addAttribute("currentUrl","/shop/"+animalUrl+"/"+categoryUrl+"/");
         if(category!=null) {
-            Set<Product> products = productService.findByAnimalByCategory(category);
+            Set<Product> products = productService.findByAnimalByCategoryByOpt(category,opt);
             model.addAttribute("categoryBtn", category.getCategoryItems());
             model.addAttribute("currentAll",category.getName());
             config(model,username);
-            configFilter(model,"/shop/"+animalUrl+"/"+categoryUrl,products,packSize,min,max,producerId,sortType,page);
+            configFilter(model,"/shop/"+animalUrl+"/"+categoryUrl,products,packSize,min,max,producerId,sortType,page,opt);
         }
         return "user/shop";
     }
@@ -86,19 +86,20 @@ public class FilterShopController {
     public String getBySubCategory(@CookieValue(value = "id", defaultValue = "") String username,
                                    HttpServletResponse httpServletResponse,@PathVariable String animalUrl,
                                    @PathVariable String categoryUrl,@PathVariable String subCategoryUrl,Model  model,
-                                   String sortType, Integer max,Integer min,String packSize, Integer producerId, Integer page){
+                                   String sortType, Integer max,Integer min,String packSize, Integer producerId,
+                                   Integer page,Boolean opt){
         username = cookieService.checkCookie(username,httpServletResponse,model);
         username = cookieService.checkCookie(username,httpServletResponse,model);
         CategoryItem item = subCategoryService.findByUrl(animalUrl,categoryUrl,subCategoryUrl);
         model.addAttribute("animal",animalService.findByUrl(animalUrl));
         model.addAttribute("category",categoryService.findByUrl(animalUrl,categoryUrl));
         if(item!=null) {
-            Set<Product> products = productService.findByAnimalByCategoryBySubCategory(item);
+            Set<Product> products = productService.findByAnimalByCategoryBySubCategoryByOpt(item,opt);
             model.addAttribute("currentAll", item.getName());
             model.addAttribute("products", products);
             config(model,username);
             configFilter(model,"/shop/"+animalUrl+"/"+categoryUrl+"/"+subCategoryUrl,products,
-                    packSize,min,max,producerId,sortType,page);
+                    packSize,min,max,producerId,sortType,page,opt);
         }
         return "user/shop";
     }
@@ -109,19 +110,20 @@ public class FilterShopController {
         model.addAttribute("orderInfo",orderService.findById(UUID.fromString(username)));
     }
 
-    private void configFilter(Model model,String currentUrl,Set<Product> products,String packSize, Integer min,Integer max,Integer providerId,String sortType,Integer page) {
+    private void configFilter(Model model,String currentUrl,Set<Product> products,String packSize, Integer min,
+                              Integer max,Integer providerId,String sortType,Integer page,Boolean opt) {
         List<Product> afterFilter = productService.getFiltered(products,min,max,packSize,providerId,sortType);
         if(packSize==null || packSize.isEmpty()){
             model.addAttribute("packSizes",productService.getPackSize(new TreeSet<>(afterFilter)));
         }else {
-            model.addAttribute("withoutPackUrl",generateUrl(currentUrl,sortType,max,min,null,providerId));
+            model.addAttribute("withoutPackUrl",generateUrl(currentUrl,sortType,max,min,null,providerId,opt));
             model.addAttribute("packName",packSize);
         }
         if(providerId==null){
             model.addAttribute("producerList",productService.getProducers(new TreeSet<>(afterFilter)));
         }else{
             {
-                model.addAttribute("withoutProducerUrl",generateUrl(currentUrl,sortType,max,min,packSize,null));
+                model.addAttribute("withoutProducerUrl",generateUrl(currentUrl,sortType,max,min,packSize,null,opt));
                 model.addAttribute("producerName",producerService.findById(providerId));
             }
         }
@@ -131,7 +133,7 @@ public class FilterShopController {
 
 
         model.addAttribute("currentUrl",currentUrl+"/");
-        model.addAttribute("currentUrlFiltered",generateUrl(currentUrl,sortType,max,min,packSize,providerId));
+        model.addAttribute("currentUrlFiltered",generateUrl(currentUrl,sortType,max,min,packSize,providerId,opt));
 
         model.addAttribute("products", getPage(afterFilter,page,pageOfProductSize));
 
@@ -144,10 +146,11 @@ public class FilterShopController {
         if(min!=null && max!=null){
             model.addAttribute("filterPriceValue","Від "+min +" до "+max);
         }
-        model.addAttribute("withoutPriceUrl",generateUrl(currentUrl,sortType,null,null,packSize,providerId));
+        model.addAttribute("withoutPriceUrl",generateUrl(currentUrl,sortType,null,null,packSize,providerId,opt));
         model.addAttribute("countOfPages",getCountOfPages(afterFilter,pageOfProductSize));
+        model.addAttribute("opt",opt);
         model.addAttribute("currentPage",(page==null || page==0)?1:page);
-        model.addAttribute("sortingUrl",generateUrl(currentUrl,null,max,min,packSize,providerId));
+        model.addAttribute("sortingUrl",generateUrl(currentUrl,null,max,min,packSize,providerId,opt));
     }
 
     public static <T> List<T> getPage(List<T> sourceList, Integer page, int pageSize) {
@@ -170,7 +173,8 @@ public class FilterShopController {
         return (int) Math.ceil(sz/ps);
     }
 
-    private String generateUrl(String current,String sortType, Integer max, Integer min,String packSize, Integer producerId){
+    private String generateUrl(String current,String sortType, Integer max, Integer min,String packSize,
+                               Integer producerId,Boolean opt){
         current = current+"?";
         if(sortType!=null && !sortType.isEmpty()){
             current+="sortType="+sortType+"&";
@@ -183,6 +187,9 @@ public class FilterShopController {
         }
         if(producerId!=null){
             current+="producerId="+producerId+"&";
+        }
+        if(opt!=null){
+            current+="opt="+opt.toString()+"&";
         }
         return current;
     }

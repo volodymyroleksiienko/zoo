@@ -17,10 +17,14 @@ public interface ProductJpa extends JpaRepository<Product,Integer> {
     TreeSet<Product> findByCategoriesIdInAndStatusOfEntity(List<Integer> categoryId, StatusOfEntity statusOfentity);
     TreeSet<Product> findByCategoryItemsIdInAndStatusOfEntity(List<Integer> categoryId, StatusOfEntity statusOfentity);
 
-
-    List<Product> findFirst15ByNameContainingIgnoreCaseOrDetailsContainingIgnoreCaseAndStatusOfEntity(String name,String desc,StatusOfEntity status);
+    List<Product> findFirst15ByNameContainingIgnoreCaseOrShortDescriptionContainingIgnoreCaseAndStatusOfEntity(String name,String desc,StatusOfEntity status);
 
     TreeSet<Product> findByCategoriesIdInAndCategoryItemsIdInAndPackageTypePackSizeInAndProducerIdInAndStatusOfEntity(List<Integer> categoryId,List<Integer> categoryItem,List<BigDecimal> packId,List<Integer> producerId, StatusOfEntity statusOfentity);
+
     List<Product> findByStatusOfEntity(StatusOfEntity status);
+
+
     TreeSet<Product> findByCategoriesIn(List<Category> category);
-}
+    TreeSet<Product> findByCategoriesInAndStatusOfEntity(List<Category> category,StatusOfEntity status);
+
+   }

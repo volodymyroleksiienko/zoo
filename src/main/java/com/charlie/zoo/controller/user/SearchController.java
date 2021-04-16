@@ -28,8 +28,8 @@ public class SearchController {
     @ResponseBody
     @PostMapping("/parse")
     public void parse(MultipartFile file){
-        Rss rss = haustierXmlParser.parse(file);
-        List<Product> productList = haustierXmlParser.convertToProduct(rss);
+        List<Product> productList = haustierXmlParser.parseManager(file);
+        System.out.println("Size" + file.getSize());
         productService.saveAll(productList);
      }
 

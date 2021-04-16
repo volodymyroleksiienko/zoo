@@ -35,4 +35,7 @@ public class Item {
     @XmlElement(name = "brand", namespace = "http://base.google.com/ns/1.0")
     private String brand;
 
+    @XmlElement(name = "mpn", namespace = "http://base.google.com/ns/1.0")
+    private String mpn;
+
 }

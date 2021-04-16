@@ -92,8 +92,39 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> findByStatusByOpt(StatusOfEntity status, Boolean opt) {
+        if (opt == null || !opt) {
+            return productJpa.findByStatusOfEntity(status);
+        } else {
+            return productJpa.findByStatusOfEntity(status).stream()
+                    .peek(product -> product.setPackageType(
+                            product.getPackageType()
+                                    .stream()
+                                    .filter(PackageType::isWholeSaleStatus).collect(Collectors.toList())))
+                    .filter(product -> product.getPackageType().size()>0)
+                    .collect(Collectors.toList());
+        }
+    }
+
+    @Override
     public Set<Product> findByAnimal(Animal animal) {
         return productJpa.findByCategoriesIn(animal.getCategories());
+    }
+
+    @Override
+    public Set<Product> findByAnimalByOpt(Animal animal, Boolean opt) {
+        if (opt == null || !opt) {
+            return productJpa.findByCategoriesInAndStatusOfEntity(animal.getCategories(),StatusOfEntity.ACTIVE);
+        }else {
+            return productJpa.findByCategoriesInAndStatusOfEntity(animal.getCategories(),StatusOfEntity.ACTIVE)
+                    .stream()
+                    .peek(product -> product.setPackageType(
+                            product.getPackageType()
+                                    .stream()
+                                    .filter(PackageType::isWholeSaleStatus).collect(Collectors.toList())))
+                    .filter(product -> product.getPackageType().size()>0)
+                    .collect(Collectors.toSet());
+        }
     }
 
     @Override
@@ -101,6 +132,24 @@ public class ProductServiceImpl implements ProductService {
         List<Integer> category = new ArrayList<>();
         category.add(ct.getId());
         return productJpa.findByCategoriesIdInAndStatusOfEntity(category,StatusOfEntity.ACTIVE);
+    }
+
+    @Override
+    public Set<Product> findByAnimalByCategoryByOpt(Category ct, Boolean opt) {
+        List<Integer> category = new ArrayList<>();
+        category.add(ct.getId());
+        if (opt == null || !opt) {
+            return productJpa.findByCategoriesIdInAndStatusOfEntity(category,StatusOfEntity.ACTIVE);
+        }else {
+            return productJpa.findByCategoriesIdInAndStatusOfEntity(category,StatusOfEntity.ACTIVE)
+                    .stream()
+                    .peek(product -> product.setPackageType(
+                            product.getPackageType()
+                                    .stream()
+                                    .filter(PackageType::isWholeSaleStatus).collect(Collectors.toList())))
+                    .filter(product -> product.getPackageType().size()>0)
+                    .collect(Collectors.toSet());
+        }
     }
 
     @Override
@@ -112,9 +161,27 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Set<Product> findByAnimalByCategoryBySubCategoryByOpt(CategoryItem item, Boolean opt) {
+        List<Integer> category = new ArrayList<>();
+        category.add(item.getId());
+        if (opt == null || !opt) {
+            return productJpa.findByCategoryItemsIdInAndStatusOfEntity(category,StatusOfEntity.ACTIVE);
+        }else {
+            return productJpa.findByCategoryItemsIdInAndStatusOfEntity(category,StatusOfEntity.ACTIVE)
+                    .stream()
+                    .peek(product -> product.setPackageType(
+                            product.getPackageType()
+                                    .stream()
+                                    .filter(PackageType::isWholeSaleStatus).collect(Collectors.toList())))
+                    .filter(product -> product.getPackageType().size()>0)
+                    .collect(Collectors.toSet());
+        }
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public List<Product> find15ByName(String name) {
-        return productJpa.findFirst15ByNameContainingIgnoreCaseOrDetailsContainingIgnoreCaseAndStatusOfEntity(name,name,StatusOfEntity.ACTIVE);
+        return productJpa.findFirst15ByNameContainingIgnoreCaseOrShortDescriptionContainingIgnoreCaseAndStatusOfEntity(name,name,StatusOfEntity.ACTIVE);
     }
 
 

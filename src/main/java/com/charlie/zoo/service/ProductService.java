@@ -15,9 +15,13 @@ public interface ProductService {
     Product update(Product product, List<MultipartFile> multipartFile, List<PackageType>  packageTypes,String category,String subCategory);
     Product findById(int id);
     List<Product> findByStatus(StatusOfEntity status);
+    List<Product> findByStatusByOpt(StatusOfEntity status,Boolean opt);
     Set<Product> findByAnimal(Animal animal);
+    Set<Product> findByAnimalByOpt(Animal animal,Boolean opt);
     Set<Product> findByAnimalByCategory(Category ct);
+    Set<Product> findByAnimalByCategoryByOpt(Category ct,Boolean opt);
     Set<Product> findByAnimalByCategoryBySubCategory(CategoryItem item);
+    Set<Product> findByAnimalByCategoryBySubCategoryByOpt(CategoryItem item,Boolean opt);
     List<Product> find15ByName(String name);
     Product changeStatus(int id, boolean status);
     Set<Product> getFilteredProduct(Integer[] categoryIdArr,Integer[] categoryItemIdArr,Integer[] producerId, Double[] packSizeArr);
