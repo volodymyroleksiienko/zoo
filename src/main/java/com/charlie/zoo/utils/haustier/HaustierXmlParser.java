@@ -36,7 +36,7 @@ public class HaustierXmlParser {
         JAXBContext jc = JAXBContext.newInstance(Rss.class);
 
 
-        File file = new File(System.getProperty("user.dir")+"haustier.xml");
+        File file = new File(System.getProperty("user.dir")+"/haustier.xml");
         multipartFile.transferTo(file);
 
 
