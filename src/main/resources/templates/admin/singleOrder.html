@@ -232,7 +232,7 @@
                                                 </div>
                                                 <!-- Table -->
                                                 <div class="form-group" style="margin-top: 1rem;">
-                                                    <button type="submit" id="addProductBtn" class="btn btn-outline-primary">Зберегти</button>
+                                                    <button type="button" id="addProductBtn" class="btn btn-outline-primary">Зберегти</button>
                                                     <a href="/admin/orders" type="button" class="btn btn-outline-danger">Скасувати</a>
                                                 </div>
                                             </div>
@@ -363,6 +363,13 @@
             </div>
             <!-- Delete item end -->
 
+            <div class="alert alert-pro alert-danger" id="erorAlert" style="display: none; z-index: 9999; position: fixed; top: 12vh; margin: 0 1rem;">
+                <div class="alert-text">
+                    <h6>Помилка!</h6>
+                    <p id="errorMessage"></p>
+                </div>
+            </div>
+
             <!-- content @e -->
             <!-- footer @s -->
             <div th:replace="~{admin/fragments/fragAdminFooter.html :: adminFooter}"></div>
@@ -482,6 +489,34 @@
             form.append("product",JSON.stringify(product));
             form.append("category",JSON.stringify(category));
             form.append("subCategory",JSON.stringify(subCategory));
+
+            validateInputs(form);
+        });//button click end
+    });//ready() end
+
+
+    function validateInputs(form) {
+        if (($('#customerNameSurname').val()==='')||($('#customerPhoneNumber').val()==='')||($('#customerPhoneNumber').val().replace(/[^0-9]/gi, '').length)<12){
+            $('#errorMessage').text('Заповніть дані замовника.');
+            $('#erorAlert').show();
+            setTimeout(function() { $('#erorAlert').hide(); }, 5000);
+            return;
+        }else if ($('#orderDate').val()===''){
+            $('#errorMessage').text('Виберіть дату замовлення.');
+            $('#erorAlert').show();
+            setTimeout(function() { $('#erorAlert').hide(); }, 5000);
+            return;
+        }else if ($('#deliveryAddress').val()===' '){
+            $('#errorMessage').text('Зпровніть адресу доставки.');
+            $('#erorAlert').show();
+            setTimeout(function() { $('#erorAlert').hide(); }, 5000);
+            return;
+        }else if (!t.data().any()){
+            $('#errorMessage').text('Додайте принаймні один тип пакування.');
+            $('#erorAlert').show();
+            setTimeout(function() { $('#erorAlert').hide(); }, 5000);
+            return;
+        }else {
             $.ajax({
                 method: "post",
                 url: "/admin/products/edit",
@@ -497,8 +532,8 @@
                     alert("Error!");
                 }
             }); //ajax end
-        });//button click end
-    });//ready() end
+        }
+    }
 
 
 

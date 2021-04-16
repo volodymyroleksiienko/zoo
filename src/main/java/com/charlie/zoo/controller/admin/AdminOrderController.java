@@ -47,6 +47,12 @@ public class AdminOrderController {
         return "redirect:/admin/orders/orderReview/"+orderInfo.getId();
     }
 
+    @PostMapping("/addOrder")
+    public String addOrder(OrderInfo orderInfo){
+        orderService.save(orderInfo);
+        return "redirect:/admin/orders";
+    }
+
     @PostMapping("/deleteDetail")
     public String findPackType(int id,String currentUrl){
         OrderDetails details = orderDetailsService.findById(id);
