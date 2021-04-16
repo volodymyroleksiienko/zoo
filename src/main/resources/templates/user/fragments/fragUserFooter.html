@@ -46,8 +46,10 @@
                         <div class="ft__widget">
                             <h2 class="ft__title">Категорії</h2>
                             <ul class="footer-categories">
-                                <li><a href="#">Собаки</a></li>
-                                <li><a href="#">Коти</a></li>
+                                <li th:each="a :${animals}" th:id="${a.getUrl()}">
+                                    <a th:href="@{|/shop/${a.getUrl()}|}" th:text="${a.getName()}"></a>
+                                </li>
+<!--                                <li><a href="#">Коти</a></li>-->
                             </ul>
                         </div>
                     </div>

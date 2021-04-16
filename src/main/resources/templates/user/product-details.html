@@ -5,13 +5,13 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-<!--    <title th:text="${product.getName()}"></title>-->
-    <meta name="description" content="">
+    <title th:text="'Відбірні зоотовари та грумінг CharlieZoo - '+${product.getName()}"></title>
+    <meta name="description" th:content="${product.getName()}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <!-- Place favicon.ico in the root directory -->
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 
 
     <!-- All css files are included here. -->
@@ -31,9 +31,8 @@
     <!-- User style -->
     <link rel="stylesheet" th:href="@{/css/custom.css}">
 
-
     <!-- Modernizr JS -->
-    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    <script th:src="@{js/vendor/modernizr-2.8.3.min.js}"></script>
 </head>
 
 <body>
