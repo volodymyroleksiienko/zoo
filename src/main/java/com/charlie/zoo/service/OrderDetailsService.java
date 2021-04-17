@@ -14,6 +14,7 @@ public interface OrderDetailsService {
     void changeCount(int id, int count);
     OrderDetails addProductToOrder(UUID orderId, int packageId, int count);
     void deleteProductFromOrder(UUID orderId, int packageId);
+    OrderDetails pinPriceOfProduct(OrderDetails details);
     OrderDetails findById(int id);
     OrderDetails findByOrderInfoIdAndOrderByPackageId(UUID orderId, int packageId);
     List<OrderDetails> findAll();

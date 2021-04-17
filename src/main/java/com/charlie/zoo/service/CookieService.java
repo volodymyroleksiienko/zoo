@@ -7,5 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 public interface CookieService {
     String checkCookie(String id, HttpServletResponse httpServletResponse, Model model);
     String createNewCookieId(HttpServletResponse httpServletResponse, Model model);
+    String updateCookie(String id,HttpServletResponse httpServletResponse, Model model);
 }
 

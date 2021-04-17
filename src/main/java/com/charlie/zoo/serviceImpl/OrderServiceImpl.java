@@ -8,15 +8,14 @@ import com.charlie.zoo.enums.StatusOfEntity;
 import com.charlie.zoo.enums.StatusOfOrder;
 import com.charlie.zoo.enums.StatusOfPayment;
 import com.charlie.zoo.jpa.OrderJPA;
+import com.charlie.zoo.service.OrderDetailsService;
 import com.charlie.zoo.service.OrderService;
-import org.aspectj.weaver.ast.Or;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -24,12 +23,14 @@ import java.util.UUID;
 @Service
 @Transactional
 public class OrderServiceImpl implements OrderService {
-    private OrderJPA orderJPA;
+    private final OrderJPA orderJPA;
+    private final OrderDetailsService orderDetailsService;
 
-    @Autowired
-    public OrderServiceImpl(OrderJPA orderJPA) {
+    public OrderServiceImpl(OrderJPA orderJPA,@Lazy OrderDetailsService orderDetailsService) {
         this.orderJPA = orderJPA;
+        this.orderDetailsService = orderDetailsService;
     }
+
 
     @Override
     @Transactional
@@ -42,6 +43,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderInfo update(OrderInfo order) {
         OrderInfo orderDB = findById(order.getId());
+        System.out.println(orderDB.getOrderDetails());
         orderDB.setDate(order.getDate());
         orderDB.setNameOfClient(order.getNameOfClient());
         orderDB.setPhone(order.getPhone());
@@ -54,6 +56,10 @@ public class OrderServiceImpl implements OrderService {
 
         orderDB.setPayment(order.getPayment());
         orderDB.setStatusOfOrder(order.getStatusOfOrder());
+
+        for(OrderDetails details:orderDB.getOrderDetails()) {
+            orderDetailsService.pinPriceOfProduct(details);
+        }
 
         return save(orderDB);
     }
@@ -72,6 +78,10 @@ public class OrderServiceImpl implements OrderService {
         orderDB.setNovaPoshtaDelivering(order.isNovaPoshtaDelivering());
         orderDB.setPayByCard(order.isPayByCard());
         orderDB.setPayByCash(order.isPayByCash());
+
+        for(OrderDetails details:orderDB.getOrderDetails()) {
+            orderDetailsService.pinPriceOfProduct(details);
+        }
 
         orderDB.setPayment(StatusOfPayment.WAIT_FOR_PAYMENT);
         return save(orderDB);

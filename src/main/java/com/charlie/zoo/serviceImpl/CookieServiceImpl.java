@@ -25,7 +25,7 @@ public class CookieServiceImpl implements CookieService {
                 return orderInfo.getId().toString();
             }
         }
-        return createNewCookieId(httpServletResponse,model);
+        return "";
     }
 
     @Override
@@ -38,6 +38,14 @@ public class CookieServiceImpl implements CookieService {
         httpServletResponse.addCookie(cookie);
         model.addAttribute("order",order);
         return order.getId().toString();
+    }
+
+    @Override
+    public String updateCookie(String id, HttpServletResponse httpServletResponse, Model model) {
+        Cookie cookie = new Cookie("id", id);
+        cookie.setPath("/");
+        httpServletResponse.addCookie(cookie);
+        return id;
     }
 
 }

@@ -27,6 +27,7 @@ public class OrderInfo {
     private boolean novaPoshtaDelivering;
     private boolean payByCard;
     private boolean payByCash;
+    private Boolean opt;
 
 
     @OneToMany(mappedBy = "orderInfo",fetch = FetchType.EAGER)

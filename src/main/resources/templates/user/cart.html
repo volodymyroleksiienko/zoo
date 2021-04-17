@@ -151,7 +151,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="dt : ${orderInfo.getOrderDetails()}" >
+                                        <tr th:each="dt : ${orderInfo?.getOrderDetails()}" >
                                             <td class="product-thumbnail">
                                                 <a th:href="'/singleProduct/'+${dt.getPackageType().getProduct().getId()}">
                                                     <img th:src="'/shop/getImgByProductId/'+${dt.getPackageType().getProduct().getId()}" alt="product img" />

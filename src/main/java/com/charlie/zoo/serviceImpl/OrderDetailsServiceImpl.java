@@ -2,6 +2,7 @@ package com.charlie.zoo.serviceImpl;
 
 
 import com.charlie.zoo.entity.OrderDetails;
+import com.charlie.zoo.entity.OrderInfo;
 import com.charlie.zoo.entity.PackageType;
 import com.charlie.zoo.jpa.OrderDetailsJPA;
 import com.charlie.zoo.service.OrderDetailsService;
@@ -12,6 +13,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -49,23 +51,33 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
 
     @Override
     public OrderDetails addProductToOrder(UUID orderId, int packageId, int count) {
-        OrderDetails orderDetails = findByOrderInfoIdAndOrderByPackageId(orderId,packageId);
+        OrderDetails orderDetails = null;
+        if(orderId!=null) {
+            orderDetails = findByOrderInfoIdAndOrderByPackageId(orderId, packageId);
+        }
         if (orderDetails==null){
             orderDetails = new OrderDetails();
-            orderDetails.setOrderInfo(orderService.findById(orderId));
+            OrderInfo orderInfo = (orderId!=null)?orderService.findById(orderId):null;
+            if(orderInfo==null) {
+                orderInfo = new OrderInfo();
+                orderInfo.setId(UUID.randomUUID());
+                orderInfo = orderService.save(orderInfo);
+            }
+            orderDetails.setOrderInfo(orderInfo);
             orderDetails.setPackageType(packageTypeService.findById(packageId));
             if(count<=0) {
                 orderDetails.setCount(1);
             }else{
                 orderDetails.setCount(count);
             }
+
         }else{
             if(count>0) {
                 orderDetails.setCount(orderDetails.getCount() + count);
             }
         }
 
-        return save(orderDetails);
+        return pinPriceOfProduct(orderDetails);
     }
 
     @Override
@@ -83,6 +95,37 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
         if(orderDetails!=null){
             deleteByID(orderDetails.getId());
         }
+    }
+
+    public OrderDetails pinPriceOfProduct(OrderDetails details){
+        OrderInfo orderInfo = details.getOrderInfo();
+        PackageType type = details.getPackageType();
+        if(orderInfo.getOpt()!=null && orderInfo.getOpt()){
+            if(type.isWholeSaleStatus()){
+                details.setOpt(true);
+                if(type.isWholeSaleOnSale()){
+                    details.setOnSale(true);
+                    details.setDiscount(type.getWholeSaleDiscount());
+                    details.setPrice(type.getWholeSaleNewPrice());
+                }else {
+                    details.setOnSale(false);
+                    details.setDiscount(new BigDecimal("0"));
+                    details.setPrice(type.getWholeSalePrice());
+                }
+            }else {
+                details.setOpt(false);
+                if(type.isOnSale()){
+                    details.setOnSale(true);
+                    details.setDiscount(type.getDiscount());
+                    details.setPrice(type.getNewPrice());
+                }else {
+                    details.setOnSale(false);
+                    details.setDiscount(new BigDecimal("0"));
+                    details.setPrice(type.getPrice());
+                }
+            }
+        }
+        return save(details);
     }
 
     @Override

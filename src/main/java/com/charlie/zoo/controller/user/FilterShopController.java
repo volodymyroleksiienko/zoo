@@ -106,7 +106,9 @@ public class FilterShopController {
     private void config(Model  model,String username){
         model.addAttribute("animals",animalService.findAll());
         model.addAttribute("categories",categoryService.findAll());
-        model.addAttribute("orderInfo",orderService.findById(UUID.fromString(username)));
+        if(!username.isEmpty()) {
+            model.addAttribute("orderInfo", orderService.findById(UUID.fromString(username)));
+        }
     }
 
     private void configFilter(Model model,String currentUrl,Set<Product> products,String packSize, Integer min,

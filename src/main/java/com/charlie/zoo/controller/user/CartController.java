@@ -1,5 +1,6 @@
 package com.charlie.zoo.controller.user;
 
+import com.charlie.zoo.entity.OrderDetails;
 import com.charlie.zoo.service.CookieService;
 import com.charlie.zoo.service.OrderDetailsService;
 import lombok.AllArgsConstructor;
@@ -36,8 +37,14 @@ public class CartController {
     @GetMapping("/addToCart/{idOfPackageType}")
     public String addToCartOne(@CookieValue(value = "id", defaultValue = "") String id, Model model, HttpServletResponse httpServletResponse,
                              @PathVariable int idOfPackageType){
-        cookieService.checkCookie(id,httpServletResponse,model);
-        orderDetailsService.addProductToOrder(UUID.fromString(id),idOfPackageType,1);
+        id = cookieService.checkCookie(id,httpServletResponse,model);
+        OrderDetails details;
+        if (!id.isEmpty()) {
+            details = orderDetailsService.addProductToOrder(UUID.fromString(id), idOfPackageType, 1);
+        }else {
+            details = orderDetailsService.addProductToOrder(null, idOfPackageType, 1);
+        }
+        cookieService.updateCookie(details.getOrderInfo().getId().toString(),httpServletResponse,model);
         return "redirect:/cart";
     }
 

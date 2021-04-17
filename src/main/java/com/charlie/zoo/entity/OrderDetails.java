@@ -3,6 +3,7 @@ package com.charlie.zoo.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Data
@@ -11,7 +12,13 @@ public class OrderDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
-    int count;
+    private int count;
+    private BigDecimal price=new BigDecimal("0");
+    private BigDecimal discount=new BigDecimal("0");
+    private Boolean onSale;
+    private Boolean opt;
+    private String lastChangeDate;
+
     @ManyToOne
     private PackageType packageType;
     @ManyToOne

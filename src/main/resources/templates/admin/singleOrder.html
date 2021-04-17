@@ -176,7 +176,7 @@
                                                         <div class="form-group">
                                                             <label class="form-label" for="deliveryAddress">Адреса доставки</label>
                                                             <div class="form-control-wrap">
-                                                                <textarea class="form-control" th:text="${order.getDescription().trim()}" id="deliveryAddress" name="description"></textarea>
+                                                                <textarea class="form-control" th:text="${order?.getDescription()?.trim()}" id="deliveryAddress" name="description"></textarea>
                                                             </div>
                                                         </div>
                                                     </div>

@@ -73,7 +73,9 @@ public class MainController {
     public String getCart(@CookieValue(value = "id", defaultValue = "") String username,Model model,
                           HttpServletResponse httpServletResponse){
         username = cookieService.checkCookie(username,httpServletResponse,model);
-        model.addAttribute("orderInfo",orderService.findById(UUID.fromString(username)));
+        if(!username.isEmpty()) {
+            model.addAttribute("orderInfo", orderService.findById(UUID.fromString(username)));
+        }
         modelConfig(model,username);
         return "user/cart";
     }
@@ -82,7 +84,9 @@ public class MainController {
     private void modelConfig(Model model,String username){
         model.addAttribute("animals",animalService.findAll());
         model.addAttribute("categories",categoryService.findAll());
-        model.addAttribute("orderInfo",orderService.findById(UUID.fromString(username)));
+        if(!username.isEmpty()) {
+            model.addAttribute("orderInfo", orderService.findById(UUID.fromString(username)));
+        }
     }
 
 }
