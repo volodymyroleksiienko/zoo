@@ -963,8 +963,9 @@ h4.offset__title {
 }
 
 .checkout-buttons .shp__checkout button{
-  background-color: #000;
+  background-color: #FF9F05;
   color: #fff;
+  border: 1px solid #FF9F05;
 }
 
 .shp__single__product {

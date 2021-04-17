@@ -218,11 +218,29 @@
             </div>
             </form>
          </section>
-
         <!-- End Checkout Area -->
+
         <!-- Start Footer Area -->
         <div th:replace="~{user/fragments/fragUserFooter.html}"></div>
         <!-- End Footer Area -->
+
+        <!-- #thanksModal start -->
+        <div class="modal fade" tabindex="-1" role="dialog" id="thanksModal" aria-modal="true">
+            <div class="modal-dialog modal-dialog-centered" role="document" style="-webkit-transform: translate(0,-50%);-o-transform: translate(0,-50%);transform: translate(0,-50%);top: 50%;">
+                <div class="modal-content">
+                    <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+                    <div class="modal-body modal-body-md" style="text-align: center">
+                        <img src="/images/icon.jpg" alt="" style="width: 70%;">
+                        <div class="portfolio-title portfolio-card-title text-center">
+                            <h3 style="padding-bottom: 25px">ДЯКУЄМО ЗА ПОКУПКУ!</h3>
+                            <a href="/shop" class="thanks-btn">Повернутись до магазину</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #thanksModal end -->
+
     </div>
     <!-- Body main wrapper end -->
     <!-- Placed js at the end of the document so the pages load faster -->
@@ -304,13 +322,13 @@
             }
         }
         function showPaymentForm() {
-            $.ajax({
-                url: '/checkout/orderSubmit',
-                type: 'post',
-                data: $('#orderForm').serialize(),
-                success: function(){
-                }
-            });
+            // $.ajax({
+            //     url: '/checkout/orderSubmit',
+            //     type: 'post',
+            //     data: $('#orderForm').serialize(),
+            //     success: function(){
+            //     }
+            // });
 
             let buyerData = $('#nameSurname').val();
             let phoneNumber = $('#phoneNumber').val();
@@ -335,14 +353,27 @@
             }
         }
         function sendDataSubmit() {
-            $.ajax({
-                url: '/checkout/orderSubmit',
-                type: 'post',
-                data: $('#orderForm').serialize(),
-                success: function(){
-                    location.replace("/checkout/successful")
-                }
-            });
+            let buyerData = $('#nameSurname').val();
+            let phoneNumber = $('#phoneNumber').val();
+            let phDigits = $('#phoneNumber').val().replace(/[^0-9]/gi, '');
+            console.log("pnl:"+phDigits+"/"+phDigits.length);
+            let address = $('#deliveryAddress').val();
+
+            if (buyerData!=='' && phoneNumber!=='' && phDigits.length === 12 && address!=='') {
+                $.ajax({
+                    url: '/checkout/orderSubmit',
+                    type: 'post',
+                    data: $('#orderForm').serialize(),
+                    success: function () {
+                        $('#thanksModal').modal('show');
+                        // location.replace("/checkout/successful")
+                    }
+                });
+            }else {
+                $([document.documentElement, document.body]).animate({
+                    scrollTop: $("#nameSurname").offset().top-150
+                }, 500);
+            }
         }
     </script>
 
@@ -360,7 +391,8 @@
                 console.log(data.status);
                 console.log(data);
                 if(data==="success"){
-                    window.location.href = "/";
+                    // window.location.href = "/";
+                    $('#thanksModal').modal('show');
                 }
             }).on("liqpay.ready", function(data){
                 $.ajax({
