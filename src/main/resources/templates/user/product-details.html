@@ -175,7 +175,7 @@
                             <div class="pro__dtl__size">
                                 <h2 class="title__5">Пакування:</h2>
                                 <ul class="product-types">
-                                    <li th:each="type, info : ${product?.getPackageType()}">
+                                    <li th:each="type, info : ${product?.getPackageType()}" th:if="${type!=null}">
                                         <button class="btn package-type-btn" th:classappend="${(info.count==1)?'active':''}" th:text="${type?.getPackSize()+' '+type?.getPackType()}" th:value="${type?.toString()}"></button>
                                     </li>
                                 </ul>
@@ -208,13 +208,13 @@
                     <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                         <ul class="product__deatils__tab mb--60" role="tablist">
                             <li role="presentation" class="active">
-                                <a href="#description" role="tab" data-toggle="tab" th:if="${!product.getDetails().isEmpty()}">Детальний опис</a>
+                                <a href="#description" role="tab" data-toggle="tab" th:if="${product.getDetails()!=null && !product.getDetails()?.isEmpty()}">Детальний опис</a>
                             </li>
                             <li role="presentation">
-                                <a href="#sheet" role="tab" data-toggle="tab" th:if="${!product.getDailyNorm().isEmpty()}">Добова норма</a>
+                                <a href="#sheet" role="tab" data-toggle="tab" th:if="${product.getDailyNorm()!=null && !product.getDailyNorm()?.isEmpty()}">Добова норма</a>
                             </li>
                             <li role="presentation">
-                                <a href="#reviews" role="tab" data-toggle="tab" th:if="${!product.getProducerDetails().isEmpty()}">Виробник</a>
+                                <a href="#reviews" role="tab" data-toggle="tab" th:if="${product.getProducerDetails()!=null && !product.getProducerDetails()?.isEmpty()}">Виробник</a>
                             </li>
                         </ul>
                     </div>

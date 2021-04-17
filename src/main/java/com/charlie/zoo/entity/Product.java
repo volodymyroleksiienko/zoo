@@ -9,6 +9,7 @@ import java.awt.*;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Data
@@ -73,6 +74,25 @@ public class Product implements Comparable<Product> {
                 ", producer=" + producer +
                 ", statusOfEntity=" + statusOfEntity +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return id == product.id &&
+                Objects.equals(name, product.name) &&
+                Objects.equals(shortDescription, product.shortDescription) &&
+                Objects.equals(details, product.details) &&
+                Objects.equals(dailyNorm, product.dailyNorm) &&
+                Objects.equals(producerDetails, product.producerDetails) &&
+                statusOfEntity == product.statusOfEntity;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, shortDescription, details, dailyNorm, producerDetails, statusOfEntity);
     }
 
     @Override

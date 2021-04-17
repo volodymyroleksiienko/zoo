@@ -73,16 +73,26 @@ public class PackageTypeDto {
         PackageTypeDto packageTypeDto = new PackageTypeDto();
         packageTypeDto.id=packageType.getId();
         packageTypeDto.price=packageType.getPrice().doubleValue();
-        packageTypeDto.newPrice=packageType.getNewPrice().doubleValue();
+        if(packageType.getNewPrice()!=null) {
+            packageTypeDto.newPrice = packageType.getNewPrice().doubleValue();
+        }
         packageTypeDto.packSize=packageType.getPackSize().doubleValue();
-        packageTypeDto.discount=packageType.getDiscount().doubleValue();
+        if(packageType.getDiscount()!=null) {
+            packageTypeDto.discount = packageType.getDiscount().doubleValue();
+        }
         packageTypeDto.packType=packageType.getPackType();
         packageTypeDto.onSale=packageType.isOnSale();
         packageTypeDto.countOfProduct=packageType.getCountOfProduct();
 
-        packageTypeDto.wholeSaleDiscount=packageType.getWholeSaleDiscount().doubleValue();
-        packageTypeDto.wholeSalePrice=packageType.getWholeSalePrice().doubleValue();
-        packageTypeDto.wholeSaleNewPrice=packageType.getWholeSalePrice().doubleValue();
+        if(packageType.getWholeSaleDiscount()!=null) {
+            packageTypeDto.wholeSaleDiscount = packageType.getWholeSaleDiscount().doubleValue();
+        }
+        if(packageType.getWholeSalePrice()!=null) {
+            packageTypeDto.wholeSalePrice = packageType.getWholeSalePrice().doubleValue();
+        }
+        if(packageType.getWholeSaleNewPrice()!=null) {
+            packageTypeDto.wholeSaleNewPrice = packageType.getWholeSaleNewPrice().doubleValue();
+        }
         packageTypeDto.wholeSaleOnSale=packageType.isWholeSaleOnSale();
         packageTypeDto.wholeSaleStatus=packageType.isWholeSaleStatus();
 

@@ -76,10 +76,8 @@ public class AdminOrderController {
     @PostMapping("/addDetail")
     public String getDetail(String orderId,Integer count,Integer packId){
         UUID uuid = UUID.fromString(orderId);
-        orderDetailsService.addProductToOrder(uuid,packId,count);
-        OrderInfo orderInfo = orderService.findById(uuid);
-        System.out.println(orderService.getSummaryPrice(orderInfo));
-        orderInfo.setSumPrice(orderService.getSummaryPrice(orderInfo));
+        OrderDetails details = orderDetailsService.addProductToOrder(uuid,packId,count);
+        OrderInfo orderInfo = details.getOrderInfo();
         orderService.save(orderInfo);
         return "redirect:/admin/orders/orderReview/"+orderId;
     }

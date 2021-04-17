@@ -12,6 +12,7 @@ import com.charlie.zoo.service.OrderService;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -21,6 +22,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @Service
+@Transactional
 public class OrderServiceImpl implements OrderService {
     private OrderJPA orderJPA;
 
@@ -30,6 +32,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional
     public OrderInfo save(OrderInfo orderInfo)
     {
         orderInfo.setSumPrice(getSummaryPrice(orderInfo));
@@ -119,6 +122,9 @@ public class OrderServiceImpl implements OrderService {
         double sum = 0;
         if (orderInfo.getOrderDetails()==null || orderInfo.getOrderDetails().size()==0){
             return 0;
+        }
+        if(!orderInfo.getId().toString().isEmpty()) {
+            orderInfo = findById(orderInfo.getId());
         }
         for(OrderDetails details:orderInfo.getOrderDetails()){
             PackageType type = details.getPackageType();

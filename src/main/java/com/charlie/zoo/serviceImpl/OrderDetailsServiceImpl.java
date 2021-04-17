@@ -17,6 +17,7 @@ import java.util.UUID;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class OrderDetailsServiceImpl implements OrderDetailsService {
     private final OrderDetailsJPA detailsJPA;
     private final OrderService orderService;
@@ -47,7 +48,6 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
     }
 
     @Override
-    @Transactional
     public OrderDetails addProductToOrder(UUID orderId, int packageId, int count) {
         OrderDetails orderDetails = findByOrderInfoIdAndOrderByPackageId(orderId,packageId);
         if (orderDetails==null){

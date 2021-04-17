@@ -121,11 +121,11 @@
                             <div class="bradcaump__inner text-center">
                                 <h2 class="bradcaump-title">Магазин</h2>
                                 <nav class="bradcaump-inner">
-                                    <a class="breadcrumb-item" href="/shop">Магазин</a>
+                                    <a class="breadcrumb-item" th:href="@{'/shop'+${((opt==true)?'?opt=true':'')}}">Магазин</a>
                                     <span class="brd-separetor">/</span>
-                                  <a class="breadcrumb-item" th:href="'/shop/'+${animal.getUrl()}" th:if="${animal!=null}" th:text="${animal.getName()}">Home</a>
+                                  <a class="breadcrumb-item" th:href="'/shop/'+${animal.getUrl()+((opt==true)?'?opt=true':'')}" th:if="${animal!=null}" th:text="${animal.getName()}">Home</a>
                                   <span class="brd-separetor" th:if="${animal!=null}">/</span>
-                                    <a class="breadcrumb-item" th:href="${'/shop/'+animal.getUrl()+'/'+category.getUrl()}" th:if="${category!=null}" th:text="${category.getName()}">Home</a>
+                                    <a class="breadcrumb-item" th:href="${'/shop/'+animal.getUrl()+'/'+category.getUrl()+((opt==true)?'?opt=true':'')}" th:if="${category!=null}" th:text="${category.getName()}">Home</a>
                                     <span class="brd-separetor" th:if="${category!=null}">/</span>
                                   <span class="breadcrumb-item active" th:text="${currentAll}">Shop Page</span>
                                 </nav>
@@ -146,7 +146,7 @@
                             <div class="filter__menu__container">
                                 <div class="product__menu">
                                     <a class="is-checked" th:text="${(currentAll!=null)?currentAll:'Всі товари'}">All</a>
-                                    <a th:href="${currentUrl+ct.getUrl()}"  th:each="ct : ${categoryBtn}" th:text="${ct.getName()}">All</a>
+                                    <a th:href="${currentUrl+ct.getUrl()+((opt==true)?'?opt=true':'')}"  th:each="ct : ${categoryBtn}" th:text="${ct.getName()}">All</a>
                                 </div>
                                 <div class="filter__box">
                                     <button class="filter__menu">фільтри</button>
@@ -249,16 +249,23 @@
                                         <h2><a class="product-item-name" th:href="@{'/singleProduct/'+${pr.getId()}}" th:text="${pr.getName()}"></a></h2>
                                         <ul class="product-types">
                                             <li th:each="type, info: ${pr.getPackageType()}">
-                                                <button class="btn" th:classappend="${(info.count==1)?'active':''}" th:text="${type.getPackSize()+' '+type.getPackType()}" th:value="${type.toString()}"></button>
+                                                <button class="btn" th:classappend="${(info.count==1)?'active':''}" th:text="${(type.getPackSize().doubleValue()!=0.0)?type.getPackSize():''+' '+type.getPackType()}" th:value="${type.toString()}"></button>
                                             </li>
                                         </ul>
                                         <p class="product-short-description" style="display: none" th:text="${pr.getShortDescription()}"></p>
-                                        <ul class="product__price">
+                                        <ul class="product__price" th:if="${pr?.getPackageType()?.size()>0 && opt!=true}">
                                             <li class="old__price" th:if="${pr?.getPackageType()?.size()>0 && pr?.getPackageType()?.get(0)?.isOnSale()}" th:text="${pr?.getPackageType()?.get(0)?.getPrice()}+' UAH'"></li>
                                             <li class="new__price" th:if="${pr?.getPackageType()?.get(0)?.isOnSale()}" th:text="${pr?.getPackageType()?.get(0)?.getNewPrice()}+' UAH'"></li>
 
                                             <li class="old__price" style="display: none" th:if="${!pr?.getPackageType()?.get(0)?.isOnSale()}"></li>
                                             <li class="new__price" th:if="${!pr?.getPackageType()?.get(0)?.isOnSale()}" th:text="${pr?.getPackageType()?.get(0)?.getPrice()}+' UAH'"></li>
+                                        </ul>
+                                        <ul class="product__price" th:if="${pr?.getPackageType()?.size()>0 && opt==true}">
+                                            <li class="old__price" th:if="${pr?.getPackageType()?.size()>0 && pr?.getPackageType()?.get(0)?.isWholeSaleOnSale()}" th:text="${pr?.getPackageType()?.get(0)?.getWholeSalePrice()}+' UAH'"></li>
+                                            <li class="new__price" th:if="${pr?.getPackageType()?.get(0)?.isWholeSaleOnSale()}" th:text="${pr?.getPackageType()?.get(0)?.getWholeSaleNewPrice()}+' UAH'"></li>
+
+                                            <li class="old__price" style="display: none" th:if="${!pr?.getPackageType()?.get(0)?.isWholeSaleOnSale()}"></li>
+                                            <li class="new__price" th:if="${!pr?.getPackageType()?.get(0)?.isWholeSaleOnSale()}" th:text="${pr?.getPackageType()?.get(0)?.getWholeSalePrice()}+' UAH'"></li>
                                         </ul>
 <!--                                        ORIGINAL-->
 <!--                                        <div class="product__info">-->
