@@ -6,7 +6,6 @@ import com.charlie.zoo.entity.CategoryItem;
 import com.charlie.zoo.entity.Product;
 import com.charlie.zoo.enums.StatusOfEntity;
 import com.charlie.zoo.service.*;
-import com.sun.corba.se.impl.encoding.CDROutputObject;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +21,7 @@ import java.util.*;
 @RequestMapping("/shop")
 @AllArgsConstructor
 public class FilterShopController {
-    private final static int pageOfProductSize = 12;
+    private final static int pageOfProductSize = 16;
     private final ProductService productService;
     private final OrderService orderService;
     private final CategoryService categoryService;

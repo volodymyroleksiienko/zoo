@@ -163,12 +163,12 @@
         </section>
         <!-- End Feature Product -->
         <!-- Start Popular Courses -->
-        <section class="htc__popular__product pb--130 bg__white">
+        <section class="htc__popular__product pb--130 bg__white" th:each="slider:${sliders}">
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="section__title section__title--2 text-center">
-                            <h2 class="title__line">Моллі рекомендує песикам</h2>
+                            <h2 class="title__line" th:text="'Моллі рекомендує у розділі '+${slider.getAnimal()}">Моллі рекомендує</h2>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod temp incididunt ut labore et dolore magna aliqua. </p>
                         </div>
                     </div>
@@ -176,7 +176,7 @@
                 <div class="row">
                     <div class="popular__product__wrap clearfix owl-carousel owl-theme another-product-style">
                         <!-- Start Single Popular Product -->
-                        <div class="col-md-4 single__pro col-lg-4 col-sm-6 col-xs-12" th:each="pr:${products}" th:id="'product-'+${pr.getId()}">
+                        <div class="col-md-4 single__pro col-lg-4 col-sm-6 col-xs-12" th:each="pr:${slider.getProducts()}" th:id="'product-'+${pr.getId()}">
                             <div class="product">
                                 <div class="product__inner">
                                     <div class="pro__thumb">
@@ -209,144 +209,6 @@
                                     </div>
                                 </div>
                             </div>                            
-                        </div>
-                        <!-- End Single Popular Product -->
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- End Popular Courses -->
-        <!-- Start Popular Courses -->
-        <section class="htc__popular__product pb--130 bg__white">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="section__title section__title--2 text-center">
-                            <h2 class="title__line">Моллі рекомендує котикам</h2>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod temp incididunt ut labore et dolore magna aliqua. </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="popular__product__wrap clearfix owl-carousel owl-theme another-product-style">
-                        <!-- Start Single Popular Product -->
-                        <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
-                            <div class="product">
-                                <div class="product__inner">
-                                    <div class="pro__thumb">
-                                        <a href="#">
-                                            <img src="images/popular-pro/1.jpg" alt="product images">
-                                        </a>
-                                    </div>
-                                    <div class="product__hover__info">
-                                        <ul class="product__action">
-                                            <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="#"><span class="ti-plus"></span></a></li>
-                                            <li><a title="Add To Cart" href="cart.html"><span class="ti-shopping-cart"></span></a></li>
-                                            <li><a title="Wishlist" href="wishlist.html"><span class="ti-heart"></span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="product__details">
-                                    <h2><a href="product-details.html">Simple Black Clock</a></h2>
-                                    <span class="popular__pro__prize">$16.00</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Single Popular Product -->
-                        <!-- Start Single Popular Product -->
-                        <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
-                            <div class="product">
-                                <div class="product__inner">
-                                    <div class="pro__thumb">
-                                        <a href="#">
-                                            <img src="images/popular-pro/2.jpg" alt="product images">
-                                        </a>
-                                    </div>
-                                    <div class="product__hover__info">
-                                        <ul class="product__action">
-                                            <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="#"><span class="ti-plus"></span></a></li>
-                                            <li><a title="Add To Cart" href="cart.html"><span class="ti-shopping-cart"></span></a></li>
-                                            <li><a title="Wishlist" href="wishlist.html"><span class="ti-heart"></span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="product__details">
-                                    <h2><a href="product-details.html">Simple Black Clock</a></h2>
-                                    <span class="popular__pro__prize">$16.00</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Single Popular Product -->
-                        <!-- Start Single Popular Product -->
-                        <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
-                            <div class="product">
-                                <div class="product__inner">
-                                    <div class="pro__thumb">
-                                        <a href="#">
-                                            <img src="images/popular-pro/3.jpg" alt="product images">
-                                        </a>
-                                    </div>
-                                    <div class="product__hover__info">
-                                        <ul class="product__action">
-                                            <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="#"><span class="ti-plus"></span></a></li>
-                                            <li><a title="Add To Cart" href="cart.html"><span class="ti-shopping-cart"></span></a></li>
-                                            <li><a title="Wishlist" href="wishlist.html"><span class="ti-heart"></span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="product__details">
-                                    <h2><a href="product-details.html">Simple Black Clock</a></h2>
-                                    <span class="popular__pro__prize">$16.00</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Single Popular Product -->
-                        <!-- Start Single Popular Product -->
-                        <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
-                            <div class="product">
-                                <div class="product__inner">
-                                    <div class="pro__thumb">
-                                        <a href="#">
-                                            <img src="images/popular-pro/1.jpg" alt="product images">
-                                        </a>
-                                    </div>
-                                    <div class="product__hover__info">
-                                        <ul class="product__action">
-                                            <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="#"><span class="ti-plus"></span></a></li>
-                                            <li><a title="Add To Cart" href="cart.html"><span class="ti-shopping-cart"></span></a></li>
-                                            <li><a title="Wishlist" href="wishlist.html"><span class="ti-heart"></span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="product__details">
-                                    <h2><a href="product-details.html">Simple Black Clock</a></h2>
-                                    <span class="popular__pro__prize">$16.00</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Single Popular Product -->
-                        <!-- Start Single Popular Product -->
-                        <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
-                            <div class="product">
-                                <div class="product__inner">
-                                    <div class="pro__thumb">
-                                        <a href="#">
-                                            <img src="images/popular-pro/2.jpg" alt="product images">
-                                        </a>
-                                    </div>
-                                    <div class="product__hover__info">
-                                        <ul class="product__action">
-                                            <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="#"><span class="ti-plus"></span></a></li>
-                                            <li><a title="Add To Cart" href="cart.html"><span class="ti-shopping-cart"></span></a></li>
-                                            <li><a title="Wishlist" href="wishlist.html"><span class="ti-heart"></span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="product__details">
-                                    <h2><a href="product-details.html">Simple Black Clock</a></h2>
-                                    <span class="popular__pro__prize">$16.00</span>
-                                </div>
-                            </div>
                         </div>
                         <!-- End Single Popular Product -->
                     </div>

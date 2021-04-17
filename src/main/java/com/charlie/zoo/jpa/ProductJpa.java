@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -20,6 +21,8 @@ public interface ProductJpa extends JpaRepository<Product,Integer> {
     List<Product> findFirst15ByNameContainingIgnoreCaseOrShortDescriptionContainingIgnoreCaseAndStatusOfEntity(String name,String desc,StatusOfEntity status);
 
     TreeSet<Product> findByCategoriesIdInAndCategoryItemsIdInAndPackageTypePackSizeInAndProducerIdInAndStatusOfEntity(List<Integer> categoryId,List<Integer> categoryItem,List<BigDecimal> packId,List<Integer> producerId, StatusOfEntity statusOfentity);
+
+
 
     List<Product> findByStatusOfEntity(StatusOfEntity status);
 

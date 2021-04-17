@@ -1,6 +1,8 @@
 package com.charlie.zoo.serviceImpl;
 
 import com.charlie.zoo.entity.*;
+import com.charlie.zoo.entity.dto.ProductDto;
+import com.charlie.zoo.entity.dto.SliderDto;
 import com.charlie.zoo.enums.StatusOfEntity;
 import com.charlie.zoo.jpa.ProductJpa;
 import com.charlie.zoo.service.*;
@@ -23,6 +25,7 @@ public class ProductServiceImpl implements ProductService {
     private final CategoryService categoryService;
     private final CategoryItemService categoryItemService;
     private final ProducerService producerService;
+    private final AnimalService animalService;
     private final ImageService imageService;
 
     @Override
@@ -349,6 +352,22 @@ public class ProductServiceImpl implements ProductService {
             productList = sort(productList,sortType);
         }
         return productList;
+    }
+
+    @Override
+    public List<SliderDto> configureSlider() {
+        List<SliderDto>  sliders = new ArrayList<>();
+        List<Animal> animals = animalService.findAll();
+        for(Animal animal:animals){
+            SliderDto sliderDto = new SliderDto();
+            sliderDto.setAnimal(animal.getName());
+            sliderDto.setProducts(
+                  new HashSet<>(productJpa.findByCategoriesIn(animal.getCategories())).stream().limit(15).collect(Collectors.toSet())
+            );
+            System.out.println(sliderDto.getProducts().size());
+            sliders.add(sliderDto);
+        }
+        return sliders;
     }
 
     private List<Product> filteredByProducer(List<Product> products, Integer id ){
