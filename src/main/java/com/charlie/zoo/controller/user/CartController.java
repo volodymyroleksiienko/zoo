@@ -1,15 +1,14 @@
 package com.charlie.zoo.controller.user;
 
 import com.charlie.zoo.entity.OrderDetails;
+import com.charlie.zoo.entity.dto.OrderInfoDto;
 import com.charlie.zoo.service.CookieService;
 import com.charlie.zoo.service.OrderDetailsService;
+import com.charlie.zoo.service.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
@@ -18,6 +17,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class CartController {
     private final CookieService cookieService;
+    private final OrderService orderService;
     private final OrderDetailsService orderDetailsService;
 
     @PostMapping("/addToCart")
@@ -46,6 +46,21 @@ public class CartController {
         }
         cookieService.updateCookie(details.getOrderInfo().getId().toString(),httpServletResponse,model);
         return "redirect:/cart";
+    }
+
+    @ResponseBody
+    @PostMapping("/addToCart/{idOfPackageType}")
+    public OrderInfoDto addToCartRest(@CookieValue(value = "id", defaultValue = "") String id, Model model, HttpServletResponse httpServletResponse,
+                                     @PathVariable int idOfPackageType){
+        id = cookieService.checkCookie(id,httpServletResponse,model);
+        OrderDetails details;
+        if (!id.isEmpty()) {
+            details = orderDetailsService.addProductToOrder(UUID.fromString(id), idOfPackageType, 1);
+        }else {
+            details = orderDetailsService.addProductToOrder(null, idOfPackageType, 1);
+        }
+        cookieService.updateCookie(details.getOrderInfo().getId().toString(),httpServletResponse,model);
+        return OrderInfoDto.convertToDto(orderService.findById(details.getOrderInfo().getId()));
     }
 
 

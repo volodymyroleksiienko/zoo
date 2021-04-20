@@ -101,6 +101,10 @@ public class PackageTypeDto {
         }else {
             packageTypeDto.statusOfEntity=false;
         }
+        if(packageType.getProduct()!=null){
+            packageTypeDto.productDto=ProductDto.convertToDto(packageType.getProduct());
+        }
+
 
         return packageTypeDto;
     }
