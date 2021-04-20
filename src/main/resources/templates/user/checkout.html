@@ -232,7 +232,8 @@
                     <div class="modal-body modal-body-md" style="text-align: center">
                         <img src="/images/icon.jpg" alt="" style="width: 70%;">
                         <div class="portfolio-title portfolio-card-title text-center">
-                            <h3 style="padding-bottom: 25px">ДЯКУЄМО ЗА ПОКУПКУ!</h3>
+                            <h3>ДЯКУЄМО ЗА ПОКУПКУ!</h3>
+                            <p style="padding-bottom: 25px; font-size: 16px;">Наш менеджер скоро звяжеться з вами для підтвердження замовлення</p>
                             <a href="/shop" class="thanks-btn">Повернутись до магазину</a>
                         </div>
                     </div>
@@ -322,14 +323,6 @@
             }
         }
         function showPaymentForm() {
-            $.ajax({
-                url: '/checkout/orderSubmit',
-                type: 'post',
-                data: $('#orderForm').serialize(),
-                success: function(){
-                }
-            });
-
             let buyerData = $('#nameSurname').val();
             let phoneNumber = $('#phoneNumber').val();
             let phDigits = $('#phoneNumber').val().replace(/[^0-9]/gi, '');
@@ -337,12 +330,22 @@
             let address = $('#deliveryAddress').val();
 
             if (buyerData!=='' && phoneNumber!=='' && phDigits.length === 12 && address!==''){
-                $('#notesAboutBuying').hide();
-                $('#liqpay_checkout').show();
-                $('#payNowBtn').hide();
-                $([document.documentElement, document.body]).animate({
-                    scrollTop: $("#liqpay_checkout").offset().top-100
-                }, 500);
+                $.ajax({
+                    url: '/checkout/orderSubmit',
+                    type: 'post',
+                    data: $('#orderForm').serialize(),
+                    success: function(){
+                        $('#notesAboutBuying').hide();
+                        $('#liqpay_checkout').show();
+                        $('#payNowBtn').hide();
+                        $([document.documentElement, document.body]).animate({
+                            scrollTop: $("#liqpay_checkout").offset().top-100
+                        }, 500);
+                    },
+                    error: function () {
+                        alert("Помилка! Спробуйте ще раз");
+                    }
+                });
             }else {
                 $('#notesAboutBuying').show();
                 $('#liqpay_checkout').hide();
@@ -434,6 +437,9 @@
         function request() {
            location.replace("/");
         }
+        $("#thanksModal").on('hide.bs.modal', function(){
+            location.href = '/shop';
+        });
     </script>
     <script src="//static.liqpay.ua/libjs/checkout.js" async></script>
 

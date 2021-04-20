@@ -3,7 +3,7 @@
         <div class="offsetmenu__close__btn">
             <a href="#"><i class="zmdi zmdi-close"></i></a>
         </div>
-        <div class="shp__cart__wrap">
+        <div class="shp__cart__wrap" id="sidebarCart">
             <div class="shp__single__product" th:each="dt : ${orderInfo?.getOrderDetails()}">
                 <div class="shp__pro__thumb">
                     <a th:href="'/singleProduct/'+${dt.getPackageType()?.getProduct()?.getId()}">
@@ -11,7 +11,7 @@
                     </a>
                 </div>
                 <div class="shp__pro__details">
-                    <h2><a th:href="'/singleProduct/'+${dt.getPackageType().getProduct().getId()}" th:text="${dt.getPackageType().getProduct().getName()}">r</a></h2>
+                    <h2><a th:href="'/singleProduct/'+${dt.getPackageType().getProduct().getId()}" th:text="${dt.getPackageType().getProduct().getName()}"></a></h2>
                     <span class="quantity" th:text="'Кількість: '+${dt.getCount()}"></span>
                     <span class="shp__price" th:text="${dt.getPackageType().getPrice().doubleValue()*dt.getCount()}+' UAH'" th:if="${!dt.getPackageType().isOnSale()}"></span>
                     <span class="shp__price" th:text="${dt.getPackageType().getNewPrice().doubleValue()*dt.getCount()}+' UAH'" th:if="${dt.getPackageType().isOnSale()}"></span>

@@ -138,11 +138,11 @@
                                     </div>
                                 </div>                                
                             </div>
-                            <div class="col-md-5 mt--30 hidden-sm hidden-xs">
+                            <div class="col-md-5 mt--30 hidden-sm col-xs-12 xmt-30 ">
                                 <div class="feature text__pos--top foo">
-                                    <div class="feature__thumb--2">
+                                    <div class="feature__thumb">
                                         <a th:href="${ban3?.getUrl()}">
-                                            <img th:src="@{'/shop/getImg/'+${ban3?.getImage()?.getId()}}" alt="feature product">
+                                            <img id="hiddingBanner" th:src="@{'/shop/getImg/'+${ban3?.getImage()?.getId()}}" alt="feature product">
                                         </a>
                                     </div>
                                 </div>                                
