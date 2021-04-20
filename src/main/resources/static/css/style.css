@@ -4382,3 +4382,23 @@ a.shipping-calculator-button:hover {
     color: white;
 }
 
+.send-item-to-card{
+    height: 2.3rem;
+    line-height: normal;
+    text-transform: uppercase;
+    background: #ffd413;
+    border-radius: 18px;
+    padding: 7px 20px;
+    border: none;
+    webkit-box-shadow: inset 0 3px 5px rgb(0 0 0 / 13%);
+    box-shadow: inset 0 3px 5px rgb(0 0 0 / 13%);
+    outline: none;
+    transition: all 0.2s ease 0s;
+}
+
+.send-item-to-card:hover{
+    color: white;
+    outline: none;
+    transition: all 0.2s ease 0s;
+}
+

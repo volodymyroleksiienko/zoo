@@ -9,6 +9,7 @@
 /* Large screen desktop */
 
 @media (min-width: 1366px) and (max-width: 1500px) {} @media (min-width: 1170px) and (max-width: 1500px) {
+
     .footer--4 .ft__widget.contact__us {
         left: 59px;
     }
@@ -63,7 +64,20 @@
 }
 /* Normal desktop :992px. */
 
+@media (min-width: 1200px) {
+    #hiddingBanner {
+        min-height: 330px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    #hiddingBanner {
+        min-height: 262px;
+    }
+}
+
 @media (min-width: 992px) and (max-width: 1169px) {
+
     .blog__post__time {
         margin-bottom: 20px;
     }

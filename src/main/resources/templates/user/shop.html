@@ -280,8 +280,8 @@
                                         <div class="product__info">
                                             <ul class="product__action">
                                                 <li style="width: 100%">
-                                                    <a title="До кошика" class="send-item-to-card" th:href="@{'/addToCart/'+${pr?.getPackageType()?.get(0)?.getId()}}" style="background: #ffd413;border-radius: 18px;padding: 7px 20px;text-transform: uppercase;webkit-box-shadow: inset 0 3px 5px rgb(0 0 0 / 13%);box-shadow: inset 0 3px 5px rgb(0 0 0 / 13%);">
-                                                        <span class="ti-shopping-cart-full" style="color: #000000;font-size: 17px;transition: all 0.3s ease 0s;margin-top: 0; display: inline-block;"></span>в кошик</a>
+                                                    <button title="До кошика" class="send-item-to-card" onclick="addToCartItem(this)">
+                                                        <span class="ti-shopping-cart-full" style="color: #000000;font-size: 17px;transition: all 0.3s ease 0s;margin-top: 0; display: inline-block;"></span>в кошик</button>
                                                 </li>
                                             </ul>
                                         </div>
@@ -386,7 +386,7 @@
             let jsonObj = JSON.parse($(this).val());
             console.log(jsonObj);
 
-            $(this).parent().parent().parent().find('.send-item-to-card').prop("href", "/addToCart/"+jsonObj["id"]);
+            $(this).parent().parent().parent().find('.send-item-to-card').val(jsonObj["id"]);
             $(this).parent().parent().parent().find('.buy-item-now').prop("href", "/buyNow/"+jsonObj["id"]);
 
             if (jsonObj["onSale"]===true) {
@@ -453,6 +453,46 @@
         });
     });
 
+    function addToCartItem(btnObj) {
+        let activeItem = $(btnObj).parent().parent().parent().parent().find('.active');
+        let jsonObj = JSON.parse($(activeItem).val());
+        console.log(jsonObj);
+
+        let sideBar = $('#sidebarCart');
+        let price = '';
+        // if (jsonObj[])
+
+        let cartItem = '<div class="shp__single__product">\n' +
+            '                <div class="shp__pro__thumb">\n' +
+            '                    <a href="/singleProduct/"'+jsonObj['id']+'>\n' +
+            '                        <img src="/shop/getImgByProductId/"'+0+' alt="product images">\n' +
+            '                    </a>\n' +
+            '                </div>\n' +
+            '                <div class="shp__pro__details">\n' +
+            '                    <h2><a th:href="\'/singleProduct/\'+${dt.getPackageType().getProduct().getId()}" th:text="${dt.getPackageType().getProduct().getName()}"></a></h2>\n' +
+            '                    <span class="quantity">Кількість: 1</span>\n' +
+            '                    <span class="shp__price" th:text="${dt.getPackageType().getPrice().doubleValue()*dt.getCount()}+\' UAH\'" th:if="${!dt.getPackageType().isOnSale()}"></span>\n' +
+            '                    <span class="shp__price" th:text="${dt.getPackageType().getNewPrice().doubleValue()*dt.getCount()}+\' UAH\'" th:if="${dt.getPackageType().isOnSale()}"></span>\n' +
+            '                </div>\n' +
+            '                <div class="remove__btn">\n' +
+            '                    <a th:href="\'/removeFromCart?id=\'+${dt.getId()}+\'&uuid=\'+${orderInfo.getId().toString()}" title="Remove this item"><i class="zmdi zmdi-close"></i></a>\n' +
+            '                </div>\n' +
+            '            </div>';
+
+        // $.ajax({
+        //     url: '/addToCart/'+packageId,
+        //     type: 'post',
+        //     // data: ,
+        //     success: function(){
+        //         sideBar.prepend(cartItem);
+        //     },
+        //     error: function () {
+        //         alert("Помилка! Спробуйте ще раз");
+        //     }
+        // });
+
+    }
+
     function quickViewProduct(prodId) {
         let productItem = $('#'+prodId);
 
@@ -462,7 +502,7 @@
 
         let button = productItem.find('.product-types li button.active');
         let productPackageType = productItem.find('.product-types li button.active').text();
-        let link = productItem.find('.send-item-to-card').attr('href');
+        let id = productItem.find('.send-item-to-card').val();
         let jsonObj = JSON.parse($(button).val());
 
         console.log(jsonObj);
@@ -480,7 +520,7 @@
         $('#productImageModal').attr('src', productImage);
         $('#productDescriptionModal').text(productDescription);
         $('#productPackageTypeModal').text("Пакування: "+productPackageType);
-        $('#productAddToCartBtnModal').attr('href', link);
+        $('#productAddToCartBtnModal').val(id);
 
 
         $('#productModal').modal('show');
