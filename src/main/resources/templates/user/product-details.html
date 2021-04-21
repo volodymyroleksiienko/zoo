@@ -192,7 +192,7 @@
                                 </div>
                             </div>
                             <ul class="pro__dtl__btn">
-                                <li class="buy__now__btn"><button href="#">Замовити зараз</button></li>
+                                <li class="buy__now__btn"><button onclick="buyNow();">Замовити зараз</button></li>
                                 <li><button title="До кошика" onclick="addProductToTheCart();"><span class="ti-shopping-cart-full"></span></button></li>
                             </ul>
                         </div>
@@ -316,6 +316,30 @@
         });
         $('#totalCartSum').text(parseFloat(sum).toFixed(2)+" UAH");
         //calculate cart total sum end
+
+        function buyNow() {
+            let button = $('button.active')[0];
+            let jsonObj = JSON.parse($(button).val());
+            let packageType = parseInt(jsonObj["id"]);
+            let count = parseInt($('#itemsCount').val());
+
+            $.ajax({
+                method: "post",
+                url: "/buyNow",
+                contextType: "application/json",
+                data: {
+                    idOfPackageType: packageType,
+                    count: count,
+                },
+                traditional: true,
+                success: function(dto){
+                    location.href = '/cart';
+                },
+                error: function () {
+                    alert("Помилка! Спробуйте ще раз");
+                }
+            });
+        }
 
         function addProductToTheCart() {
             let button = $('button.active')[0];
