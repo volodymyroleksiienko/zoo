@@ -11,6 +11,7 @@ import com.charlie.zoo.service.PackageTypeService;
 import com.charlie.zoo.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
@@ -149,7 +150,7 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
     }
 
     @Override
-    @Transactional
+    @Transactional(isolation = Isolation.SERIALIZABLE)
     public void delete(Integer id, String uuid) {
         OrderDetails details = findById(id);
         if (details.getOrderInfo().getId().equals(UUID.fromString(uuid))){
