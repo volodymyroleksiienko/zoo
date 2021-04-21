@@ -12,6 +12,7 @@ import com.charlie.zoo.service.OrderDetailsService;
 import com.charlie.zoo.service.OrderService;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
@@ -151,6 +152,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.SERIALIZABLE)
     public OrderInfo findById(UUID id) {
         return orderJPA.findById(id).orElse(null);
     }

@@ -11,7 +11,7 @@
                     </a>
                 </div>
                 <div class="shp__pro__details">
-                    <h2><a th:href="'/singleProduct/'+${dt.getPackageType().getProduct().getId()}" th:text="${dt.getPackageType().getProduct().getName()}"></a></h2>
+                    <h2><a th:href="'/singleProduct/'+${dt.getPackageType().getProduct().getId()}" th:text="${dt.getPackageType().getProduct().getName()+' ('+dt.getPackageType().getPackSize().doubleValue()+' '+dt.getPackageType().getPackType()+')'}"></a></h2>
                     <span class="quantity" th:text="'Кількість: '+${dt.getCount()}"></span>
                     <span class="shp__price" th:text="${dt.getPackageType().getPrice().doubleValue()*dt.getCount()}+' UAH'" th:if="${!dt.getPackageType().isOnSale()}"></span>
                     <span class="shp__price" th:text="${dt.getPackageType().getNewPrice().doubleValue()*dt.getCount()}+' UAH'" th:if="${dt.getPackageType().isOnSale()}"></span>
