@@ -1264,7 +1264,7 @@
         width: 20px;
     }
     .shp__pro__details {
-        min-width: 70%;
+        width: 70%;
     }
     .shp__pro__thumb a img {
         max-width: 50px;

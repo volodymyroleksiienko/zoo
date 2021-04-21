@@ -200,13 +200,23 @@
                                         <li class="old__price" style="display: none" th:if="${!pr?.getPackageType()?.get(0)?.isOnSale()}"></li>
                                         <li class="new__price" th:if="${!pr?.getPackageType()?.get(0)?.isOnSale()}" th:text="${pr?.getPackageType()?.get(0)?.getPrice()}+' UAH'"></li>
                                     </ul>
+<!--                                    <div class="product__info">-->
+<!--                                        <ul class="product__action">-->
+<!--                                            <li><a data-toggle="modal" onclick="quickViewProduct(this.closest('.single__pro').id)" title="Швидкий перегляд" class="quick-view modal-view detail-link" href="#"><span class="ti-plus"></span></a></li>-->
+<!--                                            <li><a title="До кошика" class="send-item-to-card" th:href="@{'/addToCart/'+${pr?.getPackageType()?.get(0)?.getId()}}"><span class="ti-shopping-cart-full"></span></a></li>-->
+<!--                                            <li><a title="Купити зараз" class="buy-item-now" href="/checkout"><span class="ti-wallet"></span></a></li>-->
+<!--                                        </ul>-->
+<!--                                    </div>-->
+<!--                                    MOD-->
                                     <div class="product__info">
                                         <ul class="product__action">
-                                            <li><a data-toggle="modal" onclick="quickViewProduct(this.closest('.single__pro').id)" title="Швидкий перегляд" class="quick-view modal-view detail-link" href="#"><span class="ti-plus"></span></a></li>
-                                            <li><a title="До кошика" class="send-item-to-card" th:href="@{'/addToCart/'+${pr?.getPackageType()?.get(0)?.getId()}}"><span class="ti-shopping-cart-full"></span></a></li>
-                                            <li><a title="Купити зараз" class="buy-item-now" href="/checkout"><span class="ti-wallet"></span></a></li>
+                                            <li style="width: 100%">
+                                                <button title="До кошика" class="send-item-to-card" onclick="addToCartItem(this)">
+                                                    <span class="ti-shopping-cart-full" style="color: #000000;font-size: 17px;transition: all 0.3s ease 0s;margin-top: 0; display: inline-block;"></span>в кошик</button>
+                                            </li>
                                         </ul>
                                     </div>
+<!--                                        MOD-->
                                 </div>
                             </div>                            
                         </div>
@@ -280,6 +290,7 @@
     <!-- Main js file that contents all jQuery plugins activation. -->
     <script th:src="@{/js/main.js}"></script>
     <script th:src="@{/js/liveSearch.js}"></script>
+    <script th:src="@{/js/cart.js}"></script>
 
     <script>
         $( document ).ready(function() {
@@ -295,15 +306,7 @@
             });
 
             //calculate cart total sum start
-            let sum = 0.0;
-            let allCartItems = document.getElementsByClassName('shp__pro__details');
-            Array.prototype.forEach.call(allCartItems, function(el) {
-                let quantity = parseInt(($(el).find('.quantity').text()).match(/(\d+)/));
-                let price = parseFloat($(el).find('.shp__price').text());
-                console.log("q: "+quantity+"; price: "+ price);
-                sum+=(price);
-            });
-            $('#totalCartSum').text(parseFloat(sum).toFixed(2)+" UAH");
+            calculateCartTotal();
             //calculate cart total sum end
 
             let  size_package_li = $("#packageTypesList li").size();
@@ -336,6 +339,7 @@
                 }
             });
         });
+
 
         $('.btn').on( 'click', function () {
             $(this).parent().siblings().find('.active').removeClass('active');

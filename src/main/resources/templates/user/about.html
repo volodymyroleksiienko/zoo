@@ -310,6 +310,7 @@
     <!-- Main js file that contents all jQuery plugins activation. -->
     <script th:src="@{/js/main.js}"></script>
     <script th:src="@{/js/liveSearch.js}"></script>
+    <script th:src="@{/js/cart.js}"></script>
 
     <script>
         $( document ).ready(function() {
@@ -329,21 +330,10 @@
             //calculate main cart total sum end
 
             //calculate sidebar cart total sum start
-            let sum = 0.0;
-            let allCartItems = document.getElementsByClassName('shp__pro__details');
-            Array.prototype.forEach.call(allCartItems, function(el) {
-                let quantity = parseInt(($(el).find('.quantity').text()).match(/(\d+)/));
-                let price = parseFloat($(el).find('.shp__price').text());
-                console.log("q: "+quantity+"; price: "+ price);
-                sum+=(price);
-            });
-            $('#totalCartSum').text(parseFloat(sum).toFixed(2)+" UAH");
+            calculateCartTotal();
             //calculate sidebar cart total sum end
-
-            // let inp = $('#inputItemsCount');
-            // console.log(inp);
-            // inp.addEventListener("focusout", checkIfEmptyCount(inp));
         });
+
 
         function calculateRowSum(inputElement) {
             let quantity = parseInt($(inputElement).val());
@@ -358,31 +348,6 @@
             calculateTotalCartSum();
         }
 
-        function saveChanges(itemId) {
-            let count = parseInt($('#'+itemId).val());
-            if ($('#'+itemId).val()!=='') {
-                $.ajax({
-                    method: "post",
-                    url: "/changeCount",
-                    contextType: "application/json",
-                    data: {
-                        idOfPackageType: itemId,
-                        count: count,
-                    },
-                    traditional: true,
-                    success: function () {
-                        console.log('Updated!');
-                    },
-                    error: function () {
-                        alert("Помилка!");
-                    }
-                });
-            }else {
-                $('#'+itemId).val(1).change();
-                calculateRowSum($('#'+itemId));
-            }
-
-        }
 
         function calculateTotalCartSum() {
             let allRowItemsTotalPrices = document.getElementsByClassName('row-calculated-sum');
