@@ -325,10 +325,9 @@
 
             $.ajax({
                 method: "post",
-                url: "/buyNow",
+                url: "/addToCart/"+packageType,
                 contextType: "application/json",
                 data: {
-                    idOfPackageType: packageType,
                     count: count,
                 },
                 traditional: true,
