@@ -453,6 +453,7 @@
             console.log("q: " + quantity + "; price: " + price);
             sum += (price);
         });
+        $('#itemsInTheCart').text(allCartItems.length);
         $('#totalCartSum').text(parseFloat(sum).toFixed(2) + " UAH");
     }
     //calculate cart total sum end
