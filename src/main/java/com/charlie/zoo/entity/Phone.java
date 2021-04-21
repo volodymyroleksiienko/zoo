@@ -18,4 +18,13 @@ public class Phone {
 
     @OneToMany(mappedBy = "phone")
     private List<OrderInfo> orderInfo;
+
+    @Override
+    public String toString() {
+        return "Phone{" +
+                "id=" + id +
+                ", phone='" + phone + '\'' +
+                ", client=" + client +
+                '}';
+    }
 }
