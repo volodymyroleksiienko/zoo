@@ -19,7 +19,8 @@ public class OrderInfo {
 
     private String date;
     private String nameOfClient;
-    private String phone;
+    @ManyToOne
+    private Phone phone;
     private String description;
     private double sumPrice;
 
