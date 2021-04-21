@@ -3,6 +3,7 @@ package com.charlie.zoo.service;
 
 
 import com.charlie.zoo.entity.OrderDetails;
+import com.charlie.zoo.entity.OrderInfo;
 
 import java.util.List;
 import java.util.UUID;
@@ -19,5 +20,5 @@ public interface OrderDetailsService {
     OrderDetails findByOrderInfoIdAndOrderByPackageId(UUID orderId, int packageId);
     List<OrderDetails> findAll();
     void deleteByID(int id);
-    void delete(Integer id, String uuid);
+    OrderInfo delete(Integer id, String uuid);
 }

@@ -8,19 +8,16 @@ import com.charlie.zoo.jpa.OrderDetailsJPA;
 import com.charlie.zoo.service.OrderDetailsService;
 import com.charlie.zoo.service.OrderService;
 import com.charlie.zoo.service.PackageTypeService;
-import com.charlie.zoo.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
 @Service
 @AllArgsConstructor
-@Transactional
 public class OrderDetailsServiceImpl implements OrderDetailsService {
     private final OrderDetailsJPA detailsJPA;
     private final OrderService orderService;
@@ -63,6 +60,13 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
                 orderInfo = new OrderInfo();
                 orderInfo.setId(UUID.randomUUID());
                 orderInfo = orderService.save(orderInfo);
+            }
+            List<OrderDetails> listOfDetails = orderInfo.getOrderDetails();
+            if(listOfDetails==null){
+                orderInfo.setOrderDetails(Collections.singletonList(orderDetails));
+            }else {
+                listOfDetails.add(orderDetails);
+                orderInfo.setOrderDetails(listOfDetails);
             }
             orderDetails.setOrderInfo(orderInfo);
             orderDetails.setPackageType(packageTypeService.findById(packageId));
@@ -150,11 +154,13 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
     }
 
     @Override
-    @Transactional(isolation = Isolation.SERIALIZABLE)
-    public void delete(Integer id, String uuid) {
+    public OrderInfo delete(Integer id, String uuid) {
         OrderDetails details = findById(id);
+        OrderInfo orderInfo = details.getOrderInfo();
         if (details.getOrderInfo().getId().equals(UUID.fromString(uuid))){
+            orderInfo.getOrderDetails().remove(details);
             deleteByID(id);
         }
+        return orderInfo;
     }
 }

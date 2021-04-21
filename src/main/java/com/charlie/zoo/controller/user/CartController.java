@@ -1,6 +1,7 @@
 package com.charlie.zoo.controller.user;
 
 import com.charlie.zoo.entity.OrderDetails;
+import com.charlie.zoo.entity.OrderInfo;
 import com.charlie.zoo.entity.dto.OrderInfoDto;
 import com.charlie.zoo.service.CookieService;
 import com.charlie.zoo.service.OrderDetailsService;
@@ -60,14 +61,14 @@ public class CartController {
             details = orderDetailsService.addProductToOrder(null, idOfPackageType, 1);
         }
         cookieService.updateCookie(details.getOrderInfo().getId().toString(),httpServletResponse,model);
-        return OrderInfoDto.convertToDto(orderService.findById(details.getOrderInfo().getId()));
+        return OrderInfoDto.convertToDto(details.getOrderInfo());
     }
 
     @ResponseBody
     @PostMapping("/removeFromCart")
     public OrderInfoDto removeFromCartRest(Integer id, String uuid){
-        orderDetailsService.delete(id,uuid);
-        return OrderInfoDto.convertToDto(orderService.findById(UUID.fromString(uuid)));
+        OrderInfo orderInfo = orderDetailsService.delete(id,uuid);
+        return OrderInfoDto.convertToDto(orderInfo);
     }
 
 
