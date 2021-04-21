@@ -330,11 +330,10 @@
 
             $.ajax({
                 method: "post",
-                url: "/addToCart",
+                url: "/addToCart/"+packageType,
                 contextType: "application/json",
                 data: {
-                    idOfPackageType: packageType,
-                    count: count,
+                    count: count
                 },
                 traditional: true,
                 success: function(dto){

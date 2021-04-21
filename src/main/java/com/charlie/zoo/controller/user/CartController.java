@@ -21,12 +21,6 @@ public class CartController {
     private final OrderService orderService;
     private final OrderDetailsService orderDetailsService;
 
-    @PostMapping("/addToCart")
-    public void addToCart(@CookieValue(value = "id", defaultValue = "") String id,Model model, HttpServletResponse httpServletResponse,
-                          Integer idOfPackageType, Integer count){
-        cookieService.checkCookie(id,httpServletResponse,model);
-        orderDetailsService.addProductToOrder(UUID.fromString(id),idOfPackageType,count);
-    }
 
     @PostMapping("/changeCount")
     public void changeCount(@CookieValue(value = "id", defaultValue = "") String id,Model model, HttpServletResponse httpServletResponse,
@@ -52,13 +46,16 @@ public class CartController {
     @ResponseBody
     @PostMapping("/addToCart/{idOfPackageType}")
     public OrderInfoDto addToCartRest(@CookieValue(value = "id", defaultValue = "") String id, Model model, HttpServletResponse httpServletResponse,
-                                     @PathVariable int idOfPackageType){
+                                     @PathVariable int idOfPackageType,Integer count){
         id = cookieService.checkCookie(id,httpServletResponse,model);
         OrderDetails details;
+        if(count==null || count<1){
+            count=1;
+        }
         if (!id.isEmpty()) {
-            details = orderDetailsService.addProductToOrder(UUID.fromString(id), idOfPackageType, 1);
+            details = orderDetailsService.addProductToOrder(UUID.fromString(id), idOfPackageType, count);
         }else {
-            details = orderDetailsService.addProductToOrder(null, idOfPackageType, 1);
+            details = orderDetailsService.addProductToOrder(null, idOfPackageType, count);
         }
         cookieService.updateCookie(details.getOrderInfo().getId().toString(),httpServletResponse,model);
         return OrderInfoDto.convertToDto(details.getOrderInfo());
