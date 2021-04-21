@@ -57,7 +57,7 @@
                                     <ul class="dropdown">
                                         <li th:each="a :${animals}"><a href="#" th:text="${a.getName()}">Собаки <span><i class="zmdi zmdi-chevron-right"></i></span></a>
                                             <ul class="lavel-dropdown">
-                                                <li th:each="ct : ${categories}" th:if="${ct.getAnimal.getId()==a.getId()}"><a href="/shop" th:text="${ct.getName()}">Gutter 4 Column</a></li>
+                                                <li th:each="ct : ${categories}" th:if="${ct.getAnimal.getId()==a.getId()}"><a href="/shop" th:text="${ct.getName()}"></a></li>
                                             </ul>
                                         </li>
                                     </ul>
