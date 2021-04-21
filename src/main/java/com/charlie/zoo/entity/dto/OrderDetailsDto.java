@@ -3,6 +3,7 @@ package com.charlie.zoo.entity.dto;
 import com.charlie.zoo.entity.OrderDetails;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,6 +41,11 @@ public class OrderDetailsDto {
     }
 
     public static List<OrderDetailsDto> convertToListDto(List<OrderDetails> details){
+        if(details!=null){
         return details.stream().map(OrderDetailsDto::convertToDto).collect(Collectors.toList());
+        }else {
+        return new ArrayList<>();
+        }
     }
+
 }

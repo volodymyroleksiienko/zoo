@@ -63,6 +63,13 @@ public class CartController {
         return OrderInfoDto.convertToDto(orderService.findById(details.getOrderInfo().getId()));
     }
 
+    @ResponseBody
+    @PostMapping("/removeFromCart")
+    public OrderInfoDto removeFromCartRest(Integer id, String uuid){
+        orderDetailsService.delete(id,uuid);
+        return OrderInfoDto.convertToDto(orderService.findById(UUID.fromString(uuid)));
+    }
+
 
     @GetMapping("/removeFromCart")
     public String removeFromCart(Integer id, String uuid){

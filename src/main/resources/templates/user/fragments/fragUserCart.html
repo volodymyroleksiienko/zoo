@@ -17,7 +17,7 @@
                     <span class="shp__price" th:text="${dt.getPackageType().getNewPrice().doubleValue()*dt.getCount()}+' UAH'" th:if="${dt.getPackageType().isOnSale()}"></span>
                 </div>
                 <div class="remove__btn">
-                    <button th:attr="onclick='removeItemFromCart('+${dt.getId()}+', '+${orderInfo.getId().toString()}+')'" title="Видалити з кошика"><i class="zmdi zmdi-close"></i></button>
+                    <button th:attr="onclick='removeItemFromCart('+${dt.getId()}+', \''+${orderInfo.getId().toString()}+'\')'" title="Видалити з кошика"><i class="zmdi zmdi-close"></i></button>
                 </div>
             </div>
         </div>

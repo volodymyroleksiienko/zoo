@@ -149,6 +149,7 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
     }
 
     @Override
+    @Transactional
     public void delete(Integer id, String uuid) {
         OrderDetails details = findById(id);
         if (details.getOrderInfo().getId().equals(UUID.fromString(uuid))){

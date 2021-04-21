@@ -508,7 +508,11 @@
         console.log("dt: "+parseInt(dtid)+"; uuid: "+uuid.trim());
         let sideBar = $('#sidebarCart');
         $.ajax({
-            url: '/removeFromCart?id=/'+parseInt(dtid)+'&uuid='+uuid.trim(),
+            url: '/removeFromCart', //?id=/'+parseInt(dtid)+'&uuid='+uuid.trim(),
+            data:{
+                id: parseInt(dtid),
+                uuid: uuid.trim()
+            },
             type: 'post',
             success: function(dto){
                 sideBar.empty();
