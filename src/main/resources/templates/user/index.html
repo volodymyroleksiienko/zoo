@@ -280,6 +280,7 @@
     <!-- Main js file that contents all jQuery plugins activation. -->
     <script th:src="@{/js/main.js}"></script>
     <script th:src="@{/js/liveSearch.js}"></script>
+    <script th:src="@{/js/cart.js}"></script>
 
     <script>
         $( document ).ready(function() {
@@ -295,15 +296,7 @@
             });
 
             //calculate cart total sum start
-            let sum = 0.0;
-            let allCartItems = document.getElementsByClassName('shp__pro__details');
-            Array.prototype.forEach.call(allCartItems, function(el) {
-                let quantity = parseInt(($(el).find('.quantity').text()).match(/(\d+)/));
-                let price = parseFloat($(el).find('.shp__price').text());
-                console.log("q: "+quantity+"; price: "+ price);
-                sum+=(price);
-            });
-            $('#totalCartSum').text(parseFloat(sum).toFixed(2)+" UAH");
+            calculateCartTotal();
             //calculate cart total sum end
 
             let  size_package_li = $("#packageTypesList li").size();
@@ -336,6 +329,7 @@
                 }
             });
         });
+
 
         $('.btn').on( 'click', function () {
             $(this).parent().siblings().find('.active').removeClass('active');
