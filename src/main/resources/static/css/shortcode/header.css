@@ -999,12 +999,18 @@ h4.offset__title {
     justify-content: space-between;
     padding: 22px 0;
 }
-.remove__btn a i {
+
+.remove__btn button {
+  background: transparent;
+  border: none;
+}
+
+.remove__btn button i {
     color: #ccc;
     font-size: 22px;
     transition: all 0.5s ease 0s;
 }
-.remove__btn a:hover i {
+.remove__btn button:hover i {
     color: #ff4136;
     transform: rotate(180deg);
 }
