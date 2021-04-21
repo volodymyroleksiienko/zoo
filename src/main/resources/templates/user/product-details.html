@@ -268,12 +268,17 @@
     <!-- Main js file that contents all jQuery plugins activation. -->
     <script th:src="@{/js/main.js}"></script>
     <script th:src="@{/js/liveSearch.js}"></script>
+    <script th:src="@{/js/cart.js}"></script>
 
     <script>
         $( document ).ready(function() {
             document.getElementById("year").innerHTML = new Date().getFullYear();
 
             let active = 'active';
+
+            //calculate cart total sum start
+            calculateCartTotal();
+            //calculate cart total sum end
 
             $('.btn').on( 'click', function () {
                 $(this).parent().siblings().find('.' + active).removeClass(active);
@@ -319,6 +324,8 @@
 
             let count = parseInt($('#itemsCount').val());
 
+            let sideBar = $('#sidebarCart');
+
             console.log("package id: "+packageType+"; count: "+count);
 
             $.ajax({
@@ -330,12 +337,38 @@
                     count: count,
                 },
                 traditional: true,
-                success: function () {
-                    alert("Success!");
-                    location.reload();
+                success: function(dto){
+                    sideBar.empty();
+                    console.log(dto);
+                    let orderDetails = dto['orderDetails'];
+                    for (let i=0; i<orderDetails.length; i++){
+                        console.log(orderDetails[i]);
+                        let itemsSum = 0.0;
+                        if (orderDetails[i].packageTypeDto.onSale===true){
+                            itemsSum = parseInt(orderDetails[i].count)*parseFloat(orderDetails[i].packageTypeDto.newPrice);
+                        }else {
+                            itemsSum = parseInt(orderDetails[i].count)*parseFloat(orderDetails[i].packageTypeDto.price);
+                        }
+                        sideBar.prepend('<div class="shp__single__product">\n' +
+                            '                <div class="shp__pro__thumb">\n' +
+                            '                    <a href="/singleProduct/'+orderDetails[i].packageTypeDto.productDto.id+'">\n' +
+                            '                        <img src="/shop/getImgByProductId/'+orderDetails[i].packageTypeDto.productDto.id+'" alt="product images">\n' +
+                            '                    </a>\n' +
+                            '                </div>\n' +
+                            '                <div class="shp__pro__details">\n' +
+                            '                    <h2><a href="/singleProduct/'+orderDetails[i].packageTypeDto.productDto.id+'">'+orderDetails[i].packageTypeDto.productDto.name+' ('+orderDetails[i].packageTypeDto.packSize+' '+orderDetails[i].packageTypeDto.packType+')</a></h2>\n' +
+                            '                    <span class="quantity">Кількість: '+orderDetails[i].count+'</span>\n' +
+                            '                    <span class="shp__price">'+itemsSum.toFixed(2)+' UAH'+'</span>\n' +
+                            '                </div>\n' +
+                            '                <div class="remove__btn">\n' +
+                            '                    <button onclick="removeItemFromCart('+orderDetails[i].id+',\''+orderDetails[i].orderInfoId+'\')" title="Видалити з кошика"><i class="zmdi zmdi-close"></i></button>\n' +
+                            '                </div>\n' +
+                            '            </div>');
+                    }
+                    calculateCartTotal();
                 },
                 error: function () {
-                    alert("Error!");
+                    alert("Помилка! Спробуйте ще раз");
                 }
             });
         }

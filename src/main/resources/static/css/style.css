@@ -2722,8 +2722,8 @@ select.select-color {
     transition: 0.3s;
 }
 .pro__dtl__btn li button:hover {
-    background: #ff4136;
-    border: 1px solid #ff4136;
+    background: #FF9F05;
+    border: 1px solid #FF9F05;
     color: #fff;
 }
 .pro__dtl__btn li.buy__now__btn button {
@@ -2735,8 +2735,8 @@ select.select-color {
 }
 .pro__dtl__btn li.buy__now__btn button:hover {
     color: #fff;
-    background: #ff4136;
-    border: 1px solid #ff4136;
+    background: #FF9F05;
+    border: 1px solid #FF9F05;
 }
 .pro__social__share {
     align-items: center;
