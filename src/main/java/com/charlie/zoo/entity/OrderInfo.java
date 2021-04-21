@@ -19,7 +19,7 @@ public class OrderInfo {
 
     private String date;
     private String nameOfClient;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Phone phone;
     private String description;
     private double sumPrice;
