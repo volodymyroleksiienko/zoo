@@ -3,18 +3,20 @@ package com.charlie.zoo.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Data
-public class ProductHistory {
+public class HistoryDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String date;
+    private double price;
+    private int count;
     private double sum;
-    private String producer;
-    @OneToMany(mappedBy = "productHistory")
-    private List<HistoryDetails> historyDetails;
+
+    @ManyToOne
+    private PackageType packageType;
+    @ManyToOne
+    private ProductHistory productHistory;
 }
