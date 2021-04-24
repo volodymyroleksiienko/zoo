@@ -562,7 +562,7 @@
 
         if (phDigits.length===12) {
             if (table === 't'){
-                let arrayData = [phone, btn];
+                let arrayData = [phone,  '<input type="hidden" class="form-control" value="'+phone+'" name="phone">', btn];
                 t.row(index).data(arrayData).draw();
                 $('#editPhoneModal').modal('hide');
             }else if (table==='t2'){
