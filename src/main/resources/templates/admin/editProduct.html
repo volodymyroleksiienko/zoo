@@ -430,8 +430,8 @@
                                                     </thead>
                                                     <tbody>
                                                     <tr class="nk-tb-item nk-tb-head" th:each="type : ${product.getPackageType()}">
-                                                        <th class="nk-tb-col tb-col-lg" th:text="${type?.getBarcode()}">barcode</th>
-                                                        <th class="nk-tb-col tb-col-lg" th:text="${type?.getPackType()}">Тип пакування</th>
+                                                        <td class="nk-tb-col tb-col-lg" th:text="${type?.getBarcode()}">barcode</td>
+                                                        <td class="nk-tb-col tb-col-lg" th:text="${type?.getPackType()}">Тип пакування</td>
                                                         <td class="nk-tb-col" th:text="${type?.getPackSize()}">Кількість</td>
                                                         <td class="nk-tb-col tb-col-lg" th:text="${type?.getCountOfProduct()}">К-сть на складі</td>
                                                         <td class="nk-tb-col tb-col-hide" th:text="${(type?.getStatusOfEntity().name().equals('ACTIVE'))?'true':'false'}">Активний</td>
@@ -1254,6 +1254,7 @@
         }
 
         $('#editItemId')                    .val(itemId);
+        $('#editPackageBarcode')            .val(barcode);
         $('#editPackageType')               .val(packageType);
         $('#editPackSize')                  .val(packSize);
         $('#editInStock')                   .val(inStock);
