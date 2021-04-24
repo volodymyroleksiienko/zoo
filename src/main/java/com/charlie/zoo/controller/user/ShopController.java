@@ -37,12 +37,12 @@ public class ShopController {
 
 
     @GetMapping("/getImgByProductId/{productId}")
-    public ResponseEntity<ByteArrayResource> getImgByProductId(@PathVariable int productId){
+    public ResponseEntity<ByteArrayResource> getImgByProductId(@PathVariable int productId) throws IOException {
         Image doc = imageService.findMainByProductId(productId);
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(doc.getImgType()))
                 .header(HttpHeaders.CONTENT_DISPOSITION,"attachment:filename=\""+doc.getImgName()+"\"")
-                .body(new ByteArrayResource(doc.getImg()));
+                .body(new ByteArrayResource(compressImage(doc.getImg())));
     }
 
     @GetMapping("/getImg/{imgId}")
@@ -52,7 +52,7 @@ public class ShopController {
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(doc.getImgType()))
                 .header(HttpHeaders.CONTENT_DISPOSITION,"attachment:filename=\""+doc.getImgName()+"\"")
-                .body(new ByteArrayResource(compressImage(doc.getImg())));
+                .body(new ByteArrayResource(doc.getImg()));
     }
 
     @ResponseBody
@@ -62,12 +62,12 @@ public class ShopController {
     }
 
     @GetMapping("/getAnimalImg/{animalId}")
-    public ResponseEntity<ByteArrayResource> getAnimalImg(@PathVariable int animalId){
+    public ResponseEntity<ByteArrayResource> getAnimalImg(@PathVariable int animalId) throws IOException {
         Animal doc = animalService.findById(animalId);
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(doc.getImgType()))
                 .header(HttpHeaders.CONTENT_DISPOSITION,"attachment:filename=\""+doc.getImgName()+"\"")
-                .body(new ByteArrayResource(doc.getImg()));
+                .body(new ByteArrayResource(compressImage(doc.getImg())));
     }
 
     public byte[] compressImage(byte[] bytes) throws IOException {
