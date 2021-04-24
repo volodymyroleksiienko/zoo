@@ -285,6 +285,7 @@
                                                 <thead>
                                                 <tr class="nk-tb-item nk-tb-head">
                                                     <td class="nk-tb-col">Телефон</td>
+                                                    <td class="nk-tb-col tb-col-hide">input</td>
                                                     <th class="nk-tb-col"><span class="sub-text" style="text-align: right; padding-right: 2rem;">Дії</span></th>
                                                 </tr>
                                                 </thead>
@@ -470,13 +471,15 @@
 
             let rowNode = t2.row.add([
                 phone,
+                '<input type="hidden" class="form-control" value="'+phone+'" name="phone">',
                 btn2,
             ]).draw(false).node();
 
             $(rowNode).addClass('nk-tb-item');
 
             $( rowNode ).find('td').eq(0).addClass('nk-tb-col');
-            $( rowNode ).find('td').eq(1).addClass('nk-tb-col nk-tb-col-tools');
+            $( rowNode ).find('td').eq(1).addClass('nk-tb-col tb-col-hide');
+            $( rowNode ).find('td').eq(2).addClass('nk-tb-col nk-tb-col-tools');
         });
 
         let clientName =      $(trObj).find('td:eq(0)').text().trim();
@@ -514,6 +517,7 @@
             }else if (table===t2){
                  rowNode = table.row.add([
                     phone,
+                     '<input type="hidden" class="form-control" value="'+phone+'" name="phone">',
                     btn2,
                 ]).draw(false).node();
             }
@@ -521,7 +525,8 @@
             $(rowNode).addClass('nk-tb-item');
 
             $( rowNode ).find('td').eq(0).addClass('nk-tb-col');
-            $( rowNode ).find('td').eq(1).addClass('nk-tb-col nk-tb-col-tools');
+            $( rowNode ).find('td').eq(1).addClass('nk-tb-col tb-col-hide');
+            $( rowNode ).find('td').eq(2).addClass('nk-tb-col nk-tb-col-tools');
         }else {
             alert('Заповніть нормер телефону.');
         }
@@ -566,7 +571,7 @@
                 t.row(index).data(arrayData).draw();
                 $('#editPhoneModal').modal('hide');
             }else if (table==='t2'){
-                let arrayData = [phone, btn2];
+                let arrayData = [phone,  '<input type="hidden" class="form-control" value="'+phone+'" name="phone">', btn2];
                 t2.row(index).data(arrayData).draw();
                 $('#editPhoneModal').modal('hide');
             }
