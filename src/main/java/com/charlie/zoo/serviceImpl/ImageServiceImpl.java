@@ -60,9 +60,9 @@ public class ImageServiceImpl implements  ImageService {
 
     public byte[] compressImage(MultipartFile multipartFile) throws IOException {
         BufferedImage image =Thumbnails.of(multipartFile.getInputStream())
-                .outputQuality(0.5)
                 .height(600)
                 .width(600)
+                .outputQuality(0.5)
                 .asBufferedImage();
         return toByteArray(image,"png");
     }
