@@ -81,7 +81,7 @@
                                 <div class="nk-block nk-block-lg">
                                     <div class="card card-bordered card-preview">
                                         <div class="card-inner">
-                                            <table class="datatable-init nk-tb-list nk-tb-ulist" data-auto-responsive="false">
+                                            <table class="datatable-init nk-tb-list nk-tb-ulist" id="clientsTable" data-auto-responsive="false">
                                                 <thead>
                                                 <tr class="nk-tb-item nk-tb-head">
                                                     <th class="nk-tb-col"><span class="sub-text">Ім'я</span></th>
@@ -99,8 +99,8 @@
                                                         <span th:text="${c?.getName()}"></span>
                                                     </td>
 
-                                                    <td class="nk-tb-col" style="width: 20%;" >
-                                                        <th:block th:each="ph:${c?.getPhones()}" th:text="${ph?.getPhone()}"></th:block>
+                                                    <td class="nk-tb-col list-of-client-phones" style="width: 20%;">
+                                                        <span th:each="ph:${c?.getPhones()}" th:text="${ph?.getPhone()}" style="display: block;" class="list-of-client-phones-item"></span>
                                                     </td>
 
                                                     <td class="nk-tb-col tb-col-lg" th:text="${c?.getRole()}"></td>
@@ -183,6 +183,7 @@
                                                 <thead>
                                                 <tr class="nk-tb-item nk-tb-head">
                                                     <td class="nk-tb-col">Телефон</td>
+                                                    <td class="nk-tb-col">input</td>
                                                     <th class="nk-tb-col"><span class="sub-text" style="text-align: right; padding-right: 2rem;">Дії</span></th>
                                                 </tr>
                                                 </thead>
@@ -422,46 +423,19 @@
         'select': false,
     });
 
-    $( document ).ready(function() {
-        document.getElementById("year").innerHTML = new Date().getFullYear();
-        $('.phone_number').inputmask('+(999)-999-999-999');
-    });
-
-    function showEditClientModal(btnObj) {
-        let trObj = btnObj.closest("tbody tr");
-        let trId =  $(trObj).attr('id');
-
-        let clientName =      $(trObj).find('td:eq(0)').text().trim();
-        let phones =          $(trObj).find('td:eq(1)').text().trim();
-        let role =            $(trObj).find('td:eq(2)').text().trim();
-        let discount =        $(trObj).find('td:eq(3)').text().trim();
-        let note =            $(trObj).find('td:eq(4)').text().trim();
-
-        $('#editClientName').val(clientName);
-        $('#editClientRole').val(role).change();
-        $('#editClientDefaultDiscount').val(parseFloat(discount).toFixed(2));
-        $('#editClientNote').val(note);
-
-        console.log("row id:" + $(trObj).attr('id'));
-
-        $('#selectedForEditItem')           .val(trId);
-
-        $('#editClientModal').modal('show');
-    }
-
     let btn = '<ul class="nk-tb-actions gx-1">\n' +
-'                                                            <li>\n' +
-'                                                                <div class="drodown">\n' +
-'                                                                    <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>\n' +
-'                                                                    <div class="dropdown-menu dropdown-menu-right\\">\n' +
-'                                                                        <ul class="link-list-opt no-bdr">\n' +
-'                                                                            <li><a data-toggle="modal" onclick="showEditItemModal(t,this)"><em class="icon ni ni-edit-alt"></em><span>Редагувати</span></a></li>\n' +
-'                                                                            <li><a data-toggle="modal" onclick="deletePhoneNumber(t,this)" ><em class="icon ni ni-trash"></em><span>Видалити</span></a></li>\n' +
-'                                                                        </ul>\n' +
-'                                                                    </div>\n' +
-'                                                                </div>\n' +
-'                                                            </li>\n' +
-'                                                        </ul>';
+        '                                                            <li>\n' +
+        '                                                                <div class="drodown">\n' +
+        '                                                                    <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>\n' +
+        '                                                                    <div class="dropdown-menu dropdown-menu-right\\">\n' +
+        '                                                                        <ul class="link-list-opt no-bdr">\n' +
+        '                                                                            <li><a data-toggle="modal" onclick="showEditItemModal(t,this)"><em class="icon ni ni-edit-alt"></em><span>Редагувати</span></a></li>\n' +
+        '                                                                            <li><a data-toggle="modal" onclick="deletePhoneNumber(t,this)" ><em class="icon ni ni-trash"></em><span>Видалити</span></a></li>\n' +
+        '                                                                        </ul>\n' +
+        '                                                                    </div>\n' +
+        '                                                                </div>\n' +
+        '                                                            </li>\n' +
+        '                                                        </ul>';
 
 
     let btn2 = '<ul class="nk-tb-actions gx-1">\n' +
@@ -478,6 +452,51 @@
         '                                                            </li>\n' +
         '                                                        </ul>';
 
+
+    $( document ).ready(function() {
+        document.getElementById("year").innerHTML = new Date().getFullYear();
+        $('.phone_number').inputmask('+(999)-999-999-999');
+    });
+
+    function showEditClientModal(btnObj) {
+        let trObj = btnObj.closest("tbody tr");
+        let trId =  $(trObj).attr('id');
+        let phonesList = $(trObj).find('td.list-of-client-phones').children();
+
+        t2.clear().draw();
+
+        Array.prototype.forEach.call(phonesList, function(el) {
+            let phone = $(el).text().trim();
+
+            let rowNode = t2.row.add([
+                phone,
+                btn2,
+            ]).draw(false).node();
+
+            $(rowNode).addClass('nk-tb-item');
+
+            $( rowNode ).find('td').eq(0).addClass('nk-tb-col');
+            $( rowNode ).find('td').eq(1).addClass('nk-tb-col nk-tb-col-tools');
+        });
+
+        let clientName =      $(trObj).find('td:eq(0)').text().trim();
+        let role =            $(trObj).find('td:eq(2)').text().trim();
+        let discount =        $(trObj).find('td:eq(3)').text().trim();
+        let note =            $(trObj).find('td:eq(4)').text().trim();
+
+        $('#editClientName').val(clientName);
+        $('#editClientRole').val(role).change();
+        $('#editClientDefaultDiscount').val(parseFloat(discount).toFixed(2));
+        $('#editClientNote').val(note);
+
+        console.log("row id:" + $(trObj).attr('id'));
+
+        $('#selectedForEditItem')           .val(trId);
+
+        $('#editClientModal').modal('show');
+    }
+
+
     function addPhoneNumber(table, inputObj) {
         let phone = $(inputObj).val().trim();
         let phDigits = $(inputObj).val().replace(/[^0-9]/gi, '');
@@ -489,6 +508,7 @@
             if (table === t){
                 rowNode = table.row.add([
                     phone,
+                    '<input type="hidden" class="form-control" value="'+phone+'" name="phone">',
                     btn,
                 ]).draw(false).node();
             }else if (table===t2){
