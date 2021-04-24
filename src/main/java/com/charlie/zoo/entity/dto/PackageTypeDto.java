@@ -24,7 +24,7 @@ public class PackageTypeDto {
     private boolean wholeSaleOnSale;
     private boolean wholeSaleStatus;
 
-
+    private String barcode;
     private String packType;
     private boolean onSale;
     private int countOfProduct;
@@ -83,6 +83,7 @@ public class PackageTypeDto {
         packageTypeDto.packType=packageType.getPackType();
         packageTypeDto.onSale=packageType.isOnSale();
         packageTypeDto.countOfProduct=packageType.getCountOfProduct();
+        packageTypeDto.barcode = packageType.getBarcode();
 
         if(packageType.getWholeSaleDiscount()!=null) {
             packageTypeDto.wholeSaleDiscount = packageType.getWholeSaleDiscount().doubleValue();
@@ -138,6 +139,7 @@ public class PackageTypeDto {
 
         packageType.setWholeSaleOnSale(packageTypeDto.wholeSaleOnSale);
         packageType.setWholeSaleStatus(packageTypeDto.wholeSaleStatus);
+        packageType.setBarcode(packageTypeDto.barcode);
 
         if(packageTypeDto.statusOfEntity){
             packageType.setStatusOfEntity(StatusOfEntity.ACTIVE);
