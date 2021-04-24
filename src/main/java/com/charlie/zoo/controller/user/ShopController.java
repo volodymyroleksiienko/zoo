@@ -26,8 +26,6 @@ public class ShopController {
     private final AnimalService animalService;
     private final ImageService imageService;
 
-
-
     @GetMapping("/getImgByProductId/{productId}")
     public ResponseEntity<ByteArrayResource> getImgByProductId(@PathVariable int productId) throws IOException {
         Image doc = imageService.findMainByProductId(productId);

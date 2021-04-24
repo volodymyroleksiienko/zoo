@@ -6,12 +6,13 @@ import com.charlie.zoo.service.PhoneService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class PhoneServiceImpl implements PhoneService {
-    private PhoneJPA phoneJPA;
+    private final PhoneJPA phoneJPA;
 
     @Override
     public Phone save(Phone phone) {
@@ -32,4 +33,11 @@ public class PhoneServiceImpl implements PhoneService {
     public void deleteByID(int id) {
         phoneJPA.deleteById(id);
     }
+
+    @Override
+    public void deleteAll(Collection<Phone> col) {
+        phoneJPA.deleteAll(col);
+    }
+
+
 }

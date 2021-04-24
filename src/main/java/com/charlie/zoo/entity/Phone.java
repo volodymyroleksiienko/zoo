@@ -24,7 +24,6 @@ public class Phone {
         return "Phone{" +
                 "id=" + id +
                 ", phone='" + phone + '\'' +
-                ", client=" + client +
                 '}';
     }
 }
