@@ -11,6 +11,7 @@ import com.charlie.zoo.jpa.OrderJPA;
 import com.charlie.zoo.service.OrderDetailsService;
 import com.charlie.zoo.service.OrderService;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -154,7 +155,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderInfo> findAll() {
-        return orderJPA.findAll();
+        return orderJPA.findAll(Sort.by(Sort.Direction.DESC,"date"));
     }
 
     @Override
