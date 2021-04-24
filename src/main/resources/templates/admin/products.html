@@ -222,6 +222,10 @@
 <script th:src="@{/js/example-sweetalert.js}"></script>
 <script>
 
+    $(document).ready(function() {
+        document.getElementById("year").innerHTML = new Date().getFullYear();
+    });
+
     function showEditProductStatusModal(btnObj) {
         let trObj = btnObj.closest("tbody tr");
         let trId =  $(trObj).attr('id');

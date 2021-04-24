@@ -263,6 +263,14 @@
                                                 <div class="row gy-4 align-center">
                                                     <div class="col-md-3">
                                                         <div class="form-group">
+                                                            <label class="form-label">Штрих-код</label>
+                                                            <div class="form-control-wrap">
+                                                                <input type="text" class="form-control" id="packageBarcode" placeholder="Штрих-код..." name="barcode">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
                                                             <label class="form-label">Тип пакування</label>
                                                             <div class="form-control-wrap">
                                                                 <input type="text" class="form-control" id="packageType" placeholder="Тип пакування..." name="category">
@@ -285,7 +293,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-3">
+                                                    <div class="col-12">
                                                         <div class="form-group">
                                                             <div class="preview-block">
                                                                 <div class="custom-control custom-switch">
@@ -400,6 +408,7 @@
                                                 <table class="nk-tb-list nk-tb-ulist table-stripped" id="positionsTable" style="margin-top: 2rem;" data-auto-responsive="false">
                                                     <thead>
                                                     <tr class="nk-tb-item nk-tb-head">
+                                                        <td class="nk-tb-col tb-col-lg">Код.</td>
                                                         <td class="nk-tb-col tb-col-lg">Пак.</td>
                                                         <td class="nk-tb-col">Одиниць</td>
                                                         <td class="nk-tb-col tb-col-lg">На складі</td>
@@ -451,6 +460,14 @@
                                 <div class="row gy-4 align-center">
                                     <div class="col-md-3">
                                         <div class="form-group">
+                                            <label class="form-label">Штрих-код</label>
+                                            <div class="form-control-wrap">
+                                                <input type="text" class="form-control" id="editPackageBarcode" placeholder="Штрих-код..." name="barcode">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
                                             <label class="form-label">Тип пакування</label>
                                             <div class="form-control-wrap">
                                                 <input type="text" class="form-control" required="required" id="editPackageType" placeholder="Тип пакування...">
@@ -473,7 +490,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-12">
                                         <div class="form-group">
                                             <div class="preview-block">
                                                 <div class="custom-control custom-switch">
@@ -634,6 +651,7 @@
 <script>
     class PackageType {
         id;
+        barcode;
         price;
         wholeSalePrice;
         newPrice;
@@ -746,6 +764,7 @@
     $(document).ready(function() {
 
         $('#addPosition').on( 'click', function () {
+            let barcode =                   $('#packageBarcode').val().trim();
             let packageType =               $('#packageType').val().trim();
             let packSize =                  $('#packSize').val().trim();
             let inStock =                   $('#inStock').val().trim();
@@ -764,6 +783,7 @@
             let id =                        0;
 
             let rowNode = t.row.add([
+                 barcode,
                  packageType,
                  packSize,
                  inStock,
@@ -785,23 +805,25 @@
             $(rowNode).addClass('nk-tb-item');
 
             $( rowNode ).find('td').eq(0).addClass('nk-tb-col tb-col-lg');
-            $( rowNode ).find('td').eq(1).addClass('nk-tb-col');
-            $( rowNode ).find('td').eq(2).addClass('nk-tb-col tb-col-lg');
-            $( rowNode ).find('td').eq(3).addClass('nk-tb-col tb-col-hide');
-            $( rowNode ).find('td').eq(4).addClass('nk-tb-col');
-            $( rowNode ).find('td').eq(5).addClass('nk-tb-col tb-col-hide');
-            $( rowNode ).find('td').eq(6).addClass('nk-tb-col tb-col-lg');
-            $( rowNode ).find('td').eq(7).addClass('nk-tb-col tb-col-hide');
-
+            $( rowNode ).find('td').eq(1).addClass('nk-tb-col tb-col-lg');
+            $( rowNode ).find('td').eq(2).addClass('nk-tb-col');
+            $( rowNode ).find('td').eq(3).addClass('nk-tb-col tb-col-lg');
+            $( rowNode ).find('td').eq(4).addClass('nk-tb-col tb-col-hide');
+            $( rowNode ).find('td').eq(5).addClass('nk-tb-col');
+            $( rowNode ).find('td').eq(6).addClass('nk-tb-col tb-col-hide');
+            $( rowNode ).find('td').eq(7).addClass('nk-tb-col tb-col-lg');
             $( rowNode ).find('td').eq(8).addClass('nk-tb-col tb-col-hide');
-            $( rowNode ).find('td').eq(9).addClass('nk-tb-col tb-col-lg');
-            $( rowNode ).find('td').eq(10).addClass('nk-tb-col tb-col-hide');
-            $( rowNode ).find('td').eq(11).addClass('nk-tb-col tb-col-lg');
-            $( rowNode ).find('td').eq(12).addClass('nk-tb-col tb-col-hide');
 
+            $( rowNode ).find('td').eq(9).addClass('nk-tb-col tb-col-hide');
+            $( rowNode ).find('td').eq(10).addClass('nk-tb-col tb-col-lg');
+            $( rowNode ).find('td').eq(11).addClass('nk-tb-col tb-col-hide');
+            $( rowNode ).find('td').eq(12).addClass('nk-tb-col tb-col-lg');
             $( rowNode ).find('td').eq(13).addClass('nk-tb-col tb-col-hide');
-            $( rowNode ).find('td').eq(14).addClass('nk-tb-col nk-tb-col-tools');
 
+            $( rowNode ).find('td').eq(14).addClass('nk-tb-col tb-col-hide');
+            $( rowNode ).find('td').eq(15).addClass('nk-tb-col nk-tb-col-tools');
+
+            $('#packageBarcode').val('');
             $('#packageType').val('');
             $('#packSize').val(1);
             $('#inStock').val(1);
@@ -993,22 +1015,23 @@
 
                 console.log(this.data());
 
-                obj.packType = data[0];
-                obj.packSize = data[1];
-                obj.countOfProduct = data[2];
-                obj.statusOfEntity = data[3];
-                obj.price = data[4];
-                obj.onSale = data[5];
-                obj.newPrice = data[6];
-                obj.discount = data[7];
+                obj.barcode = data[0];
+                obj.packType = data[1];
+                obj.packSize = data[2];
+                obj.countOfProduct = data[3];
+                obj.statusOfEntity = data[4];
+                obj.price = data[5];
+                obj.onSale = data[6];
+                obj.newPrice = data[7];
+                obj.discount = data[8];
 
-                obj.wholeSaleStatus = data[8];
-                obj.wholeSalePrice = data[9];
-                obj.wholeSaleOnSale = data[10];
-                obj.wholeSaleNewPrice = data[11];
-                obj.wholeSaleDiscount = data[12];
+                obj.wholeSaleStatus = data[9];
+                obj.wholeSalePrice = data[10];
+                obj.wholeSaleOnSale = data[11];
+                obj.wholeSaleNewPrice = data[12];
+                obj.wholeSaleDiscount = data[13];
 
-                obj.id = data[13];
+                obj.id = data[14];
 
                 objArr.push(obj);
                 console.log("iter "+obj);
@@ -1097,20 +1120,21 @@
         let row = t.row(trObj).data();
         $('#rowIndex').val(t.row(trObj).index());
 
-        let packageType =               row[0];
-        let packSize =                  row[1];
-        let inStock =                   row[2];
-        let activeProductItem =         row[3];
-        let productPrice =              row[4];
-        let productPromotionalPrice =   row[6];
-        let promotedProduct =           row[5];
-        let discountVal =               row[7];
+        let barcode =                   row[0];
+        let packageType =               row[1];
+        let packSize =                  row[2];
+        let inStock =                   row[3];
+        let activeProductItem =         row[4];
+        let productPrice =              row[5];
+        let productPromotionalPrice =   row[7];
+        let promotedProduct =           row[6];
+        let discountVal =               row[8];
 
-        let wholeSaleProduct =                          row[8];
-        let wholeSaleProductPrice =                     row[9];
-        let wholeSalePromotedProduct =                  row[10];
-        let wholeSaleProductPromotionalPrice =          row[11];
-        let wholeSaleProductPromotionalPricePercentage= row[12];
+        let wholeSaleProduct =                          row[9];
+        let wholeSaleProductPrice =                     row[10];
+        let wholeSalePromotedProduct =                  row[11];
+        let wholeSaleProductPromotionalPrice =          row[12];
+        let wholeSaleProductPromotionalPricePercentage= row[13];
 
         if (promotedProduct===true){
             $('#editPromotedProduct').attr("checked", true);
@@ -1153,7 +1177,7 @@
             $('#editActiveProductItem').attr("checked", false);
         }
 
-
+        $('#editPackageBarcode')            .val(barcode);
         $('#editPackageType')               .val(packageType);
         $('#editPackSize')                  .val(packSize);
         $('#editInStock')                   .val(inStock);
@@ -1170,6 +1194,7 @@
 
     function submitChanges(rowToSaveIndex) {
         console.log("row to save: "+rowToSaveIndex);
+        let barcode =                   $('#editPackageBarcode').val().trim();
         let packageType =               $('#editPackageType').val().trim();
         let packSize =                  $('#editPackSize').val().trim();
         let inStock =                   $('#editInStock').val().trim();
@@ -1187,7 +1212,7 @@
 
         let id =                        0;
 
-        let arrayData = [packageType, packSize, inStock, activeProductItem, productPrice, promotedProduct, productPromotionalPrice, discountVal, wholeSale, wholeSaleProductPrice, wholeSalePromotedProduct, wholeSaleProductPromotionalPrice, wholeSaleDiscountVal, id, btn];
+        let arrayData = [barcode, packageType, packSize, inStock, activeProductItem, productPrice, promotedProduct, productPromotionalPrice, discountVal, wholeSale, wholeSaleProductPrice, wholeSalePromotedProduct, wholeSaleProductPromotionalPrice, wholeSaleDiscountVal, id, btn];
 
         t.row(rowToSaveIndex).data(arrayData).draw();
 

@@ -26,15 +26,14 @@ public class AdminHistoryController {
     @GetMapping
     public String get(Model model){
         model.addAttribute("history",productHistoryService.findAll());
-        return "admin/orders";
+        return "admin/history";
     }
-
 
 
     @GetMapping("/historyReview/{historyId}")
     public String editProducts(@PathVariable int historyId, Model model){
         model.addAttribute("history", productHistoryService.findById(historyId));
-        return "admin/singleOrder";
+        return "admin/singleHistory";
     }
 
 //    @PostMapping("/orderReview")
@@ -46,7 +45,7 @@ public class AdminHistoryController {
     @PostMapping("/add")
     public String add(ProductHistory productHistory){
         productHistoryService.save(productHistory);
-        return "redirect:/admin/orders";
+        return "redirect:/admin/history";
     }
 
     @PostMapping("/delete")

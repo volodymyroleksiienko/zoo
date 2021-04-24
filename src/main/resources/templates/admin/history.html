@@ -11,7 +11,7 @@
     <!-- Fav Icon  -->
     <link rel="shortcut icon" th:href="@{/images/OP_ico.png}">
     <!-- Page Title  -->
-    <title>Замовлення</title>
+    <title>Історія приходу</title>
     <!-- StyleSheets  -->
     <link rel="stylesheet" th:href="@{/css/dashlite.css}">
     <link id="skin-default" rel="stylesheet" th:href="@{/css/theme.css}">
@@ -74,50 +74,30 @@
                             <div class="components-preview wide-md mx-auto">
                                 <div class="nk-block-head nk-block-head-lg wide-sm">
                                     <div class="nk-block-head-content">
-                                        <h3 class="nk-block-title fw-normal">Замовлення</h3>
+                                        <h3 class="nk-block-title fw-normal">Історія приходу</h3>
                                     </div>
                                 </div><!-- .nk-block-head -->
 
                                 <div class="nk-block nk-block-lg">
                                     <div class="card card-bordered card-preview">
                                         <div class="card-inner">
-                                            <table class="datatable-init nk-tb-list nk-tb-ulist" data-auto-responsive="false" id="tableOfOrders">
+                                            <table class="datatable-init nk-tb-list nk-tb-ulist" data-auto-responsive="false">
                                                 <thead>
                                                     <tr class="nk-tb-item nk-tb-head">
-                                                        <th class="nk-tb-col tb-col-md">Дата</th>
-                                                        <th class="nk-tb-col"><span class="sub-text">Замовник</span></th>
-                                                        <th class="nk-tb-col tb-col-sm"><span class="sub-text">Телефон</span></th>
-                                                        <th class="nk-tb-col"><span class="sub-text">Сума</span></th>
+                                                        <th class="nk-tb-col">Дата</th>
                                                         <th class="nk-tb-col tb-col-sm" style="text-align: center;"><span class="sub-text"><em class="icon ni ni-coins" style="font-size: initial"></em></span></th>
-                                                        <th class="nk-tb-col tb-col-sm"><span class="sub-text">Статус</span></th>
-                                                        <th class="nk-tb-col tb-col-hide"><span class="sub-text">Адрес</span></th>
+                                                        <th class="nk-tb-col tb-col-md"><span class="sub-text">Постачальник</span></th>
                                                         <th class="nk-tb-col"><span class="sub-text" style="text-align: right; padding-right: 2rem;">Дії</span></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr class="nk-tb-item" th:id="${order.getId()}" th:each="order : ${orders}">
-                                                        <td class="nk-tb-col tb-col-md" th:text="${order.getDate()}">
-                                                            01/01/2021
-                                                        </td>
-                                                        <td class="nk-tb-col" style="white-space: normal;">
-                                                            <div class="user-info">
-                                                                <span class="tb-lead" th:text="${order.getNameOfClient()}">Roman Tymochko</span>
-                                                            </div>
-                                                        </td>
+                                                    <tr class="nk-tb-item" th:id="${h.getId()}" th:each="h : ${history}">
+                                                        <td class="nk-tb-col" th:text="${h?.getDate()}"></td>
                                                         <td class="nk-tb-col tb-col-sm">
-                                                            <span th:text="${order.getPhone()}">+48-883-913-896</span>
+                                                            <span th:text="${h?.getSum()}+' UAH'"></span>
                                                         </td>
-                                                        <td class="nk-tb-col">
-                                                            <span th:text="${order.getSumPrice()}">14.88</span>
-                                                        </td>
-                                                        <td class="nk-tb-col tb-col-sm">
-                                                            <span th:text="${order.getPayment().toString()}"></span>
-                                                        </td>
-                                                        <td class="nk-tb-col tb-col-sm">
-                                                            <span th:text="${order.getStatusOfOrder().toString()}">Статус</span>
-                                                        </td>
-                                                        <td class="nk-tb-col tb-col-hide">
-                                                            <span th:text="${order.getDescription()}">Lviv, Lorem ipsum dolor sit amet asdasd asdasda asdasda asda sd, 12</span>
+                                                        <td class="nk-tb-col tb-col-md">
+                                                            <span th:text="${h?.getProducer()}"></span>
                                                         </td>
                                                         <td class="nk-tb-col nk-tb-col-tools">
                                                             <ul class="nk-tb-actions gx-1">
@@ -363,9 +343,7 @@
 
     $(document).ready(function() {
         document.getElementById("year").innerHTML = new Date().getFullYear();
-        $('#customerPhoneNumber').inputmask('+(999)-999-999-999');
     });
-
 
     function changeDelivery(current, next) {
         console.log("c:"+current+"; n:"+next);
@@ -456,6 +434,7 @@
             return false;
         }
     }
+
 </script>
 </body>
 
