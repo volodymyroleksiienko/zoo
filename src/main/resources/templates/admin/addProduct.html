@@ -1047,12 +1047,7 @@
     });//ready() end
 
     function validateInputs(form) {
-        if ($('#packageBarcode').val()===''){
-            $('#errorMessage').text('Заповніть штрих-код.');
-            $('#erorAlert').show();
-            setTimeout(function() { $('#erorAlert').hide(); }, 5000);
-            return;
-        }else if ($('#productImage-1').val()===''){
+        if ($('#productImage-1').val()===''){
             $('#errorMessage').text('Виберіть головне зображення.');
             $('#erorAlert').show();
             setTimeout(function() { $('#erorAlert').hide(); }, 5000);
