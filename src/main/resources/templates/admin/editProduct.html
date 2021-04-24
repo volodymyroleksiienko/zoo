@@ -1200,24 +1200,23 @@
         let row = t.row(trObj).data();
         $('#rowIndex').val(t.row(trObj).index());
 
-        let packageType =               row[0];
-        let packSize =                  row[1];
-        let inStock =                   row[2];
-        let activeProductItem =         row[3];
-        let productPrice =              row[4];
-        let productPromotionalPrice =   row[6];
-        let promotedProduct =           row[5];
-        let discountVal =               row[7];
+        let barcode =                   row[0];
+        let packageType =               row[1];
+        let packSize =                  row[2];
+        let inStock =                   row[3];
+        let activeProductItem =         row[4];
+        let productPrice =              row[5];
+        let productPromotionalPrice =   row[7];
+        let promotedProduct =           row[6];
+        let discountVal =               row[8];
 
-        let wholeSaleProduct =                          row[8];
-        let wholeSaleProductPrice =                     row[9];
-        let wholeSalePromotedProduct =                  row[10];
-        let wholeSaleProductPromotionalPrice =          row[11];
-        let wholeSaleProductPromotionalPricePercentage= row[12];
+        let wholeSaleProduct =                          row[9];
+        let wholeSaleProductPrice =                     row[10];
+        let wholeSalePromotedProduct =                  row[11];
+        let wholeSaleProductPromotionalPrice =          row[12];
+        let wholeSaleProductPromotionalPricePercentage= row[13];
 
-        let itemId =                    row[13];
-
-
+        let itemId =                    row[14];
 
         if (promotedProduct==="true"){
             $('#editPromotedProduct').attr("checked", true);
@@ -1276,6 +1275,7 @@
 
     function submitChanges(rowToSaveIndex) {
         console.log("row to save: "+rowToSaveIndex);
+        let barcode =                   $('#editPackageBarcode').val().trim();
         let packageType =               $('#editPackageType').val().trim();
         let packSize =                  $('#editPackSize').val().trim();
         let inStock =                   $('#editInStock').val().trim();
@@ -1293,7 +1293,7 @@
 
         let id =                         $('#editItemId').val().trim();
 
-        let arrayData = [packageType, packSize, inStock, activeProductItem, productPrice, promotedProduct, productPromotionalPrice, discountVal, wholeSale, wholeSaleProductPrice, wholeSalePromotedProduct, wholeSaleProductPromotionalPrice, wholeSaleDiscountVal, id, btn];
+        let arrayData = [barcode, packageType, packSize, inStock, activeProductItem, productPrice, promotedProduct, productPromotionalPrice, discountVal, wholeSale, wholeSaleProductPrice, wholeSalePromotedProduct, wholeSaleProductPromotionalPrice, wholeSaleDiscountVal, id, btn];
 
         t.row(rowToSaveIndex).data(arrayData).draw();
 
