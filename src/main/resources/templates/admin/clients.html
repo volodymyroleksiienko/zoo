@@ -100,7 +100,7 @@
                                                     </td>
 
                                                     <td class="nk-tb-col" style="width: 20%;" >
-                                                        <th:block th:each="ph,${c?.getPhones()}" th:text="${ph?.getPhone()}"></th:block>
+                                                        <th:block th:each="ph:${c?.getPhones()}" th:text="${ph?.getPhone()}"></th:block>
                                                     </td>
 
                                                     <td class="nk-tb-col tb-col-lg" th:text="${c?.getRole()}"></td>

@@ -1,15 +1,9 @@
 package com.charlie.zoo.controller.user;
 
 import com.charlie.zoo.entity.Animal;
-import com.charlie.zoo.entity.Category;
 import com.charlie.zoo.entity.Image;
-import com.charlie.zoo.entity.Product;
 import com.charlie.zoo.service.AnimalService;
-import com.charlie.zoo.service.CategoryService;
 import com.charlie.zoo.service.ImageService;
-import com.charlie.zoo.service.ProductService;
-import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
-import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 import lombok.AllArgsConstructor;
 import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.core.io.ByteArrayResource;
@@ -17,9 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
