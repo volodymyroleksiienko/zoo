@@ -666,8 +666,9 @@
         statusOfEntity;
         countOfProduct;
 
-        constructor(id,price,wholeSalePrice,newPrice,wholeSaleNewPrice,packSize,packType,onSale,wholeSaleOnSale,discount,wholeSaleDiscount,wholeSaleStatus,countOfProduct,statusOfEntity) {
+        constructor(id, barcode, price,wholeSalePrice,newPrice,wholeSaleNewPrice,packSize,packType,onSale,wholeSaleOnSale,discount,wholeSaleDiscount,wholeSaleStatus,countOfProduct,statusOfEntity) {
             this.id = id;
+            this.barcode = barcode;
             this.price = price;
             this.wholeSalePrice = wholeSalePrice;
             this.newPrice = newPrice;
@@ -1046,7 +1047,12 @@
     });//ready() end
 
     function validateInputs(form) {
-        if ($('#productImage-1').val()===''){
+        if ($('#packageBarcode').val()===''){
+            $('#errorMessage').text('Заповніть штрих-код.');
+            $('#erorAlert').show();
+            setTimeout(function() { $('#erorAlert').hide(); }, 5000);
+            return;
+        }else if ($('#productImage-1').val()===''){
             $('#errorMessage').text('Виберіть головне зображення.');
             $('#erorAlert').show();
             setTimeout(function() { $('#erorAlert').hide(); }, 5000);
