@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html class="js" lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- <base href="../"> -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Fav Icon  -->
+    <link rel="shortcut icon" th:href="@{/images/OP_ico.png}">
+    <!-- Page Title  -->
+    <title>Користувачі</title>
+    <!-- StyleSheets  -->
+    <link rel="stylesheet" th:href="@{/css/dashlite.css}">
+    <link id="skin-default" rel="stylesheet" th:href="@{/css/theme.css}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="nk-body bg-lighter npc-general has-sidebar ">
+<div class="nk-app-root">
+    <!-- main @s -->
+    <div class="nk-main ">
+        <!-- sidebar @s -->
+        <div th:replace="~{admin/fragments/fragAdminHeader.html}"></div>
+        <!-- sidebar @e -->
+
+        <!-- wrap @s -->
+        <div class="nk-wrap ">
+            <!-- main header @s -->
+            <div class="nk-header nk-header-fixed is-light">
+                <div class="container-fluid">
+                    <div class="nk-header-wrap">
+                        <div class="nk-menu-trigger d-xl-none ml-n1">
+                            <a href="#" class="nk-nav-toggle nk-quick-nav-icon" data-target="sidebarMenu"><em class="icon ni ni-menu"></em></a>
+                        </div>
+                        <div class="nk-header-brand d-xl-none">
+                            <a href="/admin/products" class="logo-link">
+                                <img class="logo-light logo-img" th:src="@{/images/logo-light.png}" th:srcset="@{/images/logo-light.png}" alt="logo">
+                                <img class="logo-dark logo-img" th:src="@{/images/logo-dark.png}" th:srcset="@{/images/logo-dark.png}" alt="logo-dark">
+                            </a>
+                        </div><!-- .nk-header-brand -->
+
+                        <div class="nk-header-tools">
+                            <ul class="nk-quick-nav">
+                                <li class="dropdown user-dropdown">
+                                    <div class="user-toggle">
+                                        <div class="user-avatar sm">
+                                            <em class="icon ni ni-user-alt"></em>
+                                        </div>
+                                        <div class="user-info d-none d-md-block">
+                                            <h6>Адміністратор</h6>
+                                        </div>
+                                    </div>
+                                </li><!-- .dropdown -->
+                                <li>
+                                    <a href="/logout" class="nk-quick-nav-icon" data-toggle="tooltip" data-placement="bottom" title="Вийти">
+                                        <em class="icon ni ni-signout"></em>
+                                    </a>
+                                </li>
+                            </ul><!-- .nk-quick-nav -->
+                        </div><!-- .nk-header-tools -->
+                    </div><!-- .nk-header-wrap -->
+                </div><!-- .container-fliud -->
+            </div>
+            <!-- main header @e -->
+            <!-- content @s -->
+            <div class="nk-content ">
+                <div class="container-fluid">
+                    <div class="nk-content-inner">
+                        <div class="nk-content-body">
+                            <div class="components-preview wide-md mx-auto">
+                                <div class="nk-block-head nk-block-head-lg wide-sm">
+                                    <div class="nk-block-head-content">
+                                        <h3 class="nk-block-title fw-normal">Користувачі</h3>
+                                    </div>
+                                </div><!-- .nk-block-head -->
+
+                                <div class="nk-block nk-block-lg">
+                                    <div class="card card-bordered card-preview">
+                                        <div class="card-inner">
+                                            <table class="datatable-init nk-tb-list nk-tb-ulist" data-auto-responsive="false">
+                                                <thead>
+                                                <tr class="nk-tb-item nk-tb-head">
+                                                    <th class="nk-tb-col"><span class="sub-text">Ім'я</span></th>
+                                                    <th class="nk-tb-col tb-col-lg">Логін</th>
+                                                    <th class="nk-tb-col tb-col-lg">Пароль</th>
+                                                    <th class="nk-tb-col tb-col-lg">Роль</th>
+                                                    <th class="nk-tb-col"><span class="sub-text" style="text-align: right; padding-right: 2rem;">Дії</span></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:id="${u.getId()}" th:each="u:${users} " class="nk-tb-item">
+
+                                                    <td class="nk-tb-col">
+                                                        <span th:text="${u?.getName()}"></span>
+                                                    </td>
+
+                                                    <td class="nk-tb-col tb-col-lg" th:text="${u?.getUsername()}"></td>
+                                                    <td class="nk-tb-col tb-col-lg" th:text="${u?.getPassword()}"></td>
+                                                    <td class="nk-tb-col tb-col-lg" th:text="${u?.getRole().toString()}"></td>
+
+                                                    <td class="nk-tb-col nk-tb-col-tools">
+                                                        <ul class="nk-tb-actions gx-1">
+                                                            <li>
+                                                                <div class="drodown">
+                                                                    <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+                                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                                        <ul class="link-list-opt no-bdr">
+                                                                            <li><a data-toggle="modal" onclick="showEditUserModal(this)"><em class="icon ni ni-edit-alt"></em><span>Редагувати</span></a></li>
+                                                                            <li><a data-toggle="modal" onclick="showConfirmationDeleteProductModal(this)" ><em class="icon ni ni-trash"></em><span>Видалити</span></a></li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </td>
+                                                </tr><!-- .nk-tb-item  -->
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div><!-- .card-preview -->
+                                </div> <!-- nk-block -->
+                            </div><!-- .components-preview -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="" data-toggle="modal" data-target="#addUserModal" title="Добавити" class="btn btn-icon btn-lg btn-primary float-right" style="position: fixed; bottom: 25px; right: 25px; z-index: 1000;">
+                <em class="icon ni ni-grid-add-c"></em>
+            </a>
+
+            <!-- Adding start -->
+            <div class="modal fade" tabindex="-1" role="dialog" id="addUserModal" aria-modal="true">
+                <div class="modal-dialog modal-md" role="document">
+                    <div class="modal-content">
+                        <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+                        <div class="modal-body modal-body-sm">
+                            <h4 class="title">Добавлення користувача</h4>
+                            <br>
+                            <form action="/admin/users/add" method="post" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label class="form-label">Ім'я</label>
+                                    <div class="form-control-wrap">
+                                        <input type="text" required="required" class="form-control" name="name" placeholder="Ім'я...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Логін</label>
+                                    <div class="form-control-wrap">
+                                        <input type="text" required="required" class="form-control" name="username" placeholder="Логін...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Пароль</label>
+                                    <div class="form-control-wrap">
+                                        <input type="text" required="required" class="form-control" name="password" placeholder="Пароль...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Роль</label>
+                                    <div class="form-control-wrap">
+                                        <select class="form-select form-control form-control-lg" name="role">
+                                            <option value="ROLE_ADMIN">ROLE_ADMIN</option>
+                                            <option value="ROLE_SHOP_SELLER">ROLE_SHOP_SELLER</option>
+                                            <option value="ROLE_SHOP_OWNER">ROLE_SHOP_OWNER</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-outline-primary">Добавити</button>
+                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Adding end -->
+
+            <!-- Edit start -->
+            <div class="modal fade" tabindex="-1" role="dialog" id="editUserModal" aria-modal="true">
+                <div class="modal-dialog modal-md" role="document">
+                    <div class="modal-content">
+                        <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+                        <div class="modal-body modal-body-sm">
+                            <h4 class="title">Редагування</h4>
+                            <br>
+                            <form action="/admin/users/edit" method="post" enctype="multipart/form-data">
+                                <input type="number" id="selectedForEditItem" hidden="" name="id">
+                                <div class="form-group">
+                                    <label class="form-label" for="editUserName">Ім'я</label>
+                                    <div class="form-control-wrap">
+                                        <input type="text" id="editUserName" required="required" class="form-control" name="name" placeholder="Ім'я...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="editUserLogin">Логін</label>
+                                    <div class="form-control-wrap">
+                                        <input type="text" id="editUserLogin" required="required" class="form-control" name="username" placeholder="Логін...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="editUserPassword">Пароль</label>
+                                    <div class="form-control-wrap">
+                                        <input type="text" id="editUserPassword" required="required" class="form-control" name="password" placeholder="Пароль...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="editUserRole">Роль</label>
+                                    <div class="form-control-wrap">
+                                        <select class="form-select form-control form-control-lg" id="editUserRole" name="role">
+                                            <option value="ROLE_ADMIN">ROLE_ADMIN</option>
+                                            <option value="ROLE_SHOP_SELLER">ROLE_SHOP_SELLER</option>
+                                            <option value="ROLE_SHOP_OWNER">ROLE_SHOP_OWNER</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-outline-primary">Зберегти</button>
+                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Edit end -->
+
+            <!-- Delete product start -->
+            <div class="modal fade" tabindex="-1" role="dialog" id="deleteProductModal" aria-modal="true">
+                <div class="modal-dialog modal-md" role="document">
+                    <div class="modal-content">
+                        <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+                        <div class="modal-body modal-body-md">
+                            <h4 class="title">Видалення</h4>
+                            <br>
+                            <form action="/admin/users/delete" method="post">
+                                <input type="number" id="selectedForDeleteItem" hidden="" name="id">
+                                <p style="margin-bottom: 2rem;">Ви впевнені, що хочете видалити? Підтвердивши дію, Ви не зможете повернутися до попереднього стану.</p>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-outline-primary">Підтвердити</button>
+                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Delete product end -->
+
+
+            <!-- content @e -->
+
+            <!-- footer @s -->
+            <div th:replace="~{admin/fragments/fragAdminFooter.html :: adminFooter}"></div>
+            <!-- footer @e -->
+
+        </div>
+        <!-- wrap @e -->
+    </div>
+    <!-- main @e -->
+</div>
+<!-- app-root @e -->
+<!-- JavaScript -->
+<script th:src="@{/js/bundle.js}"></script>
+<script th:src="@{/js/scripts.js}"></script>
+<script th:src="@{/js/example-sweetalert.js}"></script>
+<script>
+    $( document ).ready(function() {
+        document.getElementById("year").innerHTML = new Date().getFullYear();
+    });
+
+    function showEditUserModal(btnObj) {
+        let trObj = btnObj.closest("tbody tr");
+        let trId =  $(trObj).attr('id');
+
+        let name =          $(trObj).find('td:eq(0)').text().trim();
+        let login =         $(trObj).find('td:eq(1)').text().trim();
+        let password =      $(trObj).find('td:eq(2)').text().trim();
+        let role =          $(trObj).find('td:eq(3)').text().trim();
+
+
+        $('#editUserName').val(name);
+        $('#editUserLogin').val(login);
+        $('#editUserPassword').val(password);
+        $('#editUserRole').val(role).change();
+
+        console.log("row id:" + $(trObj).attr('id'));
+
+        $('#selectedForEditItem')           .val(trId);
+
+        $('#editUserModal').modal('show');
+    }
+
+    function showConfirmationDeleteProductModal(btnObj){
+        let trObj = btnObj.closest("tbody tr");
+        let trId =  $(trObj).attr('id');
+
+        console.log("row id:" + $(trObj).attr('id'));
+
+        $('#selectedForDeleteItem').val(trId);
+
+        $('#deleteProductModal').modal('show');
+    }
+</script>
+
+</body>
+</html>

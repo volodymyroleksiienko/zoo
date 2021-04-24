@@ -1,6 +1,5 @@
 package com.charlie.zoo.controller.admin;
 
-import com.charlie.zoo.entity.Client;
 import com.charlie.zoo.entity.Users;
 import com.charlie.zoo.service.UsersService;
 import lombok.AllArgsConstructor;
@@ -19,18 +18,18 @@ public class AdminUsersController {
     @GetMapping
     public String getProducer(Model model){
         model.addAttribute("users",usersService.findAll());
-        return "admin/";
+        return "admin/users";
     }
 
     @PostMapping({"/add","/edit"})
     public String addProducer(Users users){
         usersService.save(users);
-        return "redirect:/admin/clients";
+        return "redirect:/admin/users";
     }
 
     @PostMapping("/delete")
     public String deleteProducer(int id){
         usersService.deleteByID(id);
-        return "redirect:/admin/clients";
+        return "redirect:/admin/users";
     }
 }

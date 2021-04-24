@@ -18,7 +18,7 @@ public class AdminClientController {
     @GetMapping
     public String getProducer(Model model){
         model.addAttribute("clients",clientService.findAll());
-        return "admin/";
+        return "admin/clients";
     }
 
     @PostMapping({"/add","/edit"})

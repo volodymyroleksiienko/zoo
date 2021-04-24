@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html class="js" lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- <base href="../"> -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Fav Icon  -->
+    <link rel="shortcut icon" th:href="@{/images/OP_ico.png}">
+    <!-- Page Title  -->
+    <title>Клієнти</title>
+    <!-- StyleSheets  -->
+    <link rel="stylesheet" th:href="@{/css/dashlite.css}">
+    <link id="skin-default" rel="stylesheet" th:href="@{/css/theme.css}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="nk-body bg-lighter npc-general has-sidebar ">
+<div class="nk-app-root">
+    <!-- main @s -->
+    <div class="nk-main ">
+        <!-- sidebar @s -->
+        <div th:replace="~{admin/fragments/fragAdminHeader.html}"></div>
+        <!-- sidebar @e -->
+
+        <!-- wrap @s -->
+        <div class="nk-wrap ">
+            <!-- main header @s -->
+            <div class="nk-header nk-header-fixed is-light">
+                <div class="container-fluid">
+                    <div class="nk-header-wrap">
+                        <div class="nk-menu-trigger d-xl-none ml-n1">
+                            <a href="#" class="nk-nav-toggle nk-quick-nav-icon" data-target="sidebarMenu"><em class="icon ni ni-menu"></em></a>
+                        </div>
+                        <div class="nk-header-brand d-xl-none">
+                            <a href="/admin/products" class="logo-link">
+                                <img class="logo-light logo-img" th:src="@{/images/logo-light.png}" th:srcset="@{/images/logo-light.png}" alt="logo">
+                                <img class="logo-dark logo-img" th:src="@{/images/logo-dark.png}" th:srcset="@{/images/logo-dark.png}" alt="logo-dark">
+                            </a>
+                        </div><!-- .nk-header-brand -->
+
+                        <div class="nk-header-tools">
+                            <ul class="nk-quick-nav">
+                                <li class="dropdown user-dropdown">
+                                    <div class="user-toggle">
+                                        <div class="user-avatar sm">
+                                            <em class="icon ni ni-user-alt"></em>
+                                        </div>
+                                        <div class="user-info d-none d-md-block">
+                                            <h6>Адміністратор</h6>
+                                        </div>
+                                    </div>
+                                </li><!-- .dropdown -->
+                                <li>
+                                    <a href="/logout" class="nk-quick-nav-icon" data-toggle="tooltip" data-placement="bottom" title="Вийти">
+                                        <em class="icon ni ni-signout"></em>
+                                    </a>
+                                </li>
+                            </ul><!-- .nk-quick-nav -->
+                        </div><!-- .nk-header-tools -->
+                    </div><!-- .nk-header-wrap -->
+                </div><!-- .container-fliud -->
+            </div>
+            <!-- main header @e -->
+            <!-- content @s -->
+            <div class="nk-content ">
+                <div class="container-fluid">
+                    <div class="nk-content-inner">
+                        <div class="nk-content-body">
+                            <div class="components-preview wide-md mx-auto">
+                                <div class="nk-block-head nk-block-head-lg wide-sm">
+                                    <div class="nk-block-head-content">
+                                        <h3 class="nk-block-title fw-normal">Клієнти</h3>
+                                    </div>
+                                </div><!-- .nk-block-head -->
+
+                                <div class="nk-block nk-block-lg">
+                                    <div class="card card-bordered card-preview">
+                                        <div class="card-inner">
+                                            <table class="datatable-init nk-tb-list nk-tb-ulist" data-auto-responsive="false">
+                                                <thead>
+                                                <tr class="nk-tb-item nk-tb-head">
+                                                    <th class="nk-tb-col"><span class="sub-text">Ім'я</span></th>
+                                                    <th class="nk-tb-col">Телефони</th>
+                                                    <th class="nk-tb-col tb-col-lg">Роль</th>
+                                                    <th class="nk-tb-col tb-col-lg">Знижка</th>
+                                                    <th class="nk-tb-col tb-col-lg">Примітка</th>
+                                                    <th class="nk-tb-col "><span class="sub-text" style="text-align: right; padding-right: 2rem;">Дії</span></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:id="${c.getId()}" th:each="c:${clients} " class="nk-tb-item">
+
+                                                    <td class="nk-tb-col">
+                                                        <span th:text="${c?.getName()}"></span>
+                                                    </td>
+
+                                                    <td class="nk-tb-col" style="width: 20%;" th:text="${c?.getPhones().size()}"></td>
+
+                                                    <td class="nk-tb-col tb-col-lg" th:text="${c?.getRole()}"></td>
+                                                    <td class="nk-tb-col tb-col-lg" th:text="${c?.getDefaultDiscount()}"></td>
+                                                    <td class="nk-tb-col tb-col-lg" th:text="${c?.getNote()}"></td>
+
+                                                    <td class="nk-tb-col nk-tb-col-tools">
+                                                        <ul class="nk-tb-actions gx-1">
+                                                            <li>
+                                                                <div class="drodown">
+                                                                    <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+                                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                                        <ul class="link-list-opt no-bdr">
+                                                                            <li><a data-toggle="modal" onclick="showEditClientModal(this)"><em class="icon ni ni-edit-alt"></em><span>Редагувати</span></a></li>
+                                                                            <li><a data-toggle="modal" onclick="showConfirmationDeleteProductModal(this)" ><em class="icon ni ni-trash"></em><span>Видалити</span></a></li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </td>
+                                                </tr><!-- .nk-tb-item  -->
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div><!-- .card-preview -->
+                                </div> <!-- nk-block -->
+                            </div><!-- .components-preview -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="" data-toggle="modal" data-target="#addClientModal" title="Добавити" class="btn btn-icon btn-lg btn-primary float-right" style="position: fixed; bottom: 25px; right: 25px; z-index: 1000;">
+                <em class="icon ni ni-grid-add-c"></em>
+            </a>
+
+            <!-- Adding start -->
+            <div class="modal fade" tabindex="-1" role="dialog" id="addClientModal" aria-modal="true" style="overflow-y: auto;">
+                <div class="modal-dialog modal-md" role="document">
+                    <div class="modal-content">
+                        <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+                        <div class="modal-body modal-body-sm">
+                            <h4 class="title">Добавлення клієнта</h4>
+                            <br>
+                            <form action="/admin/clients/add" method="post" enctype="multipart/form-data">
+                                <div class="row gy-4">
+
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="form-label">Ім'я</label>
+                                            <div class="form-control-wrap">
+                                                <input type="text" class="form-control" name="name" placeholder="Ім'я...">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-10" style="padding-bottom: 0!important;">
+                                        <div class="form-group">
+                                            <label class="form-label">Добавити телефон</label>
+                                            <div class="form-control-wrap">
+                                                <input type="tel" class="form-control phone_number" id="addPhoneInput" value="+380" placeholder="Телефон...">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-2" style="padding-bottom: 0!important;">
+                                        <div class="form-group">
+                                            <button type="button" title="Добавити позицію" onclick="addPhoneNumber(t, $('#addPhoneInput'))" class="btn btn-icon btn-lg btn-primary float-right" style="margin-left: auto; margin-top: 1.5rem;">
+                                                <em class="icon ni ni-grid-add-c"></em>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12" style="padding-top: 0!important;">
+                                        <div class="form-group">
+                                            <!-- Table -->
+                                            <table class="nk-tb-list nk-tb-ulist table-stripped" id="phonesTable" style="margin-top: 2rem;" data-auto-responsive="false">
+                                                <thead>
+                                                <tr class="nk-tb-item nk-tb-head">
+                                                    <td class="nk-tb-col">Телефон</td>
+                                                    <th class="nk-tb-col"><span class="sub-text" style="text-align: right; padding-right: 2rem;">Дії</span></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                            <!-- Table -->
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Роль</label>
+                                            <div class="form-control-wrap">
+                                                <select class="form-select form-control form-control-lg" name="role">
+                                                    <option value="RETAILER">RETAILER</option>
+                                                    <option value="BREEDER">BREEDER</option>
+                                                    <option value="WHOLESALER">WHOLESALER</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="form-control-wrap">
+                                                <div class="form-text-hint" style="top: 50%;">
+                                                    <span class="overline-title">%</span>
+                                                </div>
+                                                <label class="form-label">Знижка</label>
+                                                <input type="number" min="0" max="100" step="any" value="0" name="defaultDiscount" class="form-control" placeholder="Не заповнено...">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12" style="margin-bottom: 1rem;">
+                                        <div class="form-group">
+                                            <label class="form-label">Примітка</label>
+                                            <div class="form-control-wrap">
+                                                <textarea class="form-control" placeholder="Примітка..." name="note"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-outline-primary">Добавити</button>
+                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Adding end -->
+
+            <!-- Edit start -->
+            <div class="modal fade" tabindex="-1" role="dialog" id="editClientModal" aria-modal="true" style="overflow-y: auto;">
+                <div class="modal-dialog modal-md" role="document">
+                    <div class="modal-content">
+                        <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+                        <div class="modal-body modal-body-sm">
+                            <h4 class="title">Редагування</h4>
+                            <br>
+                            <form action="/admin/clients/edit" method="post" enctype="multipart/form-data">
+                                <input type="number" id="selectedForEditItem" hidden="" name="id">
+                                <div class="row gy-4">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="form-label" for="editClientName">Ім'я</label>
+                                            <div class="form-control-wrap">
+                                                <input type="text" id="editClientName" class="form-control" name="name" placeholder="Ім'я...">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-10" style="padding-bottom: 0!important;">
+                                        <div class="form-group">
+                                            <label class="form-label">Добавити телефон</label>
+                                            <div class="form-control-wrap">
+                                                <input type="tel" class="form-control phone_number" id="addPhoneEditInput" value="+380" placeholder="Телефон...">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-2" style="padding-bottom: 0!important;">
+                                        <div class="form-group">
+                                            <button type="button" title="Добавити позицію" onclick="addPhoneNumber(t2,$('#addPhoneEditInput'))" class="btn btn-icon btn-lg btn-primary float-right" style="margin-left: auto; margin-top: 1.5rem;">
+                                                <em class="icon ni ni-grid-add-c"></em>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12" style="padding-top: 0!important;">
+                                        <div class="form-group">
+                                            <!-- Table -->
+                                            <table class="nk-tb-list nk-tb-ulist table-stripped" id="phonesEditTable" style="margin-top: 2rem;" data-auto-responsive="false">
+                                                <thead>
+                                                <tr class="nk-tb-item nk-tb-head">
+                                                    <td class="nk-tb-col">Телефон</td>
+                                                    <th class="nk-tb-col"><span class="sub-text" style="text-align: right; padding-right: 2rem;">Дії</span></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                            <!-- Table -->
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="form-label" for="editClientRole">Роль</label>
+                                            <div class="form-control-wrap">
+                                                <select class="form-select form-control form-control-lg" id="editClientRole" name="role">
+                                                    <option value="RETAILER">RETAILER</option>
+                                                    <option value="BREEDER">BREEDER</option>
+                                                    <option value="WHOLESALER">WHOLESALER</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="form-control-wrap">
+                                                <div class="form-text-hint" style="top: 50%;">
+                                                    <span class="overline-title">%</span>
+                                                </div>
+                                                <label class="form-label" for="editClientDefaultDiscount">Знижка</label>
+                                                <input type="number" min="0" max="100" step="any" value="0" name="defaultDiscount" id="editClientDefaultDiscount" class="form-control" placeholder="Не заповнено...">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12" style="margin-bottom: 1rem;">
+                                        <div class="form-group">
+                                            <label class="form-label" for="editClientNote">Примітка</label>
+                                            <div class="form-control-wrap">
+                                                <textarea class="form-control" id="editClientNote" placeholder="Примітка..." name="note"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-outline-primary">Зберегти</button>
+                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Edit end -->
+
+            <!-- Edit phone start -->
+            <div class="modal fade" tabindex="-1" role="dialog" id="editPhoneModal" aria-modal="true">
+                <div class="modal-dialog modal-md" role="document">
+                    <div class="modal-content">
+                        <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+                        <input type="hidden" id="editRowIndex">
+                        <input type="hidden" id="editTable">
+                        <div class="modal-body modal-body-md">
+                            <div class="form-group">
+                                <br>
+                                <div class="form-control-wrap">
+                                    <input type="tel" class="form-control phone_number" id="selectedForEditPhone" value="+380" placeholder="Телефон...">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="button" onclick="saveEditedPhoneVal()" class="btn btn-outline-primary">Зберегти</button>
+                                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Edit phone end -->
+
+            <!-- Delete product start -->
+            <div class="modal fade" tabindex="-1" role="dialog" id="deleteProductModal" aria-modal="true">
+                <div class="modal-dialog modal-md" role="document">
+                    <div class="modal-content">
+                        <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+                        <div class="modal-body modal-body-md">
+                            <h4 class="title">Видалення</h4>
+                            <br>
+                            <form action="/admin/clients/delete" method="post">
+                                <input type="number" id="selectedForDeleteItem" hidden="" name="id">
+                                <p style="margin-bottom: 2rem;">Ви впевнені, що хочете видалити? Підтвердивши дію, Ви не зможете повернутися до попереднього стану.</p>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-outline-primary">Підтвердити</button>
+                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Delete product end -->
+
+
+            <!-- content @e -->
+
+            <!-- footer @s -->
+            <div th:replace="~{admin/fragments/fragAdminFooter.html :: adminFooter}"></div>
+            <!-- footer @e -->
+
+        </div>
+        <!-- wrap @e -->
+    </div>
+    <!-- main @e -->
+</div>
+<!-- app-root @e -->
+<!-- JavaScript -->
+<script th:src="@{/js/bundle.js}"></script>
+<script th:src="@{/js/scripts.js}"></script>
+<script th:src="@{/js/example-sweetalert.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js"></script>
+<script>
+    let t = $('#phonesTable').DataTable({
+        "autoWidth": false,
+        "searching": false,
+        "paging": false,
+        "info": false,
+        'select': false,
+    });
+
+    let t2 = $('#phonesEditTable').DataTable({
+        "autoWidth": false,
+        "searching": false,
+        "paging": false,
+        "info": false,
+        'select': false,
+    });
+
+    $( document ).ready(function() {
+        document.getElementById("year").innerHTML = new Date().getFullYear();
+        $('.phone_number').inputmask('+(999)-999-999-999');
+    });
+
+    function showEditClientModal(btnObj) {
+        let trObj = btnObj.closest("tbody tr");
+        let trId =  $(trObj).attr('id');
+
+        let clientName =      $(trObj).find('td:eq(0)').text().trim();
+        let phones =          $(trObj).find('td:eq(1)').text().trim();
+        let role =            $(trObj).find('td:eq(2)').text().trim();
+        let discount =        $(trObj).find('td:eq(3)').text().trim();
+        let note =            $(trObj).find('td:eq(4)').text().trim();
+
+        $('#editClientName').val(clientName);
+        $('#editClientRole').val(role).change();
+        $('#editClientDefaultDiscount').val(parseFloat(discount).toFixed(2));
+        $('#editClientNote').val(note);
+
+        console.log("row id:" + $(trObj).attr('id'));
+
+        $('#selectedForEditItem')           .val(trId);
+
+        $('#editClientModal').modal('show');
+    }
+
+    let btn = '<ul class="nk-tb-actions gx-1">\n' +
+'                                                            <li>\n' +
+'                                                                <div class="drodown">\n' +
+'                                                                    <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>\n' +
+'                                                                    <div class="dropdown-menu dropdown-menu-right\\">\n' +
+'                                                                        <ul class="link-list-opt no-bdr">\n' +
+'                                                                            <li><a data-toggle="modal" onclick="showEditItemModal(t,this)"><em class="icon ni ni-edit-alt"></em><span>Редагувати</span></a></li>\n' +
+'                                                                            <li><a data-toggle="modal" onclick="deletePhoneNumber(t,this)" ><em class="icon ni ni-trash"></em><span>Видалити</span></a></li>\n' +
+'                                                                        </ul>\n' +
+'                                                                    </div>\n' +
+'                                                                </div>\n' +
+'                                                            </li>\n' +
+'                                                        </ul>';
+
+
+    let btn2 = '<ul class="nk-tb-actions gx-1">\n' +
+        '                                                            <li>\n' +
+        '                                                                <div class="drodown">\n' +
+        '                                                                    <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>\n' +
+        '                                                                    <div class="dropdown-menu dropdown-menu-right\\">\n' +
+        '                                                                        <ul class="link-list-opt no-bdr">\n' +
+        '                                                                            <li><a data-toggle="modal" onclick="showEditItemModal(t2,this)"><em class="icon ni ni-edit-alt"></em><span>Редагувати</span></a></li>\n' +
+        '                                                                            <li><a data-toggle="modal" onclick="deletePhoneNumber(t2,this)" ><em class="icon ni ni-trash"></em><span>Видалити</span></a></li>\n' +
+        '                                                                        </ul>\n' +
+        '                                                                    </div>\n' +
+        '                                                                </div>\n' +
+        '                                                            </li>\n' +
+        '                                                        </ul>';
+
+    function addPhoneNumber(table, inputObj) {
+        let phone = $(inputObj).val().trim();
+        let phDigits = $(inputObj).val().replace(/[^0-9]/gi, '');
+        if (phDigits.length===12){
+            $(inputObj).val('+380');
+
+            let rowNode = '';
+
+            if (table === t){
+                rowNode = table.row.add([
+                    phone,
+                    btn,
+                ]).draw(false).node();
+            }else if (table===t2){
+                 rowNode = table.row.add([
+                    phone,
+                    btn2,
+                ]).draw(false).node();
+            }
+
+            $(rowNode).addClass('nk-tb-item');
+
+            $( rowNode ).find('td').eq(0).addClass('nk-tb-col');
+            $( rowNode ).find('td').eq(1).addClass('nk-tb-col nk-tb-col-tools');
+        }else {
+            alert('Заповніть нормер телефону.');
+        }
+    }
+
+    function showEditItemModal(table, btnObj) {
+        let trObj = btnObj.closest("tbody tr");
+
+        let row = '';
+        let index = '';
+        let phone =  '';
+
+        if (table === t){
+            row = t.row(trObj).data();
+            index = t.row(trObj).index();
+            phone =  row[0];
+            $('#editTable').val('t');
+        }else if (table===t2){
+            row = t2.row(trObj).data();
+            index = t2.row(trObj).index();
+            phone =  row[0];
+            $('#editTable').val('t2');
+        }
+
+        $('#editRowIndex').val(index);
+        $('#selectedForEditPhone').val(phone);
+
+        $('#editPhoneModal').modal('show');
+    }//show edit modal
+
+    function saveEditedPhoneVal() {
+        let phone = $('#selectedForEditPhone').val().trim();
+        let phDigits = $('#selectedForEditPhone').val().replace(/[^0-9]/gi, '');
+        let index =  $('#editRowIndex').val();
+        let table = $('#editTable').val();
+
+        console.log("index:"+index+"ph:"+phone+'table:'+table);
+
+        if (phDigits.length===12) {
+            if (table === 't'){
+                let arrayData = [phone, btn];
+                t.row(index).data(arrayData).draw();
+                $('#editPhoneModal').modal('hide');
+            }else if (table==='t2'){
+                let arrayData = [phone, btn2];
+                t2.row(index).data(arrayData).draw();
+                $('#editPhoneModal').modal('hide');
+            }
+        }else {
+            alert('Заповніть нормер телефону.');
+        }
+    }
+
+    function deletePhoneNumber(table, btnObj) {
+        let trObj = btnObj.closest("tbody tr");
+        let index = t.row(trObj).index();
+
+        if (table === t){
+            t.row(index).remove().draw();
+        }else if (table===t2){
+            t2.row(index).remove().draw();
+        }
+    }
+
+
+    function showConfirmationDeleteProductModal(btnObj){
+        let trObj = btnObj.closest("tbody tr");
+        let trId =  $(trObj).attr('id');
+
+        console.log("row id:" + $(trObj).attr('id'));
+
+        $('#selectedForDeleteItem').val(trId);
+
+        $('#deleteProductModal').modal('show');
+    }
+</script>
+
+</body>
+</html>
