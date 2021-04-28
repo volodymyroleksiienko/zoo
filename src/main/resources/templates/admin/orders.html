@@ -105,7 +105,7 @@
                                                             </div>
                                                         </td>
                                                         <td class="nk-tb-col tb-col-sm">
-                                                            <span th:text="${order.getPhone()}">+48-883-913-896</span>
+                                                            <span th:text="${order?.getPhone()?.getPhone()}">+48-883-913-896</span>
                                                         </td>
                                                         <td class="nk-tb-col">
                                                             <span th:text="${order.getSumPrice()}">14.88</span>
@@ -174,7 +174,7 @@
                                             <div class="form-group">
                                                 <label class="form-label" for="customerPhoneNumber">Телефон</label>
                                                 <div class="form-control-wrap">
-                                                    <input type="text" id="customerPhoneNumber" placeholder="Введіть номер телефону*" value="+380" class="form-control" name="phone">
+                                                    <input type="text" id="customerPhoneNumber" placeholder="Введіть номер телефону*" value="+380" class="form-control" name="phone.phone">
                                                 </div>
                                             </div>
                                         </div>

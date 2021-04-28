@@ -90,7 +90,7 @@
                                                         <div class="form-group">
                                                             <label class="form-label" for="historySupplier">Постачальник</label>
                                                             <div class="form-control-wrap">
-                                                                <input type="text" id="historySupplier"  placeholder="Постачальник..." class="form-control" name="producer">
+                                                                <input type="text" id="historySupplier" th:value="${history.getProducer()}"  placeholder="Постачальник..." class="form-control" name="producer">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -98,7 +98,7 @@
                                                         <div class="form-group">
                                                             <label class="form-label" for="historyDate">Дата</label>
                                                             <div class="form-control-wrap">
-                                                                <input type="date" class="form-control" id="historyDate" name="date">
+                                                                <input type="date" class="form-control" id="historyDate" th:value="${history.getProducer()}" name="date">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -109,7 +109,7 @@
                                                                     <span class="overline-title">UAH</span>
                                                                 </div>
                                                                 <label class="form-label" for="historySum">Загальна сума</label>
-                                                                <input type="number" class="form-control"  value="0.00" readonly id="historySum" name="sum">
+                                                                <input type="number" class="form-control"  th:value="${history.getSum()}" readonly id="historySum" name="sum">
                                                             </div>
                                                         </div>
                                                     </div>

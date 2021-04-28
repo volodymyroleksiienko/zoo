@@ -1,5 +1,6 @@
 package com.charlie.zoo.serviceImpl;
 
+import com.charlie.zoo.entity.HistoryDetails;
 import com.charlie.zoo.entity.ProductHistory;
 import com.charlie.zoo.jpa.ProductHistoryJpa;
 import com.charlie.zoo.service.ProductHistoryService;
@@ -16,6 +17,31 @@ public class ProductHistoryServiceImpl implements ProductHistoryService {
     @Override
     public ProductHistory save(ProductHistory productHistory) {
         return productHistoryJpa.save(productHistory);
+    }
+
+    @Override
+    public ProductHistory update(ProductHistory history) {
+        ProductHistory historyDB = findById(history.getId());
+        if(historyDB!=null){
+            historyDB.setProducer(history.getProducer());
+            historyDB.setDate(history.getDate());
+            countSummaryPrice(history.getId());
+            return save(historyDB);
+        }
+        return null;
+    }
+
+    @Override
+    public ProductHistory countSummaryPrice(int id) {
+        ProductHistory history = findById(id);
+        if(history!=null){
+            double sum = 0;
+            for(HistoryDetails details:history.getHistoryDetails()){
+                sum+= details.getCount()*details.getPrice();
+            }
+            return save(history);
+        }
+        return null;
     }
 
     @Override
