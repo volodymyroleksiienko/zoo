@@ -90,7 +90,7 @@
                                                         <div class="form-group">
                                                             <label class="form-label" for="historySupplier">Постачальник</label>
                                                             <div class="form-control-wrap">
-                                                                <input type="text" id="historySupplier"  placeholder="Постачальник..." class="form-control" name="producer">
+                                                                <input type="text" id="historySupplier" th:value="${history.getProducer()}"  placeholder="Постачальник..." class="form-control" name="producer">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -98,7 +98,7 @@
                                                         <div class="form-group">
                                                             <label class="form-label" for="historyDate">Дата</label>
                                                             <div class="form-control-wrap">
-                                                                <input type="date" class="form-control" id="historyDate" name="date">
+                                                                <input type="date" class="form-control" id="historyDate" th:value="${history.getProducer()}" name="date">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -109,7 +109,7 @@
                                                                     <span class="overline-title">UAH</span>
                                                                 </div>
                                                                 <label class="form-label" for="historySum">Загальна сума</label>
-                                                                <input type="number" class="form-control"  value="0.00" readonly id="historySum" name="sum">
+                                                                <input type="number" class="form-control"  th:value="${history.getSum()}" readonly id="historySum" name="sum">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -191,12 +191,34 @@
                                                             <td class="nk-tb-col" style="width: 50%">Товар</td>
                                                             <td class="nk-tb-col tb-col-hide">ID</td>
                                                             <td class="nk-tb-col">Кількість</td>
+                                                            <td class="nk-tb-col tb-col-lg">Ціна</td>
                                                             <td class="nk-tb-col tb-col-lg">Сума</td>
                                                             <th class="nk-tb-col"><span class="sub-text" style="text-align: right; padding-right: 2rem;">Дії</span></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-
+                                                        <tr class="nk-tb-item nk-tb-head" th:each="det : ${history.getHistoryDetails()}" th:id="${history.getId()}">
+                                                            <td class="nk-tb-col" style="width: 50%" th:text="${det?.getPackageType()?.getProduct().getName()}">Товар</td>
+                                                            <td class="nk-tb-col tb-col-hide">ID</td>
+                                                            <td class="nk-tb-col" th:text="${det.getCount()}">Кількість</td>
+                                                            <td class="nk-tb-col tb-col-lg" th:text="${det.getPrice()}">Ціна</td>
+                                                            <td class="nk-tb-col tb-col-lg" th:text="${det.getSum()}">Сума</td>
+                                                            <th class="nk-tb-col">
+                                                                <ul class="nk-tb-actions gx-1">
+                                                                    <li>
+                                                                        <div class="drodown">
+                                                                          <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+                                                                            <div class="dropdown-menu dropdown-menu-right\\">
+                                                                              <ul class="link-list-opt no-bdr">
+                                                                                  <li><a data-toggle="modal" onclick="showEditItemModal(this)"><em class="icon ni ni-edit-alt"></em><span>Редагувати</span></a></li>
+                                                                                  <li><a data-toggle="modal" onclick="removePosition(this)" ><em class="icon ni ni-trash"></em><span>Видалити</span></a></li>
+                                                                              </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+    '                                                            </ul>
+                                                            </th>
+                                                        </tr>
                                                     </tbody>
                                                 </table>
                                                 <!-- Table -->

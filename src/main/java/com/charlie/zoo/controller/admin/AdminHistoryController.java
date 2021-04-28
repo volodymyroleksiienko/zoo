@@ -1,20 +1,16 @@
 package com.charlie.zoo.controller.admin;
 
 import com.charlie.zoo.entity.HistoryDetails;
-import com.charlie.zoo.entity.OrderDetails;
-import com.charlie.zoo.entity.OrderInfo;
 import com.charlie.zoo.entity.ProductHistory;
-import com.charlie.zoo.entity.dto.PackageTypeDto;
 import com.charlie.zoo.service.HistoryDetailsService;
-import com.charlie.zoo.service.PackageTypeService;
 import com.charlie.zoo.service.ProductHistoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.UUID;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/admin/history")
@@ -36,11 +32,11 @@ public class AdminHistoryController {
         return "admin/singleHistory";
     }
 
-//    @PostMapping("/orderReview")
-//    public String editOrder(OrderInfo orderInfo){
-//        orderService.update(orderInfo);
-//        return "redirect:/admin/orders/orderReview/"+orderInfo.getId();
-//    }
+    @PostMapping("/edit")
+    public String editOrder(ProductHistory productHistory){
+        productHistoryService.update(productHistory);
+        return "redirect:/admin/history/historyReview/"+productHistory.getId();
+    }
 
     @GetMapping("/add")
     public String addProducts(Model model){
@@ -58,22 +54,16 @@ public class AdminHistoryController {
         return "redirect:/admin/history";
     }
 
-//    @PostMapping("/editDetail")
-//    public String getDetail(int id,int count,String currentUrl){
-//        OrderDetails details = historyDetailsService.findById(id);
-//        OrderInfo orderInfo = details.getOrderInfo();
-//        details.setCount(count);
-//        orderDetailsService.save(details);
-//        orderService.save(orderInfo);
-//        return "redirect:"+currentUrl;
-//    }
+    @PostMapping("/editDetail")
+    public String editDetail(int historyId,HistoryDetails details){
+        historyDetailsService.update(historyId,details);
+        return "redirect:/";
+    }
 
-//    @PostMapping("/addDetail")
-//    public String getDetail(String orderId,Integer count,Integer packId){
-//        UUID uuid = UUID.fromString(orderId);
-//        OrderDetails details = orderDetailsService.addProductToOrder(uuid,packId,count);
-//        OrderInfo orderInfo = details.getOrderInfo();
-//        orderService.save(orderInfo);
-//        return "redirect:/admin/orders/orderReview/"+orderId;
-//    }
+    @PostMapping("/addDetail")
+    public String getDetail(int historyId, HistoryDetails details){
+        details.setProductHistory(productHistoryService.findById(historyId));
+        historyDetailsService.save(details);
+        return "redirect:/admin/orders/orderReview/"+historyId;
+    }
 }
