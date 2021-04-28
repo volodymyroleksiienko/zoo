@@ -118,7 +118,7 @@
                                                 <span class="preview-title-lg overline-title">Товари</span>
                                                 <input type="number" id="searchProductId" name="packId" hidden="" required="required">
                                                 <div class="row gy-4 align-center">
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-5">
                                                         <div>
                                                             <label class="form-label">Пошук</label>
                                                             <div class="form-control-wrap">
@@ -176,6 +176,13 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <div class="col-1" style="padding-bottom: 0!important;">
+                                                        <div class="form-group">
+                                                            <button type="button" title="Добавити позицію" onclick="addPhoneNumber(t, $('#addPhoneInput'))" class="btn btn-icon btn-lg btn-primary" style="margin-left: auto; margin-top: 1.5rem;">
+                                                                <em class="icon ni ni-grid-add-c"></em>
+                                                            </button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <!-- Table -->
                                                 <table class="nk-tb-list nk-tb-ulist table-stripped" id="positionsTable" style="margin-top: 2rem;" data-auto-responsive="false">
@@ -222,25 +229,36 @@
 <!--                                <input type="text" hidden="" th:value="${'/admin/orders/orderReview/'+order.getId()}" name="currentUrl">-->
 
                                 <div class="row align-center" style="margin-bottom: 2rem;">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <div class="form-control-wrap">
                                                 <div class="form-text-hint" style="top: 50%;">
                                                     <span class="overline-title">ШТ</span>
                                                 </div>
                                                 <label class="form-label" for="editProductsAmount">Кількість</label>
-                                                <input type="number" min="0" step="1" class="form-control" id="editProductsAmount" placeholder="Не заповнено..." oninput="this.value = this.value.replace(/[^0-9]+/g, '')">
+                                                <input type="number" min="0" step="1" class="form-control" id="editProductsAmount" placeholder="Не заповнено..." oninput="this.value = this.value.replace(/[^0-9]+/g, '');calculateItemTotalSumModal()">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <div class="form-control-wrap">
                                                 <div class="form-text-hint" style="top: 50%;">
                                                     <span class="overline-title">UAH</span>
                                                 </div>
-                                                <label class="form-label" for="editProductsSum">Сума</label>
-                                                <input type="number" min="0" step="any" class="form-control" id="editProductsSum" placeholder="Не заповнено..." oninput="this.value = this.value.replace(/[^0-9]+\\.?[0-9]*/g, '')">
+                                                <label class="form-label" for="editProductsSum">Сума/шт.</label>
+                                                <input type="number" min="0" step="any" class="form-control" id="editProductsSum" placeholder="Не заповнено..." oninput="this.value = this.value.replace(/[^0-9]+\\.?[0-9]*/g, '');calculateItemTotalSumModal()">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form-control-wrap">
+                                                <div class="form-text-hint" style="top: 50%;">
+                                                    <span class="overline-title">UAH</span>
+                                                </div>
+                                                <label class="form-label" for="editItemTotalSum">Разом</label>
+                                                <input type="number" class="form-control" value="0.00" min="0" step="any" id="editItemTotalSum" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -283,7 +301,7 @@
 <script>
     $(document).ready(function() {
         $('#customerPhoneNumber').inputmask('+(999)-999-999-999');
-
+        $('#searchProduct').focus();
         document.querySelector("#historyDate").valueAsDate = new Date();
         document.getElementById("year").innerHTML = new Date().getFullYear();
 
@@ -422,6 +440,21 @@
         }
     }
 
+    function calculateItemTotalSumModal(){
+        let sum = 0.0;
+        let amount = parseInt($('#editProductsAmount').val());
+        let price = parseFloat($('#editProductsSum').val());
+        if (!isNaN(amount) && !isNaN(price)){
+            sum = amount*price;
+            console.log(sum);
+            $('#editItemTotalSum').val(sum.toFixed(2));
+        }else {
+            $('#editItemTotalSum').val('0.00');
+        }
+    }
+
+
+
     $('#addHistoryBtn').on('click', function () {
         // $('#createHistoryForm').submit();
         if ($('#historySupplier').val()===''){
@@ -559,6 +592,7 @@
 
         $('#editProductsAmount').val(amount);
         $('#editProductsSum').val(parseFloat(sum));
+        $('#editItemTotalSum').val((parseInt(amount)*parseFloat(sum)).toFixed(2));
 
         $('#editProductModal').modal('show');
     }//show edit modal
