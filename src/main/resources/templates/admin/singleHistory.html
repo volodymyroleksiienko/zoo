@@ -143,25 +143,36 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-2">
                                                         <div class="form-group">
                                                             <div class="form-control-wrap">
                                                                 <div class="form-text-hint" style="top: 50%;">
                                                                     <span class="overline-title">ШТ</span>
                                                                 </div>
                                                                 <label class="form-label" for="addProductsAmount">Кількість</label>
-                                                                <input type="number" min="0" step="1" name="count" class="form-control" id="addProductsAmount" value="1" placeholder="Не заповнено..." oninput="this.value = this.value.replace(/[^0-9]+/g, '')">
+                                                                <input type="number" min="0" step="1" name="count" class="form-control" id="addProductsAmount" value="1" placeholder="Не заповнено..." oninput="this.value = this.value.replace(/[^0-9]+/g, '');calculateItemTotalSum();">
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-2">
                                                         <div class="form-group">
                                                             <div class="form-control-wrap">
                                                                 <div class="form-text-hint" style="top: 50%;">
                                                                     <span class="overline-title">UAH</span>
                                                                 </div>
-                                                                <label class="form-label" for="historyItemSum">Сума</label>
-                                                                <input type="number" class="form-control" value="0.00" min="0" step="any" id="historyItemSum" name="sum" oninput="this.value = this.value.replace(/[^0-9]+\\.?[0-9]*/g, '')">
+                                                                <label class="form-label" for="historyItemSum">Сума/шт.</label>
+                                                                <input type="number" class="form-control" value="0.00" min="0" step="any" id="historyItemSum" name="sum" oninput="this.value = this.value.replace(/[^0-9]+\\.?[0-9]*/g, '');calculateItemTotalSum();">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group">
+                                                            <div class="form-control-wrap">
+                                                                <div class="form-text-hint" style="top: 50%;">
+                                                                    <span class="overline-title">UAH</span>
+                                                                </div>
+                                                                <label class="form-label" for="historyItemTotalSum">Разом</label>
+                                                                <input type="number" class="form-control" value="0.00" min="0" step="any" id="historyItemTotalSum" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -396,6 +407,19 @@
             sum += parseFloat(data[3]);
         });
         $('#historySum').val(sum.toFixed(2));
+    }
+
+    function calculateItemTotalSum(){
+        let sum = 0.0;
+        let amount = parseInt($('#addProductsAmount').val());
+        let price = parseFloat($('#historyItemSum').val());
+        if (!isNaN(amount) && !isNaN(price)){
+            sum = amount*price;
+            console.log(sum);
+            $('#historyItemTotalSum').val(sum.toFixed(2));
+        }else {
+            $('#historyItemTotalSum').val('0.00');
+        }
     }
 
     $('#addHistoryBtn').on('click', function () {
