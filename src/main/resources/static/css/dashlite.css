@@ -14549,4 +14549,8 @@ table.nk-tb-covid.dataTable.dtr-inline.collapsed > tbody > tr:not(.child) > td:f
   white-space: initial;
 }
 
+.prewrap-word{
+  white-space: pre-wrap!important;
+}
+
 

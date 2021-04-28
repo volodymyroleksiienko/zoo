@@ -82,160 +82,112 @@
                                     <div class="card card-bordered card-preview">
 
                                         <div class="card-inner">
-                                            <form action="/admin/orders/orderReview" method="post">
+<!--                                            <form action="/admin/history/add" method="post" id="createHistoryForm">-->
                                             <div class="preview-block">
-                                                <span class="preview-title-lg overline-title">Замовник</span>
-                                                <input id="hiddenIdOfOrder" type="text" hidden="" name="id" th:value="${order.getId()}">
+<!--                                                <input id="hiddenIdOfOrder" type="text" hidden="" name="id" th:value="${order.getId()}">-->
                                                 <div class="row gy-4">
-                                                    <div class="col-sm-6">
+                                                    <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label class="form-label" for="customerNameSurname">Прізвище, ім'я</label>
+                                                            <label class="form-label" for="historySupplier">Постачальник</label>
                                                             <div class="form-control-wrap">
-                                                                <input type="text" class="form-control" th:value="${order?.getNameOfClient()}" id="customerNameSurname" placeholder="Не заповнено..." name="nameOfClient">
+                                                                <input type="text" id="historySupplier"  placeholder="Постачальник..." class="form-control" name="producer">
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6">
+                                                    <div class="col-md-3">
                                                         <div class="form-group">
-                                                            <label class="form-label" for="customerPhoneNumber">Телефон</label>
+                                                            <label class="form-label" for="historyDate">Дата</label>
                                                             <div class="form-control-wrap">
-                                                                <input type="text" id="customerPhoneNumber" th:value="${order?.getPhone()}" placeholder="Введіть номер телефону*" value="+380" class="form-control" name="phone">
+                                                                <input type="date" class="form-control" id="historyDate" name="date">
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <hr class="preview-hr">
-                                                <span class="preview-title-lg overline-title">Замовлення (загальне)</span>
-                                                <div class="row gy-4">
-                                                    <div class="col-sm-3">
-                                                        <div class="form-group">
-                                                            <label class="form-label" for="orderDate">Дата</label>
-                                                            <div class="form-control-wrap">
-                                                                <input type="date" class="form-control" th:value="${order?.getDate()}" id="orderDate" name="date">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
+                                                    <div class="col-md-3">
                                                         <div class="form-group">
                                                             <div class="form-control-wrap">
                                                                 <div class="form-text-hint" style="top: 50%;">
                                                                     <span class="overline-title">UAH</span>
                                                                 </div>
-                                                                <label class="form-label" for="orderPrice">Сума</label>
-                                                                <input type="number" class="form-control" th:value="${order?.getSumPrice()}" readonly id="orderPrice" name="orderPrice">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <div class="form-group">
-                                                            <label class="form-label" for="statusOfPayment">Статус оплати</label>
-                                                            <div class="form-control-wrap">
-                                                                <select class="form-select" id="statusOfPayment" name="payment" >
-                                                                    <option value="NOT_SUBMITTED" th:selected="${order.getPayment().toString().equals('NOT_SUBMITTED')}">NOT_SUBMITTED</option>
-                                                                    <option value="WAIT_FOR_PAYMENT" th:selected="${order.getPayment().toString().equals('WAIT_FOR_PAYMENT')}">WAIT_FOR_PAYMENT</option>
-                                                                    <option value="PAYMENT_BY_CASH" th:selected="${order.getPayment().toString().equals('PAYMENT_BY_CASH')}">PAYMENT_BY_CASH</option>
-                                                                    <option value="SUBMITTED" th:selected="${order.getPayment().toString().equals('SUBMITTED')}">SUBMITTED</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <div class="form-group">
-                                                            <label class="form-label" for="statusOfOrder">Статус замовлення</label>
-                                                            <div class="form-control-wrap">
-                                                                <select class="form-select" id="statusOfOrder" name="statusOfOrder" th:value="${order.getStatusOfOrder()}">
-                                                                    <option value="NEW" th:selected="${order.getStatusOfOrder().toString().equals('SUBMITTED')}">NEW</option>
-                                                                    <option value="DELIVERED" th:selected="${order.getStatusOfOrder().toString().equals('DELIVERED')}">DELIVERED</option>
-                                                                    <option value="FINISHED" th:selected="${order.getStatusOfOrder().toString().equals('FINISHED')}">FINISHED</option>
-                                                                    <option value="CANCELLED" th:selected="${order.getStatusOfOrder().toString().equals('CANCELLED')}">CANCELLED</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <div class="form-group">
-                                                            <div class="preview-block">
-                                                                <div class="custom-control custom-switch">
-                                                                    <input type="checkbox" th:checked="${order.isLvivDelivering()==true}"  class="custom-control-input" id="cityDelivery" onchange="changeDelivery('#cityDelivery', '#countryDelivery')" name="lvivDelivering">
-                                                                     <label class="custom-control-label" for="cityDelivery">Доставка по Львову</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <div class="form-group">
-                                                            <div class="preview-block">
-                                                                <div class="custom-control custom-switch">
-                                                                    <input type="checkbox" th:checked="${order.isNovaPoshtaDelivering()==true}"  class="custom-control-input" id="countryDelivery" onchange="changeDelivery('#countryDelivery', '#cityDelivery')" name="novaPoshtaDelivering">
-                                                                    <label class="custom-control-label" for="countryDelivery">Нова Пошта</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <div class="form-group">
-                                                            <label class="form-label" for="deliveryAddress">Адреса доставки</label>
-                                                            <div class="form-control-wrap">
-                                                                <textarea class="form-control" th:text="${order?.getDescription()?.trim()}" id="deliveryAddress" name="description"></textarea>
+                                                                <label class="form-label" for="historySum">Загальна сума</label>
+                                                                <input type="number" class="form-control"  value="0.00" readonly id="historySum" name="sum">
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <hr class="preview-hr">
-                                                <span class="preview-title-lg overline-title">Замовлення (товари)</span>
+                                                <span class="preview-title-lg overline-title">Товари</span>
+                                                <input type="number" id="searchProductId" name="packId" hidden="" required="required">
+                                                <div class="row gy-4 align-center">
+                                                    <div class="col-md-6">
+                                                        <div>
+                                                            <label class="form-label">Пошук</label>
+                                                            <div class="form-control-wrap">
+                                                                <input type="search" class="form-control" id="searchProduct" autocomplete="off" onfocusout="hideResults()" oninput="setSearchDelay()" placeholder="Почніть введення...">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div id="searchResults">
+                                                                <table id="searchTable" class="nk-tb-list nk-tb-ulist table-stripped" data-auto-responsive="false">
+                                                                    <thead>
+                                                                    <tr class="nk-tb-item nk-tb-head">
+                                                                        <th class="nk-tb-col tb-col-hide"></th>
+                                                                        <th class="nk-tb-col tb-col-hide"></th>
+                                                                        <th class="nk-tb-col tb-col-hide"></th>
+                                                                        <th class="nk-tb-col tb-col-hide"></th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
 
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <div class="form-control-wrap">
+                                                                <div class="form-text-hint" style="top: 50%;">
+                                                                    <span class="overline-title">ШТ</span>
+                                                                </div>
+                                                                <label class="form-label" for="addProductsAmount">Кількість</label>
+                                                                <input type="number" min="0" step="1" name="count" class="form-control" id="addProductsAmount" value="1" placeholder="Не заповнено..." oninput="this.value = this.value.replace(/[^0-9]+/g, '')">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <div class="form-control-wrap">
+                                                                <div class="form-text-hint" style="top: 50%;">
+                                                                    <span class="overline-title">UAH</span>
+                                                                </div>
+                                                                <label class="form-label" for="historyItemSum">Сума</label>
+                                                                <input type="number" class="form-control" value="0.00" min="0" step="any" id="historyItemSum" name="sum" oninput="this.value = this.value.replace(/[^0-9]+\\.?[0-9]*/g, '')">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <!-- Table -->
                                                 <table class="nk-tb-list nk-tb-ulist table-stripped" id="positionsTable" style="margin-top: 2rem;" data-auto-responsive="false">
                                                     <thead>
                                                         <tr class="nk-tb-item nk-tb-head">
-                                                            <td class="nk-tb-col tb-col-lg">Зображення</td>
-                                                            <td class="nk-tb-col">Назва</td>
-                                                            <td class="nk-tb-col tb-col-lg">Ціна</td>
-                                                            <td class="nk-tb-col">Кількість</td>
+                                                            <td class="nk-tb-col" style="width: 50%">Товар</td>
                                                             <td class="nk-tb-col tb-col-hide">ID</td>
+                                                            <td class="nk-tb-col">Кількість</td>
+                                                            <td class="nk-tb-col tb-col-lg">Сума</td>
                                                             <th class="nk-tb-col"><span class="sub-text" style="text-align: right; padding-right: 2rem;">Дії</span></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr class="nk-tb-item nk-tb-head" th:each="detail:${order.getOrderDetails()}" th:id="${detail?.getId()}">
-                                                            <th class="nk-tb-col tb-col-lg" style="width: 20%;">
-                                                                <img th:src="'/shop/getImgByProductId/'+${detail?.getPackageType()?.getProduct()?.getId()}" >
-                                                            </th>
-                                                            <td class="nk-tb-col" th:text="${detail?.getPackageType()?.getProduct()?.getName()}" style="width:50%; white-space:initial;">Назва</td>
-                                                            <td class="nk-tb-col tb-col-lg" th:text="${detail?.getCount()*detail?.getPackageType()?.getNewPrice().doubleValue()}" th:if="${detail?.getPackageType().isOnSale()}">Ціна</td>
-                                                            <td class="nk-tb-col tb-col-lg" th:text="${detail?.getCount()*detail?.getPackageType()?.getPrice().doubleValue()}" th:if="${!detail?.getPackageType().isOnSale()}">Ціна</td>
-                                                            <td class="nk-tb-col" th:text="${detail?.getCount()}">Кількість</td>
-                                                            <td class="nk-tb-col tb-col-hide" th:text="${detail?.getId()}">ID</td>
-                                                            <td class='nk-tb-col nk-tb-col-tools'>
-                                                                <ul class="nk-tb-actions gx-1">
-                                                                    <li>
-                                                                        <div class="drodown">
-                                                                            <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-                                                                            <div class="dropdown-menu dropdown-menu-right\">
-                                                                                <ul class="link-list-opt no-bdr">
-                                                                                    <li><a data-toggle="modal" onclick="showEditItemModal(this)"><em class="icon ni ni-edit-alt"></em><span>Редагувати</span></a></li>
-                                                                                    <li><a data-toggle="modal" onclick="showConfirmationDeleteItemModal(this)" ><em class="icon ni ni-trash"></em><span>Видалити</span></a></li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-                                                                    </li>
-                                                                </ul>
-                                                            </td>
-                                                        </tr>
+
                                                     </tbody>
                                                 </table>
-                                                <div class="row mt-3 align-center">
-                                                    <button type="button" title="Добавити позицію" id="addPosition" class="btn btn-icon btn-lg btn-primary float-right" style="margin-left: auto; margin-right: 0.75rem;">
-                                                        <em class="icon ni ni-grid-add-c"></em>
-                                                    </button>
-                                                </div>
                                                 <!-- Table -->
                                                 <div class="form-group" style="margin-top: 1rem;">
-                                                    <button type="submit" id="addProductBtn" class="btn btn-outline-primary">Зберегти</button>
-                                                    <a href="/admin/orders" type="button" class="btn btn-outline-danger">Скасувати</a>
+                                                    <button type="button" id="addHistoryBtn" class="btn btn-outline-primary">Зберегти</button>
+                                                    <a href="/admin/history" type="button" class="btn btn-outline-danger">Скасувати</a>
                                                 </div>
                                             </div>
-                                            </form>
+<!--                                            </form>-->
                                         </div>
                                     </div><!-- .card-preview -->
                                 </div><!-- .nk-block -->
@@ -246,66 +198,6 @@
             </div>
 
 
-            <!-- Change item start -->
-            <div class="modal fade" tabindex="-1" role="dialog" id="addProductModal" aria-modal="true">
-                <div class="modal-dialog modal-xl" role="document">
-                    <div class="modal-content">
-                        <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
-                        <div class="modal-body modal-body-md">
-                            <form action="/admin/orders/addDetail" method="post">
-                                <h4 class="title">Добавити товар</h4>
-                                <br>
-                                <input type="text"  hidden="" name="orderId" th:value="${order.getId()}">
-                                <input type="number" id="searchProductId" name="packId" hidden="" required="required">
-                                <div class="row gy-4 align-center">
-                                    <div class="col-md-9">
-                                        <div>
-                                            <label class="form-label">Пошук</label>
-                                            <div class="form-control-wrap">
-                                                <input type="search" class="form-control" id="searchProduct" autocomplete="off" onfocusout="hideResults()" oninput="setSearchDelay()" placeholder="Почніть введення...">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div id="searchResults">
-                                                <table id="searchTable" class="nk-tb-list nk-tb-ulist table-stripped" data-auto-responsive="false">
-                                                    <thead>
-                                                        <tr class="nk-tb-item nk-tb-head">
-                                                            <th class="nk-tb-col tb-col-hide"></th>
-                                                            <th class="nk-tb-col tb-col-hide"></th>
-                                                            <th class="nk-tb-col tb-col-hide"></th>
-                                                            <th class="nk-tb-col tb-col-hide"></th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <div class="form-control-wrap">
-                                                <div class="form-text-hint" style="top: 50%;">
-                                                    <span class="overline-title">ШТ</span>
-                                                </div>
-                                                <label class="form-label" for="addProductsAmount">Кількість</label>
-                                                <input type="number" min="0" step="1" name="count" class="form-control" id="addProductsAmount" value="1" placeholder="Не заповнено...">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-12">
-                                        <button type="submit" class="btn btn-outline-primary">Підтвердити</button>
-                                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Change item end -->
-
             <!-- Edit item start -->
             <div class="modal fade" tabindex="-1" role="dialog" id="editProductModal" aria-modal="true">
                 <div class="modal-dialog modal-md" role="document">
@@ -313,23 +205,38 @@
                         <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
                         <div class="modal-body modal-body-md">
                             <form action="/admin/orders/editDetail" method="post">
-                                <h4 class="title">Змінити кількість</h4>
+                                <h4 class="title">Редагування</h4>
                                 <br>
-                                <input type="number" id="selectedForEditItem" hidden="" name="id">
-                                <input type="text" hidden="" th:value="${'/admin/orders/orderReview/'+order.getId()}" name="currentUrl">
+                                <input type="number" id="selectedForEditItem" hidden="">
+<!--                                <input type="text" hidden="" th:value="${'/admin/orders/orderReview/'+order.getId()}" name="currentUrl">-->
 
-                                <div class="form-group">
-                                    <div class="form-control-wrap">
-                                        <div class="form-text-hint" style="top: 50%;">
-                                            <span class="overline-title">ШТ</span>
+                                <div class="row align-center" style="margin-bottom: 2rem;">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="form-control-wrap">
+                                                <div class="form-text-hint" style="top: 50%;">
+                                                    <span class="overline-title">ШТ</span>
+                                                </div>
+                                                <label class="form-label" for="editProductsAmount">Кількість</label>
+                                                <input type="number" min="0" step="1" class="form-control" id="editProductsAmount" placeholder="Не заповнено..." oninput="this.value = this.value.replace(/[^0-9]+/g, '')">
+                                            </div>
                                         </div>
-                                        <label class="form-label" for="editProductsAmount">Кількість</label>
-                                        <input type="number" min="0" step="1" name="count" class="form-control" id="editProductsAmount" placeholder="Не заповнено...">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="form-control-wrap">
+                                                <div class="form-text-hint" style="top: 50%;">
+                                                    <span class="overline-title">UAH</span>
+                                                </div>
+                                                <label class="form-label" for="editProductsSum">Сума</label>
+                                                <input type="number" min="0" step="any" class="form-control" id="editProductsSum" placeholder="Не заповнено..." oninput="this.value = this.value.replace(/[^0-9]+\\.?[0-9]*/g, '')">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-outline-primary">Підтвердити</button>
+                                    <button type="button" onclick="saveChanges()" class="btn btn-outline-primary">Підтвердити</button>
                                     <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
                                 </div>
                             </form>
@@ -339,28 +246,12 @@
             </div>
             <!-- Edit item end -->
 
-            <!-- Delete item start -->
-            <div class="modal fade" tabindex="-1" role="dialog" id="deleteProductModal" aria-modal="true">
-                <div class="modal-dialog modal-md" role="document">
-                    <div class="modal-content">
-                        <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
-                        <div class="modal-body modal-body-md">
-                            <form action="/admin/orders/deleteDetail" method="post">
-                                <h4 class="title">Видалення позиції</h4>
-                                <br>
-                                <input type="number" id="selectedForDeleteItem" hidden="" name="id">
-                                <input type="text" hidden="" th:value="${'/admin/orders/orderReview/'+order.getId()}" name="currentUrl">
-                                <p style="margin-bottom: 2rem;">Ви впевнені, що хочете видалити позицію? Підтвердивши дію, Ви не зможете повернутися до попереднього стану.</p>
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-outline-primary">Підтвердити</button>
-                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+            <div class="alert alert-pro alert-danger" id="erorAlert" style="display: none; z-index: 9999; position: fixed; top: 12vh; margin: 0 1rem;">
+                <div class="alert-text">
+                    <h6>Помилка!</h6>
+                    <p id="errorMessage"></p>
                 </div>
             </div>
-            <!-- Delete item end -->
 
             <!-- content @e -->
             <!-- footer @s -->
@@ -379,6 +270,14 @@
 
 <!--<script th:src="@{/js/example-sweetalert.js}"></script>-->
 <script>
+    $(document).ready(function() {
+        $('#customerPhoneNumber').inputmask('+(999)-999-999-999');
+
+        document.querySelector("#historyDate").valueAsDate = new Date();
+        document.getElementById("year").innerHTML = new Date().getFullYear();
+
+    });//ready() end
+
     let t = $('#positionsTable').DataTable({
         "autoWidth": false,
         "searching": false,
@@ -396,109 +295,176 @@
         "bSort" : false,
     });
 
+    let btn = '<ul class="nk-tb-actions gx-1">\n' +
+'                                                                    <li>\n' +
+'                                                                        <div class="drodown">\n' +
+'                                                                            <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>\n' +
+'                                                                            <div class="dropdown-menu dropdown-menu-right\\">\n' +
+'                                                                                <ul class="link-list-opt no-bdr">\n' +
+'                                                                                    <li><a data-toggle="modal" onclick="showEditItemModal(this)"><em class="icon ni ni-edit-alt"></em><span>Редагувати</span></a></li>\n' +
+'                                                                                    <li><a data-toggle="modal" onclick="removePosition(this)" ><em class="icon ni ni-trash"></em><span>Видалити</span></a></li>\n' +
+'                                                                                </ul>\n' +
+'                                                                            </div>\n' +
+'                                                                        </div>\n' +
+'                                                                    </li>\n' +
+'                                                                </ul>';
+
     $('#searchTable tbody').on('click', 'tr', function () {
         var data = search.row( this ).data();
-        $('#searchProduct').val(data[0]);
+        $('#searchProduct').val(data[0]+" ("+data[1].trim()+")");
         $('#searchProductId').val(data[3]);
         console.log('name: '+  $('#searchProduct').val());
         console.log('prID: '+  $('#searchProductId').val());
+        $('#addProductsAmount').val('');
+        $('#addProductsAmount').focus();
     } );
 
-    $(document).ready(function() {
-        $('#customerPhoneNumber').inputmask('+(999)-999-999-999');
+    $('#addProductsAmount').on('keyup', function(event){
+        if(event.keyCode === 13){
+            $('#historyItemSum').val('');
+            $('#historyItemSum').focus();
+            event.preventDefault();
+        }
+    });
 
-        $('#addPosition').on( 'click', function () {
-            $('#searchProductId').val('');
-            $('#searchProduct').val('');
-            $('#addProductModal').modal('show');
-        });// add position end
+    $('#historyItemSum').on('keyup', function(event){
+        if(event.keyCode === 13){
+            let prodName = $('#searchProduct').val().trim();
+            let prodId   = parseInt($('#searchProductId').val());
+            let amount =   $('#addProductsAmount').val();
+            let sum =      $('#historyItemSum').val();
 
+            if (prodName===''){
+                $('#errorMessage').text('Виберіть товар зі списку.');
+                $('#erorAlert').show();
+                $('#searchProduct').val('');
+                $('#searchProductId').val('');
+                $('#searchProduct').focus();
+                setTimeout(function() { $('#erorAlert').hide(); }, 5000);
+                return;
+            }else if (isNaN(prodId)){
+                console.log("prID: "+prodId);
+                $('#errorMessage').text('Некоректно вибраний товар.');
+                $('#erorAlert').show();
+                $('#searchProduct').val('');
+                $('#searchProductId').val('');
+                $('#searchProduct').focus();
+                setTimeout(function() { $('#erorAlert').hide(); }, 5000);
+                return;
+            }else if (amount === '' || parseInt(amount)<=0){
+                $('#errorMessage').text('Вкажіть кількість товарів.');
+                $('#erorAlert').show();
+                $('#addProductsAmount').val('');
+                $('#addProductsAmount').focus();
+                setTimeout(function() { $('#erorAlert').hide(); }, 5000);
+                return;
+            }else if (sum === '' || parseFloat(sum)<=0.0){
+                $('#errorMessage').text('Заповніть суму коректно.');
+                $('#erorAlert').show();
+                $('#historyItemSum').val('');
+                $('#historyItemSum').focus();
+                setTimeout(function() { $('#erorAlert').hide(); }, 5000);
+                return;
+            }else {
+                let arrayData = [prodName, prodId, amount, parseFloat(sum).toFixed(2)+' UAH', btn];
 
+                let rowNode = t.row.add(arrayData).draw(false).node();
 
+                $(rowNode).addClass('nk-tb-item');
 
-        $('#addProductBtn').on( 'click', function () {
-            objArr = [];
-            let form = new FormData();
-            form.append('img1', $('#productImage-1')[0].files[0]);
-            form.append('img2', $('#productImage-2')[0].files[0]);
-            form.append('img3', $('#productImage-3')[0].files[0]);
-            form.append('img4', $('#productImage-4')[0].files[0]);
+                $(rowNode).find('td').eq(0).addClass('nk-tb-col prewrap-word');
+                $(rowNode).find('td').eq(1).addClass('nk-tb-col tb-col-hide');
+                $(rowNode).find('td').eq(2).addClass('nk-tb-col');
+                $(rowNode).find('td').eq(3).addClass('nk-tb-col tb-col-lg');
+                $(rowNode).find('td').eq(4).addClass('nk-tb-col nk-tb-col-tools');
 
-            let producer =          $('#distributorsList').val();
-            console.log("producer: "+producer);
-            let name =              $('#productName').val().trim();
-            let category =          $('#mainCategories').val();
-            console.log("cat: "+category);
-            let subCategory =       $('#subCategories').val();
-            console.log("sub: "+subCategory);
-            let description =       $('#productDescription').val().trim();
-            let detailedDescr =     tinyMCE.get('productDetailedDescription').getContent();
-            let dailyDose =         tinyMCE.get('productProportionsDescription').getContent();
-            let distributorDetails =tinyMCE.get('productProducerDescription').getContent();
+                $('#historyItemSum').val('0.00');
+                $('#addProductsAmount').val('1');
+                $('#searchProductId').val('');
+                $('#searchProduct').val('').focus();
 
-            console.log("detailed descr: "+ detailedDescr);
-            console.log("daily dose: "+ dailyDose);
-            console.log("producer descr: "+ distributorDetails);
+                calculateTotalSum();
+                event.preventDefault();
+            }
+        }
+    });
 
+    function calculateTotalSum(){
+        let sum = 0.0;
+        t.rows().every( function ( rowIdx, tableLoop, rowLoop ) {
+            let data = this.data();
+            sum += parseFloat(data[3]);
+        });
+        $('#historySum').val(sum.toFixed(2));
+    }
 
-            let product = new Product();
-            product.id = $('#hiddenIdOfProduct').val();
-            product.name = name;
-            product.shortDescription = description;
-            product.details = detailedDescr;
-            product.dailyNorm = dailyDose;
-            product.producerDetails = distributorDetails;
-            product.producer = producer;
+    $('#addHistoryBtn').on('click', function () {
+        // $('#createHistoryForm').submit();
+        if ($('#historySupplier').val()===''){
+            $('#errorMessage').text('Заповніть дані постачальника.');
+            $('#erorAlert').show();
+            $('#historySupplier').focus();
+            setTimeout(function() { $('#erorAlert').hide(); }, 5000);
+            return;
+        }else if ($('#historyDate').val()===''){
+            $('#historyDate').focus();
+            $('#errorMessage').text('Заповніть дату приходу товару.');
+            $('#erorAlert').show();
+            setTimeout(function() { $('#erorAlert').hide(); }, 5000);
+            return;
+        }else if (!t.data().any()){
+            $('#searchProduct').focus();
+            $('#errorMessage').text('В таблиці відсутні товари.');
+            $('#erorAlert').show();
+            setTimeout(function() { $('#erorAlert').hide(); }, 5000);
+            return;
+        }else {
+            // alert('AJAX');
+            let supplier = $('#historySupplier').val().trim();
+            let date = $('#historyDate').val();
 
-
-            t.rows().every( function ( rowIdx, tableLoop, rowLoop ) {
-                let data = this.data();
-                let obj = new PackageType();
-
-                console.log(this.data());
-
-                obj.packType = data[0];
-                obj.packSize = data[1];
-                obj.countOfProduct = data[2];
-                obj.statusOfEntity = data[3];
-                obj.price = data[4];
-                obj.onSale = data[5];
-                obj.newPrice = data[6];
-                obj.discount = data[7];
-
-                obj.wholeSaleStatus = data[8];
-                obj.wholeSalePrice = data[9];
-                obj.wholeSaleOnSale = data[10];
-                obj.wholeSaleNewPrice = data[11];
-                obj.wholeSaleDiscount = data[12];
-
-                obj.id = data[13];
-
-                objArr.push(obj);
-                console.log("iter "+obj);
-            });//for each all rows
-            form.append("packageTypes",JSON.stringify(objArr));
-            form.append("product",JSON.stringify(product));
-            form.append("category",JSON.stringify(category));
-            form.append("subCategory",JSON.stringify(subCategory));
             $.ajax({
                 method: "post",
-                url: "/admin/products/edit",
-                enctype: 'multipart/form-data',
-                processData : false,
-                contentType : false,
-                data: form,
+                url: "/admin/history/add",
+                contextType: "application/json",
+                data: {
+                    producer: supplier,
+                    date: date,
+                },
                 success: function () {
-                    alert("Success!");
-                    window.location.href = '/admin/products';
+                    window.location.href = '/admin/history';
                 },
                 error: function () {
-                    alert("Error!");
+                    console.log("Error!");
                 }
             }); //ajax end
-        });//button click end
-    });//ready() end
+        }
+    })
 
+    // $("#createHistoryForm").submit(function( event ) {
+    //     if ($('#historySupplier').val()===''){
+    //         $('#errorMessage').text('Заповніть дані поставщика.');
+    //         $('#erorAlert').show();
+    //         $('#historySupplier').focus();
+    //         event.preventDefault();
+    //         setTimeout(function() { $('#erorAlert').hide(); }, 5000);
+    //         return;
+    //     }else if ($('#historyDate').val()===''){
+    //         $('#historyDate').focus();
+    //         $('#errorMessage').text('Заповніть дату.');
+    //         $('#erorAlert').show();
+    //         event.preventDefault();
+    //         setTimeout(function() { $('#erorAlert').hide(); }, 5000);
+    //         return;
+    //     }else if (!t.data().any()){
+    //         $('#searchProduct').focus();
+    //         $('#errorMessage').text('В таблиці відсутні товари.');
+    //         $('#erorAlert').show();
+    //         setTimeout(function() { $('#erorAlert').hide(); }, 5000);
+    //         event.preventDefault();
+    //         return;
+    //     }
+    // });
 
 
     function searchProduct(){
@@ -540,6 +506,7 @@
         }
     }
 
+
     function setSearchDelay() {
         this.clearTime()
         this.delaySearch = setTimeout(() => {
@@ -554,41 +521,43 @@
     }
 
     function hideResults() {
-        setTimeout(function(){$('#searchResults').hide()}, 1000);
-    }
-
-    function changeDelivery(current, next) {
-        console.log("c:"+current+"; n:"+next);
-        if ($(current).is(':checked')){
-            console.log("act");
-            $(next).prop("checked", false);
-            $(current).prop('checked', true);
-        }else{
-            console.log("not");
-            $(next).prop('checked', true);
-            $(current).prop('checked', false);
-        }
+        setTimeout(function(){$('#searchResults').hide()}, 300);
     }
 
 
     function showEditItemModal(btnObj) {
         let trObj = btnObj.closest("tbody tr");
-        $('#selectedForEditItem').val(trObj.id);
         let row = t.row(trObj).data();
-        let amount =  row[3];
+        $('#selectedForEditItem').val(t.row(trObj).index());
+        let amount =  row[2];
+        let sum = row[3];
         console.log(trObj.id);
 
         $('#editProductsAmount').val(amount);
+        $('#editProductsSum').val(parseFloat(sum));
 
         $('#editProductModal').modal('show');
     }//show edit modal
 
+    function saveChanges() {
+        let index =  parseInt($('#selectedForEditItem').val());
+        let amount = parseInt( $('#editProductsAmount').val());
+        let sum = parseFloat( $('#editProductsSum').val());
 
-    function showConfirmationDeleteItemModal(btnObj){
+        t.cell(index,2).data(amount);
+        t.cell(index,3).data(sum.toFixed(2)+' UAH');
+        t.draw();
+
+        calculateTotalSum();
+        $('#editProductModal').modal('hide');
+    }
+
+
+    function removePosition(btnObj){
         let trObj = btnObj.closest("tbody tr");
-        $('#selectedForDeleteItem').val(trObj.id);
         console.log(trObj.id);
-        $('#deleteProductModal').modal('show');
+        t.row(trObj).remove().draw();
+        calculateTotalSum();
     }
 </script>
 </body>

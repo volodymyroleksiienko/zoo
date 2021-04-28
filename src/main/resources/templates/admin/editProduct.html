@@ -412,7 +412,7 @@
                                                         <td class="nk-tb-col tb-col-lg">Пак.</td>
                                                         <td class="nk-tb-col">Одиниць</td>
                                                         <td class="nk-tb-col tb-col-lg">На складі</td>
-                                                        <td class="nk-tb-col tb-col-hide">Активний</td>
+                                                        <td class="nk-tb-col ">Активний</td>
                                                         <td class="nk-tb-col">Ціна</td>
                                                         <td class="nk-tb-col tb-col-hide">Акційний</td>
                                                         <td class="nk-tb-col tb-col-lg">Акц. ціна</td>
@@ -434,7 +434,7 @@
                                                         <td class="nk-tb-col tb-col-lg" th:text="${type?.getPackType()}">Тип пакування</td>
                                                         <td class="nk-tb-col" th:text="${type?.getPackSize()}">Кількість</td>
                                                         <td class="nk-tb-col tb-col-lg" th:text="${type?.getCountOfProduct()}">К-сть на складі</td>
-                                                        <td class="nk-tb-col tb-col-hide" th:text="${(type?.getStatusOfEntity().name().equals('ACTIVE'))?'true':'false'}">Активний</td>
+                                                        <td class="nk-tb-col " th:text="${(type?.getStatusOfEntity().name().equals('ACTIVE'))?'true':'false'}">Активний</td>
                                                         <td class="nk-tb-col" th:text="${type?.getPrice()}">Ціна</td>
                                                         <td class="nk-tb-col tb-col-hide" th:text="${type?.isOnSale()}">Акційний товар</td>
                                                         <td class="nk-tb-col tb-col-lg" th:text="${type?.getNewPrice()}">Акційна ціна</td>
@@ -1053,12 +1053,9 @@
             form.append('img4', $('#productImage-4')[0].files[0]);
 
             let producer =          $('#distributorsList').val();
-            console.log("producer: "+producer);
             let name =              $('#productName').val().trim();
             let category =          $('#mainCategories').val();
-            console.log("cat: "+category);
             let subCategory =       $('#subCategories').val();
-            console.log("sub: "+subCategory);
             let description =       $('#productDescription').val().trim();
             let detailedDescr =     tinyMCE.get('productDetailedDescription').getContent();
             let dailyDose =         tinyMCE.get('productProportionsDescription').getContent();
@@ -1158,8 +1155,6 @@
                     $('#successMessage').text('Зміни успішно збережено.');
                     $('#successAlert').show();
                     setTimeout(function() { $('#successAlert').hide(); }, 5000);
-                    // alert("Success!");
-                    // window.location.href = '/admin/products';
                 },
                 error: function () {
                     alert("Error!");
@@ -1203,6 +1198,7 @@
         let productPrice =              row[5];
         let productPromotionalPrice =   row[7];
         let promotedProduct =           row[6];
+        console.log(typeof promotedProduct);
         let discountVal =               row[8];
 
         let wholeSaleProduct =                          row[9];
@@ -1247,10 +1243,12 @@
             }
         }
 
-        if (activeProductItem==="true"){
-            $('#editActiveProductItem').attr("checked", true);
-        }else if (activeProductItem==="false") {
-            $('#editActiveProductItem').attr("checked", false);
+        if (activeProductItem === "true"){
+            $('#editActiveProductItem').prop('checked', true).change();
+            console.log("active: "+activeProductItem);
+        }else if (activeProductItem === "false") {
+            $('#editActiveProductItem').prop('checked', false).change();
+            console.log("active: "+activeProductItem);
         }
 
         $('#editItemId')                    .val(itemId);
@@ -1275,16 +1273,16 @@
         let packageType =               $('#editPackageType').val().trim();
         let packSize =                  $('#editPackSize').val().trim();
         let inStock =                   $('#editInStock').val().trim();
-        let activeProductItem =         $('#editActiveProductItem').is(":checked");
+        let activeProductItem =         $('#editActiveProductItem').is(":checked").toString();
         let productPrice =              $('#editProductPrice').val().trim();
         let productPromotionalPrice =   $('#editProductPromotionalPrice').val().trim();
-        let promotedProduct =           $('#editPromotedProduct').is(":checked");
+        let promotedProduct =           $('#editPromotedProduct').is(":checked").toString();
         let discountVal =               $('#editProductPromotionalPricePercentage').val().trim();
 
-        let wholeSale =                          $('#editWholeSaleProduct').is(":checked");
+        let wholeSale =                          $('#editWholeSaleProduct').is(":checked").toString();
         let wholeSaleProductPrice =              $('#editWholeSaleProductPrice').val().trim();
         let wholeSaleProductPromotionalPrice =   $('#editWholeSaleProductPromotionalPrice').val().trim();
-        let wholeSalePromotedProduct =           $('#editWholeSalePromotedProduct').is(":checked");
+        let wholeSalePromotedProduct =           $('#editWholeSalePromotedProduct').is(":checked").toString();
         let wholeSaleDiscountVal =               $('#editWholeSaleProductPromotionalPricePercentage').val().trim();
 
         let id =                         $('#editItemId').val().trim();
@@ -1302,8 +1300,8 @@
     function showConfirmationDeleteItemModal(btnObj){
         let trObj = btnObj.closest("tbody tr");
         $('#deleteRowIndex').val(t.row(trObj).index());
-        $('#selectedForDeleteItem').val(t.row(trObj).data()[13]);
-        console.log("DTid: "+t.row(trObj).index()+";rowID: "+t.row(trObj).data()[13]);
+        $('#selectedForDeleteItem').val(t.row(trObj).data()[14]);
+        console.log("DTid: "+t.row(trObj).index()+";rowID: "+t.row(trObj).data()[14]);
         $('#deleteProductModal').modal('show');
     }
 

@@ -106,9 +106,8 @@
                                                                         <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                                                         <div class="dropdown-menu dropdown-menu-right">
                                                                             <ul class="link-list-opt no-bdr">
-                                                                                <li><a data-toggle="modal" onclick="orderQuickView(this)"><em class="icon ni ni-eye"></em><span>Швидкий перегляд</span></a></li>
-                                                                                <li><a th:href="@{|/admin/orders/orderReview/${order?.getId()}|}"><em class="icon ni ni-edit-alt"></em><span>Деталі замовлення</span></a></li>
-                                                                                <li><a data-toggle="modal" onclick="showConfirmationDeleteProductModal(this)" ><em class="icon ni ni-archive"></em><span>Архівувати</span></a></li>
+                                                                                <li><a th:href="@{|/admin/history/historyReview/${h?.getId()}|}"><em class="icon ni ni-edit-alt"></em><span>Деталі</span></a></li>
+                                                                                <li><a data-toggle="modal" onclick="showConfirmationDeleteModal(this)" ><em class="icon ni ni-trash"></em><span>Видалити</span></a></li>
                                                                             </ul>
                                                                         </div>
                                                                     </div>
@@ -128,178 +127,10 @@
                 </div>
             </div>
 
-            <a href="#" data-toggle="modal" data-target="#addOrderModal"  title="Створити замовлення" class="btn btn-icon btn-lg btn-primary float-right" style="position: fixed; bottom: 25px; right: 25px; z-index: 1000;">
+            <a href="history/add"  title="Добавити позицію" class="btn btn-icon btn-lg btn-primary float-right" style="position: fixed; bottom: 25px; right: 25px; z-index: 1000;">
                 <em class="icon ni ni-grid-add-c"></em>
             </a>
 
-            <!-- Change status start -->
-            <div class="modal fade" tabindex="-1" role="dialog" id="addOrderModal" aria-modal="true">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
-                        <div class="modal-body modal-body-md">
-                            <div class="preview-block">
-                                <form action="/admin/orders/addOrder" method="post">
-                                    <span class="preview-title-lg overline-title">Замовник</span>
-                                    <div class="row gy-4">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label class="form-label" for="customerNameSurname">Прізвище, ім'я</label>
-                                                <div class="form-control-wrap">
-                                                    <input type="text" class="form-control" id="customerNameSurname" placeholder="Не заповнено..." name="nameOfClient">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label class="form-label" for="customerPhoneNumber">Телефон</label>
-                                                <div class="form-control-wrap">
-                                                    <input type="text" id="customerPhoneNumber" placeholder="Введіть номер телефону*" value="+380" class="form-control" name="phone">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr class="preview-hr">
-                                    <span class="preview-title-lg overline-title">Замовлення (загальне)</span>
-                                    <div class="row gy-4">
-                                        <div class="col-lg-4">
-                                            <div class="form-group">
-                                                <label class="form-label" for="orderDate">Дата</label>
-                                                <div class="form-control-wrap">
-                                                    <input type="date" class="form-control" id="orderDate" name="date">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="form-group">
-                                                <label class="form-label" for="statusOfPaymentAdd">Статус оплати</label>
-                                                <div class="form-control-wrap">
-                                                    <select class="form-select" id="statusOfPaymentAdd" name="payment" >
-                                                        <option value="NOT_SUBMITTED">NOT_SUBMITTED</option>
-                                                        <option value="WAIT_FOR_PAYMENT">WAIT_FOR_PAYMENT</option>
-                                                        <option value="PAYMENT_BY_CASH">PAYMENT_BY_CASH</option>
-                                                        <option value="SUBMITTED">SUBMITTED</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="form-group">
-                                                <label class="form-label" for="statusOfOrderAdd">Статус замовлення</label>
-                                                <div class="form-control-wrap">
-                                                    <select class="form-select" id="statusOfOrderAdd" name="statusOfOrder">
-                                                        <option value="NEW">NEW</option>
-                                                        <option value="DELIVERED">DELIVERED</option>
-                                                        <option value="FINISHED">FINISHED</option>
-                                                        <option value="CANCELLED">CANCELLED</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <div class="preview-block">
-                                                    <div class="custom-control custom-switch">
-                                                        <input type="checkbox" checked class="custom-control-input" id="cityDelivery" onchange="changeDelivery('#cityDelivery', '#countryDelivery')" name="lvivDelivering">
-                                                        <label class="custom-control-label" for="cityDelivery">Доставка по Львову</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <div class="preview-block">
-                                                    <div class="custom-control custom-switch">
-                                                        <input type="checkbox" class="custom-control-input" id="countryDelivery" onchange="changeDelivery('#countryDelivery', '#cityDelivery')" name="novaPoshtaDelivering">
-                                                        <label class="custom-control-label" for="countryDelivery">Нова Пошта</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label class="form-label" for="deliveryAddress">Адреса доставки</label>
-                                                <div class="form-control-wrap">
-                                                    <textarea class="form-control" id="deliveryAddress" name="description"></textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group" style="margin-top: 1rem;">
-                                        <button type="submit" class="btn btn-outline-primary">Добавити</button>
-                                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Change status end -->
-
-            <!-- Change status start -->
-            <div class="modal fade" tabindex="-1" role="dialog" id="quickViewModal" aria-modal="true">
-                <div class="modal-dialog modal-md" role="document">
-                    <div class="modal-content">
-                        <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
-                        <div class="modal-body modal-body-md">
-                            <h4 class="title">Замовлення від:</h4>
-                            <h5 class="title" id="buyerNameModal" style="width: 90%;"></h5>
-                            <a href="#" id="phoneNumberRefModal" class="btn btn-dim btn-primary" style="margin: 0.5rem 0 1.5rem;">
-                                <em class="icon ni ni-call"></em>
-                                <span id="phoneNumberModal">Button Regular</span>
-                            </a>
-                            <h5 class="fw-medium">
-                                Дата замовлення:
-                                <small class="text-soft" id="orderDateModal"></small>
-                            </h5>
-                            <h5 class="fw-medium">
-                                Сума замовлення:
-                                <small class="text-soft" id="orderAmountModal"></small>
-                            </h5>
-                            <h5 class="fw-medium">
-                                Адреса доставки:
-                                <small class="text-soft" id="orderDeliveryAddressModal"></small>
-                            </h5>
-                            <br>
-                            <form action="/admin/orders/modalUpdate" method="post">
-                                <input type="text" id="selectedForChangingStatusItem" hidden="" name="id">
-                                <div class="row align-center" style="    margin: 0 0 2rem;">
-                                    <div class="col-6" style="padding: 0 1em 0 0;">
-                                        <label class="form-label" for="statusOfPayment">Статус оплати</label>
-                                        <div class="form-control-wrap">
-                                            <select class="form-select" id="statusOfPayment" name="statusOfPayment">
-                                                <option value="NOT_SUBMITTED">NOT_SUBMITTED</option>
-                                                <option value="WAIT_FOR_PAYMENT">WAIT_FOR_PAYMENT</option>
-                                                <option value="PAYMENT_BY_CASH">PAYMENT_BY_CASH</option>
-                                                <option value="SUBMITTED">SUBMITTED</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-6" style="padding: 0">
-                                        <div class="form-group">
-                                            <label class="form-label" for="statusOfOrder">Статус замовлення</label>
-                                            <div class="form-control-wrap">
-                                                <select class="form-select" id="statusOfOrder" name="statusOfOrder">
-                                                    <option value="NEW">NEW</option>
-                                                    <option value="DELIVERED">DELIVERED</option>
-                                                    <option value="FINISHED">FINISHED</option>
-                                                    <option value="CANCELLED">CANCELLED</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-outline-primary">Зберегти</button>
-                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Change status end -->
 
             <!-- Delete product start -->
             <div class="modal fade" tabindex="-1" role="dialog" id="deleteProductModal" aria-modal="true">
@@ -307,11 +138,11 @@
                     <div class="modal-content">
                         <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
                         <div class="modal-body modal-body-md">
-                            <h4 class="title">Видалення товару</h4>
+                            <h4 class="title">Видалення</h4>
                             <br>
-                            <form action="/admin/products/delete" method="post">
+                            <form action="/admin/history/delete" method="post">
                                 <input type="number" id="selectedForDeleteItem" hidden="" name="id">
-                                <p style="margin-bottom: 2rem;">Ви впевнені, що хочете видалити товар? Підтвердивши дію, Ви не зможете повернутися до попереднього стану продукту.</p>
+                                <p style="margin-bottom: 2rem;">Ви впевнені, що хочете видалити позицію? Підтвердивши дію, Ви не зможете повернутися до попереднього стану.</p>
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-outline-primary">Підтвердити</button>
                                     <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
@@ -345,49 +176,8 @@
         document.getElementById("year").innerHTML = new Date().getFullYear();
     });
 
-    function changeDelivery(current, next) {
-        console.log("c:"+current+"; n:"+next);
-        if ($(current).is(':checked')){
-            console.log("act");
-            $(next).prop("checked", false);
-            $(current).prop('checked', true);
-        }else{
-            console.log("not");
-            $(next).prop('checked', true);
-            $(current).prop('checked', false);
-        }
-    }
 
-
-    function orderQuickView(btnObj) {
-        let trObj = btnObj.closest("tbody tr");
-        let trId =  $(trObj).attr('id');
-
-        console.log("row id:" + $(trObj).attr('id'));
-
-        $('#selectedForChangingStatusItem').val(trId);
-
-        let date =          $(trObj).find('td:eq(0)').text().trim();
-        let buyer =         $(trObj).find('td:eq(1)').text().trim();
-        let phone =         $(trObj).find('td:eq(2)').text().trim();
-        let amount =        $(trObj).find('td:eq(3)').text().trim();
-        let statusOfPayment=$(trObj).find('td:eq(4) span').text().trim();
-        let statusOfOrder = $(trObj).find('td:eq(5) span').text().trim();
-        let deliveryAddress=$(trObj).find('td:eq(6)').text().trim();
-
-        $('#buyerNameModal').text(buyer);
-        $('#phoneNumberModal').text(phone);
-        $('#phoneNumberRefModal').attr('href', "tel:"+phone);
-        $('#orderDateModal').text(date);
-        $('#orderAmountModal').text(amount+" UAH");
-        $('#orderDeliveryAddressModal').text(deliveryAddress);
-        $('#statusOfPayment').val(statusOfPayment).change();
-        $('#statusOfOrder').val(statusOfOrder).change();
-
-        $('#quickViewModal').modal('show');
-    }
-
-    function showConfirmationDeleteProductModal(btnObj){
+    function showConfirmationDeleteModal(btnObj){
         let trObj = btnObj.closest("tbody tr");
         let trId =  $(trObj).attr('id');
 
@@ -396,43 +186,6 @@
         $('#selectedForDeleteItem').val(trId);
 
         $('#deleteProductModal').modal('show');
-    }
-
-    function validateimg(ctrl) {
-        var fileUpload = ctrl;
-        var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.png|.gif)$");
-        if (regex.test(fileUpload.value.toLowerCase())) {
-            if (typeof (fileUpload.files) != "undefined") {
-                var reader = new FileReader();
-                reader.readAsDataURL(fileUpload.files[0]);
-                reader.onload = function (e) {
-                    var image = new Image();
-                    image.src = e.target.result;
-                    image.onload = function () {
-                        let height = this.height;
-                        let width = this.width;
-                        let aspectRatio = width/height;
-                        if ((aspectRatio.toFixed(2)>0.60) && (aspectRatio.toFixed(2)<0.70)) {
-                            console.log("Asp rat: "+aspectRatio.toFixed(2));
-                            return true;
-                        }else{
-                            console.log("Asp rat: "+aspectRatio.toFixed(2));
-                            alert("Некоректне співвідношення сторін фотографії!");
-                            $("#productImage").val('');
-                            return false;
-                        }
-                    };
-                }
-            } else {
-                alert("Ваш браузер не підтримує HTML5.");
-                $("#productImage").val('');
-                return false;
-            }
-        } else {
-            alert("Недопустимий формат файлу.");
-            $("#productImage").val('');
-            return false;
-        }
     }
 
 </script>

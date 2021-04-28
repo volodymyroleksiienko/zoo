@@ -6,6 +6,7 @@ import com.charlie.zoo.entity.OrderInfo;
 import com.charlie.zoo.entity.ProductHistory;
 import com.charlie.zoo.entity.dto.PackageTypeDto;
 import com.charlie.zoo.service.HistoryDetailsService;
+import com.charlie.zoo.service.PackageTypeService;
 import com.charlie.zoo.service.ProductHistoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -21,7 +22,6 @@ import java.util.UUID;
 public class AdminHistoryController {
     private final ProductHistoryService productHistoryService;
     private final HistoryDetailsService historyDetailsService;
-
 
     @GetMapping
     public String get(Model model){
@@ -42,6 +42,11 @@ public class AdminHistoryController {
 //        return "redirect:/admin/orders/orderReview/"+orderInfo.getId();
 //    }
 
+    @GetMapping("/add")
+    public String addProducts(Model model){
+        return "admin/singleHistory";
+    }
+
     @PostMapping("/add")
     public String add(ProductHistory productHistory){
         productHistoryService.save(productHistory);
@@ -49,10 +54,8 @@ public class AdminHistoryController {
     }
 
     @PostMapping("/delete")
-    public String findPackType(int id,String currentUrl){
-        HistoryDetails details = historyDetailsService.findById(id);
-        historyDetailsService.deleteByID(id);
-        return "redirect:"+currentUrl;
+    public String deleteHistory(int id){
+        return "redirect:/admin/history";
     }
 
 //    @PostMapping("/editDetail")
