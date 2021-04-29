@@ -201,7 +201,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr class="nk-tb-item nk-tb-head" th:each="det : ${history.getHistoryDetails()}" th:id="${history.getId()}">
+                                                        <tr class="nk-tb-item nk-tb-head" th:each="det : ${history.getHistoryDetails()}" th:id="${det.getId()}">
                                                             <td class="nk-tb-col" style="width: 50%" th:text="${det?.getPackageType()?.getProduct().getName()}">Товар</td>
                                                             <td class="nk-tb-col tb-col-hide">ID</td>
                                                             <td class="nk-tb-col" th:text="${det.getCount()}">Кількість</td>
@@ -215,7 +215,7 @@
                                                                             <div class="dropdown-menu dropdown-menu-right\\">
                                                                               <ul class="link-list-opt no-bdr">
                                                                                   <li><a data-toggle="modal" onclick="showEditItemModal(this)"><em class="icon ni ni-edit-alt"></em><span>Редагувати</span></a></li>
-                                                                                  <li><a th:href="'/admin/history/deleteDetail/'+${det.getId()}" ><em class="icon ni ni-trash"></em><span>Видалити</span></a></li>
+                                                                                  <li><a data-toggle="modal" onclick="removePosition(this)"><em class="icon ni ni-trash"></em><span>Видалити</span></a></li>
                                                                               </ul>
                                                                             </div>
                                                                         </div>
@@ -301,6 +301,28 @@
             </div>
             <!-- Edit item end -->
 
+            <!-- Delete product start -->
+            <div class="modal fade" tabindex="-1" role="dialog" id="deleteProductModal" aria-modal="true">
+                <div class="modal-dialog modal-md" role="document">
+                    <div class="modal-content">
+                        <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+                        <div class="modal-body modal-body-md">
+                            <h4 class="title">Видалення</h4>
+                            <br>
+                            <form action="/admin/history/deleteDetail" method="post">
+                                <input type="number" id="selectedForDeleteItem" hidden="" name="id">
+                                <p style="margin-bottom: 2rem;">Ви впевнені, що хочете видалити? Підтвердивши дію, Ви не зможете повернутися до попереднього стану.</p>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-outline-primary">Підтвердити</button>
+                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Delete product end -->
+
             <div class="alert alert-pro alert-danger" id="erorAlert" style="display: none; z-index: 9999; position: fixed; top: 12vh; margin: 0 1rem;">
                 <div class="alert-text">
                     <h6>Помилка!</h6>
@@ -350,19 +372,6 @@
         "bSort" : false,
     });
 
-    let btn = '<ul class="nk-tb-actions gx-1">\n' +
-'                                                                    <li>\n' +
-'                                                                        <div class="drodown">\n' +
-'                                                                            <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>\n' +
-'                                                                            <div class="dropdown-menu dropdown-menu-right\\">\n' +
-'                                                                                <ul class="link-list-opt no-bdr">\n' +
-'                                                                                    <li><a data-toggle="modal" onclick="showEditItemModal(this)"><em class="icon ni ni-edit-alt"></em><span>Редагувати</span></a></li>\n' +
-'                                                                                    <li><a><em class="icon ni ni-trash"></em><span>Видалити</span></a></li>\n' +
-'                                                                                </ul>\n' +
-'                                                                            </div>\n' +
-'                                                                        </div>\n' +
-'                                                                    </li>\n' +
-'                                                                </ul>';
 
     $('#searchTable tbody').on('click', 'tr', function () {
         var data = search.row( this ).data();
@@ -620,17 +629,12 @@
         $('#editProductModal').modal('show');
     }//show edit modal
 
-    function saveChanges() {
-        let index =  parseInt($('#selectedForEditItem').val());
-        let amount = parseInt( $('#editProductsAmount').val());
-        let sum = parseFloat( $('#editProductsSum').val());
 
-        t.cell(index,2).data(amount);
-        t.cell(index,3).data(sum.toFixed(2)+' UAH');
-        t.draw();
-
-        // calculateTotalSum();
-        $('#editProductModal').modal('hide');
+    function removePosition(btnObj){
+        let trObj = btnObj.closest("tbody tr");
+        $('#selectedForDeleteItem').val(trObj.id);
+        console.log("rowID: "+trObj.id);
+        $('#deleteProductModal').modal('show');
     }
 </script>
 </body>
