@@ -119,11 +119,11 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="bradcaump__inner text-center">
-                                <h2 class="bradcaump-title">Product Details</h2>
+                                <h2 class="bradcaump-title">Деталі</h2>
                                 <nav class="bradcaump-inner">
-                                  <a class="breadcrumb-item" href="/">Home</a>
+                                  <a class="breadcrumb-item" href="/shop">Магазин</a>
                                   <span class="brd-separetor">/</span>
-                                  <span class="breadcrumb-item active">Product Details</span>
+                                  <span class="breadcrumb-item active">Деталі</span>
                                 </nav>
                             </div>
                         </div>
@@ -231,7 +231,7 @@
                             <!-- End Single Content -->
                             <!-- Start Single Content -->
                             <div role="tabpanel" id="sheet" class="product__tab__content fade">
-                                <div class="pro__feature" th:utext="${product.getDailyNorm()}">
+                                <div class="pro__feature" style="overflow-x: scroll" th:utext="${product.getDailyNorm()}">
 
                                 </div>
                             </div>
