@@ -1,5 +1,5 @@
 package com.charlie.zoo.enums;
 
 public enum  StatusOfOrder {
-    NEW, CANCELLED,DELIVERED,FINISHED;
+    CART,NEW, CANCELLED,DELIVERED,FINISHED;
 }

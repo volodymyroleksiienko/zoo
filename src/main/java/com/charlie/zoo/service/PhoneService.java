@@ -8,6 +8,7 @@ import java.util.List;
 public interface PhoneService {
     Phone save(Phone phone);
     Phone findById(int id);
+    Phone findByPhone(String phone);
     List<Phone> findAll();
     void deleteByID(int id);
     void deleteAll(Collection<Phone> col);

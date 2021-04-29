@@ -35,7 +35,6 @@ public class PackageType {
     private boolean onSale=false;
     private String producerFactoryId;
     private String barcode;
-
     private int countOfProduct;
 
     @ManyToOne

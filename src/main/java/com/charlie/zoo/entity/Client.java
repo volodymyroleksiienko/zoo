@@ -17,7 +17,7 @@ public class Client {
     private double defaultDiscount = 0;
     private String note;
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client",cascade = CascadeType.ALL)
     private List<Phone> phones;
     @Enumerated(EnumType.STRING)
     private ClientRoles role = ClientRoles.RETAILER;

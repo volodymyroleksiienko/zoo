@@ -16,12 +16,21 @@ public class PhoneServiceImpl implements PhoneService {
 
     @Override
     public Phone save(Phone phone) {
+        Phone phoneDB = phoneJPA.findByPhone(phone.getPhone()).orElse(null);
+        if(phoneDB!=null){
+            return phoneDB;
+        }
         return phoneJPA.save(phone);
     }
 
     @Override
     public Phone findById(int id) {
         return phoneJPA.findById(id).orElse(null);
+    }
+
+    @Override
+    public Phone findByPhone(String phone) {
+        return phoneJPA.findByPhone(phone).orElse(null);
     }
 
     @Override

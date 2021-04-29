@@ -1,15 +1,15 @@
 package com.charlie.zoo.serviceImpl;
 
 
-import com.charlie.zoo.entity.OrderDetails;
-import com.charlie.zoo.entity.OrderInfo;
-import com.charlie.zoo.entity.PackageType;
+import com.charlie.zoo.entity.*;
 import com.charlie.zoo.enums.StatusOfEntity;
 import com.charlie.zoo.enums.StatusOfOrder;
 import com.charlie.zoo.enums.StatusOfPayment;
 import com.charlie.zoo.jpa.OrderJPA;
+import com.charlie.zoo.service.ClientService;
 import com.charlie.zoo.service.OrderDetailsService;
 import com.charlie.zoo.service.OrderService;
+import com.charlie.zoo.service.PhoneService;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -24,10 +24,14 @@ import java.util.UUID;
 public class OrderServiceImpl implements OrderService {
     private final OrderJPA orderJPA;
     private final OrderDetailsService orderDetailsService;
+    private final PhoneService phoneService;
+    private final ClientService clientService;
 
-    public OrderServiceImpl(OrderJPA orderJPA,@Lazy OrderDetailsService orderDetailsService) {
+    public OrderServiceImpl(OrderJPA orderJPA, @Lazy OrderDetailsService orderDetailsService, PhoneService phoneService, ClientService clientService) {
         this.orderJPA = orderJPA;
         this.orderDetailsService = orderDetailsService;
+        this.phoneService = phoneService;
+        this.clientService = clientService;
     }
 
 
@@ -69,7 +73,12 @@ public class OrderServiceImpl implements OrderService {
         orderDB.setDate(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE));
 
         orderDB.setNameOfClient(order.getNameOfClient());
-        orderDB.setPhone(order.getPhone());
+
+        Client client = clientService.validate(order);
+        Phone phone = order.getPhone();
+        phone.setClient(client);
+
+        orderDB.setPhone(phoneService.save(phone));
         orderDB.setDescription(order.getDescription());
 
         orderDB.setLvivDelivering(order.isLvivDelivering());
@@ -82,6 +91,7 @@ public class OrderServiceImpl implements OrderService {
         }
 
         orderDB.setPayment(StatusOfPayment.WAIT_FOR_PAYMENT);
+        orderDB.setStatusOfOrder(StatusOfOrder.NEW);
         return save(orderDB);
     }
 

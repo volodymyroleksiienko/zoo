@@ -21,9 +21,15 @@ public class AdminUsersController {
         return "admin/users";
     }
 
-    @PostMapping({"/add","/edit"})
+    @PostMapping("/add")
     public String addProducer(Users users){
         usersService.save(users);
+        return "redirect:/admin/users";
+    }
+
+    @PostMapping("/edit")
+    public String editProducer(Users users){
+        usersService.update(users);
         return "redirect:/admin/users";
     }
 

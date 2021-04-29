@@ -38,7 +38,7 @@ public class OrderInfo {
     private StatusOfPayment payment = StatusOfPayment.NOT_SUBMITTED;
 
     @Enumerated(EnumType.STRING)
-    private StatusOfOrder statusOfOrder = StatusOfOrder.NEW;
+    private StatusOfOrder statusOfOrder = StatusOfOrder.CART;
 
     @Enumerated(EnumType.STRING)
     private StatusOfEntity statusOfEntity = StatusOfEntity.ACTIVE;

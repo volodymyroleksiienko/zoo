@@ -1,13 +1,16 @@
 package com.charlie.zoo.serviceImpl;
 
 import com.charlie.zoo.entity.Client;
+import com.charlie.zoo.entity.OrderInfo;
 import com.charlie.zoo.entity.Phone;
+import com.charlie.zoo.enums.ClientRoles;
 import com.charlie.zoo.jpa.ClientJPA;
 import com.charlie.zoo.service.ClientService;
 import com.charlie.zoo.service.PhoneService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,6 +55,26 @@ public class ClientServiceImpl implements ClientService {
             }
         }
         return save(client,phone);
+    }
+
+    @Override
+    public Client validate(OrderInfo orderInfo) {
+        if(orderInfo.getPhone().getPhone().isEmpty()){
+            return null;
+        }
+        Phone phoneDB = phoneService.findByPhone(orderInfo.getPhone().getPhone());
+        if(phoneDB!=null){
+            return phoneDB.getClient();
+        }else{
+            Client client = new Client();
+            client.setRole(ClientRoles.RETAILER);
+            client.setName(orderInfo.getNameOfClient());
+            Phone phone = new Phone();
+            phone.setPhone(orderInfo.getPhone().getPhone());
+            phone.setClient(client);
+            client.setPhones(Collections.singletonList(phone));
+            return  save(client);
+        }
     }
 
     @Override

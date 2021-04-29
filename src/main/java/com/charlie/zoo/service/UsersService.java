@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface UsersService {
     Users save(Users users);
+    Users update(Users users);
     Users findById(int id);
     List<Users> findAll();
     void deleteByID(int id);
