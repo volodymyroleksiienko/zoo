@@ -64,7 +64,7 @@ public class ShopController {
         BufferedImage image = Thumbnails.of(new ByteArrayInputStream(bytes))
                 .height(250)
                 .width(250)
-                .outputQuality(0.5)
+                .outputQuality(0.8)
                 .asBufferedImage();
         return toByteArray(image,"png");
     }

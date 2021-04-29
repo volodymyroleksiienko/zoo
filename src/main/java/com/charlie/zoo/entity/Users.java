@@ -4,6 +4,7 @@ import com.charlie.zoo.enums.UserRole;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -18,4 +19,7 @@ public class Users{
 
     @Enumerated(EnumType.STRING)
     private UserRole role;
+
+    @OneToMany(mappedBy = "createdBy")
+    private List<OrderInfo> orderInfoList;
 }

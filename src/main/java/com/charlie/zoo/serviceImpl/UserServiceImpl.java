@@ -5,6 +5,7 @@ import com.charlie.zoo.jpa.UsersJPA;
 import com.charlie.zoo.service.UsersService;
 import lombok.AllArgsConstructor;
 import org.apache.catalina.User;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,12 @@ public class UserServiceImpl implements UsersService {
     public Users save(Users users) {
         users.setPassword(passwordEncoder.encode(users.getPassword()));
         return usersJPA.save(users);
+    }
+
+    @Override
+    public Users getAuth(Authentication authentication) {
+        String username =  authentication.getName();
+        return findByUsername(username);
     }
 
     @Override
@@ -40,6 +47,11 @@ public class UserServiceImpl implements UsersService {
     @Override
     public Users findById(int id) {
         return usersJPA.findById(id).orElse(null);
+    }
+
+    @Override
+    public Users findByUsername(String username) {
+        return usersJPA.findByUsername(username);
     }
 
     @Override

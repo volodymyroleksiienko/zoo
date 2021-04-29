@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.awt.print.Pageable;
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -34,6 +35,10 @@ public class PackageTypeServiceImpl implements PackageTypeService {
 
     @Override
     public List<PackageType> findFirst10ByProductNameContaining(String name) {
+        PackageType type = packageTypeJPA.findByBarcode(name);
+        if (type!=null){
+            return Collections.singletonList(type);
+        }
         return packageTypeJPA.findFirst10ByProductNameContainingIgnoreCase(name);
     }
 

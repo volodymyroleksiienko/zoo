@@ -39,6 +39,7 @@ public class ProductHistoryServiceImpl implements ProductHistoryService {
             for(HistoryDetails details:history.getHistoryDetails()){
                 sum+= details.getCount()*details.getPrice();
             }
+            history.setSum(sum);
             return save(history);
         }
         return null;
