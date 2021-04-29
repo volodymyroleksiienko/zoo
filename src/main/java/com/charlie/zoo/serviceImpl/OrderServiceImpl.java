@@ -5,20 +5,17 @@ import com.charlie.zoo.entity.*;
 import com.charlie.zoo.enums.StatusOfEntity;
 import com.charlie.zoo.enums.StatusOfOrder;
 import com.charlie.zoo.enums.StatusOfPayment;
+import com.charlie.zoo.enums.UserRole;
 import com.charlie.zoo.jpa.OrderJPA;
-import com.charlie.zoo.service.ClientService;
-import com.charlie.zoo.service.OrderDetailsService;
-import com.charlie.zoo.service.OrderService;
-import com.charlie.zoo.service.PhoneService;
+import com.charlie.zoo.service.*;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -26,18 +23,22 @@ public class OrderServiceImpl implements OrderService {
     private final OrderDetailsService orderDetailsService;
     private final PhoneService phoneService;
     private final ClientService clientService;
+    private final UsersService usersService;
 
-    public OrderServiceImpl(OrderJPA orderJPA, @Lazy OrderDetailsService orderDetailsService, PhoneService phoneService, ClientService clientService) {
+    public OrderServiceImpl(OrderJPA orderJPA, @Lazy OrderDetailsService orderDetailsService, PhoneService phoneService, ClientService clientService, UsersService usersService) {
         this.orderJPA = orderJPA;
         this.orderDetailsService = orderDetailsService;
         this.phoneService = phoneService;
         this.clientService = clientService;
+        this.usersService = usersService;
     }
 
 
     @Override
     public OrderInfo save(OrderInfo orderInfo)
     {
+        Users user = usersService.getAuth(SecurityContextHolder.getContext().getAuthentication());
+        orderInfo.setCreatedBy(user);
         orderInfo.setSumPrice(getSummaryPrice(orderInfo));
         return orderJPA.save(orderInfo);
     }
@@ -63,6 +64,10 @@ public class OrderServiceImpl implements OrderService {
             orderDetailsService.pinPriceOfProduct(details);
         }
 
+        if(orderDB.getCreatedBy()==null){
+            Users user = usersService.getAuth(SecurityContextHolder.getContext().getAuthentication());
+            orderDB.setCreatedBy(user);
+        }
         return save(orderDB);
     }
 
@@ -166,6 +171,69 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<OrderInfo> findAll() {
         return orderJPA.findAll(Sort.by(Sort.Direction.DESC,"date"));
+    }
+
+    @Override
+    public List<OrderInfo> findByStatusAndUser(String[] statuses, int id) {
+        List<StatusOfPayment> statusOfPayments = new ArrayList<>();
+        List<StatusOfOrder> statusOfOrders = new ArrayList<>();
+
+        if(statuses!=null && statuses.length>0) {
+            for (String st : statuses) {
+                switch (st) {
+                    case "NOT_SUBMITTED":
+                        statusOfPayments.add(StatusOfPayment.NOT_SUBMITTED);
+                        break;
+                    case "WAIT_FOR_PAYMENT":
+                        statusOfPayments.add(StatusOfPayment.WAIT_FOR_PAYMENT);
+                        break;
+                    case "PAYMENT_BY_CASH":
+                        statusOfPayments.add(StatusOfPayment.PAYMENT_BY_CASH);
+                        break;
+                    case "SUBMITTED":
+                        statusOfPayments.add(StatusOfPayment.SUBMITTED);
+                        break;
+
+                    case "NEW":
+                        statusOfOrders.add(StatusOfOrder.NEW);
+                        break;
+                    case "CANCELLED":
+                        statusOfOrders.add(StatusOfOrder.CANCELLED);
+                        break;
+                    case "DELIVERED":
+                        statusOfOrders.add(StatusOfOrder.DELIVERED);
+                        break;
+                    case "FINISHED":
+                        statusOfOrders.add(StatusOfOrder.FINISHED);
+                        break;
+                }
+            }
+        }
+        Users user = usersService.findById(id);
+        if(user==null) return new ArrayList<>();
+        if(user.getRole()!=UserRole.ROLE_ADMIN) {
+            if (statusOfPayments.size() > 0 && statusOfOrders.size() > 0) {
+                return new ArrayList<>(orderJPA.findByStatusOfOrderInAndPaymentInAndStatusOfEntityAndCreatedById(statusOfOrders, statusOfPayments, StatusOfEntity.ACTIVE, id));
+            }
+            if (statusOfPayments.size() > 0 && statusOfOrders.size() == 0) {
+                return new ArrayList<>(orderJPA.findByPaymentInAndStatusOfEntityAndCreatedById(statusOfPayments, StatusOfEntity.ACTIVE, id));
+            }
+            if (statusOfPayments.size() == 0 && statusOfOrders.size() > 0) {
+                return new ArrayList<>(orderJPA.findByStatusOfOrderInAndStatusOfEntityAndCreatedById(statusOfOrders, StatusOfEntity.ACTIVE, id));
+            }
+            return new ArrayList<>(orderJPA.findByStatusOfOrderInAndPaymentInAndStatusOfEntityAndCreatedById(Arrays.asList(StatusOfOrder.values()),Arrays.asList(StatusOfPayment.values()),StatusOfEntity.ACTIVE,id));
+        }else {
+            if (statusOfPayments.size() > 0 && statusOfOrders.size() > 0) {
+                return new ArrayList<>(orderJPA.findByStatusOfOrderInAndPaymentInAndStatusOfEntity(statusOfOrders, statusOfPayments, StatusOfEntity.ACTIVE));
+            }
+            if (statusOfPayments.size() > 0 && statusOfOrders.size() == 0) {
+                return new ArrayList<>(orderJPA.findByPaymentInAndStatusOfEntity(statusOfPayments, StatusOfEntity.ACTIVE));
+            }
+            if (statusOfPayments.size() == 0 && statusOfOrders.size() > 0) {
+                return new ArrayList<>(orderJPA.findByStatusOfOrderInAndStatusOfEntity(statusOfOrders, StatusOfEntity.ACTIVE));
+            }
+            return new ArrayList<>(orderJPA.findByStatusOfOrderInAndPaymentInAndStatusOfEntity(Arrays.asList(StatusOfOrder.values()),Arrays.asList(StatusOfPayment.values()),StatusOfEntity.ACTIVE));
+        }
     }
 
     @Override

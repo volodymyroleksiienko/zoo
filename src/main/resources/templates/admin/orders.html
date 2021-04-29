@@ -82,10 +82,46 @@
                                     <div class="card card-bordered card-preview">
                                         <div class="card-inner">
                                             <ul class="nav nav-tabs mt-n3">
-                                                <li class="nav-item" th:each="a : ${animals}" th:id="${a.getId()}">
-                                                    <a class="nav-link" th:classappend="${(activeTabId==a.getId())?'active':''}"  th:href="'/admin/categoryItem?animalId='+${a.getId()}">
+                                                <li class="nav-item" >
+                                                    <a class="nav-link" th:classappend="${(activeTabId=='ALL')?'active':''}"  href="/admin/orders?status=ALL">
                                                         <em class="icon ni ni-chevrons-right"></em>
-                                                        <span th:text="${a.getName()}">Tab 1</span>
+                                                        <span>Всі</span>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item" >
+                                                    <a class="nav-link" th:classappend="${(activeTabId=='NEW')?'active':''}"  th:href="'/admin/orders?status=NEW'">
+                                                        <em class="icon ni ni-chevrons-right"></em>
+                                                        <span>Нові</span>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item" >
+                                                    <a class="nav-link" th:classappend="${(activeTabId=='NOT_SUBMITTEDWAIT_FOR_PAYMENTPAYMENT_BY_CASH')?'active':''}"  th:href="'/admin/orders?status=NOT_SUBMITTED&status=WAIT_FOR_PAYMENT&status=PAYMENT_BY_CASH'">
+                                                        <em class="icon ni ni-chevrons-right"></em>
+                                                        <span>Не оплачені</span>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item" >
+                                                    <a class="nav-link" th:classappend="${(activeTabId=='SUBMITTED')?'active':''}"  th:href="'/admin/orders?status=SUBMITTED'">
+                                                        <em class="icon ni ni-chevrons-right"></em>
+                                                        <span>Оплачені</span>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item" >
+                                                    <a class="nav-link" th:classappend="${(activeTabId=='DELIVERED')?'active':''}"  th:href="'/admin/orders?status=DELIVERED'">
+                                                        <em class="icon ni ni-chevrons-right"></em>
+                                                        <span>Доставлені</span>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item" >
+                                                    <a class="nav-link" th:classappend="${(activeTabId=='FINISHED')?'active':''}"  th:href="'/admin/orders?status=FINISHED'">
+                                                        <em class="icon ni ni-chevrons-right"></em>
+                                                        <span>Закінчені</span>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item" >
+                                                    <a class="nav-link" th:classappend="${(activeTabId=='CANCELLED')?'active':''}"  th:href="'/admin/orders?status=CANCELLED'">
+                                                        <em class="icon ni ni-chevrons-right"></em>
+                                                        <span>Відмінені</span>
                                                     </a>
                                                 </li>
                                             </ul>

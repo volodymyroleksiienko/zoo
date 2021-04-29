@@ -1,5 +1,6 @@
 <!-- sidebar @s -->
-<div class="nk-sidebar nk-sidebar-fixed is-dark " data-content="sidebarMenu" xmlns:th="http://www.thymeleaf.org">
+<div class="nk-sidebar nk-sidebar-fixed is-dark " data-content="sidebarMenu" xmlns:th="http://www.thymeleaf.org"
+     xmlns:sec="http://www.w3.org/1999/xhtml">
     <div class="nk-sidebar-element nk-sidebar-head">
         <div class="nk-sidebar-brand">
             <a href="#" class="logo-link nk-sidebar-logo">
@@ -18,60 +19,60 @@
             <div class="nk-sidebar-menu" data-simplebar>
                 <ul class="nk-menu">
                     <li class="nk-menu-item">
-                        <a href="/admin/orders" class="nk-menu-link">
+                        <a href="/admin/orders?status=NEW" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-list-round"></em></span>
                             <span class="nk-menu-text">Замовлення</span>
                         </a>
                     </li><!-- .nk-menu-item -->
-                    <li class="nk-menu-item">
+                    <li class="nk-menu-item" sec:authorize="hasRole('ADMIN')">
                         <a href="/admin/products" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-bag"></em></span>
                             <span class="nk-menu-text">Товари</span>
                         </a>
                     </li><!-- .nk-menu-item -->
-                    <li class="nk-menu-item">
+                    <li class="nk-menu-item" sec:authorize="hasRole('ADMIN')">
                         <a href="/admin/history" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-calendar-booking"></em></span>
                             <span class="nk-menu-text">Історія приходу</span>
                         </a>
                     </li><!-- .nk-menu-item -->
-                    <li class="nk-menu-item">
+                    <li class="nk-menu-item" sec:authorize="hasRole('ADMIN')">
                         <a href="/admin/clients" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
                             <span class="nk-menu-text">Клієнти</span>
                         </a>
                     </li><!-- .nk-menu-item -->
-                    <li class="nk-menu-item">
+                    <li class="nk-menu-item" sec:authorize="hasRole('ADMIN')">
                         <a href="/admin/animal" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-github"></em></span>
                             <span class="nk-menu-text">Тварини</span>
                         </a>
                     </li><!-- .nk-menu-item -->
-                    <li class="nk-menu-item" id="categoryLinkActive">
+                    <li class="nk-menu-item" id="categoryLinkActive" sec:authorize="hasRole('ADMIN')">
                         <a href="/admin/category?id=1" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-cards"></em></span>
                             <span class="nk-menu-text">Категорії</span>
                         </a>
                     </li><!-- .nk-menu-item -->
-                    <li class="nk-menu-item">
+                    <li class="nk-menu-item" sec:authorize="hasRole('ADMIN')">
                         <a href="/admin/categoryItem" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-microsoft"></em></span>
                             <span class="nk-menu-text">Підкатегорії</span>
                         </a>
                     </li><!-- .nk-menu-item -->
-                    <li class="nk-menu-item">
+                    <li class="nk-menu-item" sec:authorize="hasRole('ADMIN')">
                         <a href="/admin/producer" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-building"></em></span>
                             <span class="nk-menu-text">Виробники</span>
                         </a>
                     </li><!-- .nk-menu-item -->
-                    <li class="nk-menu-item">
+                    <li class="nk-menu-item" sec:authorize="hasRole('ADMIN')">
                         <a href="/admin/banners" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-dashboard"></em></span>
                             <span class="nk-menu-text">Банери</span>
                         </a>
                     </li><!-- .nk-menu-item -->
-                    <li class="nk-menu-item">
+                    <li class="nk-menu-item" sec:authorize="hasRole('ADMIN')">
                         <a href="/admin/users" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-account-setting-alt"></em></span>
                             <span class="nk-menu-text">Користувачі</span>

@@ -7,6 +7,7 @@ import com.charlie.zoo.service.HistoryDetailsService;
 import com.charlie.zoo.service.ProductHistoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,7 +20,11 @@ public class HistoryDetailsServiceImpl implements HistoryDetailsService {
 
     @Override
     public HistoryDetails save(HistoryDetails details) {
-        return historyDetailsJpa.save(details);
+        HistoryDetails detailsDB = historyDetailsJpa.save(details);
+        if(detailsDB.getProductHistory()!=null) {
+            productHistoryService.countSummaryPrice(detailsDB.getProductHistory().getId());
+        }
+        return detailsDB;
     }
 
     @Override
@@ -48,7 +53,8 @@ public class HistoryDetailsServiceImpl implements HistoryDetailsService {
     }
 
     @Override
+    @Transactional
     public void deleteByID(int id) {
-        historyDetailsJpa.findById(id);
+        historyDetailsJpa.deleteById(id);
     }
 }

@@ -34,6 +34,9 @@ public class OrderInfo {
     @OneToMany(mappedBy = "orderInfo",fetch = FetchType.EAGER)
     private List<OrderDetails> orderDetails;
 
+    @ManyToOne
+    private Users createdBy;
+
     @Enumerated(EnumType.STRING)
     private StatusOfPayment payment = StatusOfPayment.NOT_SUBMITTED;
 

@@ -18,6 +18,7 @@ public interface OrderService {
     double getSummaryPrice(OrderInfo orderInfo);
     OrderInfo findById(UUID id);
     List<OrderInfo> findAll();
+    List<OrderInfo> findByStatusAndUser(String[] statuses, int id);
     List<OrderInfo> findByStatus(StatusOfEntity status);
     void deleteByID(UUID id);
 }

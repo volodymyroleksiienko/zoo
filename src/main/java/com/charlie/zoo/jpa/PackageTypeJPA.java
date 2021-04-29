@@ -17,6 +17,7 @@ public interface PackageTypeJPA extends JpaRepository<PackageType,Integer> {
 
 
     List<PackageType> findFirst10ByProductNameContainingIgnoreCase(String name);
+    PackageType findByBarcode(String barcode);
 
     @Query("select pt.packSize from PackageType pt")
     List<BigDecimal> getListOfSizes();
