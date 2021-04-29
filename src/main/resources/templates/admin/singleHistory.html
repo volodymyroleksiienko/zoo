@@ -82,108 +82,111 @@
                                     <div class="card card-bordered card-preview">
 
                                         <div class="card-inner">
-<!--                                            <form action="/admin/history/add" method="post" id="createHistoryForm">-->
                                             <div class="preview-block">
+                                                <form action="/admin/history/edit" method="post" id="createHistoryForm">
 <!--                                                <input id="hiddenIdOfOrder" type="text" hidden="" name="id" th:value="${order.getId()}">-->
-                                                <div class="row gy-4">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="form-label" for="historySupplier">Постачальник</label>
-                                                            <div class="form-control-wrap">
-                                                                <input type="text" id="historySupplier" th:value="${history.getProducer()}"  placeholder="Постачальник..." class="form-control" name="producer">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <div class="form-group">
-                                                            <label class="form-label" for="historyDate">Дата</label>
-                                                            <div class="form-control-wrap">
-                                                                <input type="date" class="form-control" id="historyDate" th:value="${history.getProducer()}" name="date">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <div class="form-group">
-                                                            <div class="form-control-wrap">
-                                                                <div class="form-text-hint" style="top: 50%;">
-                                                                    <span class="overline-title">UAH</span>
+                                                    <div class="row gy-4">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label class="form-label" for="historySupplier">Постачальник</label>
+                                                                <div class="form-control-wrap">
+                                                                    <input type="text" id="historySupplier" th:value="${history.getProducer()}"  placeholder="Постачальник..." class="form-control" name="producer">
                                                                 </div>
-                                                                <label class="form-label" for="historySum">Загальна сума</label>
-                                                                <input type="number" class="form-control"  th:value="${history.getSum()}" readonly id="historySum" name="sum">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group">
+                                                                <label class="form-label" for="historyDate">Дата</label>
+                                                                <div class="form-control-wrap">
+                                                                    <input type="date" class="form-control" id="historyDate" th:value="${history.getProducer()}" name="date">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group">
+                                                                <div class="form-control-wrap">
+                                                                    <div class="form-text-hint" style="top: 50%;">
+                                                                        <span class="overline-title">UAH</span>
+                                                                    </div>
+                                                                    <label class="form-label" for="historySum">Загальна сума</label>
+                                                                    <input type="number" class="form-control"  th:value="${history.getSum()}" readonly id="historySum" name="sum">
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </form>
                                                 <hr class="preview-hr">
                                                 <span class="preview-title-lg overline-title">Товари</span>
-                                                <input type="number" id="searchProductId" name="packId" hidden="" required="required">
-                                                <div class="row gy-4 align-center">
-                                                    <div class="col-md-5">
-                                                        <div>
-                                                            <label class="form-label">Пошук</label>
-                                                            <div class="form-control-wrap">
-                                                                <input type="search" class="form-control" id="searchProduct" autocomplete="off" onfocusout="hideResults()" oninput="setSearchDelay()" placeholder="Почніть введення...">
+                                                <form action="/admin/history/addDetail" id="createHistoryDetailsForm" method="post">
+                                                    <input type="number" id="searchProductId" name="packId" hidden="" required="required">
+                                                    <div class="row gy-4 align-center">
+                                                        <div class="col-md-5">
+                                                            <div>
+                                                                <label class="form-label">Пошук</label>
+                                                                <div class="form-control-wrap">
+                                                                    <input type="search" class="form-control" id="searchProduct" autocomplete="off" onfocusout="hideResults()" oninput="setSearchDelay()" placeholder="Почніть введення...">
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <div id="searchResults">
-                                                                <table id="searchTable" class="nk-tb-list nk-tb-ulist table-stripped" data-auto-responsive="false">
-                                                                    <thead>
-                                                                    <tr class="nk-tb-item nk-tb-head">
-                                                                        <th class="nk-tb-col tb-col-hide"></th>
-                                                                        <th class="nk-tb-col tb-col-hide"></th>
-                                                                        <th class="nk-tb-col tb-col-hide"></th>
-                                                                        <th class="nk-tb-col tb-col-hide"></th>
-                                                                    </tr>
-                                                                    </thead>
-                                                                    <tbody>
+                                                            <div class="form-group">
+                                                                <div id="searchResults">
+                                                                    <table id="searchTable" class="nk-tb-list nk-tb-ulist table-stripped" data-auto-responsive="false">
+                                                                        <thead>
+                                                                        <tr class="nk-tb-item nk-tb-head">
+                                                                            <th class="nk-tb-col tb-col-hide"></th>
+                                                                            <th class="nk-tb-col tb-col-hide"></th>
+                                                                            <th class="nk-tb-col tb-col-hide"></th>
+                                                                            <th class="nk-tb-col tb-col-hide"></th>
+                                                                        </tr>
+                                                                        </thead>
+                                                                        <tbody>
 
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <div class="form-group">
-                                                            <div class="form-control-wrap">
-                                                                <div class="form-text-hint" style="top: 50%;">
-                                                                    <span class="overline-title">ШТ</span>
+                                                                        </tbody>
+                                                                    </table>
                                                                 </div>
-                                                                <label class="form-label" for="addProductsAmount">Кількість</label>
-                                                                <input type="number" min="0" step="1" name="count" class="form-control" id="addProductsAmount" value="1" placeholder="Не заповнено..." oninput="this.value = this.value.replace(/[^0-9]+/g, '');calculateItemTotalSum();">
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <div class="form-group">
-                                                            <div class="form-control-wrap">
-                                                                <div class="form-text-hint" style="top: 50%;">
-                                                                    <span class="overline-title">UAH</span>
+                                                        <div class="col-md-2">
+                                                            <div class="form-group">
+                                                                <div class="form-control-wrap">
+                                                                    <div class="form-text-hint" style="top: 50%;">
+                                                                        <span class="overline-title">ШТ</span>
+                                                                    </div>
+                                                                    <label class="form-label" for="addProductsAmount">Кількість</label>
+                                                                    <input type="number" min="0" step="1" name="count" class="form-control" id="addProductsAmount" value="1" placeholder="Не заповнено..." oninput="this.value = this.value.replace(/[^0-9]+/g, '');calculateItemTotalSum();">
                                                                 </div>
-                                                                <label class="form-label" for="historyItemSum">Сума/шт.</label>
-                                                                <input type="number" class="form-control" value="0.00" min="0" step="any" id="historyItemSum" name="sum" oninput="this.value = this.value.replace(/[^0-9]+\\.?[0-9]*/g, '');calculateItemTotalSum();">
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <div class="form-group">
-                                                            <div class="form-control-wrap">
-                                                                <div class="form-text-hint" style="top: 50%;">
-                                                                    <span class="overline-title">UAH</span>
+                                                        <div class="col-md-2">
+                                                            <div class="form-group">
+                                                                <div class="form-control-wrap">
+                                                                    <div class="form-text-hint" style="top: 50%;">
+                                                                        <span class="overline-title">UAH</span>
+                                                                    </div>
+                                                                    <label class="form-label" for="historyItemSum">Ціна/шт.</label>
+                                                                    <input type="number" class="form-control" value="0.00" min="0" step="any" id="historyItemSum" name="sum" oninput="this.value = this.value.replace(/[^0-9]+\\.?[0-9]*/g, '');calculateItemTotalSum();">
                                                                 </div>
-                                                                <label class="form-label" for="historyItemTotalSum">Разом</label>
-                                                                <input type="number" class="form-control" value="0.00" min="0" step="any" id="historyItemTotalSum" readonly>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <div class="form-group">
+                                                                <div class="form-control-wrap">
+                                                                    <div class="form-text-hint" style="top: 50%;">
+                                                                        <span class="overline-title">UAH</span>
+                                                                    </div>
+                                                                    <label class="form-label" for="historyItemTotalSum">Разом</label>
+                                                                    <input type="number" class="form-control" value="0.00" min="0" step="any" id="historyItemTotalSum" readonly>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-1" style="padding-bottom: 0!important;">
+                                                            <div class="form-group">
+                                                                <button type="button" title="Добавити позицію" id="editHistoryDetailsBtn"class="btn btn-icon btn-lg btn-primary" style="margin-left: auto; margin-top: 1.5rem;">
+                                                                    <em class="icon ni ni-grid-add-c"></em>
+                                                                </button>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-1" style="padding-bottom: 0!important;">
-                                                        <div class="form-group">
-                                                            <button type="button" title="Добавити позицію" onclick="addPhoneNumber(t, $('#addPhoneInput'))" class="btn btn-icon btn-lg btn-primary" style="margin-left: auto; margin-top: 1.5rem;">
-                                                                <em class="icon ni ni-grid-add-c"></em>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                </form>
                                                 <!-- Table -->
                                                 <table class="nk-tb-list nk-tb-ulist table-stripped" id="positionsTable" style="margin-top: 2rem;" data-auto-responsive="false">
                                                     <thead>
@@ -192,7 +195,7 @@
                                                             <td class="nk-tb-col tb-col-hide">ID</td>
                                                             <td class="nk-tb-col">Кількість</td>
                                                             <td class="nk-tb-col tb-col-lg">Ціна</td>
-                                                            <td class="nk-tb-col tb-col-lg">Сума</td>
+                                                            <td class="nk-tb-col tb-col-lg">Разом</td>
                                                             <th class="nk-tb-col"><span class="sub-text" style="text-align: right; padding-right: 2rem;">Дії</span></th>
                                                         </tr>
                                                     </thead>
@@ -223,11 +226,10 @@
                                                 </table>
                                                 <!-- Table -->
                                                 <div class="form-group" style="margin-top: 1rem;">
-                                                    <button type="button" id="addHistoryBtn" class="btn btn-outline-primary">Зберегти</button>
+                                                    <button type="button" id="editHistoryBtn" class="btn btn-outline-primary">Зберегти</button>
                                                     <a href="/admin/history" type="button" class="btn btn-outline-danger">Скасувати</a>
                                                 </div>
                                             </div>
-<!--                                            </form>-->
                                         </div>
                                     </div><!-- .card-preview -->
                                 </div><!-- .nk-block -->
@@ -244,7 +246,7 @@
                     <div class="modal-content">
                         <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
                         <div class="modal-body modal-body-md">
-                            <form action="/admin/orders/editDetail" method="post">
+                            <form action="/admin/history/editDetail" method="post">
                                 <h4 class="title">Редагування</h4>
                                 <br>
                                 <input type="number" id="selectedForEditItem" hidden="">
@@ -268,7 +270,7 @@
                                                 <div class="form-text-hint" style="top: 50%;">
                                                     <span class="overline-title">UAH</span>
                                                 </div>
-                                                <label class="form-label" for="editProductsSum">Сума/шт.</label>
+                                                <label class="form-label" for="editProductsSum">Ціна/шт.</label>
                                                 <input type="number" min="0" step="any" class="form-control" id="editProductsSum" placeholder="Не заповнено..." oninput="this.value = this.value.replace(/[^0-9]+\\.?[0-9]*/g, '');calculateItemTotalSumModal()">
                                             </div>
                                         </div>
@@ -376,6 +378,7 @@
             $('#historyItemSum').focus();
             event.preventDefault();
         }
+        event.preventDefault();
     });
 
     $('#historyItemSum').on('keyup', function(event){
@@ -417,37 +420,20 @@
                 setTimeout(function() { $('#erorAlert').hide(); }, 5000);
                 return;
             }else {
-                let arrayData = [prodName, prodId, amount, parseFloat(sum).toFixed(2)+' UAH', btn];
-
-                let rowNode = t.row.add(arrayData).draw(false).node();
-
-                $(rowNode).addClass('nk-tb-item');
-
-                $(rowNode).find('td').eq(0).addClass('nk-tb-col prewrap-word');
-                $(rowNode).find('td').eq(1).addClass('nk-tb-col tb-col-hide');
-                $(rowNode).find('td').eq(2).addClass('nk-tb-col');
-                $(rowNode).find('td').eq(3).addClass('nk-tb-col tb-col-lg');
-                $(rowNode).find('td').eq(4).addClass('nk-tb-col nk-tb-col-tools');
-
-                $('#historyItemSum').val('0.00');
-                $('#addProductsAmount').val('1');
-                $('#searchProductId').val('');
-                $('#searchProduct').val('').focus();
-
-                calculateTotalSum();
+                $('#createHistoryDetailsForm').submit();
                 event.preventDefault();
             }
         }
     });
 
-    function calculateTotalSum(){
-        let sum = 0.0;
-        t.rows().every( function ( rowIdx, tableLoop, rowLoop ) {
-            let data = this.data();
-            sum += parseFloat(data[3]);
-        });
-        $('#historySum').val(sum.toFixed(2));
-    }
+    // function calculateTotalSum(){
+    //     let sum = 0.0;
+    //     t.rows().every( function ( rowIdx, tableLoop, rowLoop ) {
+    //         let data = this.data();
+    //         sum += parseFloat(data[3]);
+    //     });
+    //     $('#historySum').val(sum.toFixed(2));
+    // }
 
     function calculateItemTotalSum(){
         let sum = 0.0;
@@ -477,8 +463,7 @@
 
 
 
-    $('#addHistoryBtn').on('click', function () {
-        // $('#createHistoryForm').submit();
+    $('#editHistoryBtn').on('click', function () {
         if ($('#historySupplier').val()===''){
             $('#errorMessage').text('Заповніть дані постачальника.');
             $('#erorAlert').show();
@@ -491,53 +476,66 @@
             $('#erorAlert').show();
             setTimeout(function() { $('#erorAlert').hide(); }, 5000);
             return;
-        }else if (!t.data().any()){
-            $('#searchProduct').focus();
-            $('#errorMessage').text('В таблиці відсутні товари.');
-            $('#erorAlert').show();
-            setTimeout(function() { $('#erorAlert').hide(); }, 5000);
-            return;
         }else {
-            // alert('AJAX');
-            let supplier = $('#historySupplier').val().trim();
-            let date = $('#historyDate').val();
-
-            $.ajax({
-                method: "post",
-                url: "/admin/history/add",
-                contextType: "application/json",
-                data: {
-                    producer: supplier,
-                    date: date,
-                },
-                success: function () {
-                    window.location.href = '/admin/history';
-                },
-                error: function () {
-                    console.log("Error!");
-                }
-            }); //ajax end
+            $('#createHistoryForm').submit();
         }
     })
 
-    // $("#createHistoryForm").submit(function( event ) {
+
+    $('#editHistoryDetailsBtn').on('click', function () {
+        let prodName = $('#searchProduct').val().trim();
+        let prodId   = parseInt($('#searchProductId').val());
+        let amount =   $('#addProductsAmount').val();
+        let sum =      $('#historyItemSum').val();
+
+        if (prodName===''){
+            $('#errorMessage').text('Виберіть товар зі списку.');
+            $('#erorAlert').show();
+            $('#searchProduct').val('');
+            $('#searchProductId').val('');
+            $('#searchProduct').focus();
+            setTimeout(function() { $('#erorAlert').hide(); }, 5000);
+            return;
+        }else if (isNaN(prodId)){
+            console.log("prID: "+prodId);
+            $('#errorMessage').text('Некоректно вибраний товар.');
+            $('#erorAlert').show();
+            $('#searchProduct').val('');
+            $('#searchProductId').val('');
+            $('#searchProduct').focus();
+            setTimeout(function() { $('#erorAlert').hide(); }, 5000);
+            return;
+        }else if (amount === '' || parseInt(amount)<=0){
+            $('#errorMessage').text('Вкажіть кількість товарів.');
+            $('#erorAlert').show();
+            $('#addProductsAmount').val('');
+            $('#addProductsAmount').focus();
+            setTimeout(function() { $('#erorAlert').hide(); }, 5000);
+            return;
+        }else if (sum === '' || parseFloat(sum)<=0.0){
+            $('#errorMessage').text('Заповніть суму коректно.');
+            $('#erorAlert').show();
+            $('#historyItemSum').val('');
+            $('#historyItemSum').focus();
+            setTimeout(function() { $('#erorAlert').hide(); }, 5000);
+            return;
+        }else {
+            $('#createHistoryDetailsForm').submit();
+        }
+    })
+
+
+    // $("#createHistoryDetailsForm").submit(function( event ) {
     //     if ($('#historySupplier').val()===''){
-    //         $('#errorMessage').text('Заповніть дані поставщика.');
+    //         $('#errorMessage').text('Заповніть дані постачальника.');
     //         $('#erorAlert').show();
     //         $('#historySupplier').focus();
-    //         event.preventDefault();
     //         setTimeout(function() { $('#erorAlert').hide(); }, 5000);
+    //         event.preventDefault();
     //         return;
     //     }else if ($('#historyDate').val()===''){
     //         $('#historyDate').focus();
-    //         $('#errorMessage').text('Заповніть дату.');
-    //         $('#erorAlert').show();
-    //         event.preventDefault();
-    //         setTimeout(function() { $('#erorAlert').hide(); }, 5000);
-    //         return;
-    //     }else if (!t.data().any()){
-    //         $('#searchProduct').focus();
-    //         $('#errorMessage').text('В таблиці відсутні товари.');
+    //         $('#errorMessage').text('Заповніть дату приходу товару.');
     //         $('#erorAlert').show();
     //         setTimeout(function() { $('#erorAlert').hide(); }, 5000);
     //         event.preventDefault();
@@ -607,7 +605,9 @@
     function showEditItemModal(btnObj) {
         let trObj = btnObj.closest("tbody tr");
         let row = t.row(trObj).data();
-        $('#selectedForEditItem').val(t.row(trObj).index());
+        // $('#selectedForEditItem').val(t.row(trObj).index());
+        $('#selectedForEditItem').val($(btnObj).attr('id'));
+        console.log($(btnObj).attr('id'));
         let amount =  row[2];
         let sum = row[3];
         console.log(trObj.id);
@@ -628,7 +628,7 @@
         t.cell(index,3).data(sum.toFixed(2)+' UAH');
         t.draw();
 
-        calculateTotalSum();
+        // calculateTotalSum();
         $('#editProductModal').modal('hide');
     }
 
@@ -637,7 +637,7 @@
         let trObj = btnObj.closest("tbody tr");
         console.log(trObj.id);
         t.row(trObj).remove().draw();
-        calculateTotalSum();
+        // calculateTotalSum();
     }
 </script>
 </body>
