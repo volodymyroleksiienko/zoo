@@ -92,78 +92,68 @@
                                             <div class="tab-content">
                                                 <div class="tab-pane active" id="firstTab">
                                                     <!--                   Inner tabs start                               -->
-                                                    <div>
-                                                        <ul class="nav nav-tabs mt-n3">
-                                                            <li class="nav-item" th:each="ct : ${categories}" th:id="${ct.getId()}">
-                                                                <a class="nav-link" th:classappend="${(categoryTabId==ct.getId())?'active':''}"  th:href="@{'/admin/categoryItem?animalId='+${activeTabId}+'&categoryId='+${ct.getId()}}">
-                                                                    <em class="icon ni ni-chevron-right"></em>
-                                                                    <span th:text="${ct.getName()}">Tab 1</span>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
                                                         <div class="tab-content">
                                                             <div class="tab-pane active" id="firstTabInner">
                                                                 <table class="datatable-init nk-tb-list nk-tb-ulist" data-auto-responsive="false" id="tableOfOrders">
-                                                <thead>
-                                                    <tr class="nk-tb-item nk-tb-head">
-                                                        <th class="nk-tb-col tb-col-md">Дата</th>
-                                                        <th class="nk-tb-col"><span class="sub-text">Замовник</span></th>
-                                                        <th class="nk-tb-col tb-col-sm"><span class="sub-text">Телефон</span></th>
-                                                        <th class="nk-tb-col"><span class="sub-text">Сума</span></th>
-                                                        <th class="nk-tb-col tb-col-sm" style="text-align: center;"><span class="sub-text"><em class="icon ni ni-coins" style="font-size: initial"></em></span></th>
-                                                        <th class="nk-tb-col tb-col-sm"><span class="sub-text">Статус</span></th>
-                                                        <th class="nk-tb-col tb-col-hide"><span class="sub-text">Адрес</span></th>
-                                                        <th class="nk-tb-col"><span class="sub-text" style="text-align: right; padding-right: 2rem;">Дії</span></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr class="nk-tb-item" th:id="${order.getId()}" th:each="order : ${orders}">
-                                                        <td class="nk-tb-col tb-col-md" th:text="${order.getDate()}">
-                                                            01/01/2021
-                                                        </td>
-                                                        <td class="nk-tb-col" style="white-space: normal;">
-                                                            <div class="user-info">
-                                                                <span class="tb-lead" th:text="${order.getNameOfClient()}">Roman Tymochko</span>
-                                                            </div>
-                                                        </td>
-                                                        <td class="nk-tb-col tb-col-sm">
-                                                            <span th:text="${order?.getPhone()?.getPhone()}">+48-883-913-896</span>
-                                                        </td>
-                                                        <td class="nk-tb-col">
-                                                            <span th:text="${order.getSumPrice()}">14.88</span>
-                                                        </td>
-                                                        <td class="nk-tb-col tb-col-sm">
-                                                            <span th:text="${order.getPayment().toString()}"></span>
-                                                        </td>
-                                                        <td class="nk-tb-col tb-col-sm">
-                                                            <span th:text="${order.getStatusOfOrder().toString()}">Статус</span>
-                                                        </td>
-                                                        <td class="nk-tb-col tb-col-hide">
-                                                            <span th:text="${order.getDescription()}">Lviv, Lorem ipsum dolor sit amet asdasd asdasda asdasda asda sd, 12</span>
-                                                        </td>
-                                                        <td class="nk-tb-col nk-tb-col-tools">
-                                                            <ul class="nk-tb-actions gx-1">
-                                                                <li>
-                                                                    <div class="drodown">
-                                                                        <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-                                                                        <div class="dropdown-menu dropdown-menu-right">
-                                                                            <ul class="link-list-opt no-bdr">
-                                                                                <li><a data-toggle="modal" onclick="orderQuickView(this)"><em class="icon ni ni-eye"></em><span>Швидкий перегляд</span></a></li>
-                                                                                <li><a th:href="@{|/admin/orders/orderReview/${order?.getId()}|}"><em class="icon ni ni-edit-alt"></em><span>Деталі замовлення</span></a></li>
-                                                                                <li><a data-toggle="modal" onclick="showConfirmationDeleteProductModal(this)" ><em class="icon ni ni-archive"></em><span>Архівувати</span></a></li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </td>
-                                                    </tr><!-- .nk-tb-item  -->
+                                                                    <thead>
+                                                                        <tr class="nk-tb-item nk-tb-head">
+                                                                            <th class="nk-tb-col tb-col-md">Дата</th>
+                                                                            <th class="nk-tb-col"><span class="sub-text">Замовник</span></th>
+                                                                            <th class="nk-tb-col tb-col-sm"><span class="sub-text">Телефон</span></th>
+                                                                            <th class="nk-tb-col"><span class="sub-text">Сума</span></th>
+                                                                            <th class="nk-tb-col tb-col-sm" style="text-align: center;"><span class="sub-text"><em class="icon ni ni-coins" style="font-size: initial"></em></span></th>
+                                                                            <th class="nk-tb-col tb-col-sm"><span class="sub-text">Статус</span></th>
+                                                                            <th class="nk-tb-col tb-col-hide"><span class="sub-text">Адрес</span></th>
+                                                                            <th class="nk-tb-col"><span class="sub-text" style="text-align: right; padding-right: 2rem;">Дії</span></th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr class="nk-tb-item" th:id="${order.getId()}" th:each="order : ${orders}">
+                                                                            <td class="nk-tb-col tb-col-md" th:text="${order.getDate()}">
+                                                                                01/01/2021
+                                                                            </td>
+                                                                            <td class="nk-tb-col" style="white-space: normal;">
+                                                                                <div class="user-info">
+                                                                                    <span class="tb-lead" th:text="${order.getNameOfClient()}">Roman Tymochko</span>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td class="nk-tb-col tb-col-sm">
+                                                                                <span th:text="${order?.getPhone()?.getPhone()}">+48-883-913-896</span>
+                                                                            </td>
+                                                                            <td class="nk-tb-col">
+                                                                                <span th:text="${order.getSumPrice()}">14.88</span>
+                                                                            </td>
+                                                                            <td class="nk-tb-col tb-col-sm">
+                                                                                <span th:text="${order.getPayment().toString()}"></span>
+                                                                            </td>
+                                                                            <td class="nk-tb-col tb-col-sm">
+                                                                                <span th:text="${order.getStatusOfOrder().toString()}">Статус</span>
+                                                                            </td>
+                                                                            <td class="nk-tb-col tb-col-hide">
+                                                                                <span th:text="${order.getDescription()}">Lviv, Lorem ipsum dolor sit amet asdasd asdasda asdasda asda sd, 12</span>
+                                                                            </td>
+                                                                            <td class="nk-tb-col nk-tb-col-tools">
+                                                                                <ul class="nk-tb-actions gx-1">
+                                                                                    <li>
+                                                                                        <div class="drodown">
+                                                                                            <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+                                                                                            <div class="dropdown-menu dropdown-menu-right">
+                                                                                                <ul class="link-list-opt no-bdr">
+                                                                                                    <li><a data-toggle="modal" onclick="orderQuickView(this)"><em class="icon ni ni-eye"></em><span>Швидкий перегляд</span></a></li>
+                                                                                                    <li><a th:href="@{|/admin/orders/orderReview/${order?.getId()}|}"><em class="icon ni ni-edit-alt"></em><span>Деталі замовлення</span></a></li>
+                                                                                                    <li><a data-toggle="modal" onclick="showConfirmationDeleteProductModal(this)" ><em class="icon ni ni-archive"></em><span>Архівувати</span></a></li>
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </td>
+                                                                        </tr><!-- .nk-tb-item  -->
 
-                                                </tbody>
-                                            </table>
+                                                                    </tbody>
+                                                                </table>
                                                             </div>
                                                         </div>
-                                                    </div>
                                                     <!--                     Inner tabs end                               -->
                                                 </div>
                                             </div>
