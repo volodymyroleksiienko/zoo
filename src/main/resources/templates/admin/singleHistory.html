@@ -215,7 +215,7 @@
                                                                             <div class="dropdown-menu dropdown-menu-right\\">
                                                                               <ul class="link-list-opt no-bdr">
                                                                                   <li><a data-toggle="modal" onclick="showEditItemModal(this)"><em class="icon ni ni-edit-alt"></em><span>Редагувати</span></a></li>
-                                                                                  <li><a data-toggle="modal" onclick="removePosition(this)" ><em class="icon ni ni-trash"></em><span>Видалити</span></a></li>
+                                                                                  <li><a th:href="'/admin/history/deleteDetail/'+${det.getId()}" ><em class="icon ni ni-trash"></em><span>Видалити</span></a></li>
                                                                               </ul>
                                                                             </div>
                                                                         </div>
@@ -291,7 +291,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <button type="submit" onclick="saveChanges()" class="btn btn-outline-primary">Підтвердити</button>
+                                    <button type="submit" class="btn btn-outline-primary">Підтвердити</button>
                                     <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
                                 </div>
                             </form>
@@ -357,7 +357,7 @@
 '                                                                            <div class="dropdown-menu dropdown-menu-right\\">\n' +
 '                                                                                <ul class="link-list-opt no-bdr">\n' +
 '                                                                                    <li><a data-toggle="modal" onclick="showEditItemModal(this)"><em class="icon ni ni-edit-alt"></em><span>Редагувати</span></a></li>\n' +
-'                                                                                    <li><a data-toggle="modal" onclick="removePosition(this)" ><em class="icon ni ni-trash"></em><span>Видалити</span></a></li>\n' +
+'                                                                                    <li><a><em class="icon ni ni-trash"></em><span>Видалити</span></a></li>\n' +
 '                                                                                </ul>\n' +
 '                                                                            </div>\n' +
 '                                                                        </div>\n' +
@@ -608,11 +608,10 @@
         let trObj = btnObj.closest("tbody tr");
         let row = t.row(trObj).data();
         // $('#selectedForEditItem').val(t.row(trObj).index());
-        $('#selectedForEditItem').val($(btnObj).attr('id'));
-        console.log($(btnObj).attr('id'));
+        $('#selectedForEditItem').val(trObj.id);
+        console.log("row: "+trObj.id);
         let amount =  row[2];
         let sum = row[3];
-        console.log(trObj.id);
 
         $('#editProductsAmount').val(amount);
         $('#editProductsSum').val(parseFloat(sum));
@@ -632,14 +631,6 @@
 
         // calculateTotalSum();
         $('#editProductModal').modal('hide');
-    }
-
-
-    function removePosition(btnObj){
-        let trObj = btnObj.closest("tbody tr");
-        console.log(trObj.id);
-        t.row(trObj).remove().draw();
-        // calculateTotalSum();
     }
 </script>
 </body>
