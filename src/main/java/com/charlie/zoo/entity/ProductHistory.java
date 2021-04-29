@@ -15,6 +15,6 @@ public class ProductHistory {
     private String date;
     private double sum;
     private String producer;
-    @OneToMany(mappedBy = "productHistory")
+    @OneToMany(mappedBy = "productHistory",cascade = CascadeType.REMOVE)
     private List<HistoryDetails> historyDetails;
 }
