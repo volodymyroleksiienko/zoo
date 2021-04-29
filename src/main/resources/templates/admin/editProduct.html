@@ -835,16 +835,16 @@
             let packageType =               $('#packageType').val().trim();
             let packSize =                  $('#packSize').val().trim();
             let inStock =                   $('#inStock').val().trim();
-            let activeProductItem =         $('#activeProductItem').is(":checked");
+            let activeProductItem =         $('#activeProductItem').is(":checked").toString();
             let productPrice =              $('#productPrice').val().trim();
             let productPromotionalPrice =   $('#productPromotionalPrice').val().trim();
-            let promotedProduct =           $('#promotedProduct').is(":checked");
+            let promotedProduct =           $('#promotedProduct').is(":checked").toString();
             let discountVal =               $('#productPromotionalPricePercentage').val().trim();
 
-            let wholeSaleProduct =                          $('#wholeSaleProduct').is(":checked");
+            let wholeSaleProduct =                          $('#wholeSaleProduct').is(":checked").toString();
             let wholeSaleProductPrice =                     $('#wholeSaleProductPrice').val().trim();
             let wholeSaleProductPromotionalPrice =          $('#wholeSaleProductPromotionalPrice').val().trim();
-            let wholeSalePromotedProduct =                  $('#wholeSalePromotedProduct').is(":checked");
+            let wholeSalePromotedProduct =                  $('#wholeSalePromotedProduct').is(":checked").toString();
             let wholeSaleProductPromotionalPricePercentage= $('#wholeSaleProductPromotionalPricePercentage').val().trim();
 
             let id =                        0;
@@ -1198,7 +1198,7 @@
         let productPrice =              row[5];
         let productPromotionalPrice =   row[7];
         let promotedProduct =           row[6];
-        console.log(typeof promotedProduct);
+        console.log("promoted: "+typeof promotedProduct+"; prooted: "+promotedProduct);
         let discountVal =               row[8];
 
         let wholeSaleProduct =                          row[9];
@@ -1209,35 +1209,35 @@
 
         let itemId =                    row[14];
 
-        if (promotedProduct==="true"){
-            $('#editPromotedProduct').attr("checked", true);
+        if (promotedProduct === "true"){
+            $('#editPromotedProduct').prop('checked', true).change();
             $('#editProductPromotionalPrice').removeAttr("disabled");
             $('#editProductPromotionalPricePercentage').removeAttr("disabled");
         }else if (promotedProduct==="false") {
-            $('#editPromotedProduct').attr("checked", false);
+            $('#editPromotedProduct').prop('checked', false).change();
             $('#editProductPromotionalPrice').attr('disabled', 'disabled');
             $('#editProductPromotionalPricePercentage').attr('disabled', 'disabled');
         }
 
-        if (wholeSaleProduct==="true"){
-            $('#editWholeSaleProduct').attr("checked", true);
+        if (wholeSaleProduct === "true"){
+            $('#editWholeSaleProduct').prop('checked', true).change();
             if (wholeSalePromotedProduct==="true"){
-                $('#editWholeSalePromotedProduct').attr("checked", true);
+                $('#editWholeSalePromotedProduct').prop('checked', true).change();
                 $('#editWholeSaleProductPromotionalPrice').removeAttr("disabled");
                 $('#editWholeSaleProductPromotionalPricePercentage').removeAttr("disabled");
             }else {
-                $('#editWholeSalePromotedProduct').attr("checked", false);
+                $('#editWholeSalePromotedProduct').prop('checked', false).change();
                 $('#editWholeSaleProductPromotionalPrice').attr('disabled', 'disabled');
                 $('#editWholeSaleProductPromotionalPricePercentage').attr('disabled', 'disabled');
             }
-        }else if (wholeSaleProduct==="false") {
-            $('#editWholeSaleProduct').attr("checked", false);
-            if (wholeSalePromotedProduct==="true"){
-                $('#editWholeSalePromotedProduct').attr("checked", true);
+        }else if (wholeSaleProduct === "false") {
+            $('#editWholeSaleProduct').prop('checked', false).change();
+            if (wholeSalePromotedProduct ==="true"){
+                $('#editWholeSalePromotedProduct').prop('checked', true).change();
                 $('#editWholeSaleProductPromotionalPrice').removeAttr("disabled");
                 $('#editWholeSaleProductPromotionalPricePercentage').removeAttr("disabled");
             }else {
-                $('#editWholeSalePromotedProduct').attr("checked", false);
+                $('#editWholeSalePromotedProduct').prop('checked', false).change();
                 $('#editWholeSaleProductPromotionalPrice').attr('disabled', 'disabled');
                 $('#editWholeSaleProductPromotionalPricePercentage').attr('disabled', 'disabled');
             }
@@ -1245,10 +1245,8 @@
 
         if (activeProductItem === "true"){
             $('#editActiveProductItem').prop('checked', true).change();
-            console.log("active: "+activeProductItem);
         }else if (activeProductItem === "false") {
             $('#editActiveProductItem').prop('checked', false).change();
-            console.log("active: "+activeProductItem);
         }
 
         $('#editItemId')                    .val(itemId);
