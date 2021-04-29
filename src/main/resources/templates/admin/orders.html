@@ -81,7 +81,29 @@
                                 <div class="nk-block nk-block-lg">
                                     <div class="card card-bordered card-preview">
                                         <div class="card-inner">
-                                            <table class="datatable-init nk-tb-list nk-tb-ulist" data-auto-responsive="false" id="tableOfOrders">
+                                            <ul class="nav nav-tabs mt-n3">
+                                                <li class="nav-item" th:each="a : ${animals}" th:id="${a.getId()}">
+                                                    <a class="nav-link" th:classappend="${(activeTabId==a.getId())?'active':''}"  th:href="'/admin/categoryItem?animalId='+${a.getId()}">
+                                                        <em class="icon ni ni-chevrons-right"></em>
+                                                        <span th:text="${a.getName()}">Tab 1</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content">
+                                                <div class="tab-pane active" id="firstTab">
+                                                    <!--                   Inner tabs start                               -->
+                                                    <div>
+                                                        <ul class="nav nav-tabs mt-n3">
+                                                            <li class="nav-item" th:each="ct : ${categories}" th:id="${ct.getId()}">
+                                                                <a class="nav-link" th:classappend="${(categoryTabId==ct.getId())?'active':''}"  th:href="@{'/admin/categoryItem?animalId='+${activeTabId}+'&categoryId='+${ct.getId()}}">
+                                                                    <em class="icon ni ni-chevron-right"></em>
+                                                                    <span th:text="${ct.getName()}">Tab 1</span>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                        <div class="tab-content">
+                                                            <div class="tab-pane active" id="firstTabInner">
+                                                                <table class="datatable-init nk-tb-list nk-tb-ulist" data-auto-responsive="false" id="tableOfOrders">
                                                 <thead>
                                                     <tr class="nk-tb-item nk-tb-head">
                                                         <th class="nk-tb-col tb-col-md">Дата</th>
@@ -139,6 +161,12 @@
 
                                                 </tbody>
                                             </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--                     Inner tabs end                               -->
+                                                </div>
+                                            </div>
                                         </div>
                                     </div><!-- .card-preview -->
                                 </div> <!-- nk-block -->
