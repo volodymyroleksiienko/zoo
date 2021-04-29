@@ -253,20 +253,20 @@
                                             </li>
                                         </ul>
                                         <p class="product-short-description" style="display: none" th:text="${pr.getShortDescription()}"></p>
-                                        <ul class="product__price" th:if="${pr?.getPackageType()?.size()>0 && opt!=true}">
+                                        <ul class="product__price" th:if="${pr?.getPackageType()?.size()>0}">
                                             <li class="old__price" th:if="${pr?.getPackageType()?.size()>0 && pr?.getPackageType()?.get(0)?.isOnSale()}" th:text="${pr?.getPackageType()?.get(0)?.getPrice()}+' UAH'"></li>
                                             <li class="new__price" th:if="${pr?.getPackageType()?.get(0)?.isOnSale()}" th:text="${pr?.getPackageType()?.get(0)?.getNewPrice()}+' UAH'"></li>
 
                                             <li class="old__price" style="display: none" th:if="${!pr?.getPackageType()?.get(0)?.isOnSale()}"></li>
                                             <li class="new__price" th:if="${!pr?.getPackageType()?.get(0)?.isOnSale()}" th:text="${pr?.getPackageType()?.get(0)?.getPrice()}+' UAH'"></li>
                                         </ul>
-                                        <ul class="product__price" th:if="${pr?.getPackageType()?.size()>0 && opt==true}">
-                                            <li class="old__price" th:if="${pr?.getPackageType()?.size()>0 && pr?.getPackageType()?.get(0)?.isWholeSaleOnSale()}" th:text="${pr?.getPackageType()?.get(0)?.getWholeSalePrice()}+' UAH'"></li>
-                                            <li class="new__price" th:if="${pr?.getPackageType()?.get(0)?.isWholeSaleOnSale()}" th:text="${pr?.getPackageType()?.get(0)?.getWholeSaleNewPrice()}+' UAH'"></li>
+<!--                                        <ul class="product__price" th:if="${pr?.getPackageType()?.size()>0 && opt==true}">-->
+<!--                                            <li class="old__price" th:if="${pr?.getPackageType()?.size()>0 && pr?.getPackageType()?.get(0)?.isWholeSaleOnSale()}" th:text="${pr?.getPackageType()?.get(0)?.getWholeSalePrice()}+' UAH'"></li>-->
+<!--                                            <li class="new__price" th:if="${pr?.getPackageType()?.get(0)?.isWholeSaleOnSale()}" th:text="${pr?.getPackageType()?.get(0)?.getWholeSaleNewPrice()}+' UAH'"></li>-->
 
-                                            <li class="old__price" style="display: none" th:if="${!pr?.getPackageType()?.get(0)?.isWholeSaleOnSale()}"></li>
-                                            <li class="new__price" th:if="${!pr?.getPackageType()?.get(0)?.isWholeSaleOnSale()}" th:text="${pr?.getPackageType()?.get(0)?.getWholeSalePrice()}+' UAH'"></li>
-                                        </ul>
+<!--                                            <li class="old__price" style="display: none" th:if="${!pr?.getPackageType()?.get(0)?.isWholeSaleOnSale()}"></li>-->
+<!--                                            <li class="new__price" th:if="${!pr?.getPackageType()?.get(0)?.isWholeSaleOnSale()}" th:text="${pr?.getPackageType()?.get(0)?.getWholeSalePrice()}+' UAH'"></li>-->
+<!--                                        </ul>-->
 <!--                                        ORIGINAL-->
 <!--                                        <div class="product__info">-->
 <!--                                            <ul class="product__action">-->
