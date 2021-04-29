@@ -286,6 +286,7 @@
     text-align: center;
 }
 .product__menu a {
+    display: inline-block;
     background: transparent none repeat scroll 0 0;
     border: 0 none;
     color: #666666;
