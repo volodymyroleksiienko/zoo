@@ -123,11 +123,11 @@
                                 <nav class="bradcaump-inner">
                                     <a class="breadcrumb-item" th:href="@{'/shop'+${((opt==true)?'?opt=true':'')}}">Магазин</a>
                                     <span class="brd-separetor">/</span>
-                                  <a class="breadcrumb-item" th:href="'/shop/'+${animal.getUrl()+((opt==true)?'?opt=true':'')}" th:if="${animal!=null}" th:text="${animal.getName()}">Home</a>
+                                  <a class="breadcrumb-item" th:href="'/shop/'+${animal.getUrl()+((opt==true)?'?opt=true':'')}" th:if="${animal!=null}" th:text="${animal.getName()}"></a>
                                   <span class="brd-separetor" th:if="${animal!=null}">/</span>
-                                    <a class="breadcrumb-item" th:href="${'/shop/'+animal.getUrl()+'/'+category.getUrl()+((opt==true)?'?opt=true':'')}" th:if="${category!=null}" th:text="${category.getName()}">Home</a>
+                                    <a class="breadcrumb-item" th:href="${'/shop/'+animal.getUrl()+'/'+category.getUrl()+((opt==true)?'?opt=true':'')}" th:if="${category!=null}" th:text="${category.getName()}"></a>
                                     <span class="brd-separetor" th:if="${category!=null}">/</span>
-                                  <span class="breadcrumb-item active" th:text="${currentAll}">Shop Page</span>
+                                  <span class="breadcrumb-item active" th:text="${currentAll}"></span>
                                 </nav>
                             </div>
                         </div>
@@ -144,7 +144,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="filter__menu__container">
-                                <div class="product__menu">
+                                <div class="product__menu" style="overflow-wrap: anywhere;">
                                     <a class="is-checked" th:text="${(currentAll!=null)?currentAll:'Всі товари'}">All</a>
                                     <a th:href="${currentUrl+ct.getUrl()+((opt==true)?'?opt=true':'')}"  th:each="ct : ${categoryBtn}" th:text="${ct.getName()}">All</a>
                                 </div>

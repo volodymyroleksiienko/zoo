@@ -291,10 +291,11 @@
     color: #666666;
     font-size: 17px;
     font-weight: 500;
-    line-height: 20px;
+    line-height: 30px;
     padding: 0 20px;
     text-transform: uppercase;
     transition: all 0.4s ease 0s;
+    white-space: nowrap;
 }
 .product__filter--7 .product__menu a:first-child {
     padding-left: 0;
@@ -307,6 +308,8 @@
 }
 .product__menu a.is-checked {
     color: #ff4136;
+    width: 100%;
+    display: block;
 }
 /* single product */
 

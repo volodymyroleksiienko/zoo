@@ -5,7 +5,6 @@ function calculateCartTotal() {
     Array.prototype.forEach.call(allCartItems, function (el) {
         let quantity = parseInt(($(el).find('.quantity').text()).match(/(\d+)/));
         let price = parseFloat($(el).find('.shp__price').text());
-        console.log("q: " + quantity + "; price: " + price);
         sum += (price);
     });
     $('#itemsInTheCart').text(allCartItems.length);
@@ -17,8 +16,6 @@ function addToCartItem(btnObj) {
     let activeItem = $(btnObj).parent().parent().parent().parent().find('.active');
     let jsonObj = JSON.parse($(activeItem).val());
     let packageId = jsonObj["id"];
-    console.log("pID: "+packageId);
-
     let sideBar = $('#sidebarCart');
 
     $.ajax({
@@ -26,10 +23,8 @@ function addToCartItem(btnObj) {
         type: 'post',
         success: function(dto){
             sideBar.empty();
-            console.log(dto);
             let orderDetails = dto['orderDetails'];
             for (let i=0; i<orderDetails.length; i++){
-                console.log(orderDetails[i]);
                 let itemsSum = 0.0;
                 if (orderDetails[i].packageTypeDto.onSale===true){
                     itemsSum = parseInt(orderDetails[i].count)*parseFloat(orderDetails[i].packageTypeDto.newPrice);
@@ -61,7 +56,6 @@ function addToCartItem(btnObj) {
 }
 
 function removeItemFromCart(dtid, uuid) {
-    console.log("dt: "+parseInt(dtid)+"; uuid: "+uuid.trim());
     let sideBar = $('#sidebarCart');
     $.ajax({
         url: '/removeFromCart', //?id=/'+parseInt(dtid)+'&uuid='+uuid.trim(),
@@ -72,10 +66,8 @@ function removeItemFromCart(dtid, uuid) {
         type: 'post',
         success: function(dto){
             sideBar.empty();
-            console.log(dto);
             let orderDetails = dto['orderDetails'];
             for (let i=0; i<orderDetails.length; i++){
-                console.log(orderDetails[i]);
                 let itemsSum = 0.0;
                 if (orderDetails[i].packageTypeDto.onSale===true){
                     itemsSum = parseInt(orderDetails[i].count)*parseFloat(orderDetails[i].packageTypeDto.newPrice);
