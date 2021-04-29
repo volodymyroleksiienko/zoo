@@ -49,21 +49,30 @@ public class AdminHistoryController {
         return "redirect:/admin/history";
     }
 
-    @PostMapping("/delete")
-    public String deleteHistory(int id){
+    @GetMapping("/delete/{id}")
+    public String deleteHistory(@PathVariable int id){
+        productHistoryService.deleteByID(id);
         return "redirect:/admin/history";
     }
+
+    @GetMapping("/deleteDetail/{id}")
+    public String deleteDetail(@PathVariable int id){
+        Integer historyId = historyDetailsService.findById(id).getProductHistory().getId();
+        historyDetailsService.deleteByID(id);
+        return "redirect:/admin/history/historyReview/"+historyId;
+    }
+
 
     @PostMapping("/editDetail")
     public String editDetail(int historyId,HistoryDetails details){
         historyDetailsService.update(historyId,details);
-        return "redirect:/";
+        return "redirect:/admin/history/historyReview/"+historyId;
     }
 
     @PostMapping("/addDetail")
     public String getDetail(int historyId, HistoryDetails details){
         details.setProductHistory(productHistoryService.findById(historyId));
         historyDetailsService.save(details);
-        return "redirect:/admin/orders/orderReview/"+historyId;
+        return "redirect:/admin/history/historyReview/"+historyId;
     }
 }

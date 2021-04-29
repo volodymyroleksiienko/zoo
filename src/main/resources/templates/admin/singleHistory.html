@@ -118,7 +118,8 @@
                                                 <hr class="preview-hr">
                                                 <span class="preview-title-lg overline-title">Товари</span>
                                                 <form action="/admin/history/addDetail" id="createHistoryDetailsForm" method="post">
-                                                    <input type="number" id="searchProductId" name="packId" hidden="" required="required">
+                                                    <input type="number" id="searchProductId" name="packageType.id" hidden="" required="required">
+                                                    <input type="number" id="historyId" name="historyId" hidden="" required="required" th:value="${history.getId()}">
                                                     <div class="row gy-4 align-center">
                                                         <div class="col-md-5">
                                                             <div>
@@ -163,7 +164,7 @@
                                                                         <span class="overline-title">UAH</span>
                                                                     </div>
                                                                     <label class="form-label" for="historyItemSum">Ціна/шт.</label>
-                                                                    <input type="number" class="form-control" value="0.00" min="0" step="any" id="historyItemSum" name="sum" oninput="this.value = this.value.replace(/[^0-9]+\\.?[0-9]*/g, '');calculateItemTotalSum();">
+                                                                    <input type="number" class="form-control" value="0.00" min="0" step="any" id="historyItemSum" name="price" oninput="this.value = this.value.replace(/[^0-9]+\\.?[0-9]*/g, '');calculateItemTotalSum();">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -174,7 +175,7 @@
                                                                         <span class="overline-title">UAH</span>
                                                                     </div>
                                                                     <label class="form-label" for="historyItemTotalSum">Разом</label>
-                                                                    <input type="number" class="form-control" value="0.00" min="0" step="any" id="historyItemTotalSum" readonly>
+                                                                    <input type="number" class="form-control" value="0.00" min="0"  name="sum" step="any" id="historyItemTotalSum" readonly>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -249,7 +250,8 @@
                             <form action="/admin/history/editDetail" method="post">
                                 <h4 class="title">Редагування</h4>
                                 <br>
-                                <input type="number" id="selectedForEditItem" hidden="">
+                                <input type="number" id="historyIdEdit" name="historyId" hidden="" required="required" th:value="${history.getId()}">
+                                <input type="number" id="selectedForEditItem" name="packageType.id" hidden="">
 <!--                                <input type="text" hidden="" th:value="${'/admin/orders/orderReview/'+order.getId()}" name="currentUrl">-->
 
                                 <div class="row align-center" style="margin-bottom: 2rem;">
@@ -260,7 +262,7 @@
                                                     <span class="overline-title">ШТ</span>
                                                 </div>
                                                 <label class="form-label" for="editProductsAmount">Кількість</label>
-                                                <input type="number" min="0" step="1" class="form-control" id="editProductsAmount" placeholder="Не заповнено..." oninput="this.value = this.value.replace(/[^0-9]+/g, '');calculateItemTotalSumModal()">
+                                                <input type="number" min="0" step="1" class="form-control" name="count" id="editProductsAmount" placeholder="Не заповнено..." oninput="this.value = this.value.replace(/[^0-9]+/g, '');calculateItemTotalSumModal()">
                                             </div>
                                         </div>
                                     </div>
@@ -271,7 +273,7 @@
                                                     <span class="overline-title">UAH</span>
                                                 </div>
                                                 <label class="form-label" for="editProductsSum">Ціна/шт.</label>
-                                                <input type="number" min="0" step="any" class="form-control" id="editProductsSum" placeholder="Не заповнено..." oninput="this.value = this.value.replace(/[^0-9]+\\.?[0-9]*/g, '');calculateItemTotalSumModal()">
+                                                <input type="number" min="0" step="any" class="form-control" id="editProductsSum" name="price" placeholder="Не заповнено..." oninput="this.value = this.value.replace(/[^0-9]+\\.?[0-9]*/g, '');calculateItemTotalSumModal()">
                                             </div>
                                         </div>
                                     </div>
@@ -282,7 +284,7 @@
                                                     <span class="overline-title">UAH</span>
                                                 </div>
                                                 <label class="form-label" for="editItemTotalSum">Разом</label>
-                                                <input type="number" class="form-control" value="0.00" min="0" step="any" id="editItemTotalSum" readonly>
+                                                <input type="number" class="form-control" value="0.00" min="0" name="sum" step="any" id="editItemTotalSum" readonly>
                                             </div>
                                         </div>
                                     </div>
