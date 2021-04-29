@@ -55,8 +55,8 @@ public class AdminHistoryController {
         return "redirect:/admin/history";
     }
 
-    @GetMapping("/deleteDetail/{id}")
-    public String deleteDetail(@PathVariable int id){
+    @GetMapping("/deleteDetail")
+    public String deleteDetail(int id){
         Integer historyId = historyDetailsService.findById(id).getProductHistory().getId();
         historyDetailsService.deleteByID(id);
         return "redirect:/admin/history/historyReview/"+historyId;
