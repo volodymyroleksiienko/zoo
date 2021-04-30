@@ -784,7 +784,7 @@
     font-size: 36px;
     font-weight: 400;
     line-height: 40px;
-    text-transform: capitalize;
+    text-transform: none;
 }
 .breadcrumb-item {
     color: #343434;
@@ -2209,7 +2209,7 @@ select.select-color {
     border-style: none none solid;
     border-width: 0 0 1px;
     color: #666666;
-    font-size: 12px;
+    font-size: 14px;
     padding-bottom: 15px;
 }
 .single-contact-form {
@@ -2909,10 +2909,10 @@ blockquote::before {
     background: #4c4c4c none repeat scroll 0 0;
     content: "";
     font-size: 30px;
-    height: 43px;
+    height: 95%;
     left: 0;
     position: absolute;
-    top: 9px;
+    top: 4px;
     width: 2px;
 }
 .postandshare {
