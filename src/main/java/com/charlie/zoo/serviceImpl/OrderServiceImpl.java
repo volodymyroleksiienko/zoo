@@ -39,14 +39,13 @@ public class OrderServiceImpl implements OrderService {
     {
         Users user = usersService.getAuth(SecurityContextHolder.getContext().getAuthentication());
         orderInfo.setCreatedBy(user);
-        orderInfo.setSumPrice(getSummaryPrice(orderInfo));
+        orderInfo.setSumPrice(getSummaryPrice(findById(orderInfo.getId())));
         return orderJPA.save(orderInfo);
     }
 
     @Override
     public OrderInfo update(OrderInfo order) {
         OrderInfo orderDB = findById(order.getId());
-        System.out.println(orderDB.getOrderDetails());
         orderDB.setDate(order.getDate());
         orderDB.setNameOfClient(order.getNameOfClient());
         orderDB.setPhone(order.getPhone());
@@ -57,10 +56,13 @@ public class OrderServiceImpl implements OrderService {
         orderDB.setPayByCard(order.isPayByCard());
         orderDB.setPayByCash(order.isPayByCash());
 
+        orderDB.setOpt(order.isOpt());
+        System.out.println("opt "+order.isOpt());
         orderDB.setPayment(order.getPayment());
         orderDB.setStatusOfOrder(order.getStatusOfOrder());
 
         for(OrderDetails details:orderDB.getOrderDetails()) {
+            details.setOrderInfo(orderDB);
             orderDetailsService.pinPriceOfProduct(details);
         }
 
@@ -143,21 +145,15 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public double getSummaryPrice(OrderInfo orderInfo) {
         double sum = 0;
-        if (orderInfo.getOrderDetails()==null || orderInfo.getOrderDetails().size()==0){
+        if (orderInfo== null || orderInfo.getOrderDetails()==null || orderInfo.getOrderDetails().size()==0){
             return 0;
         }
         if(!orderInfo.getId().toString().isEmpty()) {
             orderInfo = findById(orderInfo.getId());
         }
         for(OrderDetails details:orderInfo.getOrderDetails()){
-            PackageType type = details.getPackageType();
             double count = details.getCount();
-            double tempSum = 0;
-            if(type.isOnSale()){
-                tempSum=count*type.getNewPrice().doubleValue();
-            }else{
-                tempSum=count*type.getPrice().doubleValue();
-            }
+            double tempSum = details.getPrice().doubleValue()*count;
             sum = sum + tempSum;
         }
         return sum;

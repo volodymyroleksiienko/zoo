@@ -105,19 +105,20 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
     public OrderDetails pinPriceOfProduct(OrderDetails details){
         OrderInfo orderInfo = details.getOrderInfo();
         PackageType type = details.getPackageType();
-        if(orderInfo.getOpt()!=null && orderInfo.getOpt()){
-            if(type.isWholeSaleStatus()){
+        if(orderInfo.isOpt()) {
+            if (type.isWholeSaleStatus()) {
                 details.setOpt(true);
-                if(type.isWholeSaleOnSale()){
+                if (type.isWholeSaleOnSale()) {
                     details.setOnSale(true);
                     details.setDiscount(type.getWholeSaleDiscount());
                     details.setPrice(type.getWholeSaleNewPrice());
-                }else {
+                } else {
                     details.setOnSale(false);
                     details.setDiscount(new BigDecimal("0"));
                     details.setPrice(type.getWholeSalePrice());
                 }
-            }else {
+            }
+        }else {
                 details.setOpt(false);
                 if(type.isOnSale()){
                     details.setOnSale(true);
@@ -129,7 +130,6 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
                     details.setPrice(type.getPrice());
                 }
             }
-        }
         return save(details);
     }
 

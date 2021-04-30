@@ -108,7 +108,7 @@
                                                         <div class="form-group">
                                                             <label class="form-label" for="customerPhoneNumber">Телефон</label>
                                                             <div class="form-control-wrap">
-                                                                <input type="text" id="customerPhoneNumber" th:value="${order?.getPhone()}" placeholder="Введіть номер телефону*" value="+380" class="form-control" name="phone">
+                                                                <input type="text" id="customerPhoneNumber" th:value="${order?.getPhone()}" placeholder="Введіть номер телефону*" value="+380" class="form-control" name="phone.phone">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -185,7 +185,7 @@
                                                         <div class="form-group">
                                                             <div class="preview-block">
                                                                 <div class="custom-control custom-switch">
-                                                                    <input type="checkbox" class="custom-control-input" id="wholesaleOrder" name="wholesaleOrder">
+                                                                    <input type="checkbox" class="custom-control-input" id="wholesaleOrder" name="opt" th:checked="${order.isOpt()==true}">
                                                                     <label class="custom-control-label" for="wholesaleOrder">Опт</label>
                                                                 </div>
                                                             </div>
@@ -221,8 +221,7 @@
                                                                 <img th:src="'/shop/getImgByProductId/'+${detail?.getPackageType()?.getProduct()?.getId()}" >
                                                             </th>
                                                             <td class="nk-tb-col" th:text="${detail?.getPackageType()?.getProduct()?.getName()}" style="width:50%; white-space:initial;">Назва</td>
-                                                            <td class="nk-tb-col tb-col-lg" th:text="${detail?.getCount()*detail?.getPackageType()?.getNewPrice().doubleValue()}" th:if="${detail?.getPackageType().isOnSale()}">Ціна</td>
-                                                            <td class="nk-tb-col tb-col-lg" th:text="${detail?.getCount()*detail?.getPackageType()?.getPrice().doubleValue()}" th:if="${!detail?.getPackageType().isOnSale()}">Ціна</td>
+                                                            <td class="nk-tb-col tb-col-lg" th:text="${detail?.getPrice().doubleValue()}">Ціна</td>
                                                             <td class="nk-tb-col" th:text="${detail?.getCount()}">Кількість</td>
                                                             <td class="nk-tb-col tb-col-hide" th:text="${detail?.getId()}">ID</td>
                                                             <td class='nk-tb-col nk-tb-col-tools'>
