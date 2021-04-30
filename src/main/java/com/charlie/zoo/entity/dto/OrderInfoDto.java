@@ -42,9 +42,7 @@ public class OrderInfoDto {
         dto.setNovaPoshtaDelivering(order.isNovaPoshtaDelivering());
         dto.setPayByCard(order.isPayByCard());
         dto.setPayByCash(order.isPayByCash());
-        if(order.getOpt()!=null) {
-            dto.setOpt(order.getOpt());
-        }
+        dto.setOpt(order.isOpt());
         dto.setOrderDetails(OrderDetailsDto.convertToListDto(order.getOrderDetails()));
         dto.setPayment(order.getPayment().name());
         dto.setStatusOfOrder(order.getStatusOfOrder().name());

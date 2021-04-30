@@ -28,6 +28,8 @@ public class OrderDetails {
     public String toString() {
         return "OrderDetails{" +
                 "id=" + id +
+                "opt=" + opt +
+                "price=" + price +
                 ", count=" + count +
                 '}';
     }
