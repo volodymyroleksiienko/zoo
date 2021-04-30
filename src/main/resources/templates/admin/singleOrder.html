@@ -87,7 +87,7 @@
                                                 <span class="preview-title-lg overline-title">Замовник</span>
                                                 <input id="hiddenIdOfOrder" type="text" hidden="" name="id" th:value="${order.getId()}">
                                                 <div class="row gy-4">
-                                                    <div class="col-sm-6">
+                                                    <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label class="form-label" for="customerNameSurname">Прізвище, ім'я</label>
                                                             <div class="form-control-wrap">
@@ -95,7 +95,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6">
+                                                    <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label class="form-label" for="customerPhoneNumber">Телефон</label>
                                                             <div class="form-control-wrap">
@@ -168,6 +168,16 @@
                                                                 <div class="custom-control custom-switch">
                                                                     <input type="checkbox" th:checked="${order.isNovaPoshtaDelivering()==true}"  class="custom-control-input" id="countryDelivery" onchange="changeDelivery('#countryDelivery', '#cityDelivery')" name="novaPoshtaDelivering">
                                                                     <label class="custom-control-label" for="countryDelivery">Нова Пошта</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <div class="preview-block">
+                                                                <div class="custom-control custom-switch">
+                                                                    <input type="checkbox" class="custom-control-input" id="wholesaleOrder" name="wholesaleOrder">
+                                                                    <label class="custom-control-label" for="wholesaleOrder">Опт</label>
                                                                 </div>
                                                             </div>
                                                         </div>

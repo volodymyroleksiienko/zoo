@@ -1129,116 +1129,7 @@ h3.widget-title-modal {
     font-size: 30px;
     line-height: 30px;
 }
-/*------------------------------
-  09. Blog Area
---------------------------------*/
 
-.blog__thumb a img {
-    width: 100%;
-}
-.blog__inner {
-    position: relative;
-}
-.blog__hover__info {
-    bottom: 0;
-    left: 0;
-    opacity: 0;
-    padding: 30px 20px;
-    position: absolute;
-    transition: all 0.5s ease 0s;
-}
-.blog__thumb {
-    position: relative;
-}
-.blog__post__time {
-    left: 20px;
-    opacity: 0;
-    position: absolute;
-    top: 20px;
-    transition: all 0.4s ease 0s;
-}
-.blog:hover .blog__post__time {
-    opacity: 1;
-}
-.blog__post__time {
-    background: #fff none repeat scroll 0 0;
-    height: 65px;
-    padding: 5px;
-    text-align: center;
-    width: 65px;
-}
-.blog__post__time span.date {
-    display: block;
-    font-size: 20px;
-    font-weight: 500;
-}
-.blog__post__time span.month {
-    color: #303030;
-    font-size: 14px;
-    text-transform: capitalize;
-}
-.bl__meta {
-    display: flex;
-    margin-bottom: 7px;
-}
-.bl__meta li {
-    font-size: 12px;
-    font-weight: 500;
-    position: relative;
-}
-.bl__meta li + li {
-    margin-left: 10px;
-    padding-left: 10px;
-}
-.bl__meta li + li::before {
-    background: #000 none repeat scroll 0 0;
-    content: "";
-    height: 10px;
-    left: 0;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 1px;
-}
-.blog__hover__action p.blog__des {
-    font-size: 17px;
-    font-weight: 500;
-    line-height: 28px;
-    margin-bottom: 7px;
-}
-.read__more__btn {
-    font-size: 14px;
-    font-weight: 500;
-    text-transform: uppercase;
-    transition: all 0.5s ease 0s;
-}
-.blog:hover .blog__hover__info {
-    opacity: 1;
-}
-.post__time--inner {
-    border: 1px solid #f3f3f3;
-    padding-top: 3px;
-    padding-bottom: 2px;
-}
-.blog--page .blog {
-    margin-top: 30px
-}
-.blog--page {
-    margin-top: -30px;
-}
-/*--------------------------
-    Blog Style 2
-----------------------------*/
-
-.blog--2 .blog__post__time {
-    background: #f2f2f2 none repeat scroll 0 0;
-}
-.blog--2 .post__time--inner {
-    border: 1px solid #fff;
-}
-.blog--2 .blog__post__time {
-    margin-bottom: 176px;
-}
 /*------------------------------
   10. Feature Product Area
 --------------------------------*/
@@ -1669,27 +1560,6 @@ product__style--7
 /*------------------------------
   12. Load More Area
 --------------------------------*/
-
-.htc__loadmore__btn {
-    text-align: center;
-}
-.htc__loadmore__btn a {
-    border: 1px solid #eeeeee;
-    color: #4b4b4b;
-    display: inline-block;
-    height: 45px;
-    letter-spacing: 1px;
-    line-height: 42px;
-    padding: 0 44px;
-    text-transform: uppercase;
-    transition: all 0.5s ease 0s;
-}
-.htc__loadmore__btn a:hover {
-    border: 1px solid #ff4136;
-    color: #fff;
-    background: #ff4136;
-}
-
 .pager li:first-child{
     margin-right: 1rem;
 }
@@ -1697,51 +1567,7 @@ product__style--7
 .pager li:last-child{
     margin-left: 1rem;
 }
-/*------------------------------
-  13. Newsletter Area
---------------------------------*/
 
-.htc__newsletter__area .newsletter__container {
-    padding: 120px 0;
-    position: relative;
-    text-align: center;
-    z-index: 2;
-}
-.htc__newsletter__area .newsletter__container h4 {
-    color: #ffffff;
-    font-size: 20px;
-    text-transform: capitalize;
-}
-.htc__newsletter__area .newsletter__container h2 {
-    color: #ffffff;
-    font-size: 36px;
-    letter-spacing: 3px;
-    line-height: 30px;
-    margin-bottom: 30px;
-    margin-top: 22px;
-    text-transform: capitalize;
-}
-.htc__newsletter__area .newsletter__form {
-    margin: 0 auto;
-    width: 300px;
-}
-.htc__newsletter__area .input__box input {
-    background: transparent none repeat scroll 0 0;
-    border-left: 1px solid #fff;
-    color: #afafaf;
-}
-.htc__newsletter__area .input__box input::-moz-placeholder {
-    color: #afafaf !important;
-}
-.htc__newsletter__area .subscribe__btn input.bst__btn {
-    background-image: url("images/icons/send-2.png");
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: 29% auto;
-    position: relative;
-    text-indent: -999px;
-    z-index: 5;
-}
 /*------------------------------
   14. Choose Us Area
 --------------------------------*/
@@ -1901,13 +1727,13 @@ product__style--7
 .team__thumb a img {
     -webkit-filter: grayscale(100%);
     /* Safari 6.0 - 9.0 */
-    
+
     filter: grayscale(100%);
 }
 .team:hover .team__thumb a img {
     -webkit-filter: grayscale(0%);
     /* Safari 6.0 - 9.0 */
-    
+
     filter: grayscale(00%);
 }
 .htc__team__page .team {

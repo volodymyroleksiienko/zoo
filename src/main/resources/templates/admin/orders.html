@@ -270,7 +270,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-lg-4">
                                             <div class="form-group">
                                                 <div class="preview-block">
                                                     <div class="custom-control custom-switch">
@@ -280,12 +280,22 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-lg-4">
                                             <div class="form-group">
                                                 <div class="preview-block">
                                                     <div class="custom-control custom-switch">
                                                         <input type="checkbox" class="custom-control-input" id="countryDelivery" onchange="changeDelivery('#countryDelivery', '#cityDelivery')" name="novaPoshtaDelivering">
                                                         <label class="custom-control-label" for="countryDelivery">Нова Пошта</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <div class="preview-block">
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" class="custom-control-input" id="wholesaleOrder" name="wholesaleOrder">
+                                                        <label class="custom-control-label" for="wholesaleOrder">Опт</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -418,6 +428,7 @@
     $(document).ready(function() {
         document.getElementById("year").innerHTML = new Date().getFullYear();
         $('#customerPhoneNumber').inputmask('+(999)-999-999-999');
+        document.querySelector("#orderDate").valueAsDate = new Date();
     });
 
 
