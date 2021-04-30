@@ -5,16 +5,26 @@ import com.charlie.zoo.entity.OrderInfo;
 import com.charlie.zoo.entity.PackageType;
 import com.charlie.zoo.entity.Users;
 import com.charlie.zoo.entity.dto.PackageTypeDto;
+import com.charlie.zoo.export.ExportOrderInfo;
 import com.charlie.zoo.service.OrderDetailsService;
 import com.charlie.zoo.service.OrderService;
 import com.charlie.zoo.service.PackageTypeService;
 import com.charlie.zoo.service.UsersService;
 import lombok.AllArgsConstructor;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.text.ParseException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -28,6 +38,7 @@ public class AdminOrderController {
     private final OrderDetailsService orderDetailsService;
     private final PackageTypeService packageTypeService;
     private final UsersService usersService;
+    private final ExportOrderInfo exportOrderInfo;
 
     @GetMapping
     public String get(Model model,String[] status){
@@ -60,6 +71,24 @@ public class AdminOrderController {
     public String editOrder(OrderInfo orderInfo){
         orderService.update(orderInfo);
         return "redirect:/admin/orders/orderReview/"+orderInfo.getId();
+    }
+
+    @GetMapping("/export/{id}")
+    public ResponseEntity<Resource> exportRawStorageXLS(@PathVariable("id")UUID id) throws FileNotFoundException, ParseException {
+        String filePath = exportOrderInfo.generateReport(id);
+        File file = new File(filePath);
+        InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename="+file.getName());
+        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+        headers.add("Pragma", "no-cache");
+        headers.add("Expires", "0");
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentLength(file.length())
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(resource);
     }
 
     @PostMapping("/addOrder")
