@@ -69,6 +69,30 @@ public class MainController {
         return "user/about";
     }
 
+    @GetMapping("/franchise")
+    public String getFranchise(@CookieValue(value = "id", defaultValue = "") String username,Model model,
+                           HttpServletResponse httpServletResponse){
+        username = cookieService.checkCookie(username,httpServletResponse,model);
+        modelConfig(model,username);
+        return "user/franchise";
+    }
+
+    @GetMapping("/delivery-and-payment")
+    public String getDelivery(@CookieValue(value = "id", defaultValue = "") String username,Model model,
+                           HttpServletResponse httpServletResponse){
+        username = cookieService.checkCookie(username,httpServletResponse,model);
+        modelConfig(model,username);
+        return "user/delivery-and-payment";
+    }
+
+    @GetMapping("/cooperation")
+    public String getCooperation(@CookieValue(value = "id", defaultValue = "") String username,Model model,
+                           HttpServletResponse httpServletResponse){
+        username = cookieService.checkCookie(username,httpServletResponse,model);
+        modelConfig(model,username);
+        return "user/cooperation";
+    }
+
     @GetMapping("/cart")
     public String getCart(@CookieValue(value = "id", defaultValue = "") String username,Model model,
                           HttpServletResponse httpServletResponse){
