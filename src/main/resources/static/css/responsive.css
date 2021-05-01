@@ -333,11 +333,17 @@
     .spt-40 {
         padding-top: 40px;
     }
+    .smb-0 {
+        margin-bottom: 0!important;
+    }
     .smb-30 {
         margin-bottom: 30px;
     }
     .smt-30 {
         margin-top: 30px;
+    }
+    .smt-40 {
+        margin-top: 40px;
     }
     .ft__widget.contact__us {
         left: 0;
@@ -682,6 +688,9 @@
 
     .xpt-20 {
         padding-top: 20px;
+    }
+    .xmb-0 {
+        margin-bottom: 0!important;
     }
     .xmt-30 {
         margin-top: 30px;

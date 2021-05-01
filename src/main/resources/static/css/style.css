@@ -2244,9 +2244,9 @@ select.select-color {
     margin-bottom: 40px;
 }
 .contact-btn .fv-btn {
-    background: transparent none repeat scroll 0 0;
-    border: 1px solid #d5d5d5;
-    color: #4b4b4b;
+    /*background: transparent none repeat scroll 0 0;*/
+    /*border: 1px solid #d5d5d5;*/
+    /*color: #4b4b4b;*/
     font-size: 14px;
     height: 45px;
     letter-spacing: 2px;
@@ -2254,10 +2254,13 @@ select.select-color {
     padding: 0 70px;
     text-transform: uppercase;
     transition: all 0.3s ease 0s;
-}
-.contact-btn .fv-btn:hover {
+    background: #FF9F05;
     border: 1px solid #FF9F05;
     color: #fff;
+}
+.contact-btn .fv-btn:hover {
+    color: #fff;
+    border: 1px solid #000;
     background: #FF9F05;
 }
 .contact-form-wrap > form {
@@ -3759,6 +3762,8 @@ a.shipping-calculator-button:hover {
 .puick-contact-area a:hover {
     color: #ff4136;
 }
+
+
 /* others */
 
 .portfolio-full-image .tab-pane.fade img {
@@ -4230,5 +4235,13 @@ a.shipping-calculator-button:hover {
     color: white;
     outline: none;
     transition: all 0.2s ease 0s;
+}
+
+.bones-list{
+    color: #666666;
+    font-size: 15px;
+    line-height: 26px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
 }
 
