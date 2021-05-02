@@ -12,11 +12,13 @@
     <!-- Place favicon.ico in the root directory -->
     <link rel="shortcut icon" type="image/x-icon" href="static/images/favicon.ico">
     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-    
+
 
     <!-- All css files are included here. -->
     <!-- Bootstrap fremwork main css -->
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <!--    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">-->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- Owl Carousel main css -->
     <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
     <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
@@ -28,9 +30,8 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <!-- Responsive css -->
     <link rel="stylesheet" th:href="@{/css/responsive.css}">
-
     <!-- Modernizr JS -->
-    <script th:src="@{/js/vendor/modernizr-2.8.3.min.js}"></script>
+    <script th:src="@{js/vendor/modernizr-2.8.3.min.js}"></script>
 </head>
 
 <body>
@@ -150,7 +151,8 @@
     <!-- jquery latest version -->
     <script th:src="@{/js/vendor/jquery-1.12.0.min.js}"></script>
     <!-- Bootstrap framework js -->
-    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <!--    <script th:src="@{/js/bootstrap.min.js}"></script>-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <!-- All js plugins included in this file. -->
     <script th:src="@{/js/plugins.js}"></script>
     <script th:src="@{/js/slick.min.js}"></script>
@@ -160,6 +162,7 @@
     <!-- Main js file that contents all jQuery plugins activation. -->
     <script th:src="@{/js/main.js}"></script>
     <script th:src="@{/js/liveSearch.js}"></script>
+    <script th:src="@{/js/cart.js}"></script>
 
     <script>
         $( document ).ready(function() {
