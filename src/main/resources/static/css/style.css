@@ -1568,6 +1568,10 @@ product__style--7
     margin-left: 1rem;
 }
 
+.pager li>a:hover{
+    background: white;
+}
+
 /*------------------------------
   14. Choose Us Area
 --------------------------------*/
