@@ -212,6 +212,7 @@
 /*    transform: translateY(-50%);*/
 /*    width: 1px;*/
 /*}*/
+
 .another-product-style .product__action li:last-child::before {
     content: none;
 }
@@ -1027,6 +1028,7 @@
     float: left;
     overflow: hidden;
 }
+
 .popular__product__container {
     margin-right: -15px;
     margin-left: -15px;
@@ -1063,6 +1065,16 @@
     padding-left: 0;
     padding-right: 0;
     padding-top: 0;
+}
+
+.popular__product--6 .product__list div[class*="col-"] {
+    padding-right: 2px;
+    padding-left: 2px;
+}
+
+.popular__product--6 .product__list {
+    margin-left: -2px;
+    margin-right: -2px;
 }
 
 .product {
@@ -3267,7 +3279,7 @@ a.shipping-calculator-button:hover {
     transform: scale(1.5);
     opacity: 0;
     z-index: 99;
-    
+
 }
 .portfolio-icon a i {
     line-height: 50px;
