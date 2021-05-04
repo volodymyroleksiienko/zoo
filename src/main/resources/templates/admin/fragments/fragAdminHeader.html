@@ -37,6 +37,12 @@
                         </a>
                     </li><!-- .nk-menu-item -->
                     <li class="nk-menu-item" sec:authorize="hasRole('ADMIN')">
+                        <a href="/admin/statistics" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-growth"></em></span>
+                            <span class="nk-menu-text">Статистика</span>
+                        </a>
+                    </li><!-- .nk-menu-item -->
+                    <li class="nk-menu-item" sec:authorize="hasRole('ADMIN')">
                         <a href="/admin/clients" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
                             <span class="nk-menu-text">Клієнти</span>
