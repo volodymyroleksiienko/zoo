@@ -657,10 +657,11 @@
     .menu__style--7 .main__menu li.drop.menu-res:hover ul.dropdown {
         top: -10px;
     }
-    .mobile-menu-area .mean-nav ul {
+    .mobile-menu-area .mean-nav ul:first-child {
         /*height: 264px;*/
         max-height: 80vh;
         overflow-y: auto;
+        padding-bottom: 1.5rem;
     }
 }
 /* small mobile :320px. */
@@ -1522,9 +1523,10 @@
     .pb--120 {
         padding-bottom: 50px;
     }
-    .mobile-menu-area .mean-nav ul {
+    .mobile-menu-area .mean-nav ul:first-child {
         max-height: 80vh;
         overflow-y: auto;
+        padding-bottom: 2rem;
     }
     .htc__shop__cat.htc__shop__cat-none {
         margin-bottom: 0;

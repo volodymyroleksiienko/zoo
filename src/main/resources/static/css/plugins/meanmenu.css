@@ -53,7 +53,7 @@ a.meanmenu-reveal {
 
 .mean-container .mean-nav {
   /*background: #0c1923 none repeat scroll 0 0;*/
-  background: rgb(220, 170, 0) none repeat scroll 0 0;
+  /*background: rgb(220, 170, 0) none repeat scroll 0 0;*/
   float: left;
   margin-top: 10px;
   width: 100%;
@@ -70,6 +70,7 @@ a.meanmenu-reveal {
   position: relative;
   float: left;
   width: 100%;
+  background: rgb(220, 170, 0) none repeat scroll 0 0;
 }
 
 .mean-container .mean-nav ul li a {
