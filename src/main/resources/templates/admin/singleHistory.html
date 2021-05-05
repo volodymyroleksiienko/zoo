@@ -202,7 +202,7 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr class="nk-tb-item nk-tb-head" th:each="det : ${history.getHistoryDetails()}" th:id="${det.getId()}">
-                                                            <td class="nk-tb-col" style="width: 50%" th:text="${det?.getPackageType()?.getProduct().getName()}">Товар</td>
+                                                            <td class="nk-tb-col" style="width: 50%; white-space: normal;" th:text="${det?.getPackageType()?.getProduct().getName()}">Товар</td>
                                                             <td class="nk-tb-col tb-col-hide">ID</td>
                                                             <td class="nk-tb-col" th:text="${det.getCount()}">Кількість</td>
                                                             <td class="nk-tb-col tb-col-lg" th:text="${det.getPrice()}">Ціна</td>
