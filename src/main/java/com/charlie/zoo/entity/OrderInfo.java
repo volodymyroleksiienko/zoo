@@ -18,7 +18,7 @@ public class OrderInfo {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int index;
 
     private String date;
