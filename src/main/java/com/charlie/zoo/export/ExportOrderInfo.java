@@ -34,7 +34,10 @@ public class ExportOrderInfo {
 
 //        XWPFHeader header = doc.createHeader(HeaderFooterType.DEFAULT);
         XWPFParagraph num = doc.createParagraph();
-        num.createRun().setText("Видаткова накладна "+orderInfo.getIndex()+" від "+orderInfo.getDate().replace("-","."));
+        XWPFRun head =num.createRun();
+        setRun(head,14,
+                "Видаткова накладна "+orderInfo.getIndex()+" від "+orderInfo.getDate().replace("-","."),
+                true,false);
         XWPFParagraph borderTop1 = doc.createParagraph();
         borderTop1.setBorderTop(Borders.SINGLE);
 
