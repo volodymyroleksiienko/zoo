@@ -130,15 +130,15 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr class="nk-tb-item">
-                                                        <td class="nk-tb-col" style="white-space:initial;"></td>
-                                                        <td class="nk-tb-col"></td>
-                                                        <td class="nk-tb-col"></td>
-                                                        <td class="nk-tb-col"></td>
-                                                        <td class="nk-tb-col"></td>
-                                                        <td class="nk-tb-col"></td>
-                                                        <td class="nk-tb-col"></td>
-                                                        <td class="nk-tb-col"></td>
+                                                    <tr class="nk-tb-item" th:each="st : ${statistic}">
+                                                        <td class="nk-tb-col" style="white-space:initial;" th:text="${st.getNameOfProduct()}"></td>
+                                                        <td class="nk-tb-col" th:text="${st.getPackageType()}"></td>
+                                                        <td class="nk-tb-col" th:text="${st.getBeforeCount()}"></td>
+                                                        <td class="nk-tb-col" th:text="${st.getGetCount()}"></td>
+                                                        <td class="nk-tb-col" th:text="${st.getSellCount()}"></td>
+                                                        <td class="nk-tb-col" th:text="${st.getTotalCount()}"></td>
+                                                        <td class="nk-tb-col" th:text="${st.getSpendMoney()}"></td>
+                                                        <td class="nk-tb-col" th:text="${st.getEarnMoney()}"></td>
                                                     </tr><!-- .nk-tb-item  -->
                                                 </tbody>
                                             </table>

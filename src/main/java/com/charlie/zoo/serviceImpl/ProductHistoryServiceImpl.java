@@ -32,6 +32,16 @@ public class ProductHistoryServiceImpl implements ProductHistoryService {
     }
 
     @Override
+    public List<ProductHistory> findByDateBetween(String from, String to) {
+        return productHistoryJpa.findByDateBetween(from,to);
+    }
+
+    @Override
+    public List<ProductHistory> findByDateBefore(String from) {
+        return productHistoryJpa.findByDateBefore(from);
+    }
+
+    @Override
     public ProductHistory countSummaryPrice(int id) {
         ProductHistory history = findById(id);
         if(history!=null){

@@ -35,10 +35,21 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
+    public List<OrderInfo> findByDateBetween(String from, String to) {
+        return orderJPA.findByDateBetween(from,to);
+    }
+
+    @Override
+    public List<OrderInfo> findByDateBefore(String from) {
+        return orderJPA.findByDateBefore(from);
+    }
+
+    @Override
     public OrderInfo save(OrderInfo orderInfo)
     {
         Users user = usersService.getAuth(SecurityContextHolder.getContext().getAuthentication());
         orderInfo.setCreatedBy(user);
+        orderInfo = orderJPA.save(orderInfo);
         orderInfo.setSumPrice(getSummaryPrice(findById(orderInfo.getId())));
         return orderJPA.save(orderInfo);
     }

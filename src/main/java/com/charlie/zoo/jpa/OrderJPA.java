@@ -26,4 +26,7 @@ public interface OrderJPA extends JpaRepository<OrderInfo, UUID> {
     Set<OrderInfo> findByPaymentInAndStatusOfEntity(List<StatusOfPayment> list,StatusOfEntity status);
     Set<OrderInfo> findByStatusOfOrderInAndPaymentInAndStatusOfEntity(List<StatusOfOrder> list,List<StatusOfPayment> payment,StatusOfEntity status);
 
+
+    List<OrderInfo> findByDateBetween(String from,String to);
+    List<OrderInfo> findByDateBefore(String from);
 }
