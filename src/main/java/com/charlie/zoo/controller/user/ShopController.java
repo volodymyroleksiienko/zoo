@@ -62,8 +62,8 @@ public class ShopController {
 
     public byte[] compressImage(byte[] bytes) throws IOException {
         BufferedImage image = Thumbnails.of(new ByteArrayInputStream(bytes))
-                .height(250)
-                .width(250)
+                .height(300)
+                .width(300)
                 .asBufferedImage();
         return toByteArray(image,"png");
     }
