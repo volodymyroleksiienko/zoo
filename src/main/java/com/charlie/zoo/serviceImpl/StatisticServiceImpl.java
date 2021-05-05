@@ -2,6 +2,8 @@ package com.charlie.zoo.serviceImpl;
 
 import com.charlie.zoo.entity.*;
 import com.charlie.zoo.entity.dto.StatisticDto;
+import com.charlie.zoo.enums.StatusOfOrder;
+import com.charlie.zoo.enums.StatusOfPayment;
 import com.charlie.zoo.service.OrderService;
 import com.charlie.zoo.service.PackageTypeService;
 import com.charlie.zoo.service.ProductHistoryService;
@@ -29,6 +31,9 @@ public class StatisticServiceImpl implements StatisticService {
         List<StatisticDto> statisticDtos = new ArrayList<>();
         List<OrderInfo> orderInfos = orderService.findByDateBetween(from,to);
         List<OrderDetails> details = orderInfos.parallelStream()
+                .filter(order -> (order.getPayment().equals(StatusOfPayment.SUBMITTED)) ||
+                        (order.getStatusOfOrder().equals(StatusOfOrder.DELIVERED) ||
+                                order.getStatusOfOrder().equals(StatusOfOrder.FINISHED)))
                 .flatMap(orderInfo -> orderInfo.getOrderDetails().stream())
                 .collect(Collectors.toList());
 
@@ -40,6 +45,9 @@ public class StatisticServiceImpl implements StatisticService {
 
         List<OrderInfo> orderInfosBefore = orderService.findByDateBefore(from);
         List<OrderDetails> detailsBefore = orderInfosBefore.parallelStream()
+                .filter(order -> (order.getPayment().equals(StatusOfPayment.SUBMITTED)) ||
+                        (order.getStatusOfOrder().equals(StatusOfOrder.DELIVERED) ||
+                                order.getStatusOfOrder().equals(StatusOfOrder.FINISHED)))
                 .flatMap(orderInfo -> orderInfo.getOrderDetails().stream())
                 .collect(Collectors.toList());
 
@@ -93,7 +101,7 @@ public class StatisticServiceImpl implements StatisticService {
 
             statisticDto.setEarnMoney(new BigDecimal(getEarnSum));
             statisticDto.setSpendMoney(new BigDecimal(getSpentSum));
-            statisticDto.setTotalMoney(new BigDecimal(getEarnSum-getSpentSum));
+            statisticDto.setTotalMoney(new BigDecimal(beforeCount));
             statisticDtos.add(statisticDto);
         }
         return statisticDtos;
