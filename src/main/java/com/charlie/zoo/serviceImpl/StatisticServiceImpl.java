@@ -94,9 +94,6 @@ public class StatisticServiceImpl implements StatisticService {
             statisticDto.setEarnMoney(new BigDecimal(getEarnSum));
             statisticDto.setSpendMoney(new BigDecimal(getSpentSum));
             statisticDto.setTotalMoney(new BigDecimal(getEarnSum-getSpentSum));
-
-
-
             statisticDtos.add(statisticDto);
         }
         return statisticDtos;
