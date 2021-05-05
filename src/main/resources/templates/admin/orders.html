@@ -83,7 +83,7 @@
                                         <div class="card-inner">
                                             <ul class="nav nav-tabs mt-n3">
                                                 <li class="nav-item" >
-                                                    <a class="nav-link" th:classappend="${(activeTabId=='ALL')?'active':''}"  href="/admin/orders?status=ALL">
+                                                    <a class="nav-link" th:classappend="${(activeTabId=='ALL')?'active':''}"  th:href="'/admin/orders?status=ALL'">
                                                         <em class="icon ni ni-chevrons-right"></em>
                                                         <span>Всі</span>
                                                     </a>
@@ -429,6 +429,9 @@
         document.getElementById("year").innerHTML = new Date().getFullYear();
         $('#customerPhoneNumber').inputmask('+(999)-999-999-999');
         document.querySelector("#orderDate").valueAsDate = new Date();
+        document.getElementById('ordersMenu').classList.add("active");
+        document.getElementById('ordersMenu').classList.add("current-page");
+
     });
 
 
