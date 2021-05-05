@@ -6,6 +6,7 @@ import com.charlie.zoo.enums.StatusOfPayment;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,6 +17,9 @@ public class OrderInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int index;
 
     private String date;
     private String nameOfClient;
@@ -45,4 +49,24 @@ public class OrderInfo {
 
     @Enumerated(EnumType.STRING)
     private StatusOfEntity statusOfEntity = StatusOfEntity.ACTIVE;
+
+    @Override
+    public String toString() {
+        return "OrderInfo{" +
+                "id=" + id +
+                ", date='" + date + '\'' +
+                ", nameOfClient='" + nameOfClient + '\'' +
+                ", phone=" + phone +
+                ", description='" + description + '\'' +
+                ", sumPrice=" + sumPrice +
+                ", lvivDelivering=" + lvivDelivering +
+                ", novaPoshtaDelivering=" + novaPoshtaDelivering +
+                ", payByCard=" + payByCard +
+                ", payByCash=" + payByCash +
+                ", opt=" + opt +
+                ", payment=" + payment +
+                ", statusOfOrder=" + statusOfOrder +
+                ", statusOfEntity=" + statusOfEntity +
+                '}';
+    }
 }

@@ -16,4 +16,9 @@ public class AdminStatisticsController {
         return "admin/statistics";
     }
 
+    @GetMapping("/getInfo")
+    public String info(String from, String to){
+        return "admin/statistics";
+    }
+
 }

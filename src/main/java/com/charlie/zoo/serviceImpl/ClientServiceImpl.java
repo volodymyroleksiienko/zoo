@@ -32,6 +32,7 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public Client save(Client client, String[] phone) {
         List<Phone> phoneList = new ArrayList<>();
+        client = save(client);
         for (String number : phone) {
             if (!number.isEmpty()) {
                 Phone ph = new Phone();
