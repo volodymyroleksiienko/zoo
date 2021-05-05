@@ -121,7 +121,7 @@
                             <div class="bradcaump__inner text-center">
                                 <h2 class="bradcaump-title">Магазин</h2>
                                 <nav class="bradcaump-inner">
-                                    <a class="breadcrumb-item" th:href="@{'/shop'+${((opt==true)?'?opt=true':'')}}">Магазин</a>
+                                    <a class="breadcrumb-item" th:href="@{'/shop'+${((opt==true)?'?opt=true':'')}}">Зоотовари</a>
                                     <span class="brd-separetor">/</span>
                                   <a class="breadcrumb-item" th:href="'/shop/'+${animal.getUrl()+((opt==true)?'?opt=true':'')}" th:if="${animal!=null}" th:text="${animal.getName()}"></a>
                                   <span class="brd-separetor" th:if="${animal!=null}">/</span>
