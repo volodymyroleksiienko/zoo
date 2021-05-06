@@ -43,7 +43,7 @@ function addToCartItem(btnObj) {
                     '                    <span class="shp__price">'+itemsSum.toFixed(2)+' UAH'+'</span>\n' +
                     '                </div>\n' +
                     '                <div class="remove__btn">\n' +
-                    '                    <button onclick="removeItemFromCart('+orderDetails[i].id+',\''+orderDetails[i].orderInfoId+'\')" title="Видалити з кошика"><i class="zmdi zmdi-close"></i></button>\n' +
+                    '                    <button onclick="removeItemFromCart('+orderDetails[i].id+',\''+orderDetails[i].orderInfoId+'\')" title="Видалити з кошика"><i class="ti-close"></i></button>\n' +
                     '                </div>\n' +
                     '            </div>');
             }
@@ -86,7 +86,7 @@ function removeItemFromCart(dtid, uuid) {
                     '                    <span class="shp__price">'+itemsSum.toFixed(2)+' UAH'+'</span>\n' +
                     '                </div>\n' +
                     '                <div class="remove__btn">\n' +
-                    '                    <button onclick="removeItemFromCart('+orderDetails[i].id+',\''+orderDetails[i].orderInfoId+'\')" title="Видалити з кошика"><i class="zmdi zmdi-close"></i></button>\n' +
+                    '                    <button onclick="removeItemFromCart('+orderDetails[i].id+',\''+orderDetails[i].orderInfoId+'\')" title="Видалити з кошика"><i class="ti-close"></i></button>\n' +
                     '                </div>\n' +
                     '            </div>');
             }
