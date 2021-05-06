@@ -133,7 +133,6 @@
                                             <button class="btn" th:classappend="${(info.count==1)?'active':''}" th:text="${type.getPackSize()+' '+type.getPackType()}" th:value="${type.toString()}"></button>
                                         </li>
                                     </ul>
-                                    <p class="product-short-description" style="display: none" th:text="${pr.getShortDescription()}"></p>
                                     <ul class="product__price" th:if="${pr?.getPackageType()?.size()>0}">
                                         <li class="old__price" th:if="${pr?.getPackageType()?.size()>0 && pr?.getPackageType()?.get(0)?.isOnSale()}" th:text="${pr?.getPackageType()?.get(0)?.getPrice()}+' UAH'"></li>
                                         <li class="new__price" th:if="${pr?.getPackageType()?.get(0)?.isOnSale()}" th:text="${pr?.getPackageType()?.get(0)?.getNewPrice()}+' UAH'"></li>
@@ -287,7 +286,12 @@
             $(this).parent().siblings().find('.active').removeClass('active');
             $(this).addClass('active');
             let jsonObj = JSON.parse($(this).val());
-            console.log(jsonObj);
+
+            let cartBtn = $(this).parent().parent().parent().find('.add-to-cart');
+
+            if ($(cartBtn).hasClass('added')){
+                $(cartBtn).toggleClass("added");
+            }
 
             $(this).parent().parent().parent().find('.send-item-to-card').prop("href", "/addToCart/"+jsonObj["id"]);
             $(this).parent().parent().parent().find('.buy-item-now').prop("href", "/buyNow/"+jsonObj["id"]);
@@ -303,42 +307,6 @@
                 $(this).parent().parent().parent().find('.old__price').css("display", "none");
             }
         });
-
-        function quickViewProduct(prodId) {
-            let productItem = $('#'+prodId);
-
-            console.log("prItem:"+prodId);
-
-            let productName = productItem.find('.product__details .product-item-name').text();
-            let productImage = productItem.find('.product__inner .pro__thumb img').attr('src');
-            let productDescription = productItem.find('.product__details .product-short-description').text();
-
-            let button = productItem.find('.product-types li button.active');
-            let productPackageType = productItem.find('.product-types li .btn.active').text();
-            console.log("PPT: "+productPackageType);
-            let link = productItem.find('.send-item-to-card').attr('href');
-            let jsonObj = JSON.parse($(button).val());
-
-            console.log(jsonObj);
-
-            if (jsonObj["onSale"]===true) {
-                $('#productOldPriceModal').text(parseFloat(jsonObj["price"]).toFixed(2)+' UAH');
-                $('#productOldPriceModal').css("display", "inline-block");
-                $('#productNewPriceModal').text(parseFloat(jsonObj["newPrice"]).toFixed(2)+' UAH');
-            }else {
-                $('#productNewPriceModal').text(parseFloat(jsonObj["price"]).toFixed(2)+' UAH');
-                $('#productOldPriceModal').css("display", "none");
-            }
-
-            $('#productNameModal').text(productName);
-            $('#productImageModal').attr('src', productImage);
-            $('#productDescriptionModal').text(productDescription);
-            $('#productPackageTypeModal').text("Пакування: "+productPackageType);
-            $('#productAddToCartBtnModal').attr('href', link);
-
-
-            $('#productModal').modal('show');
-        }
     </script>
 
 </body>
