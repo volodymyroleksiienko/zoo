@@ -750,7 +750,7 @@
   background-color: #eee;
   padding: 29px 50px 24px;
   position: absolute;
-  right: 0;
+  left: 0;
   top: 0;
   z-index: 10;
 }
@@ -878,7 +878,7 @@ h4.offset__title {
   padding: 102px 50px;
 }
 .shopping__cart__inner .offsetmenu__close__btn {
-  padding: 21px 50px 24px;
+  padding: 50px 50px 24px;
 }
 
 
@@ -999,7 +999,7 @@ h4.offset__title {
     width: 70%;
 }
 .shp__cart__wrap {
-    margin-top: -30px;
+    margin-top: 1rem;
 }
 .shoping__total {
     border-top: 1px solid #ddd;

@@ -1369,9 +1369,9 @@
 }
 
 #packageTypesList li .selected-filter{
-    color: #FF9F05;
+    color: #ff4136;
     padding: 5px 15px;
-    border: 1px solid #FF9F05;
+    border: 1px solid #ff4136;
     border-radius: 20px;
 }
 
@@ -1381,12 +1381,12 @@
 }
 
 #packageTypesList li:last-child span{
-    color: #FF9F05;
+    color: #ff4136;
     font-size: 13px;
 }
 
 #packageTypesList li:last-child:hover{
-    color: #FF9F05;
+    color: #ff4136;
 }
 
 #producersList li{
@@ -1399,19 +1399,19 @@
 }
 
 #producersList li .selected-filter{
-    color: #FF9F05;
+    color: #ff4136;
     padding: 5px 15px;
-    border: 1px solid #FF9F05;
+    border: 1px solid #ff4136;
     border-radius: 20px;
 }
 
 #producersList li:last-child span{
-    color: #FF9F05;
+    color: #ff4136;
     font-size: 13px;
 }
 
 #producersList li:last-child:hover{
-    color: #FF9F05;
+    color: #ff4136;
 }
 
 .filter__menu__close__btn button{
@@ -1421,11 +1421,12 @@
 
 .filter__list li:hover a,
 .filter__menu__close__btn button:hover i {
-    color: #FF9F05;
+    color: #ff4136;
 }
 .filter__menu__close__btn button i {
     color: #999;
-    font-size: 36px;
+    font-size: 30px;
+    font-weight: 700;
     transition: 0.3s;
 }
 
