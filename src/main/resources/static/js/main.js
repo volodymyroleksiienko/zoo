@@ -110,7 +110,7 @@
       05. ScrollUp
     ---------------------------- */
     $.scrollUp({
-        scrollText: '<i class="zmdi zmdi-chevron-up"></i>',
+        scrollText: '<i class="ti-angle-up"></i>',
         easingType: 'linear',
         scrollSpeed: 900,
         animation: 'fade'
@@ -284,7 +284,7 @@
         margin:0,
         nav:true,
         autoplay: false,
-        navText: [ '<i class="zmdi zmdi-chevron-left"></i>', '<i class="zmdi zmdi-chevron-right"></i>' ],
+        navText: [ '<i class="ti-angle-left"></i>', '<i class="ti-angle-right"></i>' ],
         autoplayTimeout: 10000,
         items:3,
         dots: false,

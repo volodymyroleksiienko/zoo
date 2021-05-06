@@ -134,10 +134,14 @@
 }
 #scrollUp i {
     color: #fff;
-    font-size: 36px;
+    font-size: 22px;
+    font-weight: 700;
 }
 #scrollUp {
     background: #FFD413 none repeat scroll 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 /*---------------------------------------
   End Scroll To Top
@@ -986,7 +990,7 @@
 }
 .popular__product__wrap.owl-carousel .owl-nav div i {
     color: #fff;
-    font-size: 27px;
+    font-size: 23px;
 }
 .popular__product__wrap.owl-theme .owl-nav [class*="owl-"]:hover {
     background: #444 none repeat scroll 0 0;
