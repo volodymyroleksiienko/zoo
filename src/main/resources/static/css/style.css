@@ -154,7 +154,7 @@
     display: block;
 }
 .product {
-    margin-top: 70px;
+    margin-top: 60px;
     overflow: hidden;
 }
 .product__inner {
@@ -276,6 +276,7 @@
 }
 .product__details {
     padding-top: 27px;
+    padding-bottom: 27px;
 }
 .product__price {
     display: flex;
