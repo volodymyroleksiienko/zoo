@@ -16,6 +16,7 @@ public class Animal {
     private String name;
     @Column(unique = true)
     private String url;
+    private String description;
 
     @Lob
     @Type(type = "org.hibernate.type.ImageType")

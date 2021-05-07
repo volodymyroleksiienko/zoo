@@ -34,7 +34,8 @@ public class AdminHistoryController {
 
     @PostMapping("/edit")
     public String editOrder(ProductHistory productHistory){
-        productHistoryService.update(productHistory);
+        System.out.println("history edit");
+        productHistory = productHistoryService.update(productHistory);
         return "redirect:/admin/history/historyReview/"+productHistory.getId();
     }
 
