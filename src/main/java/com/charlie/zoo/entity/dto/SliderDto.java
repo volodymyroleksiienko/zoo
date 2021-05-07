@@ -8,5 +8,6 @@ import java.util.Set;
 @Data
 public class SliderDto {
     private String animal;
+    private String description;
     private Set<Product> products;
 }

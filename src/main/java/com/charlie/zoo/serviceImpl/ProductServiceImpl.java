@@ -364,6 +364,7 @@ public class ProductServiceImpl implements ProductService {
         for(Animal animal:animals){
             SliderDto sliderDto = new SliderDto();
             sliderDto.setAnimal(animal.getName());
+            sliderDto.setDescription(animal.getDescription());
             sliderDto.setProducts(
                   new HashSet<>(productJpa.findByCategoriesIn(animal.getCategories())).stream().limit(15).collect(Collectors.toSet())
             );

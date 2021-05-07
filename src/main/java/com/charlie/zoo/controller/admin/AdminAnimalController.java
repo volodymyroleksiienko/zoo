@@ -22,9 +22,15 @@ public class AdminAnimalController {
         return "admin/animal";
     }
 
-    @PostMapping({"/add","/edit"})
+    @PostMapping("/add")
     public String addAnimal(Animal animal, MultipartFile multipartFile){
         animalService.save(animal,multipartFile);
+        return "redirect:/admin/animal";
+    }
+
+    @PostMapping("/edit")
+    public String editAnimal(Animal animal, MultipartFile multipartFile){
+        animalService.update(animal,multipartFile);
         return "redirect:/admin/animal";
     }
 

@@ -21,6 +21,7 @@ public class AnimalServiceImpl implements AnimalService  {
     @Override
     public Animal save(Animal animal, MultipartFile multipartFile) {
         if(multipartFile!=null && multipartFile.getSize()>0){
+            System.out.println("size "+multipartFile.getSize());
             try {
                 animal.setImg(multipartFile.getBytes());
                 animal.setImgName(multipartFile.getOriginalFilename());
@@ -31,6 +32,25 @@ public class AnimalServiceImpl implements AnimalService  {
             }
         }
         return save(animal);
+    }
+
+    @Override
+    public Animal update(Animal animal, MultipartFile multipartFile) {
+        Animal animalDB = findById(animal.getId());
+        if(multipartFile!=null && multipartFile.getSize()>0){
+            try {
+                animalDB.setImg(multipartFile.getBytes());
+                animalDB.setImgName(multipartFile.getOriginalFilename());
+                animalDB.setImgType(multipartFile.getContentType());
+            }
+            catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+        animalDB.setDescription(animal.getDescription());
+        animalDB.setName(animal.getName());
+        animalDB.setUrl(animal.getUrl());
+        return save(animalDB);
     }
 
     @Override
