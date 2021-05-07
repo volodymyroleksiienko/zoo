@@ -4,6 +4,7 @@ import com.charlie.zoo.entity.Animal;
 import com.charlie.zoo.entity.Category;
 import com.charlie.zoo.entity.CategoryItem;
 import com.charlie.zoo.entity.Product;
+import com.charlie.zoo.entity.dto.PackSizeDto;
 import com.charlie.zoo.enums.StatusOfEntity;
 import com.charlie.zoo.service.*;
 import lombok.AllArgsConstructor;
@@ -118,7 +119,10 @@ public class FilterShopController {
             model.addAttribute("packSizes",productService.getPackSize(new TreeSet<>(afterFilter)));
         }else {
             model.addAttribute("withoutPackUrl",generateUrl(currentUrl,sortType,max,min,null,providerId,opt));
-            model.addAttribute("packName",packSize);
+            model.addAttribute("packName",productService.getPackSize(new TreeSet<>(afterFilter))
+                    .stream()
+                    .filter(p-> (p.getCount().doubleValue()+p.getType()).equals(packSize))
+                    .findAny().orElse(new PackSizeDto()));
         }
         if(providerId==null){
             model.addAttribute("producerList",productService.getProducers(new TreeSet<>(afterFilter)));

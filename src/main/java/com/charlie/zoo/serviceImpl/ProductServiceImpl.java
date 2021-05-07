@@ -1,7 +1,7 @@
 package com.charlie.zoo.serviceImpl;
 
 import com.charlie.zoo.entity.*;
-import com.charlie.zoo.entity.dto.ProductDto;
+import com.charlie.zoo.entity.dto.PackSizeDto;
 import com.charlie.zoo.entity.dto.SliderDto;
 import com.charlie.zoo.enums.StatusOfEntity;
 import com.charlie.zoo.jpa.ProductJpa;
@@ -287,11 +287,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Set<String> getPackSize(Set<Product> products) {
-        Set<String> packSizes = new TreeSet<>();
+    public Set<PackSizeDto> getPackSize(Set<Product> products) {
+        Set<PackSizeDto> packSizes = new TreeSet<>();
         for(Product product:products){
             for(PackageType packageType:product.getPackageType()){
-                packSizes.add(packageType.getPackSize().doubleValue()+packageType.getPackType());
+                PackSizeDto p = new PackSizeDto();
+                p.setCount(packageType.getPackSize());
+                p.setType(packageType.getPackType());
+                packSizes.add(p);
             }
         }
         return packSizes;
