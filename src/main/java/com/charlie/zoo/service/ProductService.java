@@ -2,6 +2,7 @@ package com.charlie.zoo.service;
 
 
 import com.charlie.zoo.entity.*;
+import com.charlie.zoo.entity.dto.PackSizeDto;
 import com.charlie.zoo.entity.dto.SliderDto;
 import com.charlie.zoo.enums.StatusOfEntity;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,7 +32,7 @@ public interface ProductService {
     Integer getMaxPrice(Set<Product> products);
     Integer getMinPrice(Set<Product> products);
     Set<Producer> getProducers(Set<Product> products);
-    Set<String> getPackSize(Set<Product> products);
+    Set<PackSizeDto> getPackSize(Set<Product> products);
     List<Product> getFiltered(Set<Product> products, Integer minPrice,Integer maxPrice,String packSize,Integer producerId,String sortType);
 
     List<SliderDto> configureSlider();

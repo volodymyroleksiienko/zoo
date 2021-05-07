@@ -148,8 +148,8 @@
                                         <div class="single__filter">
                                             <h2>Пакування</h2>
                                             <ul class="filter__list" id="packageTypesList">
-                                                <li th:if="${withoutPackUrl==null}" th:each="pack :${packSizes}"><a th:href="${currentUrlFiltered}+'packSize='+${pack}" th:text="${pack}">XXL</a></li>
-                                                <li th:if="${withoutPackUrl!=null}"><a th:href="${withoutPackUrl}" class="selected-filter"><span th:text="${packName}">Selected filter name</span><i style="margin-left: 8px;" class="ti-close"></i></a></li>
+                                                <li th:if="${withoutPackUrl==null}" th:each="pack :${packSizes}"><a th:href="${currentUrlFiltered}+'packSize='+${pack.getCount().doubleValue()+pack.getType()}" th:text="${(pack.getCount().doubleValue()==0)?pack.getType():pack.getCount().doubleValue()+pack.getType()}">XXL</a></li>
+                                                <li th:if="${withoutPackUrl!=null}"><a th:href="${withoutPackUrl}" class="selected-filter"><span th:text="${(packName.getCount().doubleValue()==0)?packName.getType():packName.getCount().doubleValue()+packName.getType()}">Selected filter name</span><i style="margin-left: 8px;" class="ti-close"></i></a></li>
                                                 <li id="loadMoreTypes" th:if="${withoutPackUrl==null}">Більше <span class="ti-angle-double-down"></span></li>
                                             </ul>
                                         </div>
