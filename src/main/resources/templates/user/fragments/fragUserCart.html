@@ -1,7 +1,7 @@
 <div class="shopping__cart" xmlns:th="http://www.w3.org/1999/xhtml">
     <div class="shopping__cart__inner">
         <div class="offsetmenu__close__btn">
-            <a href="#"><i class="zmdi zmdi-close"></i></a>
+            <a href="#"><i class="ti-close"></i></a>
         </div>
         <div class="shp__cart__wrap" id="sidebarCart">
             <div class="shp__single__product" th:each="dt : ${orderInfo?.getOrderDetails()}">
@@ -17,7 +17,7 @@
                     <span class="shp__price" th:text="${dt.getPackageType().getNewPrice().doubleValue()*dt.getCount()}+' UAH'" th:if="${dt.getPackageType().isOnSale()}"></span>
                 </div>
                 <div class="remove__btn">
-                    <button th:attr="onclick='removeItemFromCart('+${dt.getId()}+', \''+${orderInfo.getId().toString()}+'\')'" title="Видалити з кошика"><i class="zmdi zmdi-close"></i></button>
+                    <button th:attr="onclick='removeItemFromCart('+${dt.getId()}+', \''+${orderInfo.getId().toString()}+'\')'" title="Видалити з кошика"><i class="ti-close"></i></button>
                 </div>
             </div>
         </div>

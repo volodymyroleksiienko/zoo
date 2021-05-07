@@ -116,7 +116,7 @@
                                 <div class="nk-block">
                                     <div class="card card-bordered card-preview">
                                         <div class="card-inner">
-                                            <table class="datatable-init nk-tb-list nk-tb-ulist" data-auto-responsive="false">
+                                            <table class="datatable-init nk-tb-list nk-tb-ulist" data-auto-responsive="true">
                                                 <thead>
                                                     <tr class="nk-tb-item nk-tb-head">
                                                         <th class="nk-tb-col" style="width: 20%;">Товар</th>
@@ -137,15 +137,15 @@
                                                         <td class="nk-tb-col" th:text="${st.getGetCount()}"></td>
                                                         <td class="nk-tb-col" th:text="${st.getSellCount()}"></td>
                                                         <td class="nk-tb-col" th:text="${st.getTotalCount()}"></td>
-                                                        <td class="nk-tb-col" th:text="${st.getSpendMoney()}"></td>
-                                                        <td class="nk-tb-col" th:text="${st.getEarnMoney()}"></td>
+                                                        <td class="nk-tb-col" th:text="${st.getSpendMoney()}+' UAH'"></td>
+                                                        <td class="nk-tb-col" th:text="${st.getEarnMoney()}+' UAH'"></td>
                                                     </tr><!-- .nk-tb-item  -->
                                                 </tbody>
                                                 <tfoot>
                                                     <tr class="nk-tb-item" style="background: #6576ff; color: white;">
-                                                        <td colspan="6" class="nk-tb-col">Разом:</td>
-                                                        <td colspan="1" class="nk-tb-col" th:text="${totalSpend}">0</td>
-                                                        <td colspan="1" class="nk-tb-col" th:text="${totalEarn}">0</td>
+                                                        <td colspan="6" class="nk-tb-col">Підсумок:</td>
+                                                        <td colspan="1" class="nk-tb-col" th:text="${totalSpend}+' UAH'">0</td>
+                                                        <td colspan="1" class="nk-tb-col" th:text="${totalEarn}+' UAH'">0</td>
                                                     </tr>
                                                 </tfoot>
                                             </table>

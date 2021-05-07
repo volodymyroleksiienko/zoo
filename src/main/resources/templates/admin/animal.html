@@ -87,6 +87,7 @@
                                                     <th class="nk-tb-col">Зображення</th>
                                                     <th class="nk-tb-col"><span class="sub-text">Назва</span></th>
                                                     <th class="nk-tb-col tb-col-lg">URL</th>
+                                                    <th class="nk-tb-col tb-col-lg">Опис</th>
                                                     <th class="nk-tb-col"><span class="sub-text" style="text-align: right; padding-right: 2rem;">Дії</span></th>
                                                 </tr>
                                                 </thead>
@@ -102,6 +103,8 @@
                                                     </td>
 
                                                     <td class="nk-tb-col tb-col-lg" th:text="${a.getUrl()}"></td>
+
+                                                    <td class="nk-tb-col tb-col-lg" th:text="${a.getUrl()}" style="white-space: normal;"></td>
 
                                                     <td class="nk-tb-col nk-tb-col-tools">
                                                         <ul class="nk-tb-actions gx-1">
@@ -166,6 +169,12 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="form-label" for="animalDescription">Опис</label>
+                                    <div class="form-control-wrap">
+                                        <textarea class="form-control" id="animalDescription" required="required" placeholder="Опис..." name="description"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <button type="submit" class="btn btn-outline-primary">Добавити</button>
                                     <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Скасувати</button>
                                 </div>
@@ -205,6 +214,12 @@
                                     <label class="form-label" for="editAnimalNameURL">URL</label>
                                     <div class="form-control-wrap">
                                         <input type="text" class="form-control" id="editAnimalNameURL" required="required" placeholder="URL..." name="url">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="editAnimalDescription">Опис</label>
+                                    <div class="form-control-wrap">
+                                        <textarea class="form-control" id="editAnimalDescription" required="required" placeholder="Опис..." name="description"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -268,10 +283,13 @@
 
         let animalName =   $(trObj).find('td:eq(1)').text().trim();
         let animalNameURL =   $(trObj).find('td:eq(2)').text().trim();
+        let animalDescription =   $(trObj).find('td:eq(3)').text().trim();
+
         console.log($(trObj).find('td:eq(0)').text());
 
         $('#editAnimalName').val(animalName);
         $('#editAnimalNameURL').val(animalNameURL);
+        $('#editAnimalDescription').val(animalDescription);
 
         console.log("row id:" + $(trObj).attr('id'));
 
