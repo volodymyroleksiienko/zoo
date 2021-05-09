@@ -1195,7 +1195,7 @@
     text-transform: capitalize;
 }
 .htc__choose__wrap {
-    padding: 114px 120px;
+    padding: 76px 120px;
 }
 .choose__container {
     display: flex;
@@ -3122,7 +3122,7 @@ a.shipping-calculator-button:hover {
     background: #f6f6f6 none repeat scroll 0 0;
     padding: 40px 0;
     text-align: center;
-    width: 370px;
+    width: 100%;
 }
 .puick-contact-area a {
     color: #777474;
