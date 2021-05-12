@@ -37,7 +37,9 @@ public class AdminStatisticsController {
     @GetMapping
     public String get(Model model, String from, String to,Integer[] users) throws ParseException {
         model.addAttribute("users",usersService.findAll());
+        model.addAttribute("checkedUsers",usersService.findById(users));
         if (from != null && to != null) {
+//            @todo
             List<StatisticDto> list = statisticService.getStatistic(from, to, users);
             model.addAttribute("statistic", list);
             model.addAttribute("totalEarn", list.stream()

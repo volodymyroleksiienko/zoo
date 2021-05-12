@@ -65,7 +65,7 @@ public class ShopController {
                 .height(300)
                 .width(300)
                 .asBufferedImage();
-        return toByteArray(image,"png");
+        return toByteArray(image,"jpeg");
     }
 
     public static byte[] toByteArray(BufferedImage bi, String format)

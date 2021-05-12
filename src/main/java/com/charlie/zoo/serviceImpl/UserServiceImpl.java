@@ -53,8 +53,10 @@ public class UserServiceImpl implements UsersService {
     @Override
     public List<Users> findById(Integer[] id) {
         List<Users> users = new ArrayList<>();
-        for(Integer i:id){
-            users.add(findById(i));
+        if(id!=null && id.length>0) {
+            for (Integer i : id) {
+                users.add(findById(i));
+            }
         }
         return users;
     }

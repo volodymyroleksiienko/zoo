@@ -8,6 +8,7 @@ import com.charlie.zoo.enums.StatusOfPayment;
 import com.charlie.zoo.enums.UserRole;
 import com.charlie.zoo.jpa.OrderJPA;
 import com.charlie.zoo.service.*;
+import com.google.gson.Gson;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -137,10 +138,13 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderInfo checkOrder(Map<String,String> data){
-        System.out.println(data);
         String orderId = data.get("order_id");
         OrderInfo orderInfo = findById(UUID.fromString(orderId));
+        System.out.println(data);
         if (orderInfo!=null){
+//            @todo
+//            System.out.println(stringToArray(data.get("shipping_address"), com.google.gson.internal.LinkedTreeMap.class).get("address"));
+            orderInfo.setDescription(orderInfo.getDescription()+"\n");
             String status = data.get("status");
             System.out.println("Status "+status);
             if(status !=null && status.equals("success")){
@@ -152,6 +156,9 @@ public class OrderServiceImpl implements OrderService {
         }
         return null;
     }
+
+    public static <T> T stringToArray(String s, Class<T> clazz) {
+        return new Gson().fromJson(s, clazz);     }
 
     @Override
     public double getSummaryPrice(OrderInfo orderInfo) {

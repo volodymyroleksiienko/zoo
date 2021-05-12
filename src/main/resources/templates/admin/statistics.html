@@ -89,18 +89,20 @@
 
                                 <div class="nk-block nk-block-lg">
                                     <div class="card card-bordered card-preview">
+                                        <form action="/admin/statistics" method="get">
                                         <div class="card-inner">
                                             <div class="row">
+
                                                 <div class="col-md-6 form-group">
                                                     <label class="form-label">Початкова дата:</label>
                                                     <div class="form-control-wrap">
-                                                        <input type="date" class="form-control" id="startDate" name="startDate" th:value="${fromDate}" onchange="createLink()">
+                                                        <input type="date" class="form-control" id="startDate" name="from" th:value="${fromDate}" onchange="createLink()">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 form-group">
                                                     <label class="form-label">Кінцева дата:</label>
                                                     <div class="form-control-wrap">
-                                                        <input type="date" class="form-control" id="endDate" name="endDate" th:value="${toDate}" onchange="createLink()">
+                                                        <input type="date" class="form-control" id="endDate" name="to" th:value="${toDate}" onchange="createLink()">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-10 form-group">
@@ -108,18 +110,20 @@
                                                         <label class="form-label">Користувачі</label>
                                                         <div class="form-control-wrap">
                                                             <select class="form-select" multiple name="users">
-                                                                <option th:each="u:${users}" th:value="${u.getId()}" th:text="${u.getName()}">User name</option>
+                                                                <option th:each="u:${users}" th:value="${u.getId()}" th:text="${u.getName()}" th:selected="${checkedUsers.contains(u)}">User name</option>
                                                             </select>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2 form-group" style="display: flex; justify-content: center; align-items: center; padding-top: 0.5rem;">
                                                     <div class="form-control-wrap" style="width: 100%">
-                                                        <a href="#" id="searchBtn" type="button" class="btn btn-icon btn-lg btn-primary w-100" style="justify-content: center">Показати</a>
+                                                        <button type="submit" class="btn btn-icon btn-lg btn-primary w-100" style="justify-content: center">Показати</button>
                                                     </div>
                                                 </div>
+
                                             </div>
                                         </div>
+                                        </form>
                                     </div><!-- .card-preview -->
                                 </div> <!-- nk-block -->
 
