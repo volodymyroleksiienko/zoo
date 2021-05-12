@@ -17,7 +17,7 @@
         left: -19px;
     }
     .htc__choose__wrap {
-        padding: 88px 49px;
+        padding: 51px 49px;
     }
     .choose__container .single__chooose + .single__chooose {
         margin-left: 58px;
@@ -1117,7 +1117,7 @@
         font-size: 28px;
     }
     .puick-contact-area {
-        width: 264px;
+        width: 100%;
     }
     .puick-contact-area .section-title-3 {
         font-size: 21px;
