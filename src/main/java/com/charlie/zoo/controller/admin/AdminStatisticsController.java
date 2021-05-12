@@ -3,6 +3,7 @@ package com.charlie.zoo.controller.admin;
 import com.charlie.zoo.entity.dto.StatisticDto;
 import com.charlie.zoo.export.ExportStatistic;
 import com.charlie.zoo.service.StatisticService;
+import com.charlie.zoo.service.UsersService;
 import lombok.AllArgsConstructor;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
@@ -31,11 +32,13 @@ import java.util.stream.Stream;
 public class AdminStatisticsController {
     private final StatisticService statisticService;
     private final ExportStatistic exportStatistic;
+    private final UsersService usersService;
 
     @GetMapping
-    public String get(Model model, String from, String to) throws ParseException {
+    public String get(Model model, String from, String to,Integer[] users) throws ParseException {
+        model.addAttribute("users",usersService.findAll());
         if (from != null && to != null) {
-            List<StatisticDto> list = statisticService.getStatistic(from, to);
+            List<StatisticDto> list = statisticService.getStatistic(from, to, users);
             model.addAttribute("statistic", list);
             model.addAttribute("totalEarn", list.stream()
                     .flatMap(statisticDto -> Stream.of(statisticDto.getEarnMoney()))
@@ -51,29 +54,29 @@ public class AdminStatisticsController {
         }else{
             Calendar cal = Calendar.getInstance();
             cal.add(Calendar.MONTH, -1);
-            String currentFrom = new SimpleDateFormat("dd-MM-yyyy").format(cal.getTime());
-            String currentTo = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+            String currentFrom = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
+            String currentTo = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
             return "redirect:/admin/statistics?from="+currentFrom+"&to="+currentTo;
         }
     }
 
-    @GetMapping("/export")
-    public ResponseEntity<Resource> export(String from, String to) throws ParseException, FileNotFoundException {
-
-        String filePath = exportStatistic.generateReport(statisticService.getStatistic(from,to));
-        File file = new File(filePath);
-        InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
-        HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + file.getName());
-        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
-        headers.add("Pragma", "no-cache");
-        headers.add("Expires", "0");
-
-        return ResponseEntity.ok()
-                .headers(headers)
-                .contentLength(file.length())
-                .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                .body(resource);
-    }
+//    @GetMapping("/export")
+//    public ResponseEntity<Resource> export(String from, String to,) throws ParseException, FileNotFoundException {
+//
+//        String filePath = exportStatistic.generateReport(statisticService.getStatistic(from,to));
+//        File file = new File(filePath);
+//        InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + file.getName());
+//        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+//        headers.add("Pragma", "no-cache");
+//        headers.add("Expires", "0");
+//
+//        return ResponseEntity.ok()
+//                .headers(headers)
+//                .contentLength(file.length())
+//                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+//                .body(resource);
+//    }
 
 }

@@ -35,13 +35,13 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public List<OrderInfo> findByDateBetween(String from, String to) {
-        return orderJPA.findByDateBetween(from,to);
+    public List<OrderInfo> findByDateBetween(String from, String to,List<Users> createdBy) {
+        return orderJPA.findByDateBetweenAndCreatedByIn(from,to,createdBy);
     }
 
     @Override
-    public List<OrderInfo> findByDateBefore(String from) {
-        return orderJPA.findByDateBefore(from);
+    public List<OrderInfo> findByDateBefore(String from,List<Users> createdBy) {
+        return orderJPA.findByDateBeforeAndCreatedByIn(from,createdBy);
     }
 
     @Override

@@ -4,10 +4,7 @@ import com.charlie.zoo.entity.*;
 import com.charlie.zoo.entity.dto.StatisticDto;
 import com.charlie.zoo.enums.StatusOfOrder;
 import com.charlie.zoo.enums.StatusOfPayment;
-import com.charlie.zoo.service.OrderService;
-import com.charlie.zoo.service.PackageTypeService;
-import com.charlie.zoo.service.ProductHistoryService;
-import com.charlie.zoo.service.StatisticService;
+import com.charlie.zoo.service.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,12 +21,20 @@ public class StatisticServiceImpl implements StatisticService {
     private final OrderService orderService;
     private final ProductHistoryService productHistoryService;
     private final PackageTypeService packageTypeService;
+    private final UsersService usersService;
+
 
     @Override
-    public List<StatisticDto> getStatistic(String from, String to) throws ParseException {
+    public List<StatisticDto> getStatistic(String from, String to,Integer[] users) throws ParseException {
         if(from.isEmpty() || to.isEmpty()) return new ArrayList<>();
+        List<Users> usersList;
+        if(users!=null && users.length>0) {
+            usersList = usersService.findById(users);
+        }else {
+            usersList = usersService.findAll();
+        }
         List<StatisticDto> statisticDtos = new ArrayList<>();
-        List<OrderInfo> orderInfos = orderService.findByDateBetween(from,to);
+        List<OrderInfo> orderInfos = orderService.findByDateBetween(from,to,usersList);
         List<OrderDetails> details = orderInfos.parallelStream()
                 .filter(order -> (order.getPayment().equals(StatusOfPayment.SUBMITTED)) ||
                         (order.getStatusOfOrder().equals(StatusOfOrder.DELIVERED) ||
@@ -43,7 +48,7 @@ public class StatisticServiceImpl implements StatisticService {
                 .collect(Collectors.toList());
 
 
-        List<OrderInfo> orderInfosBefore = orderService.findByDateBefore(from);
+        List<OrderInfo> orderInfosBefore = orderService.findByDateBefore(from,usersList);
         List<OrderDetails> detailsBefore = orderInfosBefore.parallelStream()
                 .filter(order -> (order.getPayment().equals(StatusOfPayment.SUBMITTED)) ||
                         (order.getStatusOfOrder().equals(StatusOfOrder.DELIVERED) ||

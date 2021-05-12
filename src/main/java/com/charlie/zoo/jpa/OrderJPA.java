@@ -1,6 +1,7 @@
 package com.charlie.zoo.jpa;
 
 import com.charlie.zoo.entity.OrderInfo;
+import com.charlie.zoo.entity.Users;
 import com.charlie.zoo.enums.StatusOfEntity;
 import com.charlie.zoo.enums.StatusOfOrder;
 import com.charlie.zoo.enums.StatusOfPayment;
@@ -27,6 +28,6 @@ public interface OrderJPA extends JpaRepository<OrderInfo, UUID> {
     Set<OrderInfo> findByStatusOfOrderInAndPaymentInAndStatusOfEntity(List<StatusOfOrder> list,List<StatusOfPayment> payment,StatusOfEntity status);
 
 
-    List<OrderInfo> findByDateBetween(String from,String to);
-    List<OrderInfo> findByDateBefore(String from);
+    List<OrderInfo> findByDateBetweenAndCreatedByIn(String from, String to, List<Users> createdBy);
+    List<OrderInfo> findByDateBeforeAndCreatedByIn(String from,List<Users> createdBy);
 }

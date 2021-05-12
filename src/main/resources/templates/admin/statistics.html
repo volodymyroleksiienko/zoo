@@ -107,10 +107,8 @@
                                                     <div class="form-group">
                                                         <label class="form-label">Користувачі</label>
                                                         <div class="form-control-wrap">
-                                                            <select class="form-select" multiple>
-                                                                <option selected>User raz</option>
-                                                                <option selected>User dwa</option>
-                                                                <option selected>User try</option>
+                                                            <select class="form-select" multiple name="users">
+                                                                <option th:each="u:${users}" th:value="${u.getId()}" th:text="${u.getName()}">User name</option>
                                                             </select>
                                                         </div>
                                                     </div>

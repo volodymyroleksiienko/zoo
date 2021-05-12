@@ -9,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -47,6 +48,15 @@ public class UserServiceImpl implements UsersService {
     @Override
     public Users findById(int id) {
         return usersJPA.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<Users> findById(Integer[] id) {
+        List<Users> users = new ArrayList<>();
+        for(Integer i:id){
+            users.add(findById(i));
+        }
+        return users;
     }
 
     @Override
