@@ -239,7 +239,9 @@ public class OrderServiceImpl implements OrderService {
             if (statusOfPayments.size() == 0 && statusOfOrders.size() > 0) {
                 return new ArrayList<>(orderJPA.findByStatusOfOrderInAndStatusOfEntity(statusOfOrders, StatusOfEntity.ACTIVE));
             }
-            return new ArrayList<>(orderJPA.findByStatusOfOrderInAndPaymentInAndStatusOfEntity(Arrays.asList(StatusOfOrder.values()),Arrays.asList(StatusOfPayment.values()),StatusOfEntity.ACTIVE));
+            List<StatusOfOrder> statusesOfOrder = new ArrayList<>(Arrays.asList(StatusOfOrder.values()));
+            statusesOfOrder.remove(StatusOfOrder.CART);
+            return new ArrayList<>(orderJPA.findByStatusOfOrderInAndPaymentInAndStatusOfEntity(statusesOfOrder,Arrays.asList(StatusOfPayment.values()),StatusOfEntity.ACTIVE));
         }
     }
 
@@ -252,4 +254,10 @@ public class OrderServiceImpl implements OrderService {
     public void deleteByID(UUID id) {
         orderJPA.deleteById(id);
     }
+
+//    private void checkCountOfProducts(OrderInfo orderInfo){
+//        if(!orderInfo.isGetFromStore()){
+//
+//        }
+//    }
 }

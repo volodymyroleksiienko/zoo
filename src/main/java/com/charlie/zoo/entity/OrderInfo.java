@@ -33,6 +33,7 @@ public class OrderInfo {
     private boolean payByCard;
     private boolean payByCash;
     private boolean opt;
+//    private boolean getFromStore=false;
 
 
     @OneToMany(mappedBy = "orderInfo",fetch = FetchType.EAGER)
