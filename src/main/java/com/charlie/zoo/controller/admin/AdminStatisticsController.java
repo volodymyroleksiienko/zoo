@@ -19,6 +19,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -44,8 +47,14 @@ public class AdminStatisticsController {
                     .orElse(new BigDecimal(0)));
             model.addAttribute("fromDate", from);
             model.addAttribute("toDate", to);
+            return "admin/statistics";
+        }else{
+            Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.MONTH, -1);
+            String currentFrom = new SimpleDateFormat("dd-MM-yyyy").format(cal.getTime());
+            String currentTo = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+            return "redirect:/admin/statistics?from="+currentFrom+"&to="+currentTo;
         }
-        return "admin/statistics";
     }
 
     @GetMapping("/export")
