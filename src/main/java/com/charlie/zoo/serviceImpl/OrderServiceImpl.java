@@ -263,15 +263,11 @@ public class OrderServiceImpl implements OrderService {
         orderJPA.deleteById(id);
     }
 
-//    private void checkCountOfProducts(OrderInfo orderInfo){
-//        if (orderInfo!=null){
-//            if(orderInfo.getStatusOfOrder().equals(StatusOfOrder.DELIVERED) ||
-//                    orderInfo.getStatusOfOrder().equals(StatusOfOrder.FINISHED) ||
-//                    orderInfo.getPayment().equals(StatusOfPayment.SUBMITTED)){
-//                if(orderInfo.getRemovedFromStore()!=null && !orderInfo.getRemovedFromStore()){
-//                    orderInfo.getOrderDetails()
-//                }
-//            }
-//        }
-//    }
+    private OrderInfo checkCountOfProducts(OrderInfo orderInfo){
+        OrderInfo orderInfoDB = findById(orderInfo.getId());
+
+
+
+        return null;
+    }
 }

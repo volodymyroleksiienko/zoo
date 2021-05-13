@@ -37,7 +37,7 @@ public class MainController {
         List<Animal> animals = animalService.findAll();
         model.addAttribute("sliders",productService.configureSlider());
         model.addAttribute("animals", animals);
-        model.addAttribute("products", productService.findAll());
+//        model.addAttribute("products", productService.findAll());
         return "user/index";
     }
 
