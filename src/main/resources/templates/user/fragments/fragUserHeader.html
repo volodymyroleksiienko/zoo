@@ -55,9 +55,9 @@
                                 </li>
                                 <li><a href="/shop">Зоотовари</a>
                                     <ul class="dropdown">
-                                        <li th:each="a :${animals}"><a href="#" th:text="${a.getName()}"></a>
+                                        <li th:each="a :${animals}"><a th:href="@{|/shop/${a.getUrl()}|}" th:text="${a.getName()}"></a>
                                             <ul class="lavel-dropdown">
-                                                <li th:each="ct : ${categories}" th:if="${ct.getAnimal.getId()==a.getId()}"><a href="/shop" th:text="${ct.getName()}"></a></li>
+                                                <li th:each="ct : ${categories}" th:if="${ct.getAnimal.getId()==a.getId()}"><a th:href="@{|/shop/${a.getUrl()}/${ct.getUrl()}|}" th:text="${ct.getName()}"></a></li>
                                             </ul>
                                         </li>
                                     </ul>
