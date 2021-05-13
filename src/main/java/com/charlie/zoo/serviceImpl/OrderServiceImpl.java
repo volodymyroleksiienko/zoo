@@ -9,6 +9,7 @@ import com.charlie.zoo.enums.UserRole;
 import com.charlie.zoo.jpa.OrderJPA;
 import com.charlie.zoo.service.*;
 import com.google.gson.Gson;
+import com.google.gson.internal.LinkedTreeMap;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -137,15 +138,17 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public OrderInfo checkOrder(Map<String,String> data){
-        String orderId = data.get("order_id");
+    public OrderInfo checkOrder(Map data){
+        String orderId =(String) data.get("order_id");
         OrderInfo orderInfo = findById(UUID.fromString(orderId));
-        System.out.println(data);
         if (orderInfo!=null){
-//            @todo
-//            System.out.println(stringToArray(data.get("shipping_address"), com.google.gson.internal.LinkedTreeMap.class).get("address"));
-            orderInfo.setDescription(orderInfo.getDescription()+"\n");
-            String status = data.get("status");
+            LinkedTreeMap<String,String> treeMap = (LinkedTreeMap<String,String>) data.get("shipping_address");
+            if(treeMap!=null) {
+                String address = treeMap.get("address");
+                String city = treeMap.get("city");
+                String region = treeMap.get("region");
+                orderInfo.setDescription(orderInfo.getDescription() + "\n" + region + " область \nм. " + city + "\n" + address);
+            }String status =(String) data.get("status");
             System.out.println("Status "+status);
             if(status !=null && status.equals("success")){
                 orderInfo.setPayment(StatusOfPayment.SUBMITTED);
@@ -157,8 +160,6 @@ public class OrderServiceImpl implements OrderService {
         return null;
     }
 
-    public static <T> T stringToArray(String s, Class<T> clazz) {
-        return new Gson().fromJson(s, clazz);     }
 
     @Override
     public double getSummaryPrice(OrderInfo orderInfo) {
