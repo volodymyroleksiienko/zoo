@@ -32,6 +32,7 @@ public class StatisticServiceImpl implements StatisticService {
             usersList = usersService.findById(users);
         }else {
             usersList = usersService.findAll();
+            usersList.add(null);
         }
         List<StatisticDto> statisticDtos = new ArrayList<>();
         List<OrderInfo> orderInfos = orderService.findByDateBetween(from,to,usersList);

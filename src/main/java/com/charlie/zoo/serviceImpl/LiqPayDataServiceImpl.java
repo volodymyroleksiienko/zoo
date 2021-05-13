@@ -2,7 +2,6 @@ package com.charlie.zoo.serviceImpl;
 
 import com.charlie.zoo.service.LiqPayDataService;
 import com.google.gson.Gson;
-import com.liqpay.LiqPay;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -41,7 +40,7 @@ public class LiqPayDataServiceImpl implements LiqPayDataService {
     }
 
     @Override
-    public Map<String,String> decodeData(String data,String signature){
+    public Map decodeData(String data, String signature){
         byte[] decodedBytes = Base64.getDecoder().decode(data);
         Gson gson = new Gson();
         if(generateSignature(data).equals(signature)) {
