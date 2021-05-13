@@ -264,8 +264,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
 //    private void checkCountOfProducts(OrderInfo orderInfo){
-//        if(!orderInfo.isGetFromStore()){
-//
+//        if (orderInfo!=null){
+//            if(orderInfo.getStatusOfOrder().equals(StatusOfOrder.DELIVERED) ||
+//                    orderInfo.getStatusOfOrder().equals(StatusOfOrder.FINISHED) ||
+//                    orderInfo.getPayment().equals(StatusOfPayment.SUBMITTED)){
+//                if(orderInfo.getRemovedFromStore()!=null && !orderInfo.getRemovedFromStore()){
+//                    orderInfo.getOrderDetails()
+//                }
+//            }
 //        }
 //    }
 }

@@ -109,8 +109,8 @@ public class ExportStatistic {
                 .reduce(BigDecimal::add)
                 .orElse(new BigDecimal(0));
 
-        XWPFRun runEarn = totalRow.getCell(7).getParagraphArray(0).createRun();
-        XWPFRun runSpend = totalRow.getCell(8).getParagraphArray(0).createRun();
+        XWPFRun runSpend = totalRow.getCell(7).getParagraphArray(0).createRun();
+        XWPFRun runEarn = totalRow.getCell(8).getParagraphArray(0).createRun();
 
         setRun(runEarn,10,earn.toString(),true,false);
         setRun(runSpend,10,spend.toString(),true,false);

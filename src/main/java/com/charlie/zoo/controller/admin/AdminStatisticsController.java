@@ -39,7 +39,6 @@ public class AdminStatisticsController {
         model.addAttribute("users",usersService.findAll());
         model.addAttribute("checkedUsers",usersService.findById(users));
         if (from != null && to != null) {
-//            @todo
             List<StatisticDto> list = statisticService.getStatistic(from, to, users);
             model.addAttribute("statistic", list);
             model.addAttribute("totalEarn", list.stream()
@@ -52,6 +51,13 @@ public class AdminStatisticsController {
                     .orElse(new BigDecimal(0)));
             model.addAttribute("fromDate", from);
             model.addAttribute("toDate", to);
+            String userParam = "";
+            if(users!=null) {
+                for (Integer i : users) {
+                    userParam += "&users=" + i;
+                }
+            }
+            model.addAttribute("usersParam", userParam);
             return "admin/statistics";
         }else{
             Calendar cal = Calendar.getInstance();
@@ -62,23 +68,23 @@ public class AdminStatisticsController {
         }
     }
 
-//    @GetMapping("/export")
-//    public ResponseEntity<Resource> export(String from, String to,) throws ParseException, FileNotFoundException {
-//
-//        String filePath = exportStatistic.generateReport(statisticService.getStatistic(from,to));
-//        File file = new File(filePath);
-//        InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + file.getName());
-//        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
-//        headers.add("Pragma", "no-cache");
-//        headers.add("Expires", "0");
-//
-//        return ResponseEntity.ok()
-//                .headers(headers)
-//                .contentLength(file.length())
-//                .contentType(MediaType.APPLICATION_OCTET_STREAM)
-//                .body(resource);
-//    }
+    @GetMapping("/export")
+    public ResponseEntity<Resource> export(String from, String to,Integer[] users) throws ParseException, FileNotFoundException {
+
+        String filePath = exportStatistic.generateReport(statisticService.getStatistic(from,to,users));
+        File file = new File(filePath);
+        InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + file.getName());
+        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+        headers.add("Pragma", "no-cache");
+        headers.add("Expires", "0");
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentLength(file.length())
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(resource);
+    }
 
 }
