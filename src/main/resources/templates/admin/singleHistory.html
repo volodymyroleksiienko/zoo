@@ -180,7 +180,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-1" style="padding-bottom: 0!important;">
-                                                            <div class="form-group">
+                                                            <div class="form-group" >
                                                                 <button type="button" title="Добавити позицію" id="editHistoryDetailsBtn"class="btn btn-icon btn-lg btn-primary" style="margin-left: auto; margin-top: 1.5rem;">
                                                                     <em class="icon ni ni-grid-add-c"></em>
                                                                 </button>
@@ -202,7 +202,7 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr class="nk-tb-item nk-tb-head" th:each="det : ${history?.getHistoryDetails()}" th:id="${det.getId()}">
-                                                            <td class="nk-tb-col" style="width: 50%; white-space: normal;" th:text="${det?.getPackageType()?.getProduct().getName()}">Товар</td>
+                                                            <td class="nk-tb-col" style="width: 50%; white-space: normal;" th:text="${det?.getPackageType()?.getProduct()?.getName()}">Товар</td>
                                                             <td class="nk-tb-col tb-col-hide">ID</td>
                                                             <td class="nk-tb-col" th:text="${det.getCount()}">Кількість</td>
                                                             <td class="nk-tb-col tb-col-lg" th:text="${det.getPrice()}">Ціна</td>

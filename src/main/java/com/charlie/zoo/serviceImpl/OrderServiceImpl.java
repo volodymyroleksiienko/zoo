@@ -8,12 +8,12 @@ import com.charlie.zoo.enums.StatusOfPayment;
 import com.charlie.zoo.enums.UserRole;
 import com.charlie.zoo.jpa.OrderJPA;
 import com.charlie.zoo.service.*;
-import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -26,13 +26,15 @@ public class OrderServiceImpl implements OrderService {
     private final PhoneService phoneService;
     private final ClientService clientService;
     private final UsersService usersService;
+    private final PackageTypeService packageTypeService;
 
-    public OrderServiceImpl(OrderJPA orderJPA, @Lazy OrderDetailsService orderDetailsService, PhoneService phoneService, ClientService clientService, UsersService usersService) {
+    public OrderServiceImpl(OrderJPA orderJPA, @Lazy OrderDetailsService orderDetailsService, PhoneService phoneService, ClientService clientService, UsersService usersService, PackageTypeService packageTypeService) {
         this.orderJPA = orderJPA;
         this.orderDetailsService = orderDetailsService;
         this.phoneService = phoneService;
         this.clientService = clientService;
         this.usersService = usersService;
+        this.packageTypeService = packageTypeService;
     }
 
 
@@ -49,16 +51,23 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderInfo save(OrderInfo orderInfo)
     {
-        Users user = usersService.getAuth(SecurityContextHolder.getContext().getAuthentication());
-        orderInfo.setCreatedBy(user);
+        if(orderInfo.getCreatedBy()==null) {
+            Users user = usersService.getAuth(SecurityContextHolder.getContext().getAuthentication());
+            orderInfo.setCreatedBy(user);
+        }
+        orderInfo=checkCountOfProducts(orderInfo);
         orderInfo = orderJPA.save(orderInfo);
         orderInfo.setSumPrice(getSummaryPrice(findById(orderInfo.getId())));
         return orderJPA.save(orderInfo);
     }
 
     @Override
+    @Transactional
     public OrderInfo update(OrderInfo order) {
         OrderInfo orderDB = findById(order.getId());
+
+        orderDB = checkCountOfProducts(order);
+
         orderDB.setDate(order.getDate());
         orderDB.setNameOfClient(order.getNameOfClient());
         orderDB.setPhone(order.getPhone());
@@ -70,7 +79,6 @@ public class OrderServiceImpl implements OrderService {
         orderDB.setPayByCash(order.isPayByCash());
 
         orderDB.setOpt(order.isOpt());
-        System.out.println("opt "+order.isOpt());
         orderDB.setPayment(order.getPayment());
         orderDB.setStatusOfOrder(order.getStatusOfOrder());
 
@@ -180,6 +188,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderInfo findById(UUID id) {
+        if(id==null) return null;
         return orderJPA.findById(id).orElse(null);
     }
 
@@ -265,9 +274,67 @@ public class OrderServiceImpl implements OrderService {
 
     private OrderInfo checkCountOfProducts(OrderInfo orderInfo){
         OrderInfo orderInfoDB = findById(orderInfo.getId());
+        if (orderInfoDB!=null){
+            if(orderInfoDB.getPayment()==orderInfo.getPayment()
+                    && orderInfoDB.getStatusOfOrder()==orderInfo.getStatusOfOrder()){
+                return orderInfoDB;
+            }
+            boolean changedPayment = orderInfoDB.getPayment().equals(StatusOfPayment.SUBMITTED) && !orderInfo.getPayment().equals(StatusOfPayment.SUBMITTED);
+            boolean changedStatusOfOrder = (orderInfoDB.getStatusOfOrder().equals(StatusOfOrder.FINISHED) || orderInfoDB.getStatusOfOrder().equals(StatusOfOrder.DELIVERED))
+                    && (!orderInfo.getStatusOfOrder().equals(StatusOfOrder.FINISHED) && !orderInfo.getStatusOfOrder().equals(StatusOfOrder.DELIVERED));
 
+            System.out.println(changedPayment);
+            System.out.println(changedStatusOfOrder);
+            System.out.println(orderInfoDB.getRemovedFromStore());
+            if((changedPayment || changedStatusOfOrder) && orderInfoDB.getRemovedFromStore()){
+                return returnToStore(orderInfoDB);
+            }
 
+            boolean changedPaymentGet = !orderInfoDB.getPayment().equals(StatusOfPayment.SUBMITTED) && orderInfo.getPayment().equals(StatusOfPayment.SUBMITTED);
+            boolean changedStatusOfOrderGet = (!orderInfoDB.getStatusOfOrder().equals(StatusOfOrder.FINISHED) && !orderInfoDB.getStatusOfOrder().equals(StatusOfOrder.DELIVERED))
+                    && (orderInfo.getStatusOfOrder().equals(StatusOfOrder.FINISHED) || orderInfo.getStatusOfOrder().equals(StatusOfOrder.DELIVERED));
+            System.out.println();
+            System.out.println(changedPaymentGet);
+            System.out.println(changedStatusOfOrderGet);
+            System.out.println(!orderInfoDB.getRemovedFromStore());
+            if((changedPaymentGet || changedStatusOfOrderGet) && !orderInfoDB.getRemovedFromStore()){
+                return getFromStore(orderInfoDB);
+            }
+        }else{
+            if(orderInfo.getStatusOfOrder().equals(StatusOfOrder.FINISHED) ||
+                    orderInfo.getStatusOfOrder().equals(StatusOfOrder.DELIVERED) ||
+                    orderInfo.getPayment().equals(StatusOfPayment.SUBMITTED)){
+                return getFromStore(orderInfo);
+            }else{
+                return orderInfo;
+            }
+        }
+        return orderInfoDB;
+    }
 
-        return null;
+    private OrderInfo returnToStore(OrderInfo orderInfo){
+        System.out.println("return to Store");
+        if(orderInfo.getOrderDetails()!=null) {
+            for (OrderDetails details : orderInfo.getOrderDetails()) {
+                PackageType type = details.getPackageType();
+                type.setCountOfProduct(type.getCountOfProduct() + details.getCount());
+                packageTypeService.save(type);
+            }
+        }
+        orderInfo.setRemovedFromStore(false);
+        return orderJPA.save(orderInfo);
+    }
+
+    private OrderInfo getFromStore(OrderInfo orderInfo){
+        System.out.println("get from Store");
+        if(orderInfo.getOrderDetails()!=null) {
+            for (OrderDetails details : orderInfo.getOrderDetails()) {
+                PackageType type = details.getPackageType();
+                type.setCountOfProduct(type.getCountOfProduct() - details.getCount());
+                packageTypeService.save(type);
+            }
+        }
+        orderInfo.setRemovedFromStore(true);
+        return orderJPA.save(orderInfo);
     }
 }

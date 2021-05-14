@@ -212,7 +212,7 @@
                                                             <td class="nk-tb-col tb-col-lg">Ціна</td>
                                                             <td class="nk-tb-col">Кількість</td>
                                                             <td class="nk-tb-col tb-col-hide">ID</td>
-                                                            <th class="nk-tb-col"><span class="sub-text" style="text-align: right; padding-right: 2rem;">Дії</span></th>
+                                                            <th class="nk-tb-col" th:if="${order?.getRemovedFromStore()!=true}"><span class="sub-text" style="text-align: right; padding-right: 2rem;">Дії</span></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -224,7 +224,7 @@
                                                             <td class="nk-tb-col tb-col-lg" th:text="${detail?.getPrice()?.doubleValue()}">Ціна</td>
                                                             <td class="nk-tb-col" th:text="${detail?.getCount()}">Кількість</td>
                                                             <td class="nk-tb-col tb-col-hide" th:text="${detail?.getId()}">ID</td>
-                                                            <td class='nk-tb-col nk-tb-col-tools'>
+                                                            <td class='nk-tb-col nk-tb-col-tools' th:if="${order?.getRemovedFromStore()!=true}">
                                                                 <ul class="nk-tb-actions gx-1">
                                                                     <li>
                                                                         <div class="drodown">
@@ -243,7 +243,7 @@
                                                     </tbody>
                                                 </table>
                                                 <div class="row mt-3 align-center">
-                                                    <button type="button" title="Добавити позицію" id="addPosition" class="btn btn-icon btn-lg btn-primary float-right" style="margin-left: auto; margin-right: 0.75rem;">
+                                                    <button th:if="${order.getRemovedFromStore()!=true}" type="button" title="Добавити позицію" id="addPosition" class="btn btn-icon btn-lg btn-primary float-right" style="margin-left: auto; margin-right: 0.75rem;">
                                                         <em class="icon ni ni-grid-add-c"></em>
                                                     </button>
                                                 </div>

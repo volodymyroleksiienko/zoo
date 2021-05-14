@@ -30,7 +30,7 @@ public class HistoryDetailsServiceImpl implements HistoryDetailsService {
 
         HistoryDetails detailsDB = historyDetailsJpa.save(details);
         if(count>0) {
-            PackageType type = detailsDB.getPackageType();
+            PackageType type = packageTypeService.findById(detailsDB.getPackageType().getId());
             type.setCountOfProduct(type.getCountOfProduct() + count);
             packageTypeService.save(type);
         }
