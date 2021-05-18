@@ -275,6 +275,9 @@ public class OrderServiceImpl implements OrderService {
     private OrderInfo checkCountOfProducts(OrderInfo orderInfo){
         OrderInfo orderInfoDB = findById(orderInfo.getId());
         if (orderInfoDB!=null){
+            if(orderInfoDB.getRemovedFromStore()==null){
+                orderInfoDB.setRemovedFromStore(false);
+            }
             if(orderInfoDB.getPayment()==orderInfo.getPayment()
                     && orderInfoDB.getStatusOfOrder()==orderInfo.getStatusOfOrder()){
                 return orderInfoDB;
@@ -293,10 +296,7 @@ public class OrderServiceImpl implements OrderService {
             boolean changedPaymentGet = !orderInfoDB.getPayment().equals(StatusOfPayment.SUBMITTED) && orderInfo.getPayment().equals(StatusOfPayment.SUBMITTED);
             boolean changedStatusOfOrderGet = (!orderInfoDB.getStatusOfOrder().equals(StatusOfOrder.FINISHED) && !orderInfoDB.getStatusOfOrder().equals(StatusOfOrder.DELIVERED))
                     && (orderInfo.getStatusOfOrder().equals(StatusOfOrder.FINISHED) || orderInfo.getStatusOfOrder().equals(StatusOfOrder.DELIVERED));
-            System.out.println();
-            System.out.println(changedPaymentGet);
-            System.out.println(changedStatusOfOrderGet);
-            System.out.println(!orderInfoDB.getRemovedFromStore());
+
             if((changedPaymentGet || changedStatusOfOrderGet) && !orderInfoDB.getRemovedFromStore()){
                 return getFromStore(orderInfoDB);
             }
