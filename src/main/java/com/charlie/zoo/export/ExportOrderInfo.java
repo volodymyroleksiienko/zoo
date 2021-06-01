@@ -147,7 +147,7 @@ public class ExportOrderInfo {
             row.getCell(5).setText(details.getPrice().doubleValue()+"");
             row.getCell(6).setText(price.doubleValue()*details.getCount()+"");
             row.getCell(7).setText((price.doubleValue()-details.getPrice().doubleValue())*details.getCount()+"");
-            row.getCell(8).setText(details.getPrice().setScale(2).doubleValue()*details.getCount()+"");
+            row.getCell(8).setText(details.getPrice().setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue()*details.getCount()+"");
 
             sumALl+=price.doubleValue()*details.getCount();
             sumDiscount+=(price.doubleValue()-details.getPrice().doubleValue())*details.getCount();
@@ -203,7 +203,7 @@ public class ExportOrderInfo {
 //        Всього найменувань 3, на суму 1 101,52 грн.
         XWPFParagraph totalDescription = doc.createParagraph();
         XWPFRun desc = totalDescription.createRun();
-        desc.setText("Всього найменувань "+orderInfo.getOrderDetails().size()+", на суму "+new BigDecimal(sum).setScale(2).doubleValue()+" грн.:");
+        desc.setText("Всього найменувань "+orderInfo.getOrderDetails().size()+", на суму "+new BigDecimal(sum).setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue()+" грн.:");
 
         XWPFParagraph totalDescriptionBorder = doc.createParagraph();
         totalDescriptionBorder.setBorderTop(Borders.SINGLE);
