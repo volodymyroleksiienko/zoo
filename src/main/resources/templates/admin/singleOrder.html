@@ -108,7 +108,7 @@
                                                         <div class="form-group">
                                                             <label class="form-label" for="customerPhoneNumber">Телефон</label>
                                                             <div class="form-control-wrap">
-                                                                <input type="text" id="customerPhoneNumber" th:value="${order?.getPhone()}" placeholder="Введіть номер телефону*" value="+380" class="form-control" name="phone.phone">
+                                                                <input type="text" id="customerPhoneNumber" th:value="${order?.getPhone().getPhone()}" placeholder="Введіть номер телефону*" value="+380" class="form-control" name="phone.phone">
                                                             </div>
                                                         </div>
                                                     </div>

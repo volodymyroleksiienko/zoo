@@ -75,7 +75,19 @@ public class ExportOrderInfo {
         buyerInfoRun2.setBold(true);
         buyerInfoRun2.setText("\t\t"+orderInfo.getNameOfClient());
         buyerInfoRun2.setTextPosition(1);
-        buyerInfoRun2.addCarriageReturn();
+//        Buyer Info end
+
+        //        Buyer Info phone start
+        XWPFParagraph phoneInfo1 = doc.createParagraph();
+        XWPFRun phoneInfoRun1 = phoneInfo1.createRun();
+        phoneInfoRun1.setUnderline(UnderlinePatterns.SINGLE);
+        phoneInfoRun1.setText("Телефон:");
+        phoneInfoRun1.setTextPosition(0);
+
+        XWPFRun phoneInfoRun2 = phoneInfo1.createRun();
+        phoneInfoRun2.setText("\t\t"+orderInfo.getPhone().getPhone());
+        phoneInfoRun2.setTextPosition(1);
+        phoneInfoRun2.addCarriageReturn();
 //        Buyer Info end
 
 //          Create table
@@ -86,29 +98,37 @@ public class ExportOrderInfo {
         rowHeader.getCell(0).getParagraphArray(1).createRun().setText("№");
 
         rowHeader.createCell().addParagraph().setAlignment(ParagraphAlignment.CENTER);
-        rowHeader.getCell(1).getParagraphArray(1).createRun().setText("Товар");
+        rowHeader.getCell(1).getParagraphArray(1).createRun().setText("Код");
 
         rowHeader.createCell().addParagraph().setAlignment(ParagraphAlignment.CENTER);
-        rowHeader.getCell(2).getParagraphArray(1).createRun().setText("К-сть");
+        rowHeader.getCell(2).getParagraphArray(1).createRun().setText("Товар");
 
         rowHeader.createCell().addParagraph().setAlignment(ParagraphAlignment.CENTER);
-        rowHeader.getCell(3).getParagraphArray(1).createRun().setText("Ціна");
+        rowHeader.getCell(3).getParagraphArray(1).createRun().setText("Фасування");
 
         rowHeader.createCell().addParagraph().setAlignment(ParagraphAlignment.CENTER);
-        rowHeader.getCell(4).getParagraphArray(1).createRun().setText("Сума без знижки");
+        rowHeader.getCell(4).getParagraphArray(1).createRun().setText("К-сть");
 
         rowHeader.createCell().addParagraph().setAlignment(ParagraphAlignment.CENTER);
-        rowHeader.getCell(5).getParagraphArray(1).createRun().setText("Знижка");
+        rowHeader.getCell(5).getParagraphArray(1).createRun().setText("Ціна");
 
         rowHeader.createCell().addParagraph().setAlignment(ParagraphAlignment.CENTER);
-        rowHeader.getCell(6).getParagraphArray(1).createRun().setText("Сума");
-        rowHeader.getCell(0).setWidth("10%");
-        rowHeader.getCell(1).setWidth("40%");
-        rowHeader.getCell(2).setWidth("10%");
-        rowHeader.getCell(3).setWidth("10%");
-        rowHeader.getCell(4).setWidth("10%");
-        rowHeader.getCell(5).setWidth("10%");
-        rowHeader.getCell(6).setWidth("10%");
+        rowHeader.getCell(6).getParagraphArray(1).createRun().setText("Сума без знижки");
+
+        rowHeader.createCell().addParagraph().setAlignment(ParagraphAlignment.CENTER);
+        rowHeader.getCell(7).getParagraphArray(1).createRun().setText("Знижка");
+
+        rowHeader.createCell().addParagraph().setAlignment(ParagraphAlignment.CENTER);
+        rowHeader.getCell(8).getParagraphArray(1).createRun().setText("Сума");
+        rowHeader.getCell(0).setWidth("7%");
+        rowHeader.getCell(1).setWidth("7%");
+        rowHeader.getCell(2).setWidth("44%");
+        rowHeader.getCell(3).setWidth("7%");
+        rowHeader.getCell(4).setWidth("7%");
+        rowHeader.getCell(5).setWidth("7%");
+        rowHeader.getCell(6).setWidth("7%");
+        rowHeader.getCell(7).setWidth("7%");
+        rowHeader.getCell(8).setWidth("7%");
 
         double sumALl=0;
         double sumDiscount = 0;
@@ -119,13 +139,15 @@ public class ExportOrderInfo {
             OrderDetails details = orderInfo.getOrderDetails().get(i);
 
             row.getCell(0).setText(""+(i+1));
-            row.getCell(1).setText(details.getPackageType().getProduct().getName());
-            row.getCell(2).setText(details.getCount()+" шт");
+            row.getCell(1).setText(details.getPackageType().getBarcode());
+            row.getCell(2).setText(details.getPackageType().getProduct().getName());
+            row.getCell(3).setText(details.getPackageType().getPackSize().doubleValue()+details.getPackageType().getPackType());
+            row.getCell(4).setText(details.getCount()+" шт");
             BigDecimal price = getPrice(details);
-            row.getCell(3).setText(details.getPrice().doubleValue()+"");
-            row.getCell(4).setText(price.doubleValue()*details.getCount()+"");
-            row.getCell(5).setText((price.doubleValue()-details.getPrice().doubleValue())*details.getCount()+"");
-            row.getCell(6).setText(details.getPrice().doubleValue()*details.getCount()+"");
+            row.getCell(5).setText(details.getPrice().doubleValue()+"");
+            row.getCell(6).setText(price.doubleValue()*details.getCount()+"");
+            row.getCell(7).setText((price.doubleValue()-details.getPrice().doubleValue())*details.getCount()+"");
+            row.getCell(8).setText(details.getPrice().setScale(2).doubleValue()*details.getCount()+"");
 
             sumALl+=price.doubleValue()*details.getCount();
             sumDiscount+=(price.doubleValue()-details.getPrice().doubleValue())*details.getCount();
@@ -139,6 +161,8 @@ public class ExportOrderInfo {
             row.getCell(4).getParagraphArray(0).setAlignment(ParagraphAlignment.CENTER);
             row.getCell(5).getParagraphArray(0).setAlignment(ParagraphAlignment.CENTER);
             row.getCell(6).getParagraphArray(0).setAlignment(ParagraphAlignment.CENTER);
+            row.getCell(7).getParagraphArray(0).setAlignment(ParagraphAlignment.CENTER);
+            row.getCell(8).getParagraphArray(0).setAlignment(ParagraphAlignment.CENTER);
 
             row.getCell(0).getParagraphArray(0).setVerticalAlignment(TextAlignment.CENTER);
             row.getCell(1).getParagraphArray(0).setVerticalAlignment(TextAlignment.CENTER);
@@ -147,19 +171,21 @@ public class ExportOrderInfo {
             row.getCell(4).getParagraphArray(0).setVerticalAlignment(TextAlignment.CENTER);
             row.getCell(5).getParagraphArray(0).setVerticalAlignment(TextAlignment.CENTER);
             row.getCell(6).getParagraphArray(0).setVerticalAlignment(TextAlignment.CENTER);
+            row.getCell(7).getParagraphArray(0).setVerticalAlignment(TextAlignment.CENTER);
+            row.getCell(8).getParagraphArray(0).setVerticalAlignment(TextAlignment.CENTER);
         }
 
 //        Total row
         XWPFTableRow totalRow = table.createRow();
 
-        XWPFRun name = totalRow.getCell(3).getParagraphArray(0).createRun();
-        XWPFRun runAll = totalRow.getCell(4).getParagraphArray(0).createRun();
-        XWPFRun runDiscount = totalRow.getCell(5).getParagraphArray(0).createRun();
-        XWPFRun run = totalRow.getCell(6).getParagraphArray(0).createRun();
-        setRun(name,10,"Разом",true, false);
-        setRun(runAll,10,String.format("%.2f",sumALl),true, false);
-        setRun(runDiscount,10,String.format("%.2f",sumDiscount),true, false);
-        setRun(run,10, String.format("%.2f",sum),true, false);
+        XWPFRun name = totalRow.getCell(5).getParagraphArray(0).createRun();
+        XWPFRun runAll = totalRow.getCell(6).getParagraphArray(0).createRun();
+        XWPFRun runDiscount = totalRow.getCell(7).getParagraphArray(0).createRun();
+        XWPFRun run = totalRow.getCell(8).getParagraphArray(0).createRun();
+        setRun(name,9,"Разом",true, false);
+        setRun(runAll,9,String.format("%.2f",sumALl),true, false);
+        setRun(runDiscount,9,String.format("%.2f",sumDiscount),true, false);
+        setRun(run,9, String.format("%.2f",sum),true, false);
 
 
         for(int i=0; i<totalRow.getTableCells().size(); i++) {
@@ -177,7 +203,7 @@ public class ExportOrderInfo {
 //        Всього найменувань 3, на суму 1 101,52 грн.
         XWPFParagraph totalDescription = doc.createParagraph();
         XWPFRun desc = totalDescription.createRun();
-        desc.setText("Всього найменувань "+orderInfo.getOrderDetails().size()+", на суму "+sum+" грн.:");
+        desc.setText("Всього найменувань "+orderInfo.getOrderDetails().size()+", на суму "+new BigDecimal(sum).setScale(2).doubleValue()+" грн.:");
 
         XWPFParagraph totalDescriptionBorder = doc.createParagraph();
         totalDescriptionBorder.setBorderTop(Borders.SINGLE);
