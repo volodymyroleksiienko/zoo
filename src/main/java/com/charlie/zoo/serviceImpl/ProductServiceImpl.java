@@ -430,8 +430,7 @@ public class ProductServiceImpl implements ProductService {
                 }
                 return 0;
             });
-        }
-        if(sortType.equals("expensive")) {
+        }else if(sortType.equals("expensive")) {
             products.sort((o1, o2) -> {
                 if(o1.getPackageType().size()>0 && o2.getPackageType().size()>0){
                     PackageType type1 = o1.getPackageType().get(0);
@@ -445,10 +444,8 @@ public class ProductServiceImpl implements ProductService {
                 }
                 return 0;
             });
-        }
-        if(sortType.equals("new")) {
-            products.sort(Comparator.comparingInt(Product::getId));
-        }
+        } else
+            products.sort((o1, o2) -> o2.getId()-o1.getId());
         return products;
     }
 

@@ -35,6 +35,9 @@ public class FilterShopController {
     public String getShop(@CookieValue(value = "id", defaultValue = "") String username, Model model,
                           HttpServletResponse httpServletResponse,String sortType, Integer max, Integer min,
                           String packSize, Integer producerId, Integer page,Boolean opt){
+        if(sortType==null){
+            sortType="new";
+        }
         username = cookieService.checkCookie(username,httpServletResponse,model);
         List<Animal> animalList = animalService.findAll();
         model.addAttribute("categoryBtn", animalList);
@@ -50,6 +53,9 @@ public class FilterShopController {
     public String getByAnimal(@CookieValue(value = "id", defaultValue = "") String username,
                               HttpServletResponse httpServletResponse,@PathVariable String animalUrl, Model model,
                               String sortType, Integer max, Integer min,String packSize, Integer producerId, Integer page,Boolean opt){
+        if(sortType==null){
+            sortType="new";
+        }
         username = cookieService.checkCookie(username,httpServletResponse,model);
         Animal animal = animalService.findByUrl(animalUrl);
         if(animal!=null) {
@@ -68,6 +74,9 @@ public class FilterShopController {
                                         HttpServletResponse httpServletResponse,@PathVariable String animalUrl,
                                         @PathVariable String categoryUrl,Model model,String sortType, Integer max,
                                         Integer min,String packSize, Integer producerId, Integer page,Boolean opt){
+        if(sortType==null){
+            sortType="new";
+        }
         username = cookieService.checkCookie(username,httpServletResponse,model);
         Category category = categoryService.findByUrl(animalUrl,categoryUrl);
         model.addAttribute("animal",animalService.findByUrl(animalUrl));
@@ -88,6 +97,9 @@ public class FilterShopController {
                                    @PathVariable String categoryUrl,@PathVariable String subCategoryUrl,Model  model,
                                    String sortType, Integer max,Integer min,String packSize, Integer producerId,
                                    Integer page,Boolean opt){
+        if(sortType==null){
+            sortType="new";
+        }
         username = cookieService.checkCookie(username,httpServletResponse,model);
         username = cookieService.checkCookie(username,httpServletResponse,model);
         CategoryItem item = subCategoryService.findByUrl(animalUrl,categoryUrl,subCategoryUrl);
