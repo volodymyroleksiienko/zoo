@@ -26,7 +26,7 @@ public class ZooApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-
+		getBot();
 	}
 
 	public static void main(String[] args) {

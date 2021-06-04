@@ -42,7 +42,9 @@ public class Bot extends TelegramLongPollingBot {
             }
         }
         if(inputText.contains(password)){
-            telegramUserService.add(update.getMessage().getContact(),chatId);
+            if(telegramUserService!=null) {
+                telegramUserService.add(update.getMessage().getContact(), chatId);
+            }
             SendMessage message = new SendMessage();
             message.setChatId(chatId);
             message.setText("Ви додані до групи розсилки");
