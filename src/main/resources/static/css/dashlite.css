@@ -14544,6 +14544,21 @@ table.nk-tb-covid.dataTable.dtr-inline.collapsed > tbody > tr:not(.child) > td:f
   display: none;
 }
 
+#searchClientResults{
+  margin-top: 3px;
+  height: fit-content;
+  max-height: 40vh;
+  overflow: scroll;
+  overflow-x: hidden;
+  position: absolute;
+  width: 100%;
+  background: white;
+  z-index: 100;
+  border: 1px solid #dbdfea;
+  border-radius: 4px;
+  display: none;
+}
+
 #searchResults .nk-tb-item .nk-tb-col:first-child{
   width: 70%;
   white-space: initial;
