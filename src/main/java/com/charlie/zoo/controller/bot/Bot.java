@@ -1,9 +1,7 @@
 package com.charlie.zoo.controller.bot;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.charlie.zoo.service.TelegramUserService;
+import lombok.*;
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Update;
@@ -14,6 +12,9 @@ import org.telegram.telegrambots.exceptions.TelegramApiRequestException;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Bot extends TelegramLongPollingBot {
+
+    private String  password = "62m6Ad0RPWXA/BZmKM2A5Q==";
+    private TelegramUserService telegramUserService;
 
     final int RECONNECT_PAUSE =10000;
     @Setter
@@ -27,12 +28,24 @@ public class Bot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
 
         Long chatId = update.getMessage().getChatId();
+//        update.getMessage().getContact().
         String inputText = update.getMessage().getText();
 
         if (inputText.startsWith("/start")) {
             SendMessage message = new SendMessage();
             message.setChatId(chatId);
-            message.setText("Hello. This is start message");
+            message.setText("Ведіть ключ доступу");
+            try {
+                execute(message);
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
+        }
+        if(inputText.contains(password)){
+            telegramUserService.add(update.getMessage().getContact(),chatId);
+            SendMessage message = new SendMessage();
+            message.setChatId(chatId);
+            message.setText("Ви додані до групи розсилки");
             try {
                 execute(message);
             } catch (TelegramApiException e) {

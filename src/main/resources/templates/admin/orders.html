@@ -473,10 +473,10 @@
             console.log(searchString);
             $.ajax({
                 method: "post",
-                url: "/admin/orders/XXX",
+                url: "/admin/orders/findClientForOrder",
                 contextType: "application/json",
                 data: {
-                    productName: searchString
+                    search: searchString
                 },
                 success: function (result) {
                     console.log(result);

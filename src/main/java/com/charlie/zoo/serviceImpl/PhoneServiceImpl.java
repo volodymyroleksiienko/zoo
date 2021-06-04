@@ -16,10 +16,13 @@ public class PhoneServiceImpl implements PhoneService {
 
     @Override
     public Phone save(Phone phone) {
+        String phoneValue = phone.getPhone().replaceAll("\\D+","");
+        phone.setPhone(phoneValue);
         Phone phoneDB = phoneJPA.findByPhone(phone.getPhone()).orElse(null);
         if(phoneDB!=null){
             return phoneDB;
         }
+
         return phoneJPA.save(phone);
     }
 
@@ -31,6 +34,11 @@ public class PhoneServiceImpl implements PhoneService {
     @Override
     public Phone findByPhone(String phone) {
         return phoneJPA.findByPhone(phone).orElse(null);
+    }
+
+    @Override
+    public List<Phone> findByPhoneContaining(String search) {
+        return phoneJPA.findByPhoneContaining(search);
     }
 
     @Override

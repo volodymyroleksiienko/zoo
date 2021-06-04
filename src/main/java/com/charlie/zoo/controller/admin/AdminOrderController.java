@@ -1,15 +1,10 @@
 package com.charlie.zoo.controller.admin;
 
-import com.charlie.zoo.entity.OrderDetails;
-import com.charlie.zoo.entity.OrderInfo;
-import com.charlie.zoo.entity.PackageType;
-import com.charlie.zoo.entity.Users;
+import com.charlie.zoo.entity.*;
+import com.charlie.zoo.entity.dto.ClientDto;
 import com.charlie.zoo.entity.dto.PackageTypeDto;
 import com.charlie.zoo.export.ExportOrderInfo;
-import com.charlie.zoo.service.OrderDetailsService;
-import com.charlie.zoo.service.OrderService;
-import com.charlie.zoo.service.PackageTypeService;
-import com.charlie.zoo.service.UsersService;
+import com.charlie.zoo.service.*;
 import lombok.AllArgsConstructor;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
@@ -34,6 +29,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/admin/orders")
 @AllArgsConstructor
 public class AdminOrderController {
+    private final ClientService clientService;
     private final OrderService orderService;
     private final OrderDetailsService orderDetailsService;
     private final PackageTypeService packageTypeService;
@@ -131,4 +127,10 @@ public class AdminOrderController {
     public List<PackageTypeDto> findPackType(String productName){
         return PackageTypeDto.convertToListDto(packageTypeService.findFirst10ByProductNameContaining(productName));
     }
+    @ResponseBody
+    @PostMapping("/findClientForOrder")
+    public List<ClientDto> findClientForOrder(String search){
+        return ClientDto.convertToListDto(clientService.findByNameOrPhone(search));
+    }
+
 }

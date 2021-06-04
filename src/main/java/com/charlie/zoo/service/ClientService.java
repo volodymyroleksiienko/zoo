@@ -11,6 +11,7 @@ public interface ClientService {
     Client update(Client client,String[] phone);
     Client validate(OrderInfo orderInfo);
     Client findById(int id);
+    List<Client> findByNameOrPhone(String search);
     List<Client> findAll();
     void deleteByID(int id);
 }

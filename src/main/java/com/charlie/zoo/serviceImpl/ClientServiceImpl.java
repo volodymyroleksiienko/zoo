@@ -9,9 +9,7 @@ import com.charlie.zoo.service.ClientService;
 import com.charlie.zoo.service.PhoneService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -81,6 +79,18 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public Client findById(int id) {
         return clientJPA.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<Client> findByNameOrPhone(String search) {
+        Set<Client> set = new HashSet<>();
+        for(Phone phone: phoneService.findByPhoneContaining(search)) {
+            if(phone.getClient()!=null) {
+                set.add(phone.getClient());
+            }
+        }
+        set.addAll(clientJPA.findByNameContainingIgnoreCase(search));
+        return new ArrayList<>(set);
     }
 
     @Override
