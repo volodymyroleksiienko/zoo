@@ -9,7 +9,7 @@ public interface ClientService {
     Client save(Client client);
     Client save(Client client,String[] phone);
     Client update(Client client,String[] phone);
-    Client validate(OrderInfo orderInfo);
+    Client validate(String name,String phone);
     Client findById(int id);
     List<Client> findByNameOrPhone(String search);
     List<Client> findAll();

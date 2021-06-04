@@ -14,7 +14,7 @@ import java.util.UUID;
 public interface OrderService {
     OrderInfo save(OrderInfo orderInfo);
     OrderInfo update(OrderInfo orderInfo);
-    OrderInfo submitOrder(OrderInfo order);
+    OrderInfo submitOrder(OrderInfo order,String nameOfClient,String phoneNumber);
     OrderInfo checkStatus(String id,String statusOfPayment, String statusOfOrder);
     OrderInfo checkOrder(Map<String,String> data);
     List<OrderInfo> findByDateBetween(String from, String to,List<Users> createdBy);

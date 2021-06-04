@@ -31,9 +31,11 @@ public class OrderInfoDto {
         OrderInfoDto dto =  new OrderInfoDto();
         dto.setId(order.getId().toString());
         dto.setDate(order.getDate());
-        dto.setNameOfClient(order.getNameOfClient());
-        if(order.getPhone()!=null) {
-            dto.setPhone(order.getPhone().getPhone());
+        if(order.getClient()!=null) {
+            dto.setNameOfClient(order.getClient().getName());
+            if (order.getClient().getPhones() != null) {
+                dto.setPhone(order.getClient().getPhones().toString());
+            }
         }
         dto.setDescription(order.getDescription());
         dto.setSumPrice(order.getSumPrice());

@@ -44,8 +44,8 @@ public class CheckoutController {
     }
 
     @PostMapping("/orderSubmit")
-    public void order(OrderInfo orderInfo,HttpServletRequest request, HttpServletResponse response, Model model){
-        orderService.submitOrder(orderInfo);
+    public void order(OrderInfo orderInfo,String nameOfClient,String phoneNumber, HttpServletRequest request, HttpServletResponse response, Model model){
+        orderService.submitOrder(orderInfo,nameOfClient,phoneNumber);
         Cookie cookie = new Cookie("id", "");
         cookie.setPath("/");
         response.addCookie(cookie);

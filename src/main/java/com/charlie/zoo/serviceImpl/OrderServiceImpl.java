@@ -22,14 +22,16 @@ import java.util.*;
 @Service
 public class OrderServiceImpl implements OrderService {
     private final OrderJPA orderJPA;
+    private final TelegramUserService telegramUserService;
     private final OrderDetailsService orderDetailsService;
     private final PhoneService phoneService;
     private final ClientService clientService;
     private final UsersService usersService;
     private final PackageTypeService packageTypeService;
 
-    public OrderServiceImpl(OrderJPA orderJPA, @Lazy OrderDetailsService orderDetailsService, PhoneService phoneService, ClientService clientService, UsersService usersService, PackageTypeService packageTypeService) {
+    public OrderServiceImpl(OrderJPA orderJPA, TelegramUserService telegramUserService, @Lazy OrderDetailsService orderDetailsService, PhoneService phoneService, ClientService clientService, UsersService usersService, PackageTypeService packageTypeService) {
         this.orderJPA = orderJPA;
+        this.telegramUserService = telegramUserService;
         this.orderDetailsService = orderDetailsService;
         this.phoneService = phoneService;
         this.clientService = clientService;
@@ -69,8 +71,7 @@ public class OrderServiceImpl implements OrderService {
         orderDB = checkCountOfProducts(order);
 
         orderDB.setDate(order.getDate());
-        orderDB.setNameOfClient(order.getNameOfClient());
-        orderDB.setPhone(order.getPhone());
+        orderDB.setClient(clientService.findById(order.getClient().getId()));
         orderDB.setDescription(order.getDescription());
 
         orderDB.setLvivDelivering(order.isLvivDelivering());
@@ -95,18 +96,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
 
-    public OrderInfo submitOrder(OrderInfo order) {
+    public OrderInfo submitOrder(OrderInfo order,String nameOfClient,String phoneNumber) {
         OrderInfo  orderDB = findById(order.getId());
 
         orderDB.setDate(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE));
 
-        orderDB.setNameOfClient(order.getNameOfClient());
 
-        Client client = clientService.validate(order);
-        Phone phone = order.getPhone();
-        phone.setClient(client);
-
-        orderDB.setPhone(phoneService.save(phone));
+        Client client = clientService.validate(nameOfClient,phoneNumber);
+        orderDB.setClient(client);
         orderDB.setDescription(order.getDescription());
 
         orderDB.setLvivDelivering(order.isLvivDelivering());
@@ -120,7 +117,9 @@ public class OrderServiceImpl implements OrderService {
 
         orderDB.setPayment(StatusOfPayment.WAIT_FOR_PAYMENT);
         orderDB.setStatusOfOrder(StatusOfOrder.NEW);
-        return save(orderDB);
+        orderDB = save(orderDB);
+        telegramUserService.sendInfo(orderDB);
+        return orderDB;
     }
 
     @Override

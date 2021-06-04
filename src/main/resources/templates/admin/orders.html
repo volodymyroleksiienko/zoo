@@ -150,11 +150,11 @@
                                                                             </td>
                                                                             <td class="nk-tb-col" style="white-space: normal;">
                                                                                 <div class="user-info">
-                                                                                    <span class="tb-lead" th:text="${order.getNameOfClient()}">Roman Tymochko</span>
+                                                                                    <span class="tb-lead" th:text="${order?.getClient()?.getName()}">Roman Tymochko</span>
                                                                                 </div>
                                                                             </td>
                                                                             <td class="nk-tb-col tb-col-sm">
-                                                                                <span th:text="${order?.getPhone()?.getPhone()}">+48-883-913-896</span>
+                                                                                <span th:text="${order?.getClient()?.getPhones()?.toString()}">+48-883-913-896</span>
                                                                             </td>
                                                                             <td class="nk-tb-col">
                                                                                 <span th:text="${order.getSumPrice()}">14.88</span>
@@ -220,8 +220,8 @@
                                             <div>
                                                 <label class="form-label" for="customerSearch">Клієнт/телефон</label>
                                                 <div class="form-control-wrap">
-                                                    <input type="search" class="form-control" id="customerSearch" autocomplete="off" onfocusout="hideResults()" oninput="setSearchDelay()" placeholder="Почніть введення..." name="client">
-                                                    <input type="number" id="searchClientId" name="clientId" hidden="" required="required">
+                                                    <input type="search" class="form-control" id="customerSearch" autocomplete="off" onfocusout="hideResults()" oninput="setSearchDelay()" placeholder="Почніть введення..." >
+                                                    <input type="number" id="searchClientId" name="client.id" hidden="" required="required">
                                                 </div>
                                             </div>
                                             <div class="form-group">

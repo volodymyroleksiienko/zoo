@@ -57,22 +57,21 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Client validate(OrderInfo orderInfo) {
-        if(orderInfo.getPhone().getPhone().isEmpty()){
-            return null;
-        }
-        Phone phoneDB = phoneService.findByPhone(orderInfo.getPhone().getPhone());
+    public Client validate(String name,String phone) {
+        phone = phone.replaceAll("\\D+","");
+        Phone phoneDB = phoneService.findByPhone(phone);
         if(phoneDB!=null){
             return phoneDB.getClient();
         }else{
             Client client = new Client();
+            client.setName(name);
             client.setRole(ClientRoles.RETAILER);
-            client.setName(orderInfo.getNameOfClient());
-            Phone phone = new Phone();
-            phone.setPhone(orderInfo.getPhone().getPhone());
-            phone.setClient(client);
-            client.setPhones(Collections.singletonList(phone));
-            return  save(client);
+            client = save(client);
+            Phone phoneNew = new Phone();
+            phoneNew.setClient(client);
+            phoneNew.setPhone(phone);
+            phoneService.save(phoneNew);
+            return client;
         }
     }
 
