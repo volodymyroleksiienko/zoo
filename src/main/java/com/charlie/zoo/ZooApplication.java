@@ -14,8 +14,8 @@ public class ZooApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		Bot bot = new Bot("CharlieZooServiceBot", "1781017340:AAHbCNfdxCM63L5kyQyBU0BCUtEvsjXWBwE");
-		bot.botConnect();
+//		Bot bot = new Bot("CharlieZooServiceBot", "1781017340:AAHbCNfdxCM63L5kyQyBU0BCUtEvsjXWBwE");
+//		bot.botConnect();
 
 	}
 
