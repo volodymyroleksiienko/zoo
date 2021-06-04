@@ -14,12 +14,9 @@ import org.telegram.telegrambots.ApiContextInitializer;
 @EnableTransactionManagement
 public class ZooApplication implements CommandLineRunner {
 
-	@Autowired
-	TelegramUserService  telegramUserService;
-
 	@Bean
 	public Bot getBot(){
-		Bot bot = new Bot("62m6Ad0RPWXA/BZmKM2A5Q==",telegramUserService,"CharlieZooServiceBot", "1781017340:AAHbCNfdxCM63L5kyQyBU0BCUtEvsjXWBwE");
+		Bot bot = new Bot("CharlieZooServiceBot", "1781017340:AAHbCNfdxCM63L5kyQyBU0BCUtEvsjXWBwE");
 		bot.botConnect();
 		return bot;
 	}

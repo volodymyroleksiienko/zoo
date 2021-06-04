@@ -7,6 +7,7 @@ import com.charlie.zoo.entity.TelegramUser;
 import com.charlie.zoo.jpa.TelegramUserJPA;
 import com.charlie.zoo.service.TelegramUserService;
 import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Contact;
@@ -16,10 +17,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
 public class TelegramUserServiceImpl implements TelegramUserService {
     private TelegramUserJPA telegramUserJPA;
     private Bot bot;
+
+    public TelegramUserServiceImpl(TelegramUserJPA telegramUserJPA,@Lazy Bot bot) {
+        this.telegramUserJPA = telegramUserJPA;
+        this.bot = bot;
+    }
 
     @Override
     public TelegramUser add(Contact contact, Long chatId) {

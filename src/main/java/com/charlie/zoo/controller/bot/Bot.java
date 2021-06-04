@@ -2,6 +2,7 @@ package com.charlie.zoo.controller.bot;
 
 import com.charlie.zoo.service.TelegramUserService;
 import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Update;
@@ -9,12 +10,12 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 import org.telegram.telegrambots.exceptions.TelegramApiRequestException;
 
-@AllArgsConstructor
-@NoArgsConstructor
+
 public class Bot extends TelegramLongPollingBot {
 
     private String  password = "62m6Ad0RPWXA/BZmKM2A5Q==";
     private TelegramUserService telegramUserService;
+
 
     final int RECONNECT_PAUSE =10000;
     @Setter
@@ -23,6 +24,17 @@ public class Bot extends TelegramLongPollingBot {
     @Setter
     @Getter
     String token;
+
+    @Autowired
+    public void setTelegramUserService(TelegramUserService telegramUserService) {
+        this.telegramUserService = telegramUserService;
+    }
+
+    public Bot( String userName, String token) {
+        this.userName = userName;
+        this.token = token;
+    }
+
 
     @Override
     public void onUpdateReceived(Update update) {
@@ -42,9 +54,8 @@ public class Bot extends TelegramLongPollingBot {
             }
         }
         if(inputText.contains(password)){
-            if(telegramUserService!=null) {
-                telegramUserService.add(update.getMessage().getContact(), chatId);
-            }
+            System.out.println("service not null");
+            telegramUserService.add(update.getMessage().getContact(), chatId);
             SendMessage message = new SendMessage();
             message.setChatId(chatId);
             message.setText("Ви додані до групи розсилки");
