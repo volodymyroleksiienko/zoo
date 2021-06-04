@@ -19,6 +19,10 @@ public class Client {
 
     @OneToMany(mappedBy = "client",cascade = CascadeType.REMOVE)
     private List<Phone> phones;
+
+    @OneToMany(mappedBy = "client")
+    private List<OrderInfo> orders;
+
     @Enumerated(EnumType.STRING)
     private ClientRoles role = ClientRoles.RETAILER;
 }

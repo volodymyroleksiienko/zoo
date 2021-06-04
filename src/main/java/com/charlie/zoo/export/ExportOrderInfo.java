@@ -73,7 +73,7 @@ public class ExportOrderInfo {
 
         XWPFRun buyerInfoRun2 = buyerInfo1.createRun();
         buyerInfoRun2.setBold(true);
-        buyerInfoRun2.setText("\t\t"+orderInfo.getNameOfClient());
+        buyerInfoRun2.setText("\t\t"+orderInfo.getClient().getName());
         buyerInfoRun2.setTextPosition(1);
 //        Buyer Info end
 
@@ -85,7 +85,7 @@ public class ExportOrderInfo {
         phoneInfoRun1.setTextPosition(0);
 
         XWPFRun phoneInfoRun2 = phoneInfo1.createRun();
-        phoneInfoRun2.setText("\t\t"+orderInfo.getPhone().getPhone());
+        phoneInfoRun2.setText("\t\t"+orderInfo.getClient().getPhones().toString());
         phoneInfoRun2.setTextPosition(1);
         phoneInfoRun2.addCarriageReturn();
 //        Buyer Info end

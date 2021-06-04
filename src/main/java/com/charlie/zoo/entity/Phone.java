@@ -16,9 +16,6 @@ public class Phone {
     @ManyToOne
     private Client client;
 
-    @OneToMany(mappedBy = "phone")
-    private List<OrderInfo> orderInfo;
-
     @Override
     public String toString() {
         return "Phone{" +

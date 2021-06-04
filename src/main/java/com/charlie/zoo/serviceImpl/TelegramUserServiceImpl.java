@@ -1,6 +1,7 @@
 package com.charlie.zoo.serviceImpl;
 
 import com.charlie.zoo.controller.bot.Bot;
+import com.charlie.zoo.entity.OrderDetails;
 import com.charlie.zoo.entity.OrderInfo;
 import com.charlie.zoo.entity.TelegramUser;
 import com.charlie.zoo.jpa.TelegramUserJPA;
@@ -40,7 +41,16 @@ public class TelegramUserServiceImpl implements TelegramUserService {
         for(TelegramUser user:findAll()) {
             SendMessage message = new SendMessage();
             message.setChatId(user.getChatId());
-            String text = "Нове замовлення";
+            String text = "Нове замовлення #"+orderInfo.getId();
+            text+="\n Ім'я: "+orderInfo.getClient().getName();
+            text+="\n Телефон: "+orderInfo.getClient().getPhones().get(0).getPhone();
+            text+="\n Cума замовлення: "+orderInfo.getSumPrice();
+            for(OrderDetails details:orderInfo.getOrderDetails()){
+                text+="\n\n Товар: "+details.getPackageType().getProduct().getName();
+                text+="\n Фасування: "+details.getPackageType().getPackSize()+" "+details.getPackageType().getPackType();
+                text+="\n Кількість: "+details.getCount();
+                text+="\n Ціна: "+details.getPrice();
+            }
             message.setText(text);
             try {
                 bot.execute(message);

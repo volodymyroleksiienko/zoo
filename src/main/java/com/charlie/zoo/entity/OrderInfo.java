@@ -22,9 +22,8 @@ public class OrderInfo {
     private int index;
 
     private String date;
-    private String nameOfClient;
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    private Phone phone;
+    @ManyToOne
+    private Client client;
     private String description;
     private double sumPrice;
 
@@ -56,8 +55,6 @@ public class OrderInfo {
         return "OrderInfo{" +
                 "id=" + id +
                 ", date='" + date + '\'' +
-                ", nameOfClient='" + nameOfClient + '\'' +
-                ", phone=" + phone +
                 ", description='" + description + '\'' +
                 ", sumPrice=" + sumPrice +
                 ", lvivDelivering=" + lvivDelivering +

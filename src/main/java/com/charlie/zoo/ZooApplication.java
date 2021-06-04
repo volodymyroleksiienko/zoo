@@ -19,7 +19,7 @@ public class ZooApplication implements CommandLineRunner {
 
 	@Bean
 	public Bot getBot(){
-		Bot bot = new Bot("62m6Ad0RPWXA/BZmKM2A5Q==",telegramUserService,"CharlieZooTestBot", "1856583347:AAG_VZUP70vhqBlP91o6vk5kyKXfkBbWcPg");
+		Bot bot = new Bot("62m6Ad0RPWXA/BZmKM2A5Q==",telegramUserService,"CharlieZooServiceBot", "1781017340:AAHbCNfdxCM63L5kyQyBU0BCUtEvsjXWBwE");
 		bot.botConnect();
 		return bot;
 	}
