@@ -96,19 +96,28 @@
                                                 <span class="preview-title-lg overline-title">Замовник</span>
                                                 <input id="hiddenIdOfOrder" type="text" hidden="" name="id" th:value="${order.getId()}">
                                                 <div class="row gy-4">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="form-label" for="customerNameSurname">Прізвище, ім'я</label>
+                                                    <div class="col-12">
+                                                        <div>
+                                                            <label class="form-label" for="customerSearch">Клієнт/телефон</label>
                                                             <div class="form-control-wrap">
-                                                                <input type="text" class="form-control" th:value="${order?.getNameOfClient()}" id="customerNameSurname" placeholder="Не заповнено..." name="nameOfClient">
+                                                                <input type="search" class="form-control" id="customerSearch" autocomplete="off" onfocusout="hideResults()" oninput="setClientSearchDelay()" placeholder="Почніть введення..." name="client">
+                                                                <input type="number" id="searchClientId" name="clientId" hidden="" required="required">
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label class="form-label" for="customerPhoneNumber">Телефон</label>
-                                                            <div class="form-control-wrap">
-                                                                <input type="text" id="customerPhoneNumber" th:value="${order?.getPhone().getPhone()}" placeholder="Введіть номер телефону*" value="+380" class="form-control" name="phone.phone">
+                                                            <div id="searchClientResults">
+                                                                <table id="searchClientTable" class="nk-tb-list nk-tb-ulist table-stripped" data-auto-responsive="false">
+                                                                    <thead>
+                                                                    <tr class="nk-tb-item nk-tb-head">
+                                                                        <th class="nk-tb-col tb-col-hide"></th>
+                                                                        <th class="nk-tb-col tb-col-hide"></th>
+                                                                        <th class="nk-tb-col tb-col-hide"></th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+
+                                                                    </tbody>
+                                                                </table>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -395,6 +404,82 @@
 <script th:src="@{/js/scripts.js}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js"></script>
 
+<script>
+    let searchClientTable = $('#searchClientTable').DataTable({
+        "autoWidth": false,
+        "searching": false,
+        "paging": false,
+        "info": false,
+        'select': false,
+        "bSort" : false,
+    });
+
+    $('#searchClientTable tbody').on('click', 'tr', function () {
+        var data = searchClientTable.row( this ).data();
+        $('#customerSearch').val(data[0]+", "+data[1]);
+        $('#searchClientId').val(data[2]);
+        console.log('name: '+  $('#customerSearch').val());
+        console.log('clientID: '+  $('#searchClientId').val());
+    } );
+
+    function searchClient(){
+        $('#searchClientResults').show();
+        let searchString = $('#customerSearch').val().trim();
+        if (searchString.length>=3) {
+            console.log(searchString);
+            $.ajax({
+                method: "post",
+                url: "/admin/orders/findClientForOrder",
+                contextType: "application/json",
+                data: {
+                    search: searchString
+                },
+                success: function (result) {
+                    console.log(result);
+                    searchClientTable.clear().draw();
+                    for (let i =0;i<result.length;i++){
+                        let rowNode = searchClientTable.row.add([
+                            result[i].name,
+                            result[i].phone,
+                            result[i].id
+                        ]).draw(false).node();
+                        $(rowNode).addClass('nk-tb-item');
+
+                        $( rowNode ).find('td').eq(0).addClass('nk-tb-col w-auto');
+                        $( rowNode ).find('td').eq(1).addClass('nk-tb-col');
+                        $( rowNode ).find('td').eq(2).addClass('nk-tb-col tb-col-hide');
+                    }
+                },
+                error: function () {
+                    $('#searchClientId').val(initialClientId);
+                    console.log("Error!");
+                }
+            }); //ajax end
+        }else {
+            $('#searchClientId').val(initialClientId);
+            $('#searchClientResults').hide();
+        }
+    }
+
+    function setClientSearchDelay() {
+        this.clearTime()
+        this.delaySearch = setTimeout(() => {
+            this.searchClient()
+        }, 300)
+    }
+
+    function  clearTime () {
+        if (this.delaySearch) {
+            clearInterval(this.delaySearch)
+        }
+    }
+
+    function hideResults() {
+        setTimeout(function(){$('#searchClientResults').hide()}, 1000);
+    }
+</script>
+
+
 <!--<script th:src="@{/js/example-sweetalert.js}"></script>-->
 <script>
     let t = $('#positionsTable').DataTable({
@@ -424,6 +509,8 @@
 
     $(document).ready(function() {
         $('#customerPhoneNumber').inputmask('+(999)-999-999-999');
+
+        initialClientId = parseInt($('#searchClientId').val());
 
         $('#addPosition').on( 'click', function () {
             $('#searchProductId').val('');
